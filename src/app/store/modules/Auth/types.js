@@ -1,0 +1,7 @@
+export default {
+    'SIGNED': 'SIGNED',
+    'SIGNOUT': 'SIGNOUT',
+    'SIGNIN_START': 'SIGNIN_START',
+    'SIGNIN_DONE': 'SIGNIN_DONE',
+    'SIGNIN_FAIL': 'SIGNIN_FAIL',
+}

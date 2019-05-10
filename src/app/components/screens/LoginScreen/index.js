@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, ToastAndroid, Platform } from 'react-native';
+import { connect } from 'react-redux';
+
+import { AuthMapState } from '@redux/modules/Auth/selectors'
+import AuthActions from '@redux/modules/Auth/actions'
 
 import {
     Button,
@@ -28,9 +32,10 @@ class LoginScreen extends Component {
             password: '',
             passwordValid: true
         };
-    }
+    }   
 
     render() {
+        let { Auth } = this.props;
         return (
             <Container>
                 <Image 
@@ -52,7 +57,7 @@ class LoginScreen extends Component {
                         </Item>
                     </Form>
                 </Content>
-                <Button iconLeft block onPress={this.login.bind(this)}>
+                <Button iconLeft block onPress={this.login.bind(this)} disabled={Auth.authenticating}>
                     <Left/>
                     {/* <Left>
                         {auth.waiting ? <Spinner color="#fff" style={styles.spinner} /> : null}
@@ -65,18 +70,35 @@ class LoginScreen extends Component {
     }
 
     login(){
+        let { email, password } = this.state
+        
         // Validate Form
-        let emailIsValid = this.state.email.length === 0 ? false : true;
-        let passwordIsValid = this.state.password.length === 0 ? false : true;
+        let emailIsValid = email.length === 0 ? false : true;
+        let passwordIsValid = password.length === 0 ? false : true;
 
         this.setState({ emailValid: emailIsValid, passwordValid: passwordIsValid });
 
         if (!emailIsValid || !passwordIsValid) {
             return false;
         }
+        
+        this.props.signInAsync(
+            email, 
+            password, 
+            this.onSingnInSuccess.bind(this), 
+            this.onSignInFail.bind(this)
+        )
+    }
 
+    onSingnInSuccess(){
         this.props.navigation.navigate('App');
+    }
+
+    onSignInFail(){
+        Platform.OS === 'android' 
+            ? ToastAndroid.show(this.props.Auth.errorMessage, ToastAndroid.LONG) 
+            : alert(this.props.Auth.errorMessage)
     }
 }
 
-export default LoginScreen;
+export default connect(AuthMapState, AuthActions)(LoginScreen);

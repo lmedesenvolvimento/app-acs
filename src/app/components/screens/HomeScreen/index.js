@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { CounterActions } from '@redux/modules/Counter';
+
+import CounterActions from '@redux/modules/Counter/actions';
 import { SelectCounter } from '@redux/modules/Counter/selectors';
 
 import {
