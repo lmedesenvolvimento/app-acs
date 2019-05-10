@@ -16,8 +16,11 @@ import {
     Left,
     Right,
     Text,
+    Spinner,
     Icon
 } from 'native-base'
+
+import styles from './index.styl';
 
 class LoginScreen extends Component {
     static navigationOptions = {
@@ -47,21 +50,20 @@ class LoginScreen extends Component {
                     <Form>
                         <Item inlineLabel error={!this.state.emailValid}>
                             <Label>Email</Label>
-                            <Input onChangeText={ email => this.setState({ email })} keyboardType='email-address' />
+                            <Input onChangeText={email => this.setState({ email })} keyboardType='email-address' disabled={Auth.authenticating} />
                             { !this.state.emailValid ? <Icon name='close-circle' /> : null }
                         </Item>
                         <Item inlineLabel error={!this.state.passwordValid}>
                             <Label>Password</Label>
-                            <Input onChangeText={ password => this.setState({ password })} secureTextEntry={true} />
+                            <Input onChangeText={password => this.setState({ password })} secureTextEntry={true} disabled={Auth.authenticating} />
                             { !this.state.passwordValid ? <Icon name='close-circle' /> : null }
                         </Item>
                     </Form>
                 </Content>
                 <Button iconLeft block onPress={this.login.bind(this)} disabled={Auth.authenticating}>
-                    <Left/>
-                    {/* <Left>
-                        {auth.waiting ? <Spinner color="#fff" style={styles.spinner} /> : null}
-                    </Left> */}
+                    <Left>
+                        { Auth.authenticating ? <Spinner color="#fff" style={styles.spinner} /> : null }
+                    </Left>
                     <Text>Login</Text>
                     <Right />
                 </Button>
@@ -96,7 +98,7 @@ class LoginScreen extends Component {
 
     onSignInFail(){
         Platform.OS === 'android' 
-            ? ToastAndroid.show(this.props.Auth.errorMessage, ToastAndroid.LONG) 
+            ? ToastAndroid.show(this.props.Auth.errorMessage, ToastAndroid.SHORT) 
             : alert(this.props.Auth.errorMessage)
     }
 }

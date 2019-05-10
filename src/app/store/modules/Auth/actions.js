@@ -2,6 +2,7 @@ import { bindActionCreators } from 'redux';
 import Http from '@/services/Http';
 
 import Types from './types'
+import { actions as UserActions } from '@redux/modules/User/actions';
 
 export const actions = {
     signed(){
@@ -33,11 +34,19 @@ export const actions = {
                     email: email,
                     password: password
                 }
-            }).then(() => {
+            }).then(({ data }) => {
                 dispatch(this.signed());
-                dispatch(this.signInDone());
-                onSuccess();
-            }).catch(() => {
+                dispatch(this.signInDone());   
+                
+                console.log(UserActions, data)
+                
+                dispatch(
+                    UserActions.setUserAsync(data.user)
+                );
+
+                onSuccess()
+            }).catch((error) => {
+                console.warn(error)
                 dispatch(this.signInFail());
                 dispatch(this.signInDone());
                 onFail();

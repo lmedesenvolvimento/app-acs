@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import CounterActions from '@redux/modules/Counter/actions';
-import { SelectCounter } from '@redux/modules/Counter/selectors';
 
 import {
   Text,
   Button,
-  Container
+  Container,
+  Content
 } from 'native-base';
 
 import styles from './index.styl';
@@ -32,16 +32,20 @@ class HomeScreen extends Component {
 
   render() {
     let { counter } = this.props.Counter;
+    let { data } = this.props.User;
     return (
       <Container style={styles.container}>
         <Container style={styles.container}>
-          <Text>{counter}</Text>
+          <Text style={styles.counterText}>{counter}</Text>          
         </Container>
         
         <Container style={styles.container}>
-          <Button onPress={this.logout.bind(this)}>
-            <Text>Logout</Text>
-          </Button>
+          <Content padder>
+            <Text>{JSON.stringify(data)}</Text>
+            <Button onPress={this.logout.bind(this)}>
+              <Text>Logout</Text>
+            </Button>
+          </Content>
         </Container>          
       </Container>
     );
@@ -52,4 +56,9 @@ class HomeScreen extends Component {
   }
 }
 
-export default connect(SelectCounter, CounterActions)(HomeScreen);
+export const CustomMapState = (state) => {
+  const { User, Counter } = state
+  return { User, Counter }
+};
+
+export default connect(CustomMapState, CounterActions)(HomeScreen);

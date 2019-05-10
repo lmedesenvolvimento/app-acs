@@ -3,6 +3,11 @@ import { Font, AppLoading } from 'expo';
 
 import { Ionicons } from '@expo/vector-icons';
 
+import UserAction from '@redux/modules/User/actions';
+import { UserMapState } from '@redux/modules/User/selectors';
+
+import { connect } from 'react-redux';
+
 import localStorage from '@/services/LocalStorage'
 
 class AuthLoadingScreen extends Component {
@@ -31,8 +36,9 @@ class AuthLoadingScreen extends Component {
     async _authAsync() {
         let db = await localStorage.read();
         let user = db.get('user').value();
+        this.props.setUser(user);
         this.props.navigation.navigate( user ? 'App' : 'Auth' );
     }
 }
 
-export default AuthLoadingScreen;
+export default connect(UserMapState, UserAction)(AuthLoadingScreen);
