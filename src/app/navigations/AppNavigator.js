@@ -10,6 +10,8 @@ const AppStack = createStackNavigator({
 
 const AuthStack = createStackNavigator({
     Login: require('@/components/screens/LoginScreen').default
+}, {
+    headerMode: "none"
 });
 
 export default createAppContainer(
@@ -20,7 +22,7 @@ export default createAppContainer(
             Auth: AuthStack,
         },
         {
-            initialRouteName: 'AuthLoading'
+            initialRouteName: 'AuthLoading'            
         }
     )
 );

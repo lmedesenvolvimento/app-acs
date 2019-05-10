@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import { CounterActions } from '@redux/modules/Counter';
+import { SelectCounter } from '@redux/modules/Counter/selectors';
+
 import {
   Text,
   Button,
   Container
-} from 'native-base'
+} from 'native-base';
+
+import styles from './index.styl';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -17,13 +23,25 @@ class HomeScreen extends Component {
     };
   }
 
+  componentDidMount(){
+    setInterval(() => {
+      this.props.increment();
+    }, 1000);
+  }
+
   render() {
+    let { counter } = this.props.Counter;
     return (
-      <Container>
-        <Text> HomeScreenComponent </Text>
-        <Button onPress={this.logout.bind(this)}>
-          <Text>Logout</Text>
-        </Button>
+      <Container style={styles.container}>
+        <Container style={styles.container}>
+          <Text>{counter}</Text>
+        </Container>
+        
+        <Container style={styles.container}>
+          <Button onPress={this.logout.bind(this)}>
+            <Text>Logout</Text>
+          </Button>
+        </Container>          
       </Container>
     );
   }
@@ -33,4 +51,4 @@ class HomeScreen extends Component {
   }
 }
 
-export default HomeScreen;
+export default connect(SelectCounter, CounterActions)(HomeScreen);

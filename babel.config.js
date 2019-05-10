@@ -4,8 +4,9 @@ const plugins = [
     {
       root: ["./src/"],
       alias: {
+        "@redux": "./src/app/store",
+        "@assets": "./assets",
         "@": "./src/app",
-        "@assets": "./assets"
       }
     }
   ]

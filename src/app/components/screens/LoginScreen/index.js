@@ -11,7 +11,8 @@ import {
     Label,
     Left,
     Right,
-    Text
+    Text,
+    Icon
 } from 'native-base'
 
 class LoginScreen extends Component {
@@ -22,6 +23,10 @@ class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: '',
+            emailValid: true,
+            password: '',
+            passwordValid: true
         };
     }
 
@@ -35,13 +40,15 @@ class LoginScreen extends Component {
                 </Image>
                 <Content padder>
                     <Form>
-                        <Item inlineLabel>
+                        <Item inlineLabel error={!this.state.emailValid}>
                             <Label>Email</Label>
-                            <Input />
+                            <Input onChangeText={ email => this.setState({ email })} keyboardType='email-address' />
+                            { !this.state.emailValid ? <Icon name='close-circle' /> : null }
                         </Item>
-                        <Item inlineLabel>
+                        <Item inlineLabel error={!this.state.passwordValid}>
                             <Label>Password</Label>
-                            <Input />
+                            <Input onChangeText={ password => this.setState({ password })} secureTextEntry={true} />
+                            { !this.state.passwordValid ? <Icon name='close-circle' /> : null }
                         </Item>
                     </Form>
                 </Content>
@@ -58,6 +65,16 @@ class LoginScreen extends Component {
     }
 
     login(){
+        // Validate Form
+        let emailIsValid = this.state.email.length === 0 ? false : true;
+        let passwordIsValid = this.state.password.length === 0 ? false : true;
+
+        this.setState({ emailValid: emailIsValid, passwordValid: passwordIsValid });
+
+        if (!emailIsValid || !passwordIsValid) {
+            return false;
+        }
+
         this.props.navigation.navigate('App');
     }
 }
