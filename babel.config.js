@@ -4,7 +4,8 @@ const plugins = [
     {
       root: ["./src/"],
       alias: {
-        "@": "./src/app"
+        "@": "./src/app",
+        "@assets": "./assets"
       }
     }
   ]

@@ -1,9 +1,13 @@
-import React from 'react';
-
+import React, { Component } from 'react';
+import { Root } from 'native-base'
 import AppNavigator from '@/navigations/AppNavigator';
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
-    return <AppNavigator></AppNavigator>;
+    return (
+      <Root>
+        <AppNavigator></AppNavigator>
+      </Root>
+    );
   }
 }

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
 
-import styles from './index.styl'
+import {
+  Text,
+  Button,
+  Container
+} from 'native-base'
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -16,10 +19,17 @@ class HomeScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Container>
         <Text> HomeScreenComponent </Text>
-      </View>
+        <Button onPress={this.logout.bind(this)}>
+          <Text>Logout</Text>
+        </Button>
+      </Container>
     );
+  }
+
+  logout(){
+    this.props.navigation.navigate('Auth')
   }
 }
 
