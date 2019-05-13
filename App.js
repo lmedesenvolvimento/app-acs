@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { SafeAreaView, Platform, StatusBar } from 'react-native';
 import { Root } from 'native-base'
+
 import AppNavigator from '@/navigations/AppNavigator';
+import LoadingModal from '@/components/Loading'
 
 import { Provider } from 'react-redux'
 import { store } from '@redux'
@@ -15,9 +18,20 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <Root>
-          <AppNavigator></AppNavigator>
+          <SafeAreaView style={styles.droidSafeArea}>
+            <StatusBar barStyle="dark-content"/>
+            <AppNavigator></AppNavigator>
+          </SafeAreaView>
+          <LoadingModal/>
         </Root>
       </Provider>
     );
+  }
+}
+
+const styles = {
+  droidSafeArea: {
+    flex: 1,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
   }
 }

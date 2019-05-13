@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, ToastAndroid, Platform } from 'react-native';
 import { connect } from 'react-redux';
 
-import { AuthMapState } from '@redux/modules/Auth/selectors'
+import { AuthMapState } from '@redux/modules/Auth/mappers'
 import AuthActions from '@redux/modules/Auth/actions'
 
 import {

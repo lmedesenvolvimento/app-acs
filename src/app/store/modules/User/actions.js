@@ -13,7 +13,6 @@ export const actions = {
     },
     setUserAsync(data){
         return async dispatch => {
-            console.log("IN USER ACTION", data);
             // load asyc storage
             let db = await localStorage.read();
             
@@ -22,10 +21,7 @@ export const actions = {
 
             let user = db.get('user').value();
 
-            console.log(user);
-            
             dispatch(this.setUser(user));
-
         }        
     }
 }

@@ -1,15 +1,16 @@
 import {
     createSwitchNavigator,
     createStackNavigator,
+    createDrawerNavigator,
     createAppContainer
 } from 'react-navigation';
 
-const AppStack = createStackNavigator({
-    Home: require('@/components/screens/HomeScreen').default
+const AppStack = createDrawerNavigator({
+    Home: require('@/screens/HomeScreen').default
 });
 
 const AuthStack = createStackNavigator({
-    Login: require('@/components/screens/LoginScreen').default
+    Login: require('@/screens/LoginScreen').default
 }, {
     headerMode: "none"
 });
@@ -17,7 +18,7 @@ const AuthStack = createStackNavigator({
 export default createAppContainer(
     createSwitchNavigator(
         {
-            AuthLoading: require('@/components/screens/AuthLoadingScreen').default,
+            AuthLoading: require('@/screens/AuthLoadingScreen').default,
             App: AppStack,
             Auth: AuthStack,
         },

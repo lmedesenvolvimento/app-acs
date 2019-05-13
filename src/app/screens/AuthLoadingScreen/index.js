@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Font, AppLoading } from 'expo';
+import { SafeAreaView } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
 
 import UserAction from '@redux/modules/User/actions';
-import { UserMapState } from '@redux/modules/User/selectors';
+import { UserMapState } from '@redux/modules/User/mappers';
 
 import { connect } from 'react-redux';
 
@@ -22,7 +23,11 @@ class AuthLoadingScreen extends Component {
     }
 
     render() {
-        return <AppLoading />;
+        return (
+            <SafeAreaView>
+                <AppLoading />
+            </SafeAreaView>
+        );
     }
 
     async _cacheResourcesAsync() {
