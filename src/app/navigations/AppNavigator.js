@@ -6,7 +6,8 @@ import {
 } from 'react-navigation';
 
 const AppStack = createDrawerNavigator({
-    Home: require('@/screens/HomeScreen').default
+    Home: require('@/screens/HomeScreen').default,
+    About: require('@/screens/AboutScreen').default
 });
 
 const AuthStack = createStackNavigator({

@@ -52,6 +52,6 @@ class LocalStorage {
     }
 }
 
-const localStorage = new LocalStorage('@localStorage', { user: null })
+const localStorage = new LocalStorage('@localStorage', { user: null, users: {} })
 
 export default localStorage;

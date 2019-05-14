@@ -24,7 +24,7 @@ export const actions = {
         return {
             type: Types.SIGNIN_FAIL
         }
-    },
+    },    
     signInAsync(email, password, onSuccess, onFail) {
         return (dispatch) => {
             dispatch(this.signInStart());
@@ -38,21 +38,25 @@ export const actions = {
                 dispatch(this.signed());
                 dispatch(this.signInDone());   
                 
-                console.log(UserActions, data)
-                
-                dispatch(
-                    UserActions.setUserAsync(data.user)
-                );
+                // create user storages
+                dispatch(UserActions.setUserAsync(data.user));
+                dispatch(UserActions.createUserAsyncStore(data.user.email));
 
                 onSuccess()
             }).catch((error) => {
-                console.warn(error)
                 dispatch(this.signInFail());
                 dispatch(this.signInDone());
                 onFail();
             })
         }
     },
+    signOutAsync(){
+        return dispatch => {
+            dispatch(
+                UserActions.setUserAsync(null)
+            );
+        }
+    }
 }
 
 export default dispatch => (

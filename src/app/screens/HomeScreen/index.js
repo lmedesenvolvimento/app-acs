@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import CounterActions from '@redux/modules/Counter/actions';
-
 import {
   Text,
   Button,
   Container,
   Content
 } from 'native-base';
+
+import AuthActions from '@redux/modules/Auth/actions'
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -27,22 +27,15 @@ class HomeScreen extends Component {
       <Container>        
         <Content padder>
           <Text>{JSON.stringify(data)}</Text>
-        </Content>
-        <Button block onPress={this.logout.bind(this)}>
-          <Text>Logout</Text>
-        </Button>
+        </Content>        
       </Container>
     );
-  }
-
-  logout(){
-    this.props.navigation.navigate('Auth')
-  }
+  }  
 }
 
 export const CustomMapState = (state) => {
-  const { User, Counter } = state
-  return { User, Counter }
+  const { User } = state;
+  return { User };
 };
 
-export default connect(CustomMapState, CounterActions)(HomeScreen);
+export default connect(CustomMapState, AuthActions)(HomeScreen);

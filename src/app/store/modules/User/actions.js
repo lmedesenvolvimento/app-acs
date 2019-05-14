@@ -22,7 +22,20 @@ export const actions = {
             let user = db.get('user').value();
 
             dispatch(this.setUser(user));
-        }        
+        }
+    },
+    createUserAsyncStore(email){
+        return async _ => {
+            // load asyc storage
+            let db = await localStorage.read();            
+            let storage = db.get(`users.${email}`).value();
+
+            if(!storage){
+                await db.set(`users.${email}`, {
+                    mapping: {}
+                }).write().value();
+            }
+        }
     }
 }
 
