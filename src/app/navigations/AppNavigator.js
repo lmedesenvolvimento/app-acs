@@ -5,9 +5,19 @@ import {
     createAppContainer
 } from 'react-navigation';
 
+const FieldGroupStack = createStackNavigator({
+    Mappings: require('@/screens/MappingScreen').default,
+    PublicAreas: require('@/screens/PublicAreas').default,
+}, {
+    initialRouteName: 'Mappings',
+    headerMode: "none"
+});
+
 const AppStack = createDrawerNavigator({
-    Home: require('@/screens/HomeScreen').default,
+    Home: FieldGroupStack,
     About: require('@/screens/AboutScreen').default
+}, {
+    initialRouteName: 'Home'
 });
 
 const AuthStack = createStackNavigator({
@@ -15,6 +25,7 @@ const AuthStack = createStackNavigator({
 }, {
     headerMode: "none"
 });
+
 
 export default createAppContainer(
     createSwitchNavigator(
