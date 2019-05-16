@@ -4,6 +4,8 @@ import Types from './types';
 
 import localStorage from '@/services/LocalStorage';
 
+import { MappingStatus } from "@/types/mapping"
+
 export const actions = {
     setUser(data){
         return {
@@ -15,7 +17,11 @@ export const actions = {
         return async dispatch => {
             // load asyc storage
             let db = await localStorage.read();
-            
+
+            if (data) {
+                data.key = data.email.replace(/\./g, '_');
+            }
+
             // commit user changes            
             await db.set('user', data).write().value();
 
@@ -27,14 +33,46 @@ export const actions = {
     createUserAsyncStore(email){
         return async _ => {
             // load asyc storage
+            let key = email.replace(/\./g, '_');
             let db = await localStorage.read();            
-            let storage = db.get(`users.${email}`).value();
+            let storage = db.get(`users.${key}`).value();
 
             if(!storage){
-                await db.set(`users.${email}`, {
-                    mapping: {}
+                await db.set(`users.${key}`, {
+                    mappings: [
+                        {
+                            id: 1,
+                            cycle_id: 1,
+                            status: MappingStatus.not_finished,
+                            field_group: {
+                                id: 1,
+                                name: 'Quadra 1',
+                                neighborhood: {
+                                    name: 'Messejana'
+                                }
+                            }
+                        },
+                        {
+                            id: 2,
+                            cycle_id: 1,
+                            status: MappingStatus.not_finished,
+                            field_group: {
+                                id: 2,
+                                name: 'Quadra 2',
+                                neighborhood: {
+                                    name: 'Messejana'
+                                }
+                            }
+                        }
+                    ]
                 }).write().value();
             }
+        }
+    },
+    clearAll(){
+        return async _=> {
+            let db = await localStorage.read();
+            await db.set('users', {}).write().value();
         }
     }
 }

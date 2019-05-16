@@ -1,40 +1,17 @@
-import { MappingStatus } from "@/types/mapping"
+import Types from './types';
 
-const initialState = {
-    'ref1': {
-        id: 1,
-        cycle_id: 1,
-        status: MappingStatus.not_finished,
-        field_group: {
-            id: 1,
-            name: 'Quadra 1',
-            neighborhood: {
-                name: 'Messejana'
-            }
-        }
-    },
-    'ref2': {
-        id: 2,
-        cycle_id: 1,
-        status: MappingStatus.not_finished,
-        field_group: {
-            id: 2,
-            name: 'Quadra 2',
-            neighborhood: {
-                name: 'Messejana'
-            }
-        }
-    }
-}
+const initialState = {};
 
 export default (state = initialState, action) => {
-    return state;
-//   switch (action.type) {
+  switch (action.type) {
 
-//   case typeName:
-//     return { ...state };
+  case Types.FETCH_MAPPINGS:
+  return { 
+        ...state,
+        ...action.data
+    };
 
-//   default:
-//     return state
-//   }
+  default:
+    return state
+  }
 };

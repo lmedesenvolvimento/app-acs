@@ -16,6 +16,7 @@ import {
 } from 'native-base';
 
 
+import { MappingsMapState } from '@redux/modules/Mappings/mappers';
 import MappingsActions from '@redux/modules/Mappings/actions';
 
 class MappingScreen extends Component {
@@ -29,6 +30,10 @@ class MappingScreen extends Component {
     super(props);
     this.state = {
     };
+  }
+
+  componentDidMount(){
+    this.props.fetchAsyncMappings();
   }
 
   render() {
@@ -72,4 +77,4 @@ class MappingScreen extends Component {
   }
 }
 
-export default connect(null, MappingsActions)(MappingScreen);
+export default connect(MappingsMapState, MappingsActions)(MappingScreen);

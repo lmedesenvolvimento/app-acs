@@ -55,6 +55,9 @@ export const actions = {
             dispatch(
                 UserActions.setUserAsync(null)
             );
+            dispatch(
+                UserActions.clearAll()
+            );
         }
     }
 }
