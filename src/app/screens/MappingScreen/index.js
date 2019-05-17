@@ -8,11 +8,7 @@ import {
   Container,
   Content,
   ListItem,
-  Header,
   Body,
-  Left,
-  Right,
-  Title
 } from 'native-base';
 
 
@@ -24,34 +20,23 @@ class MappingScreen extends Component {
     title: 'MappingScreen',
   };
 
-  _keyExtractor = (item) => item.$id
-
   constructor(props) {
     super(props);
     this.state = {
     };
   }
 
-  componentDidMount(){
-    this.props.fetchAsyncMappings();
+  async componentWillMount(){
+    await this.props.fetchAsyncMappings();
   }
 
   render() {
-    let mappings = this.props.getMappings();
     return (
       <Container>  
-        <Header>
-          <Left/>
-          <Body>
-            <Title>Mappings</Title>
-          </Body>
-          <Right />
-        </Header>
         <Content padder>
           <Content>
             <FlatList
-              data={mappings}
-              keyExtractor={this._keyExtractor}
+              data={this.props.getMappings()}
               renderItem={this.renderItem.bind(this)}
             >
             </FlatList>            
@@ -69,11 +54,11 @@ class MappingScreen extends Component {
           <Text note>{item.field_group.neighborhood.name}</Text>
         </Body>
       </ListItem>
-    )
+    );
   }
 
   onPressItem(item){
-    this.props.navigation.navigate('PublicAreas', { parent: item.$id})
+    this.props.navigation.navigate('PublicAreas', { fieldGroup: item.id});
   }
 }
 

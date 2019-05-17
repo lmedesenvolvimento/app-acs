@@ -1,36 +1,43 @@
 import { PublicAreaTypes } from '@/types/publicarea'
+import { generate as shortid } from 'shortid'
 
 const initialState = {
-    'ref1': {
-        $field_group: 1,
-        type: PublicAreaTypes.street,
-        address: "Rua Exemplo",
-    },
-    'ref2': {
-        $field_group: 1,
-        type: PublicAreaTypes.street,
-        address: "Rua Exemplo 2",
-    },
-    'ref13': {
-        $field_group: 2,
-        type: PublicAreaTypes.street,
-        address: "Rua Exemplo 3",
-    },
-    'ref4': {
-        $field_group: 2,
-        type: PublicAreaTypes.street,
-        address: "Rua Exemplo 4",
-    }
+    data: [
+        {
+            $field_group: 1,
+            key: shortid(),
+            type: PublicAreaTypes.street,
+            address: "Rua Exemplo",
+        },
+        {
+            $field_group: 1,
+            key: shortid(),
+            type: PublicAreaTypes.street,
+            address: "Rua Exemplo 2",
+        },
+        {
+            $field_group: 2,
+            key: shortid(),
+            type: PublicAreaTypes.street,
+            address: "Rua Exemplo 3",
+        },
+        {
+            $field_group: 2,
+            key: shortid(),
+            type: PublicAreaTypes.street,
+            address: "Rua Exemplo 4",
+        }
+    ]
 }
 
 export default (state = initialState, action) => {
-  return state;
-  // switch (action.type) {
+    return state
+    // switch (action.type) {
 
-  // case typeName:
-  //   return { ...state };
+    //     case typeName:
+    //         return { ...state };
 
-  // default:
-  //   return state
-  // }
+    //     default:
+    //         return state
+    // }
 };

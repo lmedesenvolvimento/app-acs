@@ -8,11 +8,7 @@ import {
   Container,
   Content,
   ListItem,
-  Header,
   Body,
-  Left,
-  Right,
-  Title
 } from 'native-base';
 
 
@@ -23,30 +19,26 @@ class PublicAreas extends Component {
     title: 'PublicAreas',
   };
 
-  _keyExtractor = (item) => item.$id
-
   constructor(props) {
     super(props);
     this.state = {
+      fieldGroupId: null
     };
   }
 
+  componentDidMount(){
+    let fieldGroupId = this.props.navigation.state.params.fieldGroup;
+    this.setState({ fieldGroupId });
+  }
+
   render() {
-    let areas = this.props.getPublicAreas();
+    let areas = this.props.getPublicAreas(this.state.fieldGroupId);
     return (
       <Container>  
-        <Header>
-          <Left />
-          <Body>
-            <Title>PublicAreas</Title>
-          </Body>
-          <Right />
-        </Header>   
         <Content padder>
           <Content>
             <FlatList
               data={areas}
-              keyExtractor={this._keyExtractor}
               renderItem={this.renderItem.bind(this)}
             >
             </FlatList>            
@@ -63,7 +55,7 @@ class PublicAreas extends Component {
           <Text>{item.address}</Text>
         </Body>
       </ListItem>
-    )
+    );
   }
 }
 

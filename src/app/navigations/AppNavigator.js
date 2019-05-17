@@ -5,12 +5,16 @@ import {
     createAppContainer
 } from 'react-navigation';
 
+import {
+    defaultNavigationOptions
+} from './index.const.js'
+
 const FieldGroupStack = createStackNavigator({
     Mappings: require('@/screens/MappingScreen').default,
     PublicAreas: require('@/screens/PublicAreas').default,
 }, {
     initialRouteName: 'Mappings',
-    headerMode: "none"
+    defaultNavigationOptions
 });
 
 const AppStack = createDrawerNavigator({

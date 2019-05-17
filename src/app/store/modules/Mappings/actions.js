@@ -1,6 +1,4 @@
-import shortid from 'shortid'
 import { bindActionCreators } from 'redux';
-import { forEach, values } from 'lodash';
 
 import localStorage from '@/services/LocalStorage';
 
@@ -15,19 +13,14 @@ export const actions = {
     },
     fetchAsyncMappings(){
         return async (dispatch, getState) => {
-            let payload = {}
             let db = await localStorage.read();
             let user = getState().User.data;
-            let action = this.fetchMappings(payload);
-
+            
             if (!user) return
             
-            let { mappings } = db.get(`users.${user.key}`).omit(['public_areas']).value();
-            
-            mappings.forEach(m => {
-                let key = shortid.generate()
-                payload[key] = m
-            });
+            let { mappings } = db.get(`users.${user.key}`).omit(['public_areas']).value();        
+
+            let action = this.fetchMappings(mappings);
 
             dispatch(action);
         }
@@ -36,17 +29,11 @@ export const actions = {
 
 export const getters = {
     getMappings(){
-        return (dispatch, getState) => {
-            let state = getState().Mappings
-            forEach(state, mapMappings)
-            return values(state)
+        return (dispatch, getState) => {            
+            return getState().Mappings.data
         };
     }
 };
-
-function mapMappings(value, key){
-    value.$id = key
-}
 
 export default dispatch => (
     bindActionCreators(Object.assign({}, actions, getters), dispatch)

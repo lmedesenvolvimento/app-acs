@@ -31,7 +31,6 @@ export default class App extends Component {
 
 const styles = {
   droidSafeArea: {
-    flex: 1,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+    flex: 1,    
   }
 }

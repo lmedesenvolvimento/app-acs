@@ -1,17 +1,17 @@
 import Types from './types';
 
-const initialState = {};
+const initialState = {
+    data: []
+};
 
 export default (state = initialState, action) => {
-  switch (action.type) {
-
-  case Types.FETCH_MAPPINGS:
-  return { 
-        ...state,
-        ...action.data
-    };
-
-  default:
-    return state
-  }
+    switch (action.type) {
+        case Types.FETCH_MAPPINGS:
+            return {
+                ...state,
+                data: action.data
+            };
+        default:
+            return state
+    }
 };

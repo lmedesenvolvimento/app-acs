@@ -1,4 +1,5 @@
 import { bindActionCreators } from 'redux';
+import { generate as shortid } from 'shortid'
 
 import Types from './types';
 
@@ -28,6 +29,8 @@ export const actions = {
             let user = db.get('user').value();
 
             dispatch(this.setUser(user));
+
+            return user
         }
     },
     createUserAsyncStore(email){
@@ -41,6 +44,7 @@ export const actions = {
                 await db.set(`users.${key}`, {
                     mappings: [
                         {
+                            key: shortid(),
                             id: 1,
                             cycle_id: 1,
                             status: MappingStatus.not_finished,
@@ -53,6 +57,7 @@ export const actions = {
                             }
                         },
                         {
+                            key: shortid(),
                             id: 2,
                             cycle_id: 1,
                             status: MappingStatus.not_finished,
@@ -67,6 +72,7 @@ export const actions = {
                     ]
                 }).write().value();
             }
+            return true
         }
     },
     clearAll(){

@@ -41,7 +41,6 @@ class AuthLoadingScreen extends Component {
     async _authAsync() {
         let db = await localStorage.read();
         let user = db.get('user').value();
-        console.log(user)
         if (user) {
             this.props.setUser(user);
             this.props.navigation.navigate('App');

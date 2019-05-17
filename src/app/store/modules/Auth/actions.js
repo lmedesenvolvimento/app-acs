@@ -26,7 +26,7 @@ export const actions = {
         }
     },    
     signInAsync(email, password, onSuccess, onFail) {
-        return (dispatch) => {
+        return async (dispatch) => {
             dispatch(this.signInStart());
 
             Http.post("/api/users/sign_in", {
@@ -34,15 +34,18 @@ export const actions = {
                     email: email,
                     password: password
                 }
-            }).then(({ data }) => {
+            })
+            .then(({data}) => {
                 dispatch(this.signed());
                 dispatch(this.signInDone());   
                 
                 // create user storages
-                dispatch(UserActions.setUserAsync(data.user));
-                dispatch(UserActions.createUserAsyncStore(data.user.email));
+                dispatch(UserActions.setUserAsync(data.user)).then(_ => {
+                    dispatch(UserActions.createUserAsyncStore(data.user.email)).then( _ => {
+                        onSuccess()
+                    });
+                });
 
-                onSuccess()
             }).catch((error) => {
                 dispatch(this.signInFail());
                 dispatch(this.signInDone());
