@@ -5,9 +5,7 @@ import {
     createAppContainer
 } from 'react-navigation';
 
-import {
-    defaultNavigationOptions
-} from './index.const.js'
+import { defaultNavigationOptions } from './index.const';
 
 const FieldGroupStack = createStackNavigator({
     Mappings: require('@/screens/MappingScreen').default,
@@ -27,7 +25,7 @@ const AppStack = createDrawerNavigator({
 const AuthStack = createStackNavigator({
     Login: require('@/screens/LoginScreen').default
 }, {
-    headerMode: "none"
+    headerMode: 'none'
 });
 
 
@@ -39,7 +37,7 @@ export default createAppContainer(
             Auth: AuthStack,
         },
         {
-            initialRouteName: 'AuthLoading'            
+            initialRouteName: 'AuthLoading'
         }
     )
 );

@@ -1,7 +1,7 @@
 import { BASE_URL } from 'react-native-dotenv'
 import axios from 'axios';
 
-let instance = axios.create({
+const instance = axios.create({
     baseURL: BASE_URL
 });
 

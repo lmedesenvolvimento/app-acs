@@ -4,35 +4,37 @@ import localStorage from '@/services/LocalStorage';
 
 import Types from './types';
 
+function fetchAsyncMappings() {
+    return async (dispatch, getState) => {
+        const db = await localStorage.read();
+        const user = getState().User.data;
+        if (!user) return;
+        const { mappings } = db.get(`users.${user.key}`).omit(['public_areas']).value();
+        const action = fetchMappings(mappings);
+        dispatch(action);
+    };
+}
+
+function fetchMappings(data) {
+    return {
+        type: Types.FETCH_MAPPINGS,
+        data
+    };
+}
+
+function getMappings() {
+    return (dispatch, getState) => {
+        return getState().Mappings.data;
+    };
+}
+
 export const actions = {
-    fetchMappings(data){
-        return {
-            type: Types.FETCH_MAPPINGS,
-            data
-        }
-    },
-    fetchAsyncMappings(){
-        return async (dispatch, getState) => {
-            let db = await localStorage.read();
-            let user = getState().User.data;
-            
-            if (!user) return
-            
-            let { mappings } = db.get(`users.${user.key}`).omit(['public_areas']).value();        
-
-            let action = this.fetchMappings(mappings);
-
-            dispatch(action);
-        }
-    }
+    fetchAsyncMappings,
+    fetchMappings
 };
 
 export const getters = {
-    getMappings(){
-        return (dispatch, getState) => {            
-            return getState().Mappings.data
-        };
-    }
+    getMappings
 };
 
 export default dispatch => (

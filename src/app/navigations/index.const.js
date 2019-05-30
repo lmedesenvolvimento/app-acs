@@ -7,3 +7,7 @@ export const defaultNavigationOptions = {
         fontWeight: 'bold',
     },
 };
+
+export default {
+    defaultNavigationOptions
+};

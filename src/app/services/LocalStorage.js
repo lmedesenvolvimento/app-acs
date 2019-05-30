@@ -1,57 +1,61 @@
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage } from 'react-native';
 
-import _ from 'lodash'
+import _ from 'lodash';
 
 class LocalStorage {
-    constructor(store, defaultValues){
-        this.store = store
-        this.state = null
-        this.defaultValues = defaultValues
+    constructor(store, defaultValues) {
+        this.store = store;
+        this.state = null;
+        this.defaultValues = defaultValues;
         // register mixin for persist in AsyncStorage
         _.mixin({
-            write: async () => await this.write(this.state)
-        })
+            write: async () => this.write(this.state)
+        });
     }
-    async read(){
+
+    async read() {
         try {
-            let response = await AsyncStorage.getItem(this.store)
-            if(this.state){
-                return this.state
+            const response = await AsyncStorage.getItem(this.store);
+            if (this.state) {
+                return this.state;
             }
             if (response) {
-                this.state = _.chain(this.deserialize(response))
-                return this.state
+                this.state = _.chain(this.deserialize(response));
             } else {
-                await this.write(this.defaultValues)
-                this.state = _.chain(this.defaultValues)
-                return this.state
+                await this.write(this.defaultValues);
+                this.state = _.chain(this.defaultValues);
             }
+            return this.state;
         } catch (error) {
-            return null
+            return null;
         }
     }
-    async write(data){
+
+    async write(data) {
         try {
-            await AsyncStorage.setItem(this.store, this.serialize(data))
+            return await AsyncStorage.setItem(this.store, this.serialize(data));
         } catch (error) {
-            return null
+            return null;
         }
     }
-    async clear(){
+
+    async clear() {
         try {
-            await AsyncStorage.removeItem(this.store)
+            return await AsyncStorage.removeItem(this.store)
         } catch (error) {
-            return null
+            return null;
         }
     }
-    serialize(data){
-        return JSON.stringify(data, null, 2)
+
+    serialize(data) {
+        return JSON.stringify(data, null, 2);
     }
-    deserialize(data){
-        return JSON.parse(data)
+
+    deserialize(data) {
+        return JSON.parse(data);
     }
 }
 
-const localStorage = new LocalStorage('@localStorage', { user: null, users: {} })
+const localStorage = new LocalStorage('@localStorage', { user: null, users: {} });
 
 export default localStorage;

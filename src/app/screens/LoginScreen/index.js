@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
-import { Image, ToastAndroid, Platform } from 'react-native';
+
+import {
+    Alert,
+    Image,
+    ToastAndroid,
+    Platform
+} from 'react-native';
+
 import { connect } from 'react-redux';
 
-import { AuthMapState } from '@redux/modules/Auth/mappers'
-import AuthActions from '@redux/modules/Auth/actions'
+import { AuthMapState } from '@redux/modules/Auth/mappers';
+import AuthActions from '@redux/modules/Auth/actions';
 
 import {
     Button,
@@ -18,7 +25,7 @@ import {
     Text,
     Spinner,
     Icon
-} from 'native-base'
+} from 'native-base';
 
 import styles from './index.styl';
 
@@ -35,32 +42,45 @@ class LoginScreen extends Component {
             password: '',
             passwordValid: true
         };
-    }   
+    }
 
     render() {
-        let { Auth } = this.props;
+        const { Auth } = this.props;
+        const { emailValid, passwordValid } = this.state;
         return (
             <Container>
-                <Image 
-                    source={require('@assets/icon.png')} 
-                    style={{ flex: 1, width: 192, height: 192, resizeMode: 'contain', alignSelf: 'center' }}
-                >
-                </Image>
+                <Image
+                    source={require('@assets/icon.png')}
+                    style={styles.logo}
+                />
                 <Content padder>
                     <Form>
-                        <Item inlineLabel error={!this.state.emailValid}>
+                        <Item inlineLabel error={!emailValid}>
                             <Label>Email</Label>
-                            <Input onChangeText={email => this.setState({ email })} keyboardType='email-address' disabled={Auth.authenticating} />
-                            { !this.state.emailValid ? <Icon name='close-circle' /> : null }
+                            <Input
+                                onChangeText={email => this.setState({ email })}
+                                keyboardType="email-address"
+                                disabled={Auth.authenticating}
+                            />
+                            { !emailValid ? <Icon name="close-circle" /> : null }
                         </Item>
-                        <Item inlineLabel error={!this.state.passwordValid}>
+                        <Item inlineLabel error={!passwordValid}>
                             <Label>Password</Label>
-                            <Input onChangeText={password => this.setState({ password })} secureTextEntry={true} disabled={Auth.authenticating} />
-                            { !this.state.passwordValid ? <Icon name='close-circle' /> : null }
+                            <Input
+                                secureTextEntry
+                                onChangeText={password => this.setState({ password })}
+                                disabled={Auth.authenticating}
+                            />
+                            { !passwordValid ? <Icon name="close-circle" /> : null }
                         </Item>
                     </Form>
                 </Content>
-                <Button iconLeft block onPress={this.login.bind(this)} disabled={Auth.authenticating}>
+                <Button
+                    iconLeft
+                    block
+                    onPress={this.login.bind(this)}
+                    disabled={Auth.authenticating}
+                >
                     <Left>
                         { Auth.authenticating ? <Spinner color="#fff" style={styles.spinner} /> : null }
                     </Left>
@@ -71,35 +91,42 @@ class LoginScreen extends Component {
         );
     }
 
-    login(){
-        let { email, password } = this.state
-        
+    login() {
+        const { signInAsync } = this.props;
+        const { email, password } = this.state;
+
         // Validate Form
-        let emailIsValid = email.length === 0 ? false : true;
-        let passwordIsValid = password.length === 0 ? false : true;
+        const emailValid = email.length > 0;
+        const passwordValid = password.length > 0;
 
-        this.setState({ emailValid: emailIsValid, passwordValid: passwordIsValid });
+        this.setState({ emailValid, passwordValid });
 
-        if (!emailIsValid || !passwordIsValid) {
-            return false;
-        }
+        if (!emailValid || !passwordValid) return false;
         
-        this.props.signInAsync(
-            email, 
-            password, 
-            this.onSingnInSuccess.bind(this), 
+        signInAsync(
+            email,
+            password,
+            this.onSingnInSuccess.bind(this),
             this.onSignInFail.bind(this)
-        )
+        );
+        return true;
     }
 
-    onSingnInSuccess(){
-        this.props.navigation.navigate('App');
+    onSingnInSuccess() {
+        const { navigation } = this.props;
+        navigation.navigate('App');
     }
 
-    onSignInFail(){
-        Platform.OS === 'android' 
-            ? ToastAndroid.show(this.props.Auth.errorMessage, ToastAndroid.SHORT) 
-            : alert(this.props.Auth.errorMessage)
+    onSignInFail() {
+        const { Auth } = this.props;
+        if (Platform.OS === 'android') {
+            ToastAndroid.show(Auth.errorMessage, ToastAndroid.SHORT);
+        } else {
+            Alert(
+                'Falha no Login',
+                Auth.errorMessage
+            );
+        }
     }
 }
 

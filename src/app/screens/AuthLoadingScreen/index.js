@@ -9,7 +9,7 @@ import { UserMapState } from '@redux/modules/User/mappers';
 
 import { connect } from 'react-redux';
 
-import localStorage from '@/services/LocalStorage'
+import localStorage from '@/services/LocalStorage';
 
 class AuthLoadingScreen extends Component {
     constructor(props) {
@@ -17,9 +17,9 @@ class AuthLoadingScreen extends Component {
         this.state = {};
     }
 
-    async componentWillMount(){
-        await this._cacheResourcesAsync()
-        await this._authAsync()
+    async componentWillMount() {
+        await this.cacheResourcesAsync();
+        await this.authAsync();
     }
 
     render() {
@@ -30,22 +30,23 @@ class AuthLoadingScreen extends Component {
         );
     }
 
-    async _cacheResourcesAsync() {
+    async cacheResourcesAsync() {
         await Font.loadAsync({
-            'Roboto': require('native-base/Fonts/Roboto.ttf'),
-            'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-            ...Ionicons.font,
+            Roboto: require('native-base/Fonts/Roboto.ttf'),
+            Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+            ...Ionicons.font
         });
     }
 
-    async _authAsync() {
-        let db = await localStorage.read();
-        let user = db.get('user').value();
+    async authAsync() {
+        const { setUser, navigation } = this.props;
+        const db = await localStorage.read();
+        const user = db.get('user').value();
         if (user) {
-            this.props.setUser(user);
-            this.props.navigation.navigate('App');
+            setUser(user);
+            navigation.navigate('App');
         } else {
-            this.props.navigation.navigate('Auth');
+            navigation.navigate('Auth');
         }
     }
 }

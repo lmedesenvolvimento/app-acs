@@ -8,7 +8,7 @@ import {
     Content
 } from 'native-base';
 
-import AuthActions from '@redux/modules/Auth/actions'
+import AuthActions from '@redux/modules/Auth/actions';
 
 class AboutScreen extends Component {
     constructor(props) {
@@ -31,8 +31,9 @@ class AboutScreen extends Component {
     }
 
     logout() {
-        this.props.signOutAsync();
-        this.props.navigation.navigate('Auth');
+        const { props } = this;
+        props.signOutAsync();
+        props.navigation.navigate('Auth');
     }
 }
 
