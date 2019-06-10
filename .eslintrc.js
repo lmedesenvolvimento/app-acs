@@ -6,10 +6,13 @@ module.exports = {
     },
     'rules': {
         'indent': ['error', 4],
+        'camelcase': 'off',
+        'lines-between-class-members': 'off',
         'no-use-before-define': 'off',
         'react/jsx-indent': ['error', 4],
         'react/jsx-indent-props': ['error', 4],
         'react/jsx-filename-extension': 'off',
+        'react/prefer-stateless-function': 'off',
         'react/jsx-no-bind': 'off',
         'react/prop-types': 'off',
         'react/sort-comp': 'off',

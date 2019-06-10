@@ -12,12 +12,12 @@ import {
 } from 'native-base';
 
 
-import { MappingsMapState } from '@redux/modules/Mappings/mappers';
-import MappingsActions from '@redux/modules/Mappings/actions';
+import ZonaSelector from '@redux/modules/Zonas/mappers';
+import ZonasActions from '@redux/modules/Zonas/actions';
 
-class MappingScreen extends Component {
+class ZonaScreen extends Component {
     static navigationOptions = {
-        title: 'MappingScreen',
+        title: 'Zona Screen',
     };
 
     constructor(props) {
@@ -26,19 +26,14 @@ class MappingScreen extends Component {
         };
     }
 
-    componentWillMount() {
-        const { fetchAsyncMappings } = this.props;
-        fetchAsyncMappings();
-    }
-
     render() {
-        const { getMappings } = this.props;
+        const { getZonas } = this.props;
         return (
             <Container>
                 <Content padder>
                     <Content>
                         <FlatList
-                            data={getMappings()}
+                            data={getZonas()}
                             renderItem={this.renderItem.bind(this)}
                         />
                     </Content>
@@ -49,19 +44,19 @@ class MappingScreen extends Component {
 
     renderItem({ item }) {
         return (
-            <ListItem onPress={this.onPressItem.bind(this, item)}>
+            <ListItem>
                 <Body>
-                    <Text>{item.field_group.name}</Text>
-                    <Text note>{item.field_group.neighborhood.name}</Text>
+                    <Text>{item.nome}</Text>
+                    <Text note>{`Posto ID: ${item.posto_id}`}</Text>
                 </Body>
             </ListItem>
         );
     }
 
-    onPressItem(item) {
-        const { navigation } = this.props;
-        navigation.navigate('PublicAreas', { fieldGroup: item.id });
-    }
+    // onPressItem(item) {
+    //     const { navigation } = this.props;
+    //     navigation.navigate('PublicAreas', { fieldGroup: item.id });
+    // }
 }
 
-export default connect(MappingsMapState, MappingsActions)(MappingScreen);
+export default connect(ZonaSelector.MappingsZonaState, ZonasActions)(ZonaScreen);

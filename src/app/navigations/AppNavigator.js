@@ -8,10 +8,9 @@ import {
 import { defaultNavigationOptions } from './index.const';
 
 const FieldGroupStack = createStackNavigator({
-    Mappings: require('@/screens/MappingScreen').default,
-    PublicAreas: require('@/screens/PublicAreas').default,
+    Zonas: require('@/screens/ZonaScreen').default,
 }, {
-    initialRouteName: 'Mappings',
+    initialRouteName: 'Zonas',
     defaultNavigationOptions
 });
 
