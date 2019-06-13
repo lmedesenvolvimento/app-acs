@@ -26,6 +26,11 @@ class ZonaScreen extends Component {
         };
     }
 
+    componentDidMount() {
+        const { fetchZonas, Zonas } = this.props;
+        if (Zonas.data.length) fetchZonas();
+    }
+
     render() {
         const { getZonas } = this.props;
         return (

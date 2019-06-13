@@ -1,10 +1,12 @@
+import Colors from '@/constants/Colors';
+
 export const defaultNavigationOptions = {
     headerStyle: {
-        backgroundColor: '#f4511e',
+        backgroundColor: Colors.primaryColor,
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
-        fontWeight: 'bold',
+        fontWeight: 'normal',
     },
 };
 

@@ -1,11 +1,7 @@
 import Types from './types';
-import Zona from '@/models/Zona';
 
 const initialState = {
-    data: [
-        new Zona(1, 1, 'Zona 1', new Date(), new Date()),
-        new Zona(2, 1, 'Zona 2', new Date(), new Date())
-    ]
+    data: []
 };
 
 export default (state = initialState, action) => {

@@ -9,8 +9,6 @@ import { UserMapState } from '@redux/modules/User/mappers';
 
 import { connect } from 'react-redux';
 
-import localStorage from '@/services/LocalStorage';
-
 class AuthLoadingScreen extends Component {
     constructor(props) {
         super(props);
@@ -39,11 +37,9 @@ class AuthLoadingScreen extends Component {
     }
 
     async authAsync() {
-        const { setUser, navigation } = this.props;
-        const db = await localStorage.read();
-        const user = db.get('user').value();
-        if (user) {
-            setUser(user);
+        const { navigation, User } = this.props;
+
+        if (User.data) {
             navigation.navigate('App');
         } else {
             navigation.navigate('Auth');

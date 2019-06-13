@@ -41,10 +41,9 @@ function signInAsync(email, password, onSuccess, onFail) {
                 dispatch(signInDone());
 
                 // create user storages
-                dispatch(UserActions.setUserAsync(data.user)).then(() => {
-                    dispatch(UserActions.createUserAsyncStore(data.user.email))
-                        .then(() => onSuccess());
-                });
+                dispatch(UserActions.setUser(data.user));
+                
+                onSuccess(data);
             }).catch((error) => {
                 dispatch(signInFail());
                 dispatch(signInDone());
@@ -54,13 +53,8 @@ function signInAsync(email, password, onSuccess, onFail) {
 }
 
 function signOutAsync() {
-    return (dispatch) => {
-        dispatch(
-            UserActions.setUserAsync(null)
-        );
-        dispatch(
-            UserActions.clearAll()
-        );
+    return () => {
+        return false;
     };
 }
 
