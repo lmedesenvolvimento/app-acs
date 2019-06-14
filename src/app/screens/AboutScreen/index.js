@@ -8,6 +8,7 @@ import {
     Content
 } from 'native-base';
 
+import { UserMapState } from '@redux/modules/User/mappers';
 import AuthActions from '@redux/modules/Auth/actions';
 
 class AboutScreen extends Component {
@@ -18,10 +19,11 @@ class AboutScreen extends Component {
     }
 
     render() {
+        const { User } = this.props;
         return (
             <Container>
                 <Content>
-                    <Text> textInComponent </Text>
+                    <Text>{JSON.stringify(User.data)}</Text>
                 </Content>
                 <Button block onPress={this.logout.bind(this)}>
                     <Text>Logout</Text>
@@ -37,4 +39,4 @@ class AboutScreen extends Component {
     }
 }
 
-export default connect(null, AuthActions)(AboutScreen);
+export default connect(UserMapState, AuthActions)(AboutScreen);

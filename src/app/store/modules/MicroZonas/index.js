@@ -6,7 +6,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-    case Types.FETCH_ZONAS:
+    case Types.FETCH_MICRO_ZONAS:
         return {
             ...state,
             data: action.data

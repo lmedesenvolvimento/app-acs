@@ -1,60 +1,56 @@
 import { bindActionCreators } from 'redux';
-import Http from '@/services/Http';
+import Http, { defineAccessToken } from '@/services/Http';
 import { actions as UserActions } from '@redux/modules/User/actions';
 
 import Types from './types';
 
-function signed() {
-    return {
-        type: Types.SIGNED
-    };
-}
-function signInStart() {
-    return {
-        type: Types.SIGNIN_START
-    };
-}
-function signInDone() {
-    return {
-        type: Types.SIGNIN_DONE
-    };
-}
+const signed = {
+    type: Types.SIGNED
+};
 
-function signInFail() {
-    return {
-        type: Types.SIGNIN_FAIL
-    };
-}
+const signInStart = {
+    type: Types.SIGNIN_START
+};
+
+const signInDone = {
+    type: Types.SIGNIN_DONE
+};
+
+const signInFail = {
+    type: Types.SIGNIN_FAIL
+};
 
 function signInAsync(email, password, onSuccess, onFail) {
     return async (dispatch) => {
-        dispatch(signInStart());
+        dispatch(signInStart);
 
-        Http.post('/api/users/sign_in', {
-            user: {
-                email,
-                password
-            }
+        Http.post('/oauth/token', {
+            email,
+            password,
+            grant_type: 'password'
         })
             .then(({ data }) => {
-                dispatch(signed());
-                dispatch(signInDone());
-
+                const payload = Object.assign({}, data, { email });
+                dispatch(signed);
+                dispatch(signInDone);
                 // create user storages
-                dispatch(UserActions.setUser(data.user));
-                
+                dispatch(UserActions.setUser(payload));
+                // set in all request axios bearer token
+                defineAccessToken(data);
+                // callback
                 onSuccess(data);
             }).catch((error) => {
-                dispatch(signInFail());
-                dispatch(signInDone());
+                dispatch(signInFail);
+                dispatch(signInDone);
                 onFail(error);
             });
     };
 }
 
 function signOutAsync() {
-    return () => {
-        return false;
+    return (dispatch) => {
+        dispatch(UserActions.setUser(null));
+        dispatch({ type: Types.SIGNOUT });
     };
 }
 

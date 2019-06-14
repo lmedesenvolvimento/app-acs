@@ -9,6 +9,8 @@ import { UserMapState } from '@redux/modules/User/mappers';
 
 import { connect } from 'react-redux';
 
+import { defineAccessToken } from '@/services/Http';
+
 class AuthLoadingScreen extends Component {
     constructor(props) {
         super(props);
@@ -40,6 +42,7 @@ class AuthLoadingScreen extends Component {
         const { navigation, User } = this.props;
 
         if (User.data) {
+            defineAccessToken(User.data);
             navigation.navigate('App');
         } else {
             navigation.navigate('Auth');
