@@ -4,12 +4,14 @@ import Auth from './Auth';
 import User from './User';
 import Loading from './Loading';
 import API from './API';
-import MicroZonas from './MicroZonas';
+import MicroAreas from './MicroAreas';
+import Logradouros from './Logradouros';
 
 export default combineReducers({
     Auth,
     User,
     Loading,
     API,
-    MicroZonas
+    MicroAreas,
+    Logradouros
 });

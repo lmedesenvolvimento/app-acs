@@ -8,9 +8,9 @@ import {
 import { defaultNavigationOptions } from './index.const';
 
 const FieldGroupStack = createStackNavigator({
-    MicroZonas: require('app/screens/MicroZonaScreen').default,
+    MicroAreas: require('app/screens/MicroAreaScreen').default,
 }, {
-    initialRouteName: 'MicroZonas',
+    initialRouteName: 'MicroAreas',
     defaultNavigationOptions
 });
 

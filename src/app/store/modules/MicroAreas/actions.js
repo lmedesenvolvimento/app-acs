@@ -1,25 +1,25 @@
 import { bindActionCreators } from 'redux';
 import Types from './types';
 
-function fetchMicroZonas(data) {
+function fetchMicroAreas(data) {
     return {
         type: Types.FETCH_MICRO_ZONAS,
         data
     };
 }
 
-function getMicroZonas() {
+function getMicroAreas() {
     return (dispatch, getState) => {
-        return getState().MicroZonas.data;
+        return getState().MicroAreas.data;
     };
 }
 
 export const actions = {
-    fetchMicroZonas
+    fetchMicroAreas
 };
 
 export const getters = {
-    getMicroZonas
+    getMicroAreas
 };
 
 export default dispatch => (

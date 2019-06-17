@@ -1,9 +1,7 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
-import { SafeAreaView } from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
-
-import { FlatList } from 'react-native';
 
 import {
     Text,
@@ -14,12 +12,12 @@ import {
 } from 'native-base';
 
 
-import MicroZonaSelector from '@redux/modules/MicroZonas/mappers';
-import MicroZonasActions from '@redux/modules/MicroZonas/actions';
+import MicroAreaSelector from 'app/store/modules/MicroAreas/mappers';
+import MicroAreaActions from 'app/store/modules/MicroAreas/actions';
 
-class MicroZonaScreen extends Component {
+class MicroAreaScreen extends Component {
     static navigationOptions = {
-        title: 'MicroZona Screen',
+        title: 'Micro Areas Screen',
     };
 
     constructor(props) {
@@ -28,20 +26,16 @@ class MicroZonaScreen extends Component {
         };
     }
 
-    componentDidMount() {
-        const { fetchMicroZonas, MicroZonas } = this.props;
-        if (MicroZonas.data.length) fetchMicroZonas();
-    }
-
     render() {
-        const { getMicroZonas } = this.props;
+        const { getMicroAreas } = this.props;
+        const areas = getMicroAreas();
         return (
             <SafeAreaView>
                 <Container>
                     <Content padder>
                         <Content>
                             <FlatList
-                                data={getMicroZonas()}
+                                data={areas}
                                 renderItem={this.renderItem.bind(this)}
                             />
                         </Content>
@@ -68,4 +62,4 @@ class MicroZonaScreen extends Component {
     // }
 }
 
-export default connect(MicroZonaSelector.MappingsMicroZonasState, MicroZonasActions)(MicroZonaScreen);
+export default connect(MicroAreaSelector.MappingsMicroAreasState, MicroAreaActions)(MicroAreaScreen);
