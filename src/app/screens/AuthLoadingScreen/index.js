@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { Alert } from 'react-native';
 import { Font, AppLoading } from 'expo';
 import { SafeAreaView } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
 
-import UserAction from '@redux/modules/User/actions';
+import APIAction from '@redux/modules/API/actions';
+
 import { UserMapState } from '@redux/modules/User/mappers';
+import { APIMapState } from '@redux/modules/API/mappers';
 
 import { connect } from 'react-redux';
 
@@ -38,16 +41,41 @@ class AuthLoadingScreen extends Component {
         });
     }
 
-    async authAsync() {
-        const { navigation, User } = this.props;
-
+    authAsync() {
+        const {
+            navigation,
+            User,
+            API,
+            AsyncFetchData
+        } = this.props;
         if (User.data) {
             defineAccessToken(User.data);
-            navigation.navigate('App');
+            if (!API.downloaded) {
+                AsyncFetchData(
+                    this.onAsyncFetchDataSuccess.bind(this),
+                    this.onAsyncFetchDataFail.bind(this)
+                );
+            } else {
+                navigation.navigate('App');
+            }
         } else {
             navigation.navigate('Auth');
         }
     }
+    onAsyncFetchDataSuccess() {
+        const { navigation } = this.props;
+        navigation.navigate('App');
+    }
+    onAsyncFetchDataFail() {
+        const { navigation } = this.props;
+        navigation.navigate('Auth');
+        Alert.alert('Falha ao tentar recuperar os dados');
+    }
 }
 
-export default connect(UserMapState, UserAction)(AuthLoadingScreen);
+
+const mapState = (state) => {
+    return Object.assign({}, UserMapState(state), APIMapState(state));
+};
+
+export default connect(mapState, APIAction)(AuthLoadingScreen);

@@ -100,9 +100,9 @@ class LoginScreen extends Component {
         const passwordValid = password.length > 0;
 
         this.setState({ emailValid, passwordValid });
-
-        if (!emailValid || !passwordValid) return false;
         
+        if (!emailValid || !passwordValid) return false;
+
         signInAsync(
             email,
             password,
@@ -114,7 +114,7 @@ class LoginScreen extends Component {
 
     onSingnInSuccess() {
         const { navigation } = this.props;
-        navigation.navigate('App');
+        navigation.navigate('AuthLoading');
     }
 
     onSignInFail() {
