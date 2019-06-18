@@ -1,6 +1,11 @@
 import { bindActionCreators } from 'redux';
 import Types from './types';
 
+const clearMicroAreas = {
+    type: Types.SET_MICROAREAS,
+    data: []
+};
+
 function setMicroAreas(data) {
     return {
         type: Types.SET_MICROAREAS,
@@ -10,13 +15,13 @@ function setMicroAreas(data) {
 
 function getMicroAreas() {
     return (dispatch, getState) => {
-        const data = getState().MicroAreas.data;
-        return data;
+        return getState().MicroAreas.data;
     };
 }
 
 export const actions = {
-    setMicroAreas
+    setMicroAreas,
+    clearMicroAreas
 };
 
 export const getters = {

@@ -8,6 +8,10 @@ export const actions = {
             type: Types.SET_LOGRADOUROS,
             data
         };
+    },
+    clearLogradouro: {
+        type: Types.SET_LOGRADOUROS,
+        data: []
     }
 };
 

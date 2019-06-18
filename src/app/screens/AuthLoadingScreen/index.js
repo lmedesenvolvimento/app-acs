@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
-import { Font, AppLoading } from 'expo';
-import { SafeAreaView } from 'react-navigation';
-
-import { Ionicons } from '@expo/vector-icons';
+import { Alert, View } from 'react-native';
+import { Container, Spinner } from 'native-base';
 
 import APIAction from '@redux/modules/API/actions';
 
@@ -14,6 +11,8 @@ import { connect } from 'react-redux';
 
 import { defineAccessToken } from '@/services/Http';
 
+import styles from './index.styl';
+
 class AuthLoadingScreen extends Component {
     constructor(props) {
         super(props);
@@ -21,24 +20,15 @@ class AuthLoadingScreen extends Component {
     }
 
     async componentWillMount() {
-        await this.cacheResourcesAsync();
         await this.authAsync();
     }
 
     render() {
         return (
-            <SafeAreaView>
-                <AppLoading />
-            </SafeAreaView>
+            <Container style={styles.spin_container}>
+                <Spinner size={64} />
+            </Container>
         );
-    }
-
-    async cacheResourcesAsync() {
-        await Font.loadAsync({
-            Roboto: require('native-base/Fonts/Roboto.ttf'),
-            Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-            ...Ionicons.font
-        });
     }
 
     authAsync() {
@@ -62,7 +52,7 @@ class AuthLoadingScreen extends Component {
             navigation.navigate('Auth');
         }
     }
-    onAsyncFetchDataSuccess(data) {
+    onAsyncFetchDataSuccess() {
         const { navigation } = this.props;
         navigation.navigate('App');
     }

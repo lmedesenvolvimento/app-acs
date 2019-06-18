@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { Font, AppLoading } from 'expo';
 import { SafeAreaView, StatusBar } from 'react-native';
 import { Root, StyleProvider } from 'native-base';
+
+import { Ionicons } from '@expo/vector-icons';
 
 import getTheme from '@/themes/native-base-theme/components';
 import commonColor from '@/themes/native-base-theme/variables/commonColor';
@@ -18,10 +21,36 @@ import { useScreens } from 'react-native-screens';
 useScreens();
 
 const { store, persistor } = configureStore();
-const theme = getTheme(commonColor)
+const theme = getTheme(commonColor);
 
 export default class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ready: false
+        };
+    }
+
+    async componentWillMount() {
+        this.cacheResourcesAsync();
+    }
+
+    async cacheResourcesAsync() {
+        await Font.loadAsync({
+            Roboto: require('native-base/Fonts/Roboto.ttf'),
+            Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+            ...Ionicons.font
+        });
+        this.setState({ ready: true });
+    }
+
     render() {
+        const { ready } = this.state;
+        if (!ready) {
+            return (
+                <AppLoading />
+            );
+        }
         return (
             <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>

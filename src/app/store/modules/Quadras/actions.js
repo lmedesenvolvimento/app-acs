@@ -1,6 +1,11 @@
 import { bindActionCreators } from 'redux';
 import Types from './types';
 
+const clearQuadras = {
+    type: Types.SET_QUADRAS,
+    data: []
+};
+
 function setQuadras(data) {
     return {
         type: Types.SET_QUADRAS,
@@ -15,7 +20,8 @@ function getQuadras() {
 }
 
 export const actions = {
-    setQuadras
+    setQuadras,
+    clearQuadras
 };
 
 export const getters = {
