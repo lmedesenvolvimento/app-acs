@@ -1,3 +1,4 @@
+import { clone } from 'lodash';
 import Types from './types';
 
 const initialState = {
@@ -22,6 +23,11 @@ export default (state = initialState, action) => {
             syncronized_at: new Date(),
             downloaded: false,
             downloaded_at: null
+        };
+    case Types.CLEAR_DATA:
+        return {
+            ...state,
+            ...clone(initialState)
         };
     default:
         return state;

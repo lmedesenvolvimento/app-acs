@@ -10,6 +10,7 @@ import {
 
 import { UserMapState } from '@redux/modules/User/mappers';
 import AuthActions from '@redux/modules/Auth/actions';
+import APIActions from '@redux/modules/API/actions';
 
 class AboutScreen extends Component {
     constructor(props) {
@@ -35,8 +36,16 @@ class AboutScreen extends Component {
     logout() {
         const { props } = this;
         props.signOutAsync();
+        props.asynClearData();
         props.navigation.navigate('Auth');
     }
 }
 
-export default connect(UserMapState, AuthActions)(AboutScreen);
+mapActions = (dispatch) => {
+    return Object.assign(
+        APIActions(dispatch), 
+        AuthActions(dispatch)
+    );
+}
+
+export default connect(UserMapState, mapActions)(AboutScreen);

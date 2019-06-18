@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { Component } from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
@@ -12,11 +11,11 @@ import {
 } from 'native-base';
 
 
-import MicroAreaActions from 'app/store/modules/MicroAreas/actions';
+import LogradouroActions from 'app/store/modules/Logradouros/actions';
 
-class MicroAreaScreen extends Component {
+class LogradouroScreen extends Component {
     static navigationOptions = {
-        title: 'Micro Areas Screen',
+        title: 'Logradouros Screen',
     };
 
     constructor(props) {
@@ -26,15 +25,15 @@ class MicroAreaScreen extends Component {
     }
 
     render() {
-        const { getMicroAreas } = this.props;
-        const areas = getMicroAreas();
+        const { getLogradouros } = this.props;
+        const logradouros = getLogradouros();
         return (
             <Container>
                 <Content padder>
                     <Content>
                         <FlatList
-                            data={areas}
-                            keyExtractor={(item) => `micro-area-${item.id}`}
+                            data={logradouros}
+                            keyExtractor={(item) => `logradouro-${item.id}`}
                             renderItem={this.renderItem.bind(this)}
                         />
                     </Content>
@@ -42,27 +41,27 @@ class MicroAreaScreen extends Component {
             </Container>
         );
     }
-    
+
     renderItem({ item }) {
         return (
-            <ListItem onPress={this.onPressItem.bind(this)}>
+            <ListItem>
                 <Body>
                     <Text>{item.nome}</Text>
-                    <Text note>{`Posto ID: ${item.posto_id}`}</Text>
+                    <Text note>{`Bairro ID: ${item.bairro_id}`}</Text>
                 </Body>
             </ListItem>
         );
     }
 
-    onPressItem(item) {
-        const { navigation } = this.props;
-        navigation.navigate('Quadras');
-    }
+    // onPressItem(item) {
+    //     const { navigation } = this.props;
+    //     navigation.navigate('PublicAreas', { fieldGroup: item.id });
+    // }
 }
 
 const mapState = (state) => {
-    const { MicroAreas } = state;
-    return { MicroAreas };
+    const { Logradouros } = state;
+    return { Logradouros };
 };
 
-export default connect(mapState, MicroAreaActions)(MicroAreaScreen);
+export default connect(mapState, LogradouroActions)(LogradouroScreen);

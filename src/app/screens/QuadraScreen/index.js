@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { Component } from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
@@ -12,11 +11,11 @@ import {
 } from 'native-base';
 
 
-import MicroAreaActions from 'app/store/modules/MicroAreas/actions';
+import QuadraActions from 'app/store/modules/Quadras/actions';
 
-class MicroAreaScreen extends Component {
+class QuadraScreen extends Component {
     static navigationOptions = {
-        title: 'Micro Areas Screen',
+        title: 'Quadras Screen',
     };
 
     constructor(props) {
@@ -26,15 +25,15 @@ class MicroAreaScreen extends Component {
     }
 
     render() {
-        const { getMicroAreas } = this.props;
-        const areas = getMicroAreas();
+        const { getQuadras } = this.props;
+        const quadras = getQuadras();
         return (
             <Container>
                 <Content padder>
                     <Content>
                         <FlatList
-                            data={areas}
-                            keyExtractor={(item) => `micro-area-${item.id}`}
+                            data={quadras}
+                            keyExtractor={(item) => `quadra-${item.id}`}
                             renderItem={this.renderItem.bind(this)}
                         />
                     </Content>
@@ -42,13 +41,13 @@ class MicroAreaScreen extends Component {
             </Container>
         );
     }
-    
+
     renderItem({ item }) {
         return (
             <ListItem onPress={this.onPressItem.bind(this)}>
                 <Body>
                     <Text>{item.nome}</Text>
-                    <Text note>{`Posto ID: ${item.posto_id}`}</Text>
+                    <Text note>{`MicroArea ID: ${item.micro_area_id}`}</Text>
                 </Body>
             </ListItem>
         );
@@ -56,13 +55,13 @@ class MicroAreaScreen extends Component {
 
     onPressItem(item) {
         const { navigation } = this.props;
-        navigation.navigate('Quadras');
+        navigation.navigate('Logradouros');
     }
 }
 
 const mapState = (state) => {
-    const { MicroAreas } = state;
-    return { MicroAreas };
+    const { Quadras } = state;
+    return { Quadras };
 };
 
-export default connect(mapState, MicroAreaActions)(MicroAreaScreen);
+export default connect(mapState, QuadraActions)(QuadraScreen);

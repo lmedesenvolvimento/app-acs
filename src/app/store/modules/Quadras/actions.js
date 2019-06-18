@@ -1,26 +1,25 @@
 import { bindActionCreators } from 'redux';
 import Types from './types';
 
-function setMicroAreas(data) {
+function setQuadras(data) {
     return {
-        type: Types.SET_MICROAREAS,
+        type: Types.SET_QUADRAS,
         data
     };
 }
 
-function getMicroAreas() {
+function getQuadras() {
     return (dispatch, getState) => {
-        const data = getState().MicroAreas.data;
-        return data;
+        return getState().Quadras.data;
     };
 }
 
 export const actions = {
-    setMicroAreas
+    setQuadras
 };
 
 export const getters = {
-    getMicroAreas
+    getQuadras
 };
 
 export default dispatch => (

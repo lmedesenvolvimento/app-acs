@@ -46,12 +46,12 @@ class AuthLoadingScreen extends Component {
             navigation,
             User,
             API,
-            AsyncFetchData
+            asyncFetchData
         } = this.props;
         if (User.data) {
             defineAccessToken(User.data);
             if (!API.downloaded) {
-                AsyncFetchData(
+                asyncFetchData(
                     this.onAsyncFetchDataSuccess.bind(this),
                     this.onAsyncFetchDataFail.bind(this)
                 );
@@ -62,7 +62,7 @@ class AuthLoadingScreen extends Component {
             navigation.navigate('Auth');
         }
     }
-    onAsyncFetchDataSuccess() {
+    onAsyncFetchDataSuccess(data) {
         const { navigation } = this.props;
         navigation.navigate('App');
     }
