@@ -6,7 +6,6 @@ import {
     Text,
     Title,
     Container,
-    Content,
     ListItem,
     Header,
     Left,
@@ -19,10 +18,6 @@ import {
 import QuadraActions from 'app/store/modules/Quadras/actions';
 
 class QuadraScreen extends Component {
-    static navigationOptions = {
-        title: 'Quadras Screen',
-    };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -30,8 +25,14 @@ class QuadraScreen extends Component {
     }
 
     render() {
-        const { getQuadras } = this.props;
-        const quadras = getQuadras();
+        const { getQuadrasByMicroareaID, navigation } = this.props;
+
+        const quadras = getQuadrasByMicroareaID(
+            navigation.state.params
+                ? navigation.state.params.micro_area_id
+                : -1
+        );
+
         return (
             <Container>
                 <Header>
@@ -41,26 +42,23 @@ class QuadraScreen extends Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title>Quadras</Title>
+                        <Title>{`Quadras - ${navigation.state.params ? navigation.state.params.micro_area_nome : 'Indefinido'}`}</Title>
                     </Body>
                     <Right />
                 </Header>
-                <Content padder>
-                    <Content>
-                        <FlatList
-                            data={quadras}
-                            keyExtractor={item => `quadra-${item.id}`}
-                            renderItem={this.renderItem.bind(this)}
-                        />
-                    </Content>
-                </Content>
+                <FlatList
+                    data={quadras}
+                    ListEmptyComponent={this.renderEmptyContent}
+                    keyExtractor={item => `quadra-${item.id}`}
+                    renderItem={this.renderItem.bind(this)}
+                />
             </Container>
         );
     }
 
     renderItem({ item }) {
         return (
-            <ListItem onPress={this.onPressItem.bind(this)}>
+            <ListItem onPress={this.onPressItem.bind(this, item)}>
                 <Body>
                     <Text>{item.nome}</Text>
                     <Text note>{`MicroArea ID: ${item.micro_area_id}`}</Text>
@@ -69,9 +67,24 @@ class QuadraScreen extends Component {
         );
     }
 
-    onPressItem() {
+    renderEmptyContent() {
+        return (
+            <ListItem>
+                <Body>
+                    <Text>Quadras vazias</Text>
+                </Body>
+            </ListItem>
+        );
+    }
+
+    onPressItem(item) {
         const { navigation } = this.props;
-        setTimeout(navigation.navigate.bind(this, 'Logradouros'), 400);
+        setTimeout(() => {
+            navigation.navigate('Logradouros', {
+                bairro_id: item.bairro_id,
+                quadra_nome: item.nome
+            });
+        }, 400);
     }
 
     onPressBack() {

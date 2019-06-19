@@ -1,6 +1,18 @@
 import { bindActionCreators } from 'redux';
+import { filter } from 'lodash';
 import Types from './types';
 
+function getLogradouros() {
+    return (dispatch, getState) => {
+        return getState().Logradouros.data;
+    };
+}
+
+function getLogradourosByBairroID(bairro_id) {
+    return (dispatch, getState) => {
+        return filter(getState().Logradouros.data, { bairro_id });
+    };
+}
 
 export const actions = {
     setLogradouros(data) {
@@ -16,11 +28,8 @@ export const actions = {
 };
 
 export const getters = {
-    getLogradouros() {
-        return (dispatch, getState) => {
-            return getState().Logradouros.data;
-        };
-    }
+    getLogradouros,
+    getLogradourosByBairroID
 };
 
 export default dispatch => (

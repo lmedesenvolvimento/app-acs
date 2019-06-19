@@ -2,5 +2,6 @@
     "vetur.format.options.tabSize": 4,
     "files.exclude": {
         "src/app/themes/native-base-theme": true
-    }
+    },
+    "files.trimTrailingWhitespace": true
 }

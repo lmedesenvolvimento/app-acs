@@ -1,4 +1,5 @@
 import { bindActionCreators } from 'redux';
+import { filter } from 'lodash';
 import Types from './types';
 
 const clearQuadras = {
@@ -19,13 +20,20 @@ function getQuadras() {
     };
 }
 
+function getQuadrasByMicroareaID(micro_area_id) {
+    return (dispatch, getState) => {
+        return filter(getState().Quadras.data, { micro_area_id });
+    };
+}
+
 export const actions = {
     setQuadras,
     clearQuadras
 };
 
 export const getters = {
-    getQuadras
+    getQuadras,
+    getQuadrasByMicroareaID
 };
 
 export default dispatch => (

@@ -8,7 +8,6 @@ import {
     Text,
     Title,
     Container,
-    Content,
     ListItem,
     Header,
     Left,
@@ -49,22 +48,18 @@ class MicroAreaScreen extends Component {
                     </Body>
                     <Right />
                 </Header>
-                <Content padder>
-                    <Content>
-                        <FlatList
-                            data={areas}
-                            keyExtractor={item => `microarea-${item.id}`}
-                            renderItem={this.renderItem.bind(this)}
-                        />
-                    </Content>
-                </Content>
+                <FlatList
+                    data={areas}
+                    keyExtractor={item => `microarea-${item.id}`}
+                    renderItem={this.renderItem.bind(this)}
+                />
             </Container>
         );
     }
 
     renderItem({ item }) {
         return (
-            <ListItem onPress={this.onPressItem.bind(this)}>
+            <ListItem onPress={this.onPressItem.bind(this, item)}>
                 <Body>
                     <Text>{item.nome}</Text>
                     <Text note>{`Posto ID: ${item.posto_id}`}</Text>
@@ -73,9 +68,15 @@ class MicroAreaScreen extends Component {
         );
     }
 
-    onPressItem() {
+    onPressItem(item) {
         const { navigation } = this.props;
-        setTimeout(navigation.navigate.bind(this, 'Quadras'), 400);
+
+        setTimeout(() => {
+            navigation.navigate('Quadras', {
+                micro_area_id: item.id,
+                micro_area_nome: item.nome
+            });
+        }, 400);
     }
 
     onPressMenu() {
