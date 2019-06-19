@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 
 import { defineAccessToken } from '@/services/Http';
 
+import Colors from '@/constants/Colors';
+
 import styles from './index.styl';
 
 class AuthLoadingScreen extends Component {
@@ -26,7 +28,7 @@ class AuthLoadingScreen extends Component {
     render() {
         return (
             <Container style={styles.spin_container}>
-                <Spinner size={64} />
+                <Spinner size={64} color={Colors.darkColor} />
             </Container>
         );
     }

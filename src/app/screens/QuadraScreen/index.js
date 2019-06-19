@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { FlatList, SafeAreaView } from 'react-native';
+import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
 import {
     Text,
+    Title,
     Container,
     Content,
     ListItem,
+    Header,
+    Left,
+    Right,
     Body,
+    Button,
+    Icon,
 } from 'native-base';
-
 
 import QuadraActions from 'app/store/modules/Quadras/actions';
 
@@ -29,11 +34,22 @@ class QuadraScreen extends Component {
         const quadras = getQuadras();
         return (
             <Container>
+                <Header>
+                    <Left>
+                        <Button transparent onPress={this.onPressBack.bind(this)}>
+                            <Icon name="ios-arrow-back" />
+                        </Button>
+                    </Left>
+                    <Body>
+                        <Title>Quadras</Title>
+                    </Body>
+                    <Right />
+                </Header>
                 <Content padder>
                     <Content>
                         <FlatList
                             data={quadras}
-                            keyExtractor={(item) => `quadra-${item.id}`}
+                            keyExtractor={item => `quadra-${item.id}`}
                             renderItem={this.renderItem.bind(this)}
                         />
                     </Content>
@@ -53,9 +69,14 @@ class QuadraScreen extends Component {
         );
     }
 
-    onPressItem(item) {
+    onPressItem() {
         const { navigation } = this.props;
-        navigation.navigate('Logradouros');
+        setTimeout(navigation.navigate.bind(this, 'Logradouros'), 400);
+    }
+
+    onPressBack() {
+        const { navigation } = this.props;
+        navigation.goBack();
     }
 }
 

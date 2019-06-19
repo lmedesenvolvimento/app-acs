@@ -1,18 +1,26 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
-import { FlatList, SafeAreaView } from 'react-native';
+import { FlatList } from 'react-native';
+import { DrawerActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import {
     Text,
+    Title,
     Container,
     Content,
     ListItem,
+    Header,
+    Left,
+    Right,
     Body,
+    Button,
+    Icon,
 } from 'native-base';
 
+import DrawerNavigation from '@/services/DrawerNavigation';
 
-import MicroAreaActions from 'app/store/modules/MicroAreas/actions';
+import MicroAreaActions from '@redux/modules/MicroAreas/actions';
 
 class MicroAreaScreen extends Component {
     static navigationOptions = {
@@ -30,11 +38,22 @@ class MicroAreaScreen extends Component {
         const areas = getMicroAreas();
         return (
             <Container>
+                <Header>
+                    <Left>
+                        <Button transparent onPress={this.onPressMenu.bind(this)}>
+                            <Icon name="menu" />
+                        </Button>
+                    </Left>
+                    <Body>
+                        <Title>Microáreas</Title>
+                    </Body>
+                    <Right />
+                </Header>
                 <Content padder>
                     <Content>
                         <FlatList
                             data={areas}
-                            keyExtractor={(item) => `micro-area-${item.id}`}
+                            keyExtractor={item => `microarea-${item.id}`}
                             renderItem={this.renderItem.bind(this)}
                         />
                     </Content>
@@ -42,7 +61,7 @@ class MicroAreaScreen extends Component {
             </Container>
         );
     }
-    
+
     renderItem({ item }) {
         return (
             <ListItem onPress={this.onPressItem.bind(this)}>
@@ -54,9 +73,13 @@ class MicroAreaScreen extends Component {
         );
     }
 
-    onPressItem(item) {
+    onPressItem() {
         const { navigation } = this.props;
-        navigation.navigate('Quadras');
+        setTimeout(navigation.navigate.bind(this, 'Quadras'), 400);
+    }
+
+    onPressMenu() {
+        DrawerNavigation.getDrawerNavigator().dispatch(DrawerActions.toggleDrawer());
     }
 }
 

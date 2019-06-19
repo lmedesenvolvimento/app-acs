@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { FlatList, SafeAreaView } from 'react-native';
+import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
 import {
     Text,
+    Title,
     Container,
     Content,
     ListItem,
+    Header,
+    Left,
+    Right,
     Body,
+    Button,
+    Icon,
 } from 'native-base';
-
 
 import LogradouroActions from 'app/store/modules/Logradouros/actions';
 
@@ -29,11 +34,22 @@ class LogradouroScreen extends Component {
         const logradouros = getLogradouros();
         return (
             <Container>
+                <Header>
+                    <Left>
+                        <Button transparent onPress={this.onPressBack.bind(this)}>
+                            <Icon name="ios-arrow-back" />
+                        </Button>
+                    </Left>
+                    <Body>
+                        <Title>Logradouros</Title>
+                    </Body>
+                    <Right />
+                </Header>
                 <Content padder>
                     <Content>
                         <FlatList
                             data={logradouros}
-                            keyExtractor={(item) => `logradouro-${item.id}`}
+                            keyExtractor={item => `logradouro-${item.id}`}
                             renderItem={this.renderItem.bind(this)}
                         />
                     </Content>
@@ -51,6 +67,11 @@ class LogradouroScreen extends Component {
                 </Body>
             </ListItem>
         );
+    }
+
+    onPressBack() {
+        const { navigation } = this.props;
+        navigation.goBack();
     }
 
     // onPressItem(item) {

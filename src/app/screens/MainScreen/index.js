@@ -6,21 +6,25 @@ import {
 } from 'native-base';
 
 import MainNavigator from '@/navigations/MainNavigator';
+import MainStatusBar from '@/components/MainStatusBar';
+import Colors from '@/constants/Colors';
 
 class MainScreen extends React.Component {
     static navigationOptions = {
         title: 'Fluxo Principal',
     };
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
         };
     }
+
     render() {
         return (
             <Container>
-                <MainNavigator/>
+                <MainStatusBar backgroundColor={Colors.primaryColor} barStyle="light-content" />
+                <MainNavigator />
             </Container>
         );
     }

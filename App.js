@@ -15,6 +15,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import configureStore from '@redux';
 
+import DrawerNavigation from '@/services/DrawerNavigation';
+
 // Use native navigation
 import { useScreens } from 'react-native-screens';
 
@@ -22,6 +24,7 @@ useScreens();
 
 const { store, persistor } = configureStore();
 const theme = getTheme(commonColor);
+
 
 export default class App extends Component {
     constructor(props) {
@@ -58,7 +61,7 @@ export default class App extends Component {
                         <Root>
                             <SafeAreaView style={styles.droidSafeArea}>
                                 <StatusBar barStyle="dark-content" />
-                                <AppNavigator />
+                                <AppNavigator ref={navigationRef => DrawerNavigation.setDrawerNavigator(navigationRef)} />
                             </SafeAreaView>
                             <LoadingModal />
                         </Root>
