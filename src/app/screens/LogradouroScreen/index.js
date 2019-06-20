@@ -15,46 +15,74 @@ import {
     Item,
     Input,
     Icon,
+    Fab
 } from 'native-base';
 
 import { filter } from 'lodash';
 
-import LogradouroActions from 'app/store/modules/Logradouros/actions';
+import LogradouroActions from '@redux/modules/Logradouros/actions';
+
+import Colors from '@/constants/Colors';
 
 export const contains = ({ nome }, query) => {
-    if (nome.includes(query)) {
+    if (nome.toLowerCase().includes(query)) {
         return true;
     }
     return false;
 };
 
 class LogradouroScreen extends Component {
+    searchInput = null;
+    headerView = null;
+
     constructor(props) {
         super(props);
         this.state = {
             query: '',
-            logradouros: [],
-            data: []
+            queryFocus: false,
+            data: [],
         };
-    }
-
-    componentWillMount() {
-        const { getLogradourosByBairroID, navigation } = this.props;
-        const logradouros = getLogradourosByBairroID(
-            navigation.state.params
-                ? navigation.state.params.bairro_id
-                : -1
-        );
-
-        this.setState({ logradouros, data: logradouros });
     }
 
     render() {
         const { state, props } = this;
-        const { navigation } = props;
-
+        const bairro_id = props.navigation.state.params.bairro_id
+        const logradouros = props.getLogradourosByBairroID(bairro_id);
         return (
             <Container>
+                { this.renderHeader() }
+                <FlatList
+                    data={state.query ? state.data : logradouros}
+                    renderItem={this.renderItem}
+                    keyExtractor={this.keyExtractor}
+                    ListEmptyComponent={this.renderEmptyContent}
+                    ListHeaderComponent={this.renderListHeader}
+                />
+                { this.renderFab() }
+            </Container>
+        );
+    }
+
+    keyExtractor = item => `logradouro-${item.id}`
+
+    renderItem = ({ item }) => {
+        return (
+            <ListItem>
+                <Body>
+                    <Text>{item.nome}</Text>
+                    <Text note>{`Bairro ID: ${item.bairro_id}`}</Text>
+                </Body>
+            </ListItem>
+        );
+    }
+
+    renderHeader = () => {
+        const { state, props } = this;
+        const { navigation } = props;
+        const isVisible = !state.queryFocus && !state.query;
+
+        if (isVisible) {
+            return (
                 <Header>
                     <Left>
                         <Button transparent onPress={this.onPressBack.bind(this)}>
@@ -66,28 +94,10 @@ class LogradouroScreen extends Component {
                     </Body>
                     <Right />
                 </Header>
-                <FlatList
-                    data={state.data}
-                    renderItem={this.renderItem.bind(this)}
-                    keyExtractor={this.keyExtractor}
-                    ListEmptyComponent={this.renderEmptyContent}
-                    ListHeaderComponent={this.renderListHeader}
-                />
-            </Container>
-        );
-    }
+            );
+        }
 
-    keyExtractor = item => `logradouro-${item.id}`
-
-    renderItem({ item }) {
-        return (
-            <ListItem>
-                <Body>
-                    <Text>{item.nome}</Text>
-                    <Text note>{`Bairro ID: ${item.bairro_id}`}</Text>
-                </Body>
-            </ListItem>
-        );
+        return null;
     }
 
     renderListHeader = () => {
@@ -95,13 +105,20 @@ class LogradouroScreen extends Component {
         return (
             <Header searchBar rounded>
                 <Item>
-                    <Icon name="ios-search" />
+                    {
+                        state.query
+                            ? <Icon name="arrow-back" onPress={this.clearSearch} />
+                            : <Icon name="ios-search" />
+                    }
                     <Input
+                        ref={ref => { this.searchInput = ref }}
                         value={state.query}
-                        placeholder="Search"
+                        placeholder="Insira o nome do Logradouro"
+                        onBlur={this.onSerchBlur}
+                        onFocus={this.onSerchFocus}
                         onChangeText={this.handleSearch}
                     />
-                    <Icon name="ios-people" />
+                    <Icon name="md-business" />
                 </Item>
                 <Button transparent>
                     <Text>Buscar</Text>
@@ -110,14 +127,30 @@ class LogradouroScreen extends Component {
         );
     }
 
-    renderEmptyContent() {
+    renderEmptyContent = () => {
         return (
-            <ListItem>
+            <ListItem icon onPress={this.onPressNewLogradouro}>
+                <Left>
+                    <Icon name="ios-add-circle" />
+                </Left>
                 <Body>
-                    <Text>Logradouros vazios</Text>
+                    <Text>Criar novo Logradouro</Text>
                 </Body>
             </ListItem>
         );
+    }
+
+    renderFab = () => {
+        const { state } = this;
+        const isVisible = !state.queryFocus && !state.query;
+        if (isVisible) {
+            return (
+                <Fab style={[{ backgroundColor: Colors.amber700 }]} onPress={this.triggerSearchFocus}>
+                    <Icon name="ios-add" />
+                </Fab>
+            );
+        }
+        return null;
     }
 
     onPressBack() {
@@ -125,20 +158,42 @@ class LogradouroScreen extends Component {
         navigation.goBack();
     }
 
-    filterByQuery(logradouro, query) {
-        return logradouro.nome && logradouro.nome.match(query);
+    onSerchFocus = () => {
+        this.setState({ queryFocus: true });
+    }
+
+    onSerchBlur = () => {
+        this.setState({ queryFocus: false });
+    }
+
+    triggerSearchFocus = () => {
+        this.searchInput._root.focus()
     }
 
     handleSearch = (query) => {
-        const { state } = this;
-        const data = filter(state.logradouros, l => contains(l, query));
+        const { props } = this;
+        const bairro_id = props.navigation.state.params.bairro_id
+        const logradouros = props.getLogradourosByBairroID(bairro_id);
+        const data = filter(logradouros, l => contains(l, query.toLowerCase()));
         this.setState({ query, data });
     }
 
+    clearSearch = () => {
+        this.handleSearch('')
+    }
+
     // onPressItem(item) {
-    //     const { navigation } = this.props;
-    //     navigation.navigate('PublicAreas', { fieldGroup: item.id });
+    // const { navigation } = this.props;
+    // navigation.navigate('PublicAreas', { fieldGroup: item.id });
     // }
+
+    onPressNewLogradouro = () => {
+        const { state, props } = this;
+        const { navigation } = props;
+        const bairro_id = props.navigation.state.params.bairro_id
+        console.log('onPressNewLogradouro')
+        navigation.navigate('LogradouroForm', { logradouro: { nome: state.query, bairro_id: bairro_id}, title: 'Novo Logradouro' });
+    }
 }
 
 const mapState = (state) => {

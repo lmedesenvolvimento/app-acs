@@ -8,7 +8,7 @@ function getLogradouros() {
     };
 }
 
-function getLogradourosByBairroID(bairro_id) {
+function getLogradourosByBairroID(bairro_id=-1) {
     return (dispatch, getState) => {
         return filter(getState().Logradouros.data, { bairro_id });
     };
