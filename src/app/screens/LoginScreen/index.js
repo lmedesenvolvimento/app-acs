@@ -4,7 +4,8 @@ import {
     Alert,
     Image,
     ToastAndroid,
-    Platform
+    Platform,
+    StatusBar
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -49,6 +50,7 @@ class LoginScreen extends Component {
         const { emailValid, passwordValid } = this.state;
         return (
             <Container>
+                <StatusBar barStyle="dark-content" />
                 <Image
                     source={require('@assets/icon.png')}
                     style={styles.logo}
@@ -100,7 +102,7 @@ class LoginScreen extends Component {
         const passwordValid = password.length > 0;
 
         this.setState({ emailValid, passwordValid });
-        
+
         if (!emailValid || !passwordValid) return false;
 
         signInAsync(

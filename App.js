@@ -60,7 +60,6 @@ export default class App extends Component {
                     <StyleProvider style={theme}>
                         <Root>
                             <SafeAreaView style={styles.droidSafeArea}>
-                                <StatusBar barStyle="dark-content" />
                                 <AppNavigator ref={navigationRef => DrawerNavigation.setDrawerNavigator(navigationRef)} />
                             </SafeAreaView>
                             <LoadingModal />

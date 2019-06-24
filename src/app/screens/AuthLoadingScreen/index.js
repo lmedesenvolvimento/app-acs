@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 import { Container, Spinner } from 'native-base';
 
 import APIAction from '@redux/modules/API/actions';
@@ -28,6 +28,7 @@ class AuthLoadingScreen extends Component {
     render() {
         return (
             <Container style={styles.spin_container}>
+                <StatusBar barStyle="dark-content" />
                 <Spinner size={64} color={Colors.darkColor} />
             </Container>
         );

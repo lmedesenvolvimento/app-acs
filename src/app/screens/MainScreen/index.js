@@ -7,7 +7,6 @@ import {
 
 import MainNavigator from '@/navigations/MainNavigator';
 import MainStatusBar from '@/components/MainStatusBar';
-import Colors from '@/constants/Colors';
 
 class MainScreen extends React.Component {
     static navigationOptions = {
@@ -23,7 +22,7 @@ class MainScreen extends React.Component {
     render() {
         return (
             <Container>
-                <MainStatusBar backgroundColor={Colors.primaryColor} barStyle="light-content" />
+                <MainStatusBar barStyle="light-content" />
                 <MainNavigator />
             </Container>
         );

@@ -10,7 +10,7 @@ const MainStack = createStackNavigator({
     LogradouroForm: require('app/screens/LogradouroFormScreen').default,
 }, {
     initialRouteName: 'MicroAreas',
-    headerMode: "none"
+    headerMode: 'none'
 });
 
 export default createAppContainer(

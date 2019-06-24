@@ -21,6 +21,8 @@ module.exports = {
         'comma-dangle': 'off',
         'dot-notation': 'off',
         'global-require': 'off',
+        'no-underscore-dangle': 'off',
+        'no-return-assign': 'warn',
         'no-trailing-spaces': 'warn',
         'import/no-unresolved': 'off',
         'import/no-extraneous-dependencies': 'off'

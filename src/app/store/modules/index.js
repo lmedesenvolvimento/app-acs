@@ -7,6 +7,7 @@ import API from './API';
 import Quadras from './Quadras';
 import MicroAreas from './MicroAreas';
 import Logradouros from './Logradouros';
+import UI from './UI';
 
 export default combineReducers({
     Auth,
@@ -15,5 +16,6 @@ export default combineReducers({
     API,
     Quadras,
     MicroAreas,
-    Logradouros
+    Logradouros,
+    UI,
 });

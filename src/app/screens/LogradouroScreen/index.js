@@ -41,18 +41,24 @@ class LogradouroScreen extends Component {
             query: '',
             queryFocus: false,
             data: [],
+            logradouros: []
         };
     }
 
-    render() {
-        const { state, props } = this;
-        const bairro_id = props.navigation.state.params.bairro_id
+    componentWillMount() {
+        const { props } = this;
+        const bairro_id = props.navigation.getParam('bairro_id');
         const logradouros = props.getLogradourosByBairroID(bairro_id);
+        this.setState({ logradouros });
+    }
+
+    render() {
+        const { state } = this;
         return (
             <Container>
                 { this.renderHeader() }
                 <FlatList
-                    data={state.query ? state.data : logradouros}
+                    data={state.query ? state.data : state.logradouros}
                     renderItem={this.renderItem}
                     keyExtractor={this.keyExtractor}
                     ListEmptyComponent={this.renderEmptyContent}
@@ -64,6 +70,7 @@ class LogradouroScreen extends Component {
     }
 
     keyExtractor = item => `logradouro-${item.id}`
+    setSearchRef = ref => this.searchInput = ref
 
     renderItem = ({ item }) => {
         return (
@@ -111,7 +118,7 @@ class LogradouroScreen extends Component {
                             : <Icon name="ios-search" />
                     }
                     <Input
-                        ref={ref => { this.searchInput = ref }}
+                        ref={this.setSearchRef}
                         value={state.query}
                         placeholder="Insira o nome do Logradouro"
                         onBlur={this.onSerchBlur}
@@ -145,7 +152,10 @@ class LogradouroScreen extends Component {
         const isVisible = !state.queryFocus && !state.query;
         if (isVisible) {
             return (
-                <Fab style={[{ backgroundColor: Colors.amber700 }]} onPress={this.triggerSearchFocus}>
+                <Fab
+                    style={[{ backgroundColor: Colors.amber700 }]}
+                    onPress={this.triggerSearchFocus}
+                >
                     <Icon name="ios-add" />
                 </Fab>
             );
@@ -167,19 +177,19 @@ class LogradouroScreen extends Component {
     }
 
     triggerSearchFocus = () => {
-        this.searchInput._root.focus()
+        this.searchInput._root.focus();
     }
 
     handleSearch = (query) => {
         const { props } = this;
-        const bairro_id = props.navigation.state.params.bairro_id
+        const bairro_id = props.navigation.getParam('bairro_id');
         const logradouros = props.getLogradourosByBairroID(bairro_id);
         const data = filter(logradouros, l => contains(l, query.toLowerCase()));
         this.setState({ query, data });
     }
 
     clearSearch = () => {
-        this.handleSearch('')
+        this.handleSearch('');
     }
 
     // onPressItem(item) {
@@ -190,15 +200,14 @@ class LogradouroScreen extends Component {
     onPressNewLogradouro = () => {
         const { state, props } = this;
         const { navigation } = props;
-        const bairro_id = props.navigation.state.params.bairro_id
-        console.log('onPressNewLogradouro')
-        navigation.navigate('LogradouroForm', { logradouro: { nome: state.query, bairro_id: bairro_id}, title: 'Novo Logradouro' });
+        const bairro_id = props.navigation.getParam('bairro_id');
+        navigation.navigate('LogradouroForm', { logradouro: { nome: state.query, bairro_id }, title: 'Novo Logradouro' });
     }
 }
 
-const mapState = (state) => {
+const mapStateToProps = (state) => {
     const { Logradouros } = state;
     return { Logradouros };
 };
 
-export default connect(mapState, LogradouroActions)(LogradouroScreen);
+export default connect(mapStateToProps, LogradouroActions)(LogradouroScreen);
