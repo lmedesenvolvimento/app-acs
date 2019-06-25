@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
-import { Header } from 'native-base';
+import { Header, Body, Title } from 'native-base';
 import { connect } from 'react-redux';
 
 import actions from '@redux/modules/UI/actions';
@@ -27,6 +27,13 @@ class LightHeader extends Component {
             <Header style={styles.lightHeader} {...props} androidStatusBarColor="#fff">
                 <StatusBar barStyle="dark-content" />
                 {props.children}
+                {
+                    props.title ? (
+                        <Body>
+                            <Title style={styles.lightHeaderTitle}>{props.title}</Title>
+                        </Body>
+                    ) : null
+                }
             </Header>
         );
     }

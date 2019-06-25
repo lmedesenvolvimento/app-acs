@@ -201,7 +201,7 @@ class LogradouroScreen extends Component {
         const { state, props } = this;
         const { navigation } = props;
         const bairro_id = props.navigation.getParam('bairro_id');
-        navigation.navigate('LogradouroForm', { logradouro: { nome: state.query, bairro_id }, title: 'Novo Logradouro' });
+        navigation.navigate('LogradouroForm', { model: { nome: state.query, bairro_id }, title: 'Novo Logradouro' });
     }
 }
 
