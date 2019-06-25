@@ -32,9 +32,6 @@ export const contains = ({ nome }, query) => {
 };
 
 class LogradouroScreen extends Component {
-    searchInput = null;
-    headerView = null;
-
     constructor(props) {
         super(props);
         this.state = {
@@ -70,7 +67,6 @@ class LogradouroScreen extends Component {
     }
 
     keyExtractor = item => `logradouro-${item.id}`
-    setSearchRef = ref => this.searchInput = ref
 
     renderItem = ({ item }) => {
         return (
@@ -118,7 +114,6 @@ class LogradouroScreen extends Component {
                             : <Icon name="ios-search" />
                     }
                     <Input
-                        ref={this.setSearchRef}
                         value={state.query}
                         placeholder="Insira o nome do Logradouro"
                         onBlur={this.onSerchBlur}
@@ -148,19 +143,14 @@ class LogradouroScreen extends Component {
     }
 
     renderFab = () => {
-        const { state } = this;
-        const isVisible = !state.queryFocus && !state.query;
-        if (isVisible) {
-            return (
-                <Fab
-                    style={[{ backgroundColor: Colors.amber700 }]}
-                    onPress={this.triggerSearchFocus}
-                >
-                    <Icon name="ios-add" />
-                </Fab>
-            );
-        }
-        return null;
+        return (
+            <Fab
+                style={[{ backgroundColor: Colors.amber700 }]}
+                onPress={this.onPressNewLogradouro}
+            >
+                <Icon name="ios-add" />
+            </Fab>
+        );
     }
 
     onPressBack() {
@@ -200,8 +190,16 @@ class LogradouroScreen extends Component {
     onPressNewLogradouro = () => {
         const { state, props } = this;
         const { navigation } = props;
-        const bairro_id = props.navigation.getParam('bairro_id');
-        navigation.navigate('LogradouroForm', { model: { nome: state.query, bairro_id }, title: 'Novo Logradouro' });
+
+        const payload = {
+            model: {
+                nome: state.query,
+                bairro_id: props.navigation.getParam('bairro_id')
+            },
+            title: 'Novo Logradouro'
+        };
+
+        setTimeout(() => navigation.navigate('LogradouroForm', payload), 400);
     }
 }
 

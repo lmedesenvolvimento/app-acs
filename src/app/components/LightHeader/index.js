@@ -15,7 +15,9 @@ class LightHeader extends Component {
 
     componentDidMount() {
         const { props } = this;
-        props.defineStatusBarContentToLight(true);
+        props.navigation.addListener('willFocus', () => {
+            setTimeout(() => props.defineStatusBarContentToLight(true), 400);
+        });
         props.navigation.addListener('willBlur', () => {
             props.defineStatusBarContentToDark();
         });
