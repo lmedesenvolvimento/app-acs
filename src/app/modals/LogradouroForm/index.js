@@ -9,15 +9,16 @@ import {
     Form,
     Item,
     Input,
-    Label,
     ListItem,
+    Label,
     Picker,
     Text,
     Body,
     Right,
+    Card,
 } from 'native-base';
 
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Alert } from 'react-native';
 
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
@@ -30,13 +31,16 @@ import { filter } from 'lodash';
 import styles from './index.styl';
 
 export const contains = ({ nome }, query) => {
-    if (nome.toLowerCase().includes(query)) {
+    if (nome.toString().toLowerCase().includes(query)) {
         return true;
     }
     return false;
 };
 
 class LogradouroFormScreen extends Component {
+    inputNome = null;
+    keyExtractor = item => `logradouro-${item.id}`;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -46,11 +50,9 @@ class LogradouroFormScreen extends Component {
             tipos: Types.tipos,
             nomeFocus: false,
             logradouros: [],
+            errors: {}
         };
     }
-
-    keyExtractor = item => `logradouro-${item.id}`
-
 
     componentWillMount() {
         const { props } = this;
@@ -59,7 +61,7 @@ class LogradouroFormScreen extends Component {
     }
 
     componentDidMount() {
-        this.handleSearch('');
+        this.fetchLogradouros();
     }
 
     render() {
@@ -77,9 +79,10 @@ class LogradouroFormScreen extends Component {
                 <Container style={styles.container}>
                     <Form style={styles.formContainer}>
                         <View style={styles.inputGroup}>
-                            <Item stackedLabel last>
+                            <Item stackedLabel last error={state.errors.nome}>
                                 <Label>Nome</Label>
                                 <Input
+                                    ref={ref => this.inputNome = ref}
                                     placeholder="Insira o nome do Logradouro"
                                     value={state.nome}
                                     onBlur={this.onNomeBlur}
@@ -90,14 +93,8 @@ class LogradouroFormScreen extends Component {
                         </View>
                         {
                             !state.nomeFocus
-                            ? this.renderFormFields()
-                            : (
-                                <FlatList
-                                    data={state.logradouros}
-                                    renderItem={this.renderItem}
-                                    keyExtractor={this.keyExtractor}
-                                />
-                            )
+                                ? this.renderFormFields()
+                                : this.renderLograFlatlist()
                         }
                     </Form>
                 </Container>
@@ -109,7 +106,7 @@ class LogradouroFormScreen extends Component {
                     </Left>
                     <Body />
                     <Right>
-                        <Button transparent block small>
+                        <Button transparent block small onPress={this.submitForm}>
                             <Text style={{ color: Colors.textColor }}>Salvar</Text>
                         </Button>
                     </Right>
@@ -121,6 +118,22 @@ class LogradouroFormScreen extends Component {
     goBack = () => {
         const { navigation } = this.props;
         navigation.goBack();
+    }
+
+    submitForm = () => {
+        const { state } = this;
+        const isHasInLogras = filter(state.logradouros, { nome: state.nome }).length;
+        const errors = {};
+
+        if (isHasInLogras) {
+            errors.nome = true;
+            Alert.alert(
+                'Falha ao tentar salvar Logradouro.',
+                'Nome de logradouro já existe para esta Quadra.'
+            );
+        }
+
+        this.setState({ errors });
     }
 
     renderFormFields = () => {
@@ -142,6 +155,7 @@ class LogradouroFormScreen extends Component {
                             placeholder="Selecione o tipo do Logradouro"
                             placeholderIconColor="#007aff"
                             selectedValue={state.tipo}
+                            onValueChange={tipo => this.setState({ tipo })}
                         >
                             <Picker.Item label="Rua" value={state.tipos.rua} />
                             <Picker.Item label="Avenida" value={state.tipos.avenida} />
@@ -153,15 +167,53 @@ class LogradouroFormScreen extends Component {
         );
     }
 
-    renderItem = ({ item }) => {
+    renderLograFlatlist = () => {
+        const { state } = this;
         return (
-            <ListItem last>
+            <Card style={styles.selectCard}>
+                <FlatList
+                    data={state.logradouros}
+                    renderItem={this.renderItem}
+                    ListEmptyComponent={this.renderLograFlatlistEmptyContent}
+                    keyExtractor={this.keyExtractor}
+                    keyboardShouldPersistTaps="handled"
+                />
+            </Card>
+        );
+    }
+
+    renderLograFlatlistEmptyContent = () => {
+        return (
+            <ListItem
+                style={styles.selectCardItem}
+                last
+            >
                 <Body>
-                    <Text>{item.nome}</Text>
-                    <Text note>{`Bairro ID: ${item.bairro_id}`}</Text>
+                    <Text note style={styles.selectCardUnfoundText}>
+                        Nenhum resultado encontrado.
+                    </Text>
                 </Body>
             </ListItem>
         );
+    }
+
+    renderItem = ({ item }) => {
+        return (
+            <ListItem
+                style={styles.selectCardItem}
+                onPress={() => this.onPressItem(item)}
+                last
+            >
+                <Body>
+                    <Text>{item.nome}</Text>
+                </Body>
+            </ListItem>
+        );
+    }
+
+    onPressItem = ({ nome }) => {
+        this.inputNome._root.blur();
+        this.setState({ nome });
     }
 
     onNomeBlur = () => {
@@ -170,6 +222,13 @@ class LogradouroFormScreen extends Component {
 
     onNomeFocus = () => {
         this.setState({ nomeFocus: true });
+    }
+
+    fetchLogradouros = () => {
+        const { props } = this;
+        const { bairro_id } = props.navigation.getParam('model');
+        const logradouros = props.getLogradourosByBairroID(bairro_id);
+        this.setState({ logradouros });
     }
 
     handleSearch = (nome) => {

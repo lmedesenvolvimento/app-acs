@@ -23,9 +23,10 @@ import { filter } from 'lodash';
 import LogradouroActions from '@redux/modules/Logradouros/actions';
 
 import Colors from '@/constants/Colors';
+import styles from './index.styl';
 
 export const contains = ({ nome }, query) => {
-    if (nome.toLowerCase().includes(query)) {
+    if (nome.toString().toLowerCase().includes(query)) {
         return true;
     }
     return false;
@@ -46,21 +47,15 @@ class LogradouroScreen extends Component {
         const { props } = this;
         const bairro_id = props.navigation.getParam('bairro_id');
         const logradouros = props.getLogradourosByBairroID(bairro_id);
-        this.setState({ logradouros });
+        this.setState({ logradouros, data: logradouros });
     }
 
     render() {
-        const { state } = this;
         return (
             <Container>
                 { this.renderHeader() }
-                <FlatList
-                    data={state.query ? state.data : state.logradouros}
-                    renderItem={this.renderItem}
-                    keyExtractor={this.keyExtractor}
-                    ListEmptyComponent={this.renderEmptyContent}
-                    ListHeaderComponent={this.renderListHeader}
-                />
+                { this.renderListHeader() }
+                { this.renderLograFlatList() }
                 { this.renderFab() }
             </Container>
         );
@@ -129,23 +124,37 @@ class LogradouroScreen extends Component {
         );
     }
 
+    renderLograFlatList = () => {
+        const { state } = this;
+        return (
+            <FlatList
+                data={state.data}
+                renderItem={this.renderItem}
+                ListEmptyComponent={this.renderEmptyContent}
+                keyExtractor={this.keyExtractor}
+                keyboardShouldPersistTaps="handled"
+            />
+        );
+    }
+
     renderEmptyContent = () => {
         return (
-            <ListItem icon onPress={this.onPressNewLogradouro}>
-                <Left>
-                    <Icon name="ios-add-circle" />
-                </Left>
-                <Body>
-                    <Text>Criar novo Logradouro</Text>
-                </Body>
-            </ListItem>
+            <Container style={styles.emptyContainer}>
+                <Icon name="mood-bad" type="MaterialIcons" style={styles.emptyContainerIcon} />
+                <Text style={[styles.emptyContainerText, { color: Colors.primaryColor }]}>
+                    Oh, não! Você não tem nenhum logradouro cadastrado.
+                </Text>
+                <Text note style={styles.emptyContainerText}>
+                    Começe já a adicionar as localizações.
+                </Text>
+            </Container>
         );
     }
 
     renderFab = () => {
         return (
             <Fab
-                style={[{ backgroundColor: Colors.amber700 }]}
+                style={[{ backgroundColor: Colors.warnColor }]}
                 onPress={this.onPressNewLogradouro}
             >
                 <Icon name="ios-add" />
@@ -171,10 +180,8 @@ class LogradouroScreen extends Component {
     }
 
     handleSearch = (query) => {
-        const { props } = this;
-        const bairro_id = props.navigation.getParam('bairro_id');
-        const logradouros = props.getLogradourosByBairroID(bairro_id);
-        const data = filter(logradouros, l => contains(l, query.toLowerCase()));
+        const { state } = this;
+        const data = filter(state.logradouros, l => contains(l, query.toLowerCase()));
         this.setState({ query, data });
     }
 
