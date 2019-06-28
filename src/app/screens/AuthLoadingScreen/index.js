@@ -62,7 +62,7 @@ class AuthLoadingScreen extends Component {
     onAsyncFetchDataFail() {
         const { navigation } = this.props;
         navigation.navigate('Auth');
-        Alert.alert('Falha ao tentar recuperar os dados');
+        Alert.alert('Falha na Autorização', 'Falha ao tentar recuperar os dados');
     }
 }
 

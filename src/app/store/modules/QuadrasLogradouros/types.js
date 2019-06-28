@@ -1,0 +1,3 @@
+export default {
+    SET_QUADRAS_LOGRADOUROS: 'SET_QUADRAS_LOGRADOUROS'
+};

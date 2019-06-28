@@ -62,7 +62,7 @@ class MicroAreaScreen extends Component {
             <ListItem onPress={this.onPressItem.bind(this, item)}>
                 <Body>
                     <Text>{item.nome}</Text>
-                    <Text note>{`Posto ID: ${item.posto_id}`}</Text>
+                    <Text note>{`Posto ID: ${item.posto.nome}`}</Text>
                 </Body>
             </ListItem>
         );
@@ -73,8 +73,8 @@ class MicroAreaScreen extends Component {
 
         setTimeout(() => {
             navigation.navigate('Quadras', {
-                micro_area_id: item.id,
-                micro_area_nome: item.nome
+                microarea_id: item.key,
+                microarea_nome: item.nome,
             });
         }, 400);
     }

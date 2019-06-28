@@ -24,6 +24,7 @@ module.exports = {
         'no-underscore-dangle': 'off',
         'no-return-assign': 'warn',
         'no-trailing-spaces': 'warn',
+        'no-param-reassign': 'warn',
         'import/no-unresolved': 'off',
         'import/no-extraneous-dependencies': 'off'
     },

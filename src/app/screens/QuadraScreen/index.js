@@ -28,9 +28,7 @@ class QuadraScreen extends Component {
         const { getQuadrasByMicroareaID, navigation } = this.props;
 
         const quadras = getQuadrasByMicroareaID(
-            navigation.state.params
-                ? navigation.state.params.micro_area_id
-                : -1
+            navigation.state.params ? navigation.getParam('microarea_id') : -1
         );
 
         return (
@@ -42,7 +40,7 @@ class QuadraScreen extends Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title>{`Quadras - ${navigation.state.params ? navigation.state.params.micro_area_nome : 'Indefinido'}`}</Title>
+                        <Title>{`Quadras - ${navigation.getParam('microarea_nome')}`}</Title>
                     </Body>
                     <Right />
                 </Header>
@@ -57,11 +55,12 @@ class QuadraScreen extends Component {
     }
 
     renderItem({ item }) {
+        const { navigation } = this.props;
         return (
             <ListItem onPress={this.onPressItem.bind(this, item)}>
                 <Body>
                     <Text>{item.nome}</Text>
-                    <Text note>{`MicroArea ID: ${item.micro_area_id}`}</Text>
+                    <Text note>{navigation.getParam('microarea_nome')}</Text>
                 </Body>
             </ListItem>
         );
@@ -81,7 +80,7 @@ class QuadraScreen extends Component {
         const { navigation } = this.props;
         setTimeout(() => {
             navigation.navigate('Logradouros', {
-                bairro_id: item.bairro_id,
+                quadra_id: item.key,
                 quadra_nome: item.nome
             });
         }, 400);

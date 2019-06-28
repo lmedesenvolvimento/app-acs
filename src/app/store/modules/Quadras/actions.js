@@ -20,9 +20,9 @@ function getQuadras() {
     };
 }
 
-function getQuadrasByMicroareaID(micro_area_id) {
+function getQuadrasByMicroareaID(microarea_key) {
     return (dispatch, getState) => {
-        return filter(getState().Quadras.data, { micro_area_id });
+        return filter(getState().Quadras.data, { microarea_key });
     };
 }
 

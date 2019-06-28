@@ -8,6 +8,12 @@ function getLogradouros() {
     };
 }
 
+function getLogradourosByQuadra(quadra_key = 0) {
+    return (dispatch, getState) => {
+        return filter(getState().Logradouros.data, { quadra_key });
+    };
+}
+
 function getLogradourosByBairroID(bairro_id = 0) {
     return (dispatch, getState) => {
         return filter(getState().Logradouros.data, { bairro_id });
@@ -29,7 +35,8 @@ export const actions = {
 
 export const getters = {
     getLogradouros,
-    getLogradourosByBairroID
+    getLogradourosByBairroID,
+    getLogradourosByQuadra,
 };
 
 export default dispatch => (
