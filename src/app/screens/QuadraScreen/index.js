@@ -21,16 +21,20 @@ class QuadraScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            quadras: []
         };
     }
 
-    render() {
+    componentDidMount() {
         const { getQuadrasByMicroareaID, navigation } = this.props;
 
-        const quadras = getQuadrasByMicroareaID(
-            navigation.state.params ? navigation.getParam('microarea_id') : -1
-        );
+        this.setState({
+            quadras: getQuadrasByMicroareaID(navigation.getParam('microarea_id'))
+        });
+    }
 
+    render() {
+        const { state, props } = this;
         return (
             <Container>
                 <Header>
@@ -40,12 +44,12 @@ class QuadraScreen extends Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title>{`Quadras - ${navigation.getParam('microarea_nome')}`}</Title>
+                        <Title>{`Quadras - ${props.navigation.getParam('microarea_nome')}`}</Title>
                     </Body>
                     <Right />
                 </Header>
                 <FlatList
-                    data={quadras}
+                    data={state.quadras}
                     ListEmptyComponent={this.renderEmptyContent}
                     keyExtractor={item => `quadra-${item.id}`}
                     renderItem={this.renderItem.bind(this)}

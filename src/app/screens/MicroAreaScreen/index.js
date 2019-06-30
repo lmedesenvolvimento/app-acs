@@ -18,7 +18,6 @@ import {
 } from 'native-base';
 
 import DrawerNavigation from '@/services/DrawerNavigation';
-
 import MicroAreaActions from '@redux/modules/MicroAreas/actions';
 
 class MicroAreaScreen extends Component {
@@ -29,12 +28,19 @@ class MicroAreaScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            areas: []
         };
     }
 
-    render() {
+    componentDidMount() {
         const { getMicroAreas } = this.props;
-        const areas = getMicroAreas();
+        this.setState({
+            areas: getMicroAreas()
+        });
+    }
+
+    render() {
+        const { state } = this;
         return (
             <Container>
                 <Header>
@@ -49,7 +55,7 @@ class MicroAreaScreen extends Component {
                     <Right />
                 </Header>
                 <FlatList
-                    data={areas}
+                    data={state.areas}
                     keyExtractor={item => `microarea-${item.id}`}
                     renderItem={this.renderItem.bind(this)}
                 />

@@ -11,8 +11,6 @@ import Http from '@/services/Http';
 
 import Types from './types';
 
-import { map } from 'lodash';
-
 const fetchData = {
     type: Types.FETCH_DATA,
 };
@@ -63,10 +61,14 @@ const defineKeysToData = ({
     quadra_logradouros
 }) => {
     // Define unique keys for reducers
-    microareas.forEach(microarea => microarea.key = shortid.generate());
-    quadras.forEach(quadra => quadra.key = shortid.generate());
-    quadra_logradouros.forEach(quadra_logradouro => quadra_logradouro.key = shortid.generate());
-    logradouros.forEach(logradouro => logradouro.key = shortid.generate());
+    microareas
+        .forEach(microarea => microarea.key = shortid.generate());
+    quadras
+        .forEach(quadra => quadra.key = shortid.generate());
+    quadra_logradouros
+        .forEach(quadra_logradouro => quadra_logradouro.key = shortid.generate());
+    logradouros
+        .forEach(logradouro => logradouro.key = shortid.generate());
     // Combine relationship
     defineParentKeysToQuadras(microareas, quadras);
     defineParentKeysToQuadrasLogradouros(logradouros, quadras, quadra_logradouros);
