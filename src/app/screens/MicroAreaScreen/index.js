@@ -20,6 +20,8 @@ import {
 import DrawerNavigation from '@/services/DrawerNavigation';
 import MicroAreaActions from '@redux/modules/MicroAreas/actions';
 
+import Overlay from 'app/components/OverlayScene';
+
 class MicroAreaScreen extends Component {
     static navigationOptions = {
         title: 'Micro Areas Screen',
@@ -28,12 +30,16 @@ class MicroAreaScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            areas: []
+            areas: [],
+            isOverlay: false
         };
     }
 
     componentDidMount() {
-        const { getMicroAreas } = this.props;
+        const { getMicroAreas, navigation } = this.props;
+
+        navigation.addListener('willFocus', () => this.setState({ isOverlay: false }));
+
         this.setState({
             areas: getMicroAreas()
         });
@@ -59,6 +65,7 @@ class MicroAreaScreen extends Component {
                     keyExtractor={item => `microarea-${item.id}`}
                     renderItem={this.renderItem.bind(this)}
                 />
+                <Overlay visible={state.isOverlay} />
             </Container>
         );
     }
@@ -81,6 +88,10 @@ class MicroAreaScreen extends Component {
             navigation.navigate('Quadras', {
                 microarea_id: item.key,
                 microarea_nome: item.nome,
+            });
+
+            this.setState({
+                isOverlay: true
             });
         }, 400);
     }

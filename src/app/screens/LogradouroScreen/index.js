@@ -23,6 +23,9 @@ import { filter } from 'lodash';
 import LogradouroActions from '@redux/modules/Logradouros/actions';
 
 import Colors from '@/constants/Colors';
+
+import Overlay from 'app/components/OverlayScene';
+
 import styles from './index.styl';
 
 export const contains = ({ nome }, query) => {
@@ -39,7 +42,8 @@ class LogradouroScreen extends Component {
             query: '',
             queryFocus: false,
             data: [],
-            logradouros: []
+            logradouros: [],
+            isOverlay: false
         };
     }
 
@@ -50,13 +54,20 @@ class LogradouroScreen extends Component {
         this.setState({ logradouros, data: logradouros });
     }
 
+    componentDidMount() {
+        const { props } = this;
+        props.navigation.addListener('willFocus', () => this.setState({ isOverlay: false }));
+    }
+
     render() {
+        const { state } = this;
         return (
             <Container>
                 { this.renderHeader() }
                 { this.renderListHeader() }
                 { this.renderLograFlatList() }
                 { this.renderFab() }
+                <Overlay visible={state.isOverlay} />
             </Container>
         );
     }
@@ -206,7 +217,10 @@ class LogradouroScreen extends Component {
             title: 'Novo Logradouro'
         };
 
-        setTimeout(() => navigation.navigate('LogradouroForm', payload), 400);
+        setTimeout(() => {
+            this.setState({ isOverlay: true });
+            navigation.navigate('LogradouroForm', payload);
+        }, 400);
     }
 }
 

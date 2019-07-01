@@ -15,18 +15,23 @@ import {
     Icon,
 } from 'native-base';
 
-import QuadraActions from 'app/store/modules/Quadras/actions';
+import QuadraActions from '@redux/modules/Quadras/actions';
+
+import Overlay from 'app/components/OverlayScene';
 
 class QuadraScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quadras: []
+            quadras: [],
+            isOverlay: false,
         };
     }
 
     componentDidMount() {
         const { getQuadrasByMicroareaID, navigation } = this.props;
+
+        navigation.addListener('willFocus', () => this.setState({ isOverlay: false }));
 
         this.setState({
             quadras: getQuadrasByMicroareaID(navigation.getParam('microarea_id'))
@@ -54,6 +59,7 @@ class QuadraScreen extends Component {
                     keyExtractor={item => `quadra-${item.id}`}
                     renderItem={this.renderItem.bind(this)}
                 />
+                <Overlay visible={state.isOverlay} />
             </Container>
         );
     }
@@ -83,6 +89,10 @@ class QuadraScreen extends Component {
     onPressItem(item) {
         const { navigation } = this.props;
         setTimeout(() => {
+            this.setState({
+                isOverlay: true
+            });
+
             navigation.navigate('Logradouros', {
                 quadra_id: item.key,
                 quadra_nome: item.nome

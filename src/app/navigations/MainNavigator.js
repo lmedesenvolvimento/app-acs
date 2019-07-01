@@ -18,7 +18,7 @@ const MainStack = createStackNavigator({
 }, {
     initialRouteName: 'MicroAreas',
     headerMode: 'none',
-    transitionConfig: () => fromRight(),
+    transitionConfig: () => fromRight(400),
 
 });
 
