@@ -24,7 +24,7 @@ import LogradouroActions from '@redux/modules/Logradouros/actions';
 
 import Colors from '@/constants/Colors';
 
-import Overlay from 'app/components/OverlayScene';
+import SafeView from '@/components/SafeView';
 
 import styles from './index.styl';
 
@@ -42,8 +42,7 @@ class LogradouroScreen extends Component {
             query: '',
             queryFocus: false,
             data: [],
-            logradouros: [],
-            isOverlay: false
+            logradouros: []
         };
     }
 
@@ -54,21 +53,15 @@ class LogradouroScreen extends Component {
         this.setState({ logradouros, data: logradouros });
     }
 
-    componentDidMount() {
-        const { props } = this;
-        props.navigation.addListener('willFocus', () => this.setState({ isOverlay: false }));
-    }
-
     render() {
-        const { state } = this;
+        const { props } = this;
         return (
-            <Container>
+            <SafeView navigation={props.navigation}>
                 { this.renderHeader() }
                 { this.renderListHeader() }
                 { this.renderLograFlatList() }
                 { this.renderFab() }
-                <Overlay visible={state.isOverlay} />
-            </Container>
+            </SafeView>
         );
     }
 
@@ -92,7 +85,7 @@ class LogradouroScreen extends Component {
 
         if (isVisible) {
             return (
-                <Header>
+                <Header noShadow>
                     <Left>
                         <Button transparent onPress={this.onPressBack.bind(this)}>
                             <Icon name="ios-arrow-back" />
@@ -112,7 +105,7 @@ class LogradouroScreen extends Component {
     renderListHeader = () => {
         const { state } = this;
         return (
-            <Header searchBar rounded>
+            <Header searchBar rounded noShadow>
                 <Item>
                     {
                         state.query
@@ -218,9 +211,8 @@ class LogradouroScreen extends Component {
         };
 
         setTimeout(() => {
-            this.setState({ isOverlay: true });
             navigation.navigate('LogradouroForm', payload);
-        }, 400);
+        }, 200);
     }
 }
 

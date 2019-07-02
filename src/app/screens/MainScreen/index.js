@@ -6,7 +6,6 @@ import {
 } from 'native-base';
 
 import MainNavigator from '@/navigations/MainNavigator';
-import MainStatusBar from '@/components/MainStatusBar';
 
 class MainScreen extends React.Component {
     static navigationOptions = {
@@ -21,7 +20,6 @@ class MainScreen extends React.Component {
     render() {
         return (
             <Container>
-                <MainStatusBar barStyle="light-content" />
                 <MainNavigator />
             </Container>
         );

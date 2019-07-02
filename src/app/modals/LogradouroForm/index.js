@@ -22,6 +22,7 @@ import { View, FlatList, Alert } from 'react-native';
 
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
+import SafeView from '@/components/SafeView';
 import actions from '@redux/modules/Logradouros/actions';
 import Colors from '@/constants/Colors';
 import { Logradouro as Types } from '@/types';
@@ -68,7 +69,7 @@ class LogradouroFormScreen extends Component {
         const { props, state } = this;
         const { navigation } = props;
         return (
-            <Container>
+            <SafeView navigation={navigation}>
                 <LightHeader navigation={navigation} title={navigation.getParam('title')}>
                     <Left>
                         <Button transparent onPress={this.goBack}>
@@ -111,7 +112,7 @@ class LogradouroFormScreen extends Component {
                         </Button>
                     </Right>
                 </LightFooter>
-            </Container>
+            </SafeView>
         );
     }
 

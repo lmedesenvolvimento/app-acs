@@ -13,7 +13,7 @@ class OverlayScene extends Component {
         const { props, state } = this;
         return (
             <AnimatedOverlay
-                backgroundColor="#000"
+                backgroundColor="#212121"
                 opacity={0.7}
                 duration={props.visible ? 200 : 600}
                 overlayShow={props.visible}

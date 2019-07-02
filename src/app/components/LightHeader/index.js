@@ -16,7 +16,7 @@ class LightHeader extends Component {
     componentDidMount() {
         const { props } = this;
         props.navigation.addListener('willFocus', () => {
-            setTimeout(() => props.defineStatusBarContentToLight(true), 400);
+            props.defineStatusBarContentToLight(true);
         });
         props.navigation.addListener('willBlur', () => {
             props.defineStatusBarContentToDark();
@@ -26,7 +26,7 @@ class LightHeader extends Component {
     render() {
         const { props } = this;
         return (
-            <Header style={styles.lightHeader} {...props} androidStatusBarColor="#fff">
+            <Header style={styles.lightHeader} {...props} androidStatusBarColor="#fff" noShadow>
                 <StatusBar barStyle="dark-content" />
                 {props.children}
                 {

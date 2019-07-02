@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {
     Text,
     Title,
-    Container,
     ListItem,
     Header,
     Left,
@@ -17,22 +16,18 @@ import {
 
 import QuadraActions from '@redux/modules/Quadras/actions';
 
-import Overlay from 'app/components/OverlayScene';
+import SafeView from '@/components/SafeView';
 
 class QuadraScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             quadras: [],
-            isOverlay: false,
         };
     }
 
     componentDidMount() {
         const { getQuadrasByMicroareaID, navigation } = this.props;
-
-        navigation.addListener('willFocus', () => this.setState({ isOverlay: false }));
-
         this.setState({
             quadras: getQuadrasByMicroareaID(navigation.getParam('microarea_id'))
         });
@@ -41,8 +36,8 @@ class QuadraScreen extends Component {
     render() {
         const { state, props } = this;
         return (
-            <Container>
-                <Header>
+            <SafeView navigation={props.navigation}>
+                <Header noShadow>
                     <Left>
                         <Button transparent onPress={this.onPressBack.bind(this)}>
                             <Icon name="ios-arrow-back" />
@@ -59,8 +54,7 @@ class QuadraScreen extends Component {
                     keyExtractor={item => `quadra-${item.id}`}
                     renderItem={this.renderItem.bind(this)}
                 />
-                <Overlay visible={state.isOverlay} />
-            </Container>
+            </SafeView>
         );
     }
 
@@ -89,15 +83,11 @@ class QuadraScreen extends Component {
     onPressItem(item) {
         const { navigation } = this.props;
         setTimeout(() => {
-            this.setState({
-                isOverlay: true
-            });
-
             navigation.navigate('Logradouros', {
                 quadra_id: item.key,
                 quadra_nome: item.nome
             });
-        }, 400);
+        }, 200);
     }
 
     onPressBack() {

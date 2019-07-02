@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import {
     Text,
     Title,
-    Container,
     ListItem,
     Header,
     Left,
@@ -20,7 +19,7 @@ import {
 import DrawerNavigation from '@/services/DrawerNavigation';
 import MicroAreaActions from '@redux/modules/MicroAreas/actions';
 
-import Overlay from 'app/components/OverlayScene';
+import SafeView from 'app/components/SafeView';
 
 class MicroAreaScreen extends Component {
     static navigationOptions = {
@@ -31,14 +30,11 @@ class MicroAreaScreen extends Component {
         super(props);
         this.state = {
             areas: [],
-            isOverlay: false
         };
     }
 
     componentDidMount() {
-        const { getMicroAreas, navigation } = this.props;
-
-        navigation.addListener('willFocus', () => this.setState({ isOverlay: false }));
+        const { getMicroAreas } = this.props;
 
         this.setState({
             areas: getMicroAreas()
@@ -46,10 +42,10 @@ class MicroAreaScreen extends Component {
     }
 
     render() {
-        const { state } = this;
+        const { state, props } = this;
         return (
-            <Container>
-                <Header>
+            <SafeView navigation={props.navigation}>
+                <Header noShadow>
                     <Left>
                         <Button transparent onPress={this.onPressMenu.bind(this)}>
                             <Icon name="menu" />
@@ -65,8 +61,7 @@ class MicroAreaScreen extends Component {
                     keyExtractor={item => `microarea-${item.id}`}
                     renderItem={this.renderItem.bind(this)}
                 />
-                <Overlay visible={state.isOverlay} />
-            </Container>
+            </SafeView>
         );
     }
 
@@ -89,11 +84,7 @@ class MicroAreaScreen extends Component {
                 microarea_id: item.key,
                 microarea_nome: item.nome,
             });
-
-            this.setState({
-                isOverlay: true
-            });
-        }, 400);
+        }, 200);
     }
 
     onPressMenu() {
