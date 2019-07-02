@@ -30,7 +30,7 @@ class SafeView extends Component {
             <Animated.View style={[styles.container, transform]}>
                 <MainStatusBar barStyle="light-content" />
                 {props.children}
-                <OverlayScene visible={state.isOverlay} />
+                <OverlayScene opacity={0.36} visible={state.isOverlay} />
             </Animated.View>
         );
     }

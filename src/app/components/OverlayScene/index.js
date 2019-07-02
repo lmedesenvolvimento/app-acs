@@ -14,7 +14,7 @@ class OverlayScene extends Component {
         return (
             <AnimatedOverlay
                 backgroundColor="#212121"
-                opacity={0.7}
+                opacity={props.opacity || 0.7}
                 duration={props.visible ? 200 : 600}
                 overlayShow={props.visible}
                 useNativeDriver={state.useNativeDriver}
