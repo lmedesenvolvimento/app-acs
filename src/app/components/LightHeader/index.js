@@ -19,7 +19,7 @@ class LightHeader extends Component {
             props.defineStatusBarContentToLight(true);
         });
         props.navigation.addListener('willBlur', () => {
-            props.defineStatusBarContentToDark();
+            setTimeout(() => props.defineStatusBarContentToDark(), 220);
         });
     }
 

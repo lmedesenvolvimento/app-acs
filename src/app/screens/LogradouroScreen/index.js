@@ -56,7 +56,7 @@ class LogradouroScreen extends Component {
     render() {
         const { props } = this;
         return (
-            <SafeView navigation={props.navigation}>
+            <SafeView navigation={props.navigation} isModal={true}>
                 { this.renderHeader() }
                 { this.renderListHeader() }
                 { this.renderLograFlatList() }

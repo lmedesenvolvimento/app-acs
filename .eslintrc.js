@@ -13,6 +13,7 @@ module.exports = {
         'react/jsx-indent-props': ['error', 4],
         'react/jsx-filename-extension': 'off',
         'react/prefer-stateless-function': 'off',
+        'react/jsx-boolean-value': 'off',
         'react/jsx-no-bind': 'off',
         'react/prop-types': 'off',
         'react/sort-comp': 'off',
