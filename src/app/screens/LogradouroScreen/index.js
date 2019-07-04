@@ -49,8 +49,8 @@ class LogradouroScreen extends Component {
 
     componentWillMount() {
         const { props } = this;
-        const quadra_id = props.navigation.getParam('quadra_id');
-        const logradouros = props.getLogradourosByQuadra(quadra_id);
+        const quadra_key = props.navigation.getParam('quadra_key');
+        const logradouros = props.getLogradourosByQuadra(quadra_key);
         this.setState({ logradouros, data: logradouros });
     }
 

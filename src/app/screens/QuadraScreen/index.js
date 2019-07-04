@@ -29,7 +29,7 @@ class QuadraScreen extends Component {
     componentDidMount() {
         const { getQuadrasByMicroareaID, navigation } = this.props;
         this.setState({
-            quadras: getQuadrasByMicroareaID(navigation.getParam('microarea_id'))
+            quadras: getQuadrasByMicroareaID(navigation.getParam('microarea_key'))
         });
     }
 
@@ -84,7 +84,7 @@ class QuadraScreen extends Component {
         const { navigation } = this.props;
         setTimeout(() => {
             navigation.navigate('Logradouros', {
-                quadra_id: item.key,
+                quadra_key: item.key,
                 quadra_nome: item.nome
             });
         }, 200);

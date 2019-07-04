@@ -1,5 +1,5 @@
 import { bindActionCreators } from 'redux';
-import { filter } from 'lodash';
+import { filter, chain } from 'lodash';
 import Types from './types';
 
 function getLogradouros() {
@@ -10,7 +10,15 @@ function getLogradouros() {
 
 function getLogradourosByQuadra(quadra_key = 0) {
     return (dispatch, getState) => {
-        return filter(getState().Logradouros.data, { quadra_key });
+        const state = getState();
+        return filter(state.Logradouros.data, (logradouro) => {
+            const relationship = chain(state.QuadrasLogradouros.data)
+                .filter({ quadra_key })
+                .map(ql => ql.logradouro_key)
+                .value();
+
+            return relationship.includes(logradouro.key);
+        });
     };
 }
 

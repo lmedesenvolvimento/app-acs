@@ -52,7 +52,7 @@ class LoginScreen extends Component {
             <Container>
                 <StatusBar barStyle="dark-content" />
                 <Image
-                    source={require('@assets/icon.png')}
+                    source={require('@assets/icon-hd.png')}
                     style={styles.logo}
                 />
                 <Content padder>

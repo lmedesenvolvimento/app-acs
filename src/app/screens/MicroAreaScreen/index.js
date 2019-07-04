@@ -80,7 +80,7 @@ class MicroAreaScreen extends Component {
 
         setTimeout(() => {
             navigation.navigate('Quadras', {
-                microarea_id: item.key,
+                microarea_key: item.key,
                 microarea_nome: item.nome,
             });
         }, 200);

@@ -6,6 +6,7 @@ import { actions as QuadrasActions } from '@redux/modules/Quadras/actions';
 import { actions as QuadrasLogradourosActions } from '@redux/modules/QuadrasLogradouros/actions';
 
 import shortid from 'shortid';
+// import { pick } from 'lodash';
 
 import Http from '@/services/Http';
 
@@ -32,6 +33,7 @@ function asynClearData() {
 function asyncFetchData(onSuccess, onFail) {
     return (dispatch) => {
         Http.get('/api/v1/mapeamentos').then(({ data }) => {
+            // console.log(pick(data, ['logradouros']))
             // create all local key ref
             defineKeysToData(data);
             // dispatch all map list to redux
