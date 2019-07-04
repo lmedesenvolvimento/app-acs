@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Animated, Dimensions, Easing } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
+import Colors from '@/constants/Colors';
+
 import MainStatusBar from '@/components/MainStatusBar';
 import OverlayScene from '@/components/OverlayScene';
 
@@ -28,7 +30,7 @@ class SafeView extends Component {
 
         return (
             <Animated.View style={[styles.container, transform]}>
-                <MainStatusBar barStyle="light-content" />
+                <MainStatusBar barStyle="light-content" backgroundColor={props.light ? '#FFFFFF' : Colors.primaryColor} />
                 {props.children}
                 <OverlayScene opacity={0.36} visible={state.isOverlay} />
             </Animated.View>

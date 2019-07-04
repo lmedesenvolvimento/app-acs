@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { DrawerActions } from 'react-navigation';
@@ -12,7 +11,6 @@ import {
     Left,
     Right,
     Body,
-    Button,
     Icon,
 } from 'native-base';
 
@@ -20,6 +18,7 @@ import DrawerNavigation from '@/services/DrawerNavigation';
 import MicroAreaActions from '@redux/modules/MicroAreas/actions';
 
 import SafeView from 'app/components/SafeView';
+import HeaderLeftButton from 'app/components/HeaderLeftButton';
 
 class MicroAreaScreen extends Component {
     static navigationOptions = {
@@ -47,9 +46,9 @@ class MicroAreaScreen extends Component {
             <SafeView navigation={props.navigation}>
                 <Header noShadow>
                     <Left>
-                        <Button transparent onPress={this.onPressMenu.bind(this)}>
+                        <HeaderLeftButton icon onPress={this.onPressMenu.bind(this)}>
                             <Icon name="menu" />
-                        </Button>
+                        </HeaderLeftButton>
                     </Left>
                     <Body>
                         <Title>Microáreas</Title>

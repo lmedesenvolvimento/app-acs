@@ -23,8 +23,11 @@ import { View, FlatList, Alert } from 'react-native';
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import SafeView from '@/components/SafeView';
+import HeaderLeftButton from '@/components/HeaderLeftButton';
+
 import actions from '@redux/modules/Logradouros/actions';
 import Colors from '@/constants/Colors';
+
 import { Logradouro as Types } from '@/types';
 
 import { filter } from 'lodash';
@@ -69,12 +72,12 @@ class LogradouroFormScreen extends Component {
         const { props, state } = this;
         const { navigation } = props;
         return (
-            <SafeView navigation={navigation}>
+            <SafeView navigation={navigation} light={true}>
                 <LightHeader navigation={navigation} title={navigation.getParam('title')}>
                     <Left>
-                        <Button transparent onPress={this.goBack}>
+                        <HeaderLeftButton icon onPress={this.goBack}>
                             <Icon name="ios-arrow-back" style={{ color: Colors.textColor }} />
-                        </Button>
+                        </HeaderLeftButton>
                     </Left>
                 </LightHeader>
                 <Container style={styles.container}>

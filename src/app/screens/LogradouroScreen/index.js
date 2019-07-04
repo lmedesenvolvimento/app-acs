@@ -25,6 +25,7 @@ import LogradouroActions from '@redux/modules/Logradouros/actions';
 import Colors from '@/constants/Colors';
 
 import SafeView from '@/components/SafeView';
+import HeaderLeftButton from '@/components/HeaderLeftButton';
 
 import styles from './index.styl';
 
@@ -87,9 +88,9 @@ class LogradouroScreen extends Component {
             return (
                 <Header noShadow>
                     <Left>
-                        <Button transparent onPress={this.onPressBack.bind(this)}>
+                        <HeaderLeftButton icon onPress={this.onPressBack.bind(this)}>
                             <Icon name="ios-arrow-back" />
-                        </Button>
+                        </HeaderLeftButton>
                     </Left>
                     <Body>
                         <Title>{`Logradouros - ${navigation.state.params ? navigation.state.params.quadra_nome : 'Indefinido'}`}</Title>

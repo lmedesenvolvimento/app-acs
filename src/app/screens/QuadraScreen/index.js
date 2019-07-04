@@ -10,13 +10,13 @@ import {
     Left,
     Right,
     Body,
-    Button,
     Icon,
 } from 'native-base';
 
 import QuadraActions from '@redux/modules/Quadras/actions';
 
 import SafeView from '@/components/SafeView';
+import HeaderLeftButton from '@/components/HeaderLeftButton';
 
 class QuadraScreen extends Component {
     constructor(props) {
@@ -39,9 +39,9 @@ class QuadraScreen extends Component {
             <SafeView navigation={props.navigation}>
                 <Header noShadow>
                     <Left>
-                        <Button transparent onPress={this.onPressBack.bind(this)}>
+                        <HeaderLeftButton icon onPress={this.onPressBack.bind(this)}>
                             <Icon name="ios-arrow-back" />
-                        </Button>
+                        </HeaderLeftButton>
                     </Left>
                     <Body>
                         <Title>{`Quadras - ${props.navigation.getParam('microarea_nome')}`}</Title>

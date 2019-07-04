@@ -13,7 +13,7 @@ class MainStatusBarColor extends Component {
     }
     render() {
         const { props } = this;
-        const backgroundColor = props.UI.lightStatusBar ? '#FFFFFF' : Colors.primaryColor;
+        const backgroundColor = props.backgroundColor || Colors.primaryColor;
         return (
             <View style={[styles.statusBar, { backgroundColor }]}>
                 <StatusBar translucent backgroundColor={backgroundColor} />
