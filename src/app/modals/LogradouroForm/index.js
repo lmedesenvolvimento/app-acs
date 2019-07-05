@@ -49,7 +49,7 @@ class LogradouroFormScreen extends Component {
         super(props);
         this.state = {
             nome: '',
-            bairro_id: null,
+            bairro: null,
             tipo: Types.tipos.rua,
             tipos: Types.tipos,
             nomeFocus: false,
@@ -147,7 +147,7 @@ class LogradouroFormScreen extends Component {
                 <View style={styles.inputGroup}>
                     <Item stackedLabel last>
                         <Label>Bairro</Label>
-                        <Input value={state.bairro_id ? state.bairro_id.toString() : ''} disabled />
+                        <Input value={state.bairro ? state.bairro.nome : ''} disabled />
                     </Item>
                 </View>
                 <View style={styles.pickGroup}>
@@ -229,16 +229,14 @@ class LogradouroFormScreen extends Component {
     }
 
     fetchLogradouros = () => {
-        const { props } = this;
-        const { bairro_id } = props.navigation.getParam('model');
-        const logradouros = props.getLogradourosByBairroID(bairro_id);
+        const { props, state } = this;
+        const logradouros = props.getLogradourosByBairroID(state.bairro.id);
         this.setState({ logradouros });
     }
 
     handleSearch = (nome) => {
-        const { props } = this;
-        const { bairro_id } = props.navigation.getParam('model');
-        const data = props.getLogradourosByBairroID(bairro_id);
+        const { props, state } = this;
+        const data = props.getLogradourosByBairroID(state.bairro.id);
         const logradouros = filter(data, l => contains(l, nome.toLowerCase()));
         this.setState({ nome, logradouros });
     }

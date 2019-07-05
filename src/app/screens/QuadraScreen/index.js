@@ -85,7 +85,8 @@ class QuadraScreen extends Component {
         setTimeout(() => {
             navigation.navigate('Logradouros', {
                 quadra_key: item.key,
-                quadra_nome: item.nome
+                quadra_nome: item.nome,
+                bairro: item.bairro
             });
         }, 200);
     }

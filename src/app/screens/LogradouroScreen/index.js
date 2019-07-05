@@ -73,7 +73,7 @@ class LogradouroScreen extends Component {
             <ListItem>
                 <Body>
                     <Text>{item.nome}</Text>
-                    <Text note>{`Bairro ID: ${item.bairro_id}`}</Text>
+                    <Text note>{item.bairro ? item.bairro.nome : ''}</Text>
                 </Body>
             </ListItem>
         );
@@ -202,11 +202,14 @@ class LogradouroScreen extends Component {
     onPressNewLogradouro = () => {
         const { state, props } = this;
         const { navigation } = props;
+        const bairro = props.navigation.getParam('bairro');
+
+        console.log(bairro)
 
         const payload = {
             model: {
                 nome: state.query,
-                bairro_id: props.navigation.getParam('bairro_id')
+                bairro: props.navigation.getParam('bairro')
             },
             title: 'Novo Logradouro'
         };
