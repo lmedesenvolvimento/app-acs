@@ -51,7 +51,6 @@ class QuadraScreen extends Component {
                 <FlatList
                     data={state.quadras}
                     ListEmptyComponent={this.renderEmptyContent}
-                    keyExtractor={item => `quadra-${item.id}`}
                     renderItem={this.renderItem.bind(this)}
                 />
             </SafeView>

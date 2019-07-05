@@ -26,7 +26,7 @@ function asynClearData() {
         dispatch(QuadrasActions.clearQuadras);
         dispatch(QuadrasLogradourosActions.clearQuadrasLogradouros);
         dispatch(MicroAreasActions.clearMicroAreas);
-        dispatch(LogradourosActions.clearLogradouro);
+        dispatch(LogradourosActions.clearLogradouros);
     };
 }
 

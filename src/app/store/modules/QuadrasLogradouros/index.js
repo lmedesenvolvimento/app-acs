@@ -11,6 +11,9 @@ export default (state = initialState, action) => {
             ...state,
             data: action.data
         };
+    case Types.ADD_QUADRAS_LOGRADOUROS:
+        state.data.push(action.data);
+        return Object.assign({}, state);
     default:
         return state;
     }

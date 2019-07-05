@@ -48,10 +48,8 @@ class LogradouroScreen extends Component {
     }
 
     componentWillMount() {
-        const { props } = this;
-        const quadra_key = props.navigation.getParam('quadra_key');
-        const logradouros = props.getLogradourosByQuadra(quadra_key);
-        this.setState({ logradouros, data: logradouros });
+        const { navigation } = this.props;
+        navigation.addListener('willFocus', this.defineProps);
     }
 
     render() {
@@ -65,8 +63,6 @@ class LogradouroScreen extends Component {
             </SafeView>
         );
     }
-
-    keyExtractor = item => `logradouro-${item.id}`
 
     renderItem = ({ item }) => {
         return (
@@ -136,7 +132,6 @@ class LogradouroScreen extends Component {
                 data={state.data}
                 renderItem={this.renderItem}
                 ListEmptyComponent={this.renderEmptyContent}
-                keyExtractor={this.keyExtractor}
                 keyboardShouldPersistTaps="handled"
             />
         );
@@ -165,6 +160,13 @@ class LogradouroScreen extends Component {
                 <Icon name="ios-add" />
             </Fab>
         );
+    }
+
+    defineProps = () => {
+        const { props } = this;
+        const quadra_key = props.navigation.getParam('quadra_key');
+        const logradouros = props.getLogradourosByQuadra(quadra_key);
+        this.setState({ logradouros, data: logradouros });
     }
 
     onPressBack() {
@@ -202,16 +204,15 @@ class LogradouroScreen extends Component {
     onPressNewLogradouro = () => {
         const { state, props } = this;
         const { navigation } = props;
-        const bairro = props.navigation.getParam('bairro');
-
-        console.log(bairro)
 
         const payload = {
             model: {
                 nome: state.query,
+                quadra_key: props.navigation.getParam('quadra_key'),
                 bairro: props.navigation.getParam('bairro')
             },
-            title: 'Novo Logradouro'
+            title: 'Novo Logradouro',
+            action: 'new'
         };
 
         setTimeout(() => {

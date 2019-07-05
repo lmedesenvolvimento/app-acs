@@ -1,4 +1,6 @@
 import { bindActionCreators } from 'redux';
+import { orderBy } from 'lodash';
+
 import Types from './types';
 
 const clearMicroAreas = {
@@ -15,7 +17,7 @@ function setMicroAreas(data) {
 
 function getMicroAreas() {
     return (dispatch, getState) => {
-        return getState().MicroAreas.data;
+        return orderBy(getState().MicroAreas.data, ['nome']);
     };
 }
 

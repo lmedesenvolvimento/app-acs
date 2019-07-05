@@ -50,6 +50,7 @@ class LogradouroFormScreen extends Component {
         this.state = {
             nome: '',
             bairro: null,
+            quadra_key: null,
             tipo: Types.tipos.rua,
             tipos: Types.tipos,
             nomeFocus: false,
@@ -125,9 +126,16 @@ class LogradouroFormScreen extends Component {
     }
 
     submitForm = () => {
-        const { state } = this;
-        const isHasInLogras = filter(state.logradouros, { nome: state.nome }).length;
+        const { state, props } = this;
+        const logradouro = {
+            nome: state.nome,
+            bairro: state.bairro,
+            tipo: state.tipo
+        };
+        const logradouros = props.getLogradourosByQuadra(state.quadra_key);
+        const isHasInLogras = filter(logradouros, { nome: state.nome }).length;
         const errors = {};
+
 
         if (isHasInLogras) {
             errors.nome = true;
@@ -135,6 +143,11 @@ class LogradouroFormScreen extends Component {
                 'Falha ao tentar salvar Logradouro.',
                 'Nome de logradouro já existe para esta Quadra.'
             );
+        }
+
+        if (!isHasInLogras && props.navigation.getParam('action') === 'new') {
+            props.createLogradouro(logradouro, state.quadra_key);
+            setTimeout(this.goBack, 200);
         }
 
         this.setState({ errors });

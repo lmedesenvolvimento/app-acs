@@ -57,7 +57,6 @@ class MicroAreaScreen extends Component {
                 </Header>
                 <FlatList
                     data={state.areas}
-                    keyExtractor={item => `microarea-${item.id}`}
                     renderItem={this.renderItem.bind(this)}
                 />
             </SafeView>

@@ -13,9 +13,17 @@ function setQuadrasLogradouros(data) {
     };
 }
 
+function addQuadrasLogradouros(quadra_key, logradouro_key) {
+    return {
+        type: Types.ADD_QUADRAS_LOGRADOUROS,
+        data: { quadra_key, logradouro_key }
+    };
+}
+
 export const actions = {
     clearQuadrasLogradouros,
-    setQuadrasLogradouros
+    setQuadrasLogradouros,
+    addQuadrasLogradouros
 };
 
 export default dispatch => (
