@@ -1,10 +1,11 @@
 import { bindActionCreators } from 'redux';
-import { filter, chain } from 'lodash';
+import { filter, find, findIndex, chain } from 'lodash';
 import shortid from 'shortid';
 
 import { actions as QuadrasLogradourosActions } from '@redux/modules/QuadrasLogradouros/actions';
 
 import Types from './types';
+
 
 function getLogradouros() {
     return (dispatch, getState) => {
@@ -57,6 +58,32 @@ function addLogradouro(logradouro) {
     };
 }
 
+function updateLogradouro(logradouro) {
+    return (dispatch, getState) => {
+        const logradouros = getState().Logradouros.data;
+        const oldValue = find(logradouros, { key: logradouro.key });
+        const data = Object.assign(oldValue, logradouro); // merge old model with new model
+        return {
+            type: Types.UPDATE_LOGRADOURO,
+            index: findIndex(logradouros, { key: data.key }),
+            data
+        };
+    };
+}
+
+function destroyLogradouro(logradouro, quadraKey) {
+    return (dispatch, getState) => {
+        const logradouros = getState().Logradouros.data;
+        dispatch(
+            QuadrasLogradourosActions.destroyQuadrasLogradouros(quadraKey, logradouro.key)
+        );
+        dispatch({
+            type: Types.DESTROY_LOGRADOURO,
+            index: findIndex(logradouros, { key: logradouro.key })
+        });
+    };
+}
+
 function setLogradouros(data) {
     return {
         type: Types.SET_LOGRADOUROS,
@@ -72,7 +99,9 @@ const clearLogradouros = {
 export const actions = {
     setLogradouros,
     clearLogradouros,
-    createLogradouro
+    createLogradouro,
+    updateLogradouro,
+    destroyLogradouro
 };
 
 export const getters = {

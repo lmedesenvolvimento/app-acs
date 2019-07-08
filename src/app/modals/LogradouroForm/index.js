@@ -126,11 +126,25 @@ class LogradouroFormScreen extends Component {
     }
 
     submitForm = () => {
+        const { props } = this;
+        if (props.navigation.getParam('action') === 'new') {
+            return this.create();
+        }
+
+        if (props.navigation.getParam('action') === 'edit') {
+            return this.update();
+        }
+
+        return null;
+    }
+
+    create = () => {
         const { state, props } = this;
         const logradouro = {
             nome: state.nome,
             bairro: state.bairro,
-            tipo: state.tipo
+            tipo: state.tipo,
+            _action: props.navigation.getParam('action')
         };
         const logradouros = props.getLogradourosByQuadra(state.quadra_key);
         const isHasInLogras = filter(logradouros, { nome: state.nome }).length;
@@ -143,14 +157,43 @@ class LogradouroFormScreen extends Component {
                 'Falha ao tentar salvar Logradouro.',
                 'Nome de logradouro já existe para esta Quadra.'
             );
+
+            this.setState({ errors });
         }
 
-        if (!isHasInLogras && props.navigation.getParam('action') === 'new') {
-            props.createLogradouro(logradouro, state.quadra_key);
-            setTimeout(this.goBack, 200);
+        props.createLogradouro(logradouro, state.quadra_key);
+        setTimeout(this.goBack, 200);
+    }
+
+    update = () => {
+        const { state, props } = this;
+        const logradouro = {
+            key: state.key,
+            nome: state.nome,
+            bairro: state.bairro,
+            tipo: state.tipo,
+            _action: props.navigation.getParam('action')
+        };
+
+        const currentName = props.navigation.getParam('model').nome;
+        const logradouros = props.getLogradourosByQuadra(state.quadra_key);
+        const isHasInLogras = filter(logradouros, { nome: state.nome }).length;
+        const errors = {};
+
+
+        if (state.nome !== currentName && isHasInLogras) {
+            errors.nome = true;
+            Alert.alert(
+                'Falha ao tentar salvar Logradouro.',
+                'Nome de logradouro já existe para esta Quadra.'
+            );
+
+            this.setState({ errors });
         }
 
-        this.setState({ errors });
+        props.updateLogradouro(logradouro, state.quadra_key);
+
+        setTimeout(this.goBack, 200);
     }
 
     renderFormFields = () => {

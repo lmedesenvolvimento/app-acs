@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Alert, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
 import {
@@ -18,6 +18,7 @@ import {
     Fab
 } from 'native-base';
 
+
 import { filter } from 'lodash';
 
 import LogradouroActions from '@redux/modules/Logradouros/actions';
@@ -26,6 +27,7 @@ import Colors from '@/constants/Colors';
 
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
+import BottomSheet from '@/components/BottomSheet';
 
 import styles from './index.styl';
 
@@ -39,6 +41,7 @@ export const contains = ({ nome }, query) => {
 class LogradouroScreen extends Component {
     constructor(props) {
         super(props);
+        this.bottomSheet = null;
         this.state = {
             query: '',
             queryFocus: false,
@@ -53,20 +56,51 @@ class LogradouroScreen extends Component {
     }
 
     render() {
-        const { props } = this;
+        const { state, props } = this;
         return (
             <SafeView navigation={props.navigation} isModal={true}>
                 { this.renderHeader() }
                 { this.renderListHeader() }
-                { this.renderLograFlatList() }
-                { this.renderFab() }
+                <FlatList
+                    data={state.data}
+                    renderItem={this.renderItem}
+                    ListEmptyComponent={this.renderEmptyContent}
+                    keyboardShouldPersistTaps="handled"
+                />
+                <Fab
+                    style={[{ backgroundColor: Colors.warnColor }]}
+                    onPress={this.onPressNewLogradouro}
+                >
+                    <Icon name="ios-add" />
+                </Fab>
+                <BottomSheet
+                    ref={ref => this.bottomSheet = ref}
+                >
+                    <ScrollView>
+                        <ListItem onPress={this.onPressEditLogradouro}>
+                            <Body>
+                                <Text>Editar</Text>
+                            </Body>
+                        </ListItem>
+                        <ListItem onPress={this.onPressDestroyLogradouro}>
+                            <Body>
+                                <Text>Deletar</Text>
+                            </Body>
+                        </ListItem>
+                        <ListItem onPress={() => this.bottomSheet.close()} last>
+                            <Body>
+                                <Text>Cancelar</Text>
+                            </Body>
+                        </ListItem>
+                    </ScrollView>
+                </BottomSheet>
             </SafeView>
         );
     }
 
     renderItem = ({ item }) => {
         return (
-            <ListItem>
+            <ListItem onPress={() => this.onPressItem(item)}>
                 <Body>
                     <Text>{item.nome}</Text>
                     <Text note>{item.bairro ? item.bairro.nome : ''}</Text>
@@ -125,18 +159,6 @@ class LogradouroScreen extends Component {
         );
     }
 
-    renderLograFlatList = () => {
-        const { state } = this;
-        return (
-            <FlatList
-                data={state.data}
-                renderItem={this.renderItem}
-                ListEmptyComponent={this.renderEmptyContent}
-                keyboardShouldPersistTaps="handled"
-            />
-        );
-    }
-
     renderEmptyContent = () => {
         return (
             <Container style={styles.emptyContainer}>
@@ -151,17 +173,6 @@ class LogradouroScreen extends Component {
         );
     }
 
-    renderFab = () => {
-        return (
-            <Fab
-                style={[{ backgroundColor: Colors.warnColor }]}
-                onPress={this.onPressNewLogradouro}
-            >
-                <Icon name="ios-add" />
-            </Fab>
-        );
-    }
-
     defineProps = () => {
         const { props } = this;
         const quadra_key = props.navigation.getParam('quadra_key');
@@ -172,6 +183,10 @@ class LogradouroScreen extends Component {
     onPressBack() {
         const { navigation } = this.props;
         navigation.goBack();
+    }
+
+    onPressItem(logradouro) {
+        if (!logradouro.id) this.bottomSheet.open();
     }
 
     onSerchFocus = () => {
@@ -196,11 +211,6 @@ class LogradouroScreen extends Component {
         this.handleSearch('');
     }
 
-    // onPressItem(item) {
-    // const { navigation } = this.props;
-    // navigation.navigate('PublicAreas', { fieldGroup: item.id });
-    // }
-
     onPressNewLogradouro = () => {
         const { state, props } = this;
         const { navigation } = props;
@@ -218,6 +228,43 @@ class LogradouroScreen extends Component {
         setTimeout(() => {
             navigation.navigate('LogradouroForm', payload);
         }, 200);
+    }
+
+    onPressEditLogradouro = (logradouro) => {
+        const { props } = this;
+        const { navigation } = props;
+
+        const payload = {
+            model: {
+                key: logradouro.key,
+                nome: logradouro.nome,
+                tipo: logradouro.tipo,
+                bairro: props.navigation.getParam('bairro'),
+                quadra_key: props.navigation.getParam('quadra_key'),
+            },
+            title: 'Editar Logradouro',
+            action: 'edit'
+        };
+
+        this.bottomSheet.close();
+
+        setTimeout(() => {
+            navigation.navigate('LogradouroForm', payload);
+        }, 200);
+    }
+
+    onPressDestroyLogradouro = (logradouro) => {
+        const { props } = this;
+        Alert.alert(
+            'Deletar Logradouro',
+            'Você realmente deseja apagar este logradouro? Essa ação é irreversível.',
+            [
+                { text: 'Yes', onPress: () => this.onPressDestroyLogradouro(logradouro) },
+                { text: 'No', style: 'cancel' },
+            ]
+        );
+        props.destroyLogradouro(logradouro, props.navigation.getParam('quadra_key'));
+        this.defineProps();
     }
 }
 
