@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, Dimensions } from 'react-native';
+import { StatusBar } from 'react-native';
 import ModalBox from 'react-native-modalbox';
 
 class BottomSheet extends Component {
@@ -10,10 +10,11 @@ class BottomSheet extends Component {
     }
     render() {
         const { props } = this;
+        const modalHeight = 260;
         return (
             <ModalBox
                 ref={modal => this.modal = modal}
-                style={{ flex: 0.33, marginTop: StatusBar.currentHeight }}
+                style={{ height: modalHeight, marginTop: StatusBar.currentHeight }}
                 position="bottom"
                 {...props}
             >

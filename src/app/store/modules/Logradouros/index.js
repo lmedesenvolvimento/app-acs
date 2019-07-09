@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
         data[action.index] = action.data;
         return Object.assign({}, state);
     case Types.DESTROY_LOGRADOURO:
-        data.slice(action.index, 1);
+        data.splice(action.index, 1);
         return Object.assign({}, state);
     default:
         return state;

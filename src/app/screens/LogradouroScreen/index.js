@@ -46,7 +46,8 @@ class LogradouroScreen extends Component {
             query: '',
             queryFocus: false,
             data: [],
-            logradouros: []
+            logradouros: [],
+            logradouro: null
         };
     }
 
@@ -77,17 +78,26 @@ class LogradouroScreen extends Component {
                     ref={ref => this.bottomSheet = ref}
                 >
                     <ScrollView>
-                        <ListItem onPress={this.onPressEditLogradouro}>
+                        <ListItem icon onPress={this.onPressEditLogradouro}>
+                            <Left>
+                                <Icon active name="mode-edit" type="MaterialIcons" />
+                            </Left>
                             <Body>
                                 <Text>Editar</Text>
                             </Body>
                         </ListItem>
-                        <ListItem onPress={this.onPressDestroyLogradouro}>
+                        <ListItem icon onPress={this.onPressDestroyLogradouro}>
+                            <Left>
+                                <Icon active name="md-trash" />
+                            </Left>
                             <Body>
                                 <Text>Deletar</Text>
                             </Body>
                         </ListItem>
-                        <ListItem onPress={() => this.bottomSheet.close()} last>
+                        <ListItem icon onPress={() => this.bottomSheet.close()} last>
+                            <Left>
+                                <Icon active name="cancel" type="MaterialIcons" />
+                            </Left>
                             <Body>
                                 <Text>Cancelar</Text>
                             </Body>
@@ -186,7 +196,10 @@ class LogradouroScreen extends Component {
     }
 
     onPressItem(logradouro) {
-        if (!logradouro.id) this.bottomSheet.open();
+        if (!logradouro.id) {
+            setTimeout(this.bottomSheet.open.bind(this));
+            this.setState({ logradouro })
+        }
     }
 
     onSerchFocus = () => {
@@ -230,15 +243,15 @@ class LogradouroScreen extends Component {
         }, 200);
     }
 
-    onPressEditLogradouro = (logradouro) => {
-        const { props } = this;
+    onPressEditLogradouro = () => {
+        const { props, state } = this;
         const { navigation } = props;
 
         const payload = {
             model: {
-                key: logradouro.key,
-                nome: logradouro.nome,
-                tipo: logradouro.tipo,
+                key: state.logradouro.key,
+                nome: state.logradouro.nome,
+                tipo: state.logradouro.tipo,
                 bairro: props.navigation.getParam('bairro'),
                 quadra_key: props.navigation.getParam('quadra_key'),
             },
@@ -253,17 +266,24 @@ class LogradouroScreen extends Component {
         }, 200);
     }
 
-    onPressDestroyLogradouro = (logradouro) => {
-        const { props } = this;
+    onPressDestroyLogradouro = () => {
+        const { props, state } = this;
+
+        this.bottomSheet.close();
+
         Alert.alert(
             'Deletar Logradouro',
             'Você realmente deseja apagar este logradouro? Essa ação é irreversível.',
             [
-                { text: 'Yes', onPress: () => this.onPressDestroyLogradouro(logradouro) },
-                { text: 'No', style: 'cancel' },
+                { text: 'Não', style: 'cancel' },
+                { text: 'Sim', onPress: () => this.destroyLogradouro(), style: "destructive" },
             ]
         );
-        props.destroyLogradouro(logradouro, props.navigation.getParam('quadra_key'));
+    }
+
+    destroyLogradouro = () => {
+        const { props, state } = this;
+        props.destroyLogradouro(state.logradouro, props.navigation.getParam('quadra_key'));
         this.defineProps();
     }
 }

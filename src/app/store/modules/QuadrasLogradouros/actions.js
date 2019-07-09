@@ -22,7 +22,7 @@ function addQuadrasLogradouros(quadra_key, logradouro_key) {
 }
 function destroyQuadrasLogradouros(quadra_key, logradouro_key) {
     return (dispatch, getState) => {
-        const quadrasLogradouros = getState().QuadrasLogradrouros.data;
+        const quadrasLogradouros = getState().QuadrasLogradouros.data;
         return {
             type: Types.DESTROY_QUADRAS_LOGRADOUROS,
             index: findIndex(quadrasLogradouros, { quadra_key, logradouro_key })
