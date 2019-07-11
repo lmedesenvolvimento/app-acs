@@ -8,6 +8,7 @@ import MicroAreas from './MicroAreas';
 import Logradouros from './Logradouros';
 import Quadras from './Quadras';
 import QuadrasLogradouros from './QuadrasLogradouros';
+import Domicilios from './Domicilios';
 import UI from './UI';
 
 export default combineReducers({
@@ -19,5 +20,6 @@ export default combineReducers({
     Logradouros,
     Quadras,
     QuadrasLogradouros,
+    Domicilios,
     UI,
 });

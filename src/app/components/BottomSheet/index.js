@@ -5,16 +5,19 @@ import ModalBox from 'react-native-modalbox';
 class BottomSheet extends Component {
     constructor(props) {
         super(props);
-        this.modal = null;
         this.state = {};
     }
+
     render() {
         const { props } = this;
         const modalHeight = 260;
         return (
             <ModalBox
-                ref={modal => this.modal = modal}
-                style={{ height: modalHeight, marginTop: StatusBar.currentHeight }}
+                ref={modal => this.refs.modal = modal}
+                style={{
+                    height: modalHeight,
+                    marginTop: StatusBar.currentHeight
+                }}
                 position="bottom"
                 {...props}
             >
@@ -23,12 +26,14 @@ class BottomSheet extends Component {
         );
     }
 
-    open() {
-        this.modal.open();
+    open = () => {
+        const { refs } = this;
+        refs.modal.open();
     }
 
-    close() {
-        this.modal.close();
+    close = () => {
+        const { refs } = this;
+        refs.modal.close();
     }
 }
 

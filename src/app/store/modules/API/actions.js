@@ -4,9 +4,9 @@ import { actions as MicroAreasActions } from '@redux/modules/MicroAreas/actions'
 import { actions as LogradourosActions } from '@redux/modules/Logradouros/actions';
 import { actions as QuadrasActions } from '@redux/modules/Quadras/actions';
 import { actions as QuadrasLogradourosActions } from '@redux/modules/QuadrasLogradouros/actions';
+import { actions as DomiciliosActions } from '@redux/modules/Domicilios/actions';
 
 import shortid from 'shortid';
-// import { pick } from 'lodash';
 
 import Http from '@/services/Http';
 
@@ -27,6 +27,7 @@ function asynClearData() {
         dispatch(QuadrasLogradourosActions.clearQuadrasLogradouros);
         dispatch(MicroAreasActions.clearMicroAreas);
         dispatch(LogradourosActions.clearLogradouros);
+        dispatch(DomiciliosActions.clearDomicilios);
     };
 }
 
@@ -42,6 +43,7 @@ function asyncFetchData(onSuccess, onFail) {
             dispatch(QuadrasActions.setQuadras(data.quadras));
             dispatch(LogradourosActions.setLogradouros(data.logradouros));
             dispatch(QuadrasLogradourosActions.setQuadrasLogradouros(data.quadra_logradouros));
+            dispatch(DomiciliosActions.setDomicilios(data.domicilios));
             onSuccess(data);
         }).catch((err) => {
             dispatch(AuthActions.signOutAsync());
@@ -60,7 +62,8 @@ const defineKeysToData = ({
     microareas,
     quadras,
     logradouros,
-    quadra_logradouros
+    quadra_logradouros,
+    domicilios
 }) => {
     // Define unique keys for reducers
     microareas
@@ -71,9 +74,13 @@ const defineKeysToData = ({
         .forEach(quadra_logradouro => quadra_logradouro.key = shortid.generate());
     logradouros
         .forEach(logradouro => logradouro.key = shortid.generate());
+    domicilios
+        .forEach(domicilio => domicilio.key = shortid.generate());
+
     // Combine relationship
     defineParentKeysToQuadras(microareas, quadras);
     defineParentKeysToQuadrasLogradouros(logradouros, quadras, quadra_logradouros);
+    defineParentKeysToDomicilios(quadra_logradouros, domicilios);
 };
 
 const defineParentKeysToQuadras = (microareas, quadras) => {
@@ -102,6 +109,16 @@ const defineParentKeysToQuadrasLogradouros = (logradouros, quadras, quadra_logra
             const { quadra } = quadra_logradouro;
             if (quadra.id === q.id) {
                 quadra_logradouro.quadra_key = q.key;
+            }
+        });
+    });
+};
+
+const defineParentKeysToDomicilios = (quadras_logradouros, domicilios) => {
+    quadras_logradouros.forEach((quadra_logradouro) => {
+        domicilios.forEach((domicilio) => {
+            if (domicilio.quadra_logradouro_id === quadra_logradouro.id) {
+                domicilio.quadra_logradouro_key = quadra_logradouro.key;
             }
         });
     });
