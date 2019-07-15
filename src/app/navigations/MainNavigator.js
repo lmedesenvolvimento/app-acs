@@ -15,6 +15,9 @@ const MainStack = createStackNavigator({
     Logradouros: {
         screen: require('app/screens/LogradouroScreen').default
     },
+    Domicilios: {
+        screen: require('app/screens/DomicilioScreen').default
+    },
 }, {
     initialRouteName: 'MicroAreas',
     headerMode: 'none',

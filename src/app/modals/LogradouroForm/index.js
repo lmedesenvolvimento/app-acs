@@ -30,7 +30,7 @@ import Colors from '@/constants/Colors';
 
 import { Logradouro as Types } from '@/types';
 
-import { filter } from 'lodash';
+import { filter, find } from 'lodash';
 
 import styles from './index.styl';
 
@@ -121,8 +121,13 @@ class LogradouroFormScreen extends Component {
     }
 
     goBack = () => {
-        const { navigation } = this.props;
-        navigation.goBack();
+        const { state, props } = this;
+
+        setTimeout(() => {
+            props.navigation.setParams({ logradouro_nome: state.nome });
+        });
+
+        props.navigation.goBack();
     }
 
     submitForm = () => {
@@ -140,18 +145,18 @@ class LogradouroFormScreen extends Component {
 
     create = () => {
         const { state, props } = this;
-        const logradouro = {
-            nome: state.nome,
-            bairro: state.bairro,
-            tipo: state.tipo,
-            _action: props.navigation.getParam('action')
-        };
-        const logradouros = props.getLogradourosByQuadra(state.quadra_key);
-        const isHasInLogras = filter(logradouros, { nome: state.nome }).length;
+
+        const logradourosByQuadras = props.getLogradourosByQuadra(state.quadra_key);
+        const logradourosByBairro = props.getLogradourosByBairroID(state.bairro.id);
+        const isHasInLograsByQuadras = filter(logradourosByQuadras, { nome: state.nome }).length;
+        const isHasInLograsByBairro = filter(logradourosByBairro, { nome: state.nome }).length;
+
         const errors = {};
 
+        let logradouro = {};
 
-        if (isHasInLogras) {
+
+        if (isHasInLograsByQuadras) {
             errors.nome = true;
             Alert.alert(
                 'Falha ao tentar salvar Logradouro.',
@@ -159,6 +164,21 @@ class LogradouroFormScreen extends Component {
             );
 
             this.setState({ errors });
+            return;
+        }
+
+        if (isHasInLograsByBairro) {
+            logradouro = {
+                ...find(logradourosByBairro, { nome: state.nome }),
+                _action: props.navigation.getParam('action')
+            };
+        } else {
+            logradouro = {
+                nome: state.nome,
+                bairro: state.bairro,
+                tipo: state.tipo,
+                _action: props.navigation.getParam('action')
+            };
         }
 
         props.createLogradouro(logradouro, state.quadra_key);
@@ -167,21 +187,19 @@ class LogradouroFormScreen extends Component {
 
     update = () => {
         const { state, props } = this;
-        const logradouro = {
-            key: state.key,
-            nome: state.nome,
-            bairro: state.bairro,
-            tipo: state.tipo,
-            _action: props.navigation.getParam('action')
-        };
+
+        const logradourosByQuadras = props.getLogradourosByQuadra(state.quadra_key);
+        const logradourosByBairro = props.getLogradourosByBairroID(state.bairro.id);
+        const isHasInLograsByQuadras = filter(logradourosByQuadras, { nome: state.nome }).length;
+        const isHasInLograsByBairro = filter(logradourosByBairro, { nome: state.nome }).length;
+
+        let logradouro = {};
 
         const currentName = props.navigation.getParam('model').nome;
-        const logradouros = props.getLogradourosByQuadra(state.quadra_key);
-        const isHasInLogras = filter(logradouros, { nome: state.nome }).length;
         const errors = {};
 
 
-        if (state.nome !== currentName && isHasInLogras) {
+        if (state.nome !== currentName && isHasInLograsByQuadras) {
             errors.nome = true;
             Alert.alert(
                 'Falha ao tentar salvar Logradouro.',
@@ -189,11 +207,33 @@ class LogradouroFormScreen extends Component {
             );
 
             this.setState({ errors });
+            return;
         }
 
-        props.updateLogradouro(logradouro, state.quadra_key);
+        if (isHasInLograsByBairro) {
+            logradouro = {
+                ...find(logradourosByBairro, { nome: state.nome }),
+                _action: props.navigation.getParam('action')
+            };
+        } else {
+            logradouro = {
+                key: state.key,
+                nome: state.nome,
+                bairro: state.bairro,
+                tipo: state.tipo,
+                _action: props.navigation.getParam('action')
+            };
+        }
 
-        setTimeout(this.goBack, 200);
+        props.updateLogradouro(
+            state.quadra_logradouro_key,
+            {
+                quadra_key: state.quadra_key,
+                logradouro
+            }
+        );
+
+        setTimeout(this.goBack, 600);
     }
 
     renderFormFields = () => {

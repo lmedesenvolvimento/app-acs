@@ -15,6 +15,9 @@ export default (state = initialState, action) => {
     case Types.ADD_QUADRAS_LOGRADOUROS:
         data.push(action.data);
         return Object.assign({}, state);
+    case Types.UPDATE_QUADRAS_LOGRADOUROS:
+        data[action.index] = action.data;
+        return Object.assign({}, state);
     case Types.DESTROY_QUADRAS_LOGRADOUROS:
         data.splice(action.index, 1);
         return Object.assign({}, state);

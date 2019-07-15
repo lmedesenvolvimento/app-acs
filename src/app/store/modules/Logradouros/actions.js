@@ -28,6 +28,15 @@ function getLogradourosByQuadra(quadra_key = 0) {
     };
 }
 
+function getQuadraLogradouro(quadra_key = 0, logradouro_key = 0) {
+    return (dispatch, getState) => {
+        const state = getState();
+        return chain(state.QuadrasLogradouros.data)
+            .find({ quadra_key, logradouro_key })
+            .value();
+    };
+}
+
 function getLogradourosByBairroID(bairro_id = 0) {
     return (dispatch, getState) => {
         return chain(getState().Logradouros.data)
@@ -40,9 +49,12 @@ function getLogradourosByBairroID(bairro_id = 0) {
 
 function createLogradouro(logradouro, quadraKey) {
     return (dispatch) => {
-        const key = shortid.generate();
-        // dispacth to push new logradouro
-        dispatch(addLogradouro({ key, ...logradouro }));
+        const key = logradouro.key || shortid.generate();
+
+        if (!logradouro.key) {
+            dispatch(addLogradouro({ key, ...logradouro }));
+        }
+
         // dispacth assossiation in relational list quadras_logradrouros
         dispatch(
             QuadrasLogradourosActions
@@ -58,16 +70,29 @@ function addLogradouro(logradouro) {
     };
 }
 
-function updateLogradouro(logradouro) {
+function updateLogradouro(quadra_logradrouro_key, { logradouro, quadra_key }) {
     return (dispatch, getState) => {
-        const logradouros = getState().Logradouros.data;
-        const oldValue = find(logradouros, { key: logradouro.key });
-        const data = Object.assign(oldValue, logradouro); // merge old model with new model
-        return {
-            type: Types.UPDATE_LOGRADOURO,
-            index: findIndex(logradouros, { key: data.key }),
-            data
-        };
+        if (logradouro.id && quadra_key) {
+            const payload = {
+                logradouro_key: logradouro.key,
+                quadra_key
+            };
+            dispatch(
+                QuadrasLogradourosActions
+                    .updateQuadrasLogradouros(quadra_logradrouro_key, payload)
+            );
+        } else {
+            const logradouros = getState().Logradouros.data;
+            const oldValue = find(logradouros, { key: logradouro.key });
+            const data = Object.assign(oldValue, logradouro); // merge old model with new model
+
+            dispatch({
+                type: Types.UPDATE_LOGRADOURO,
+                index: findIndex(logradouros, { key: data.key }),
+                data
+            });
+        }
+
     };
 }
 
@@ -108,6 +133,7 @@ export const getters = {
     getLogradouros,
     getLogradourosByBairroID,
     getLogradourosByQuadra,
+    getQuadraLogradouro
 };
 
 export default dispatch => (

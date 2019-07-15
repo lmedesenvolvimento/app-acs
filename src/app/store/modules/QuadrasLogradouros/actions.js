@@ -20,13 +20,25 @@ function addQuadrasLogradouros(quadra_key, logradouro_key) {
         data: { quadra_key, logradouro_key }
     };
 }
+
+function updateQuadrasLogradouros(quadra_logradouro_key, data) {
+    return (dispatch, getState) => {
+        const quadrasLogradouros = getState().QuadrasLogradouros.data;
+        dispatch({
+            type: Types.UPDATE_QUADRAS_LOGRADOUROS,
+            index: findIndex(quadrasLogradouros, { key: quadra_logradouro_key }),
+            data
+        });
+    };
+}
+
 function destroyQuadrasLogradouros(quadra_key, logradouro_key) {
     return (dispatch, getState) => {
         const quadrasLogradouros = getState().QuadrasLogradouros.data;
-        return {
+        dispatch({
             type: Types.DESTROY_QUADRAS_LOGRADOUROS,
             index: findIndex(quadrasLogradouros, { quadra_key, logradouro_key })
-        };
+        });
     };
 }
 
@@ -34,6 +46,7 @@ export const actions = {
     clearQuadrasLogradouros,
     setQuadrasLogradouros,
     addQuadrasLogradouros,
+    updateQuadrasLogradouros,
     destroyQuadrasLogradouros
 };
 

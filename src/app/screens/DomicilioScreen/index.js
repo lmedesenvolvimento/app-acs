@@ -1,0 +1,198 @@
+import React, { Component } from 'react';
+import { FlatList, Alert } from 'react-native';
+import { connect } from 'react-redux';
+
+import {
+    Text,
+    Title,
+    Container,
+    ListItem,
+    Header,
+    Left,
+    Right,
+    Body,
+    Icon,
+    Fab,
+    Button
+} from 'native-base';
+
+import LogradouroActions from '@redux/modules/Logradouros/actions';
+import DomiciliosActions from '@redux/modules/Domicilios/actions';
+
+import Colors from '@/constants/Colors';
+
+import SafeView from '@/components/SafeView';
+import HeaderLeftButton from '@/components/HeaderLeftButton';
+
+import { Domicilio } from '@/types';
+
+import styles from './index.styl';
+
+class DomicilioScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            domicilios: [],
+            domicilio: null
+        };
+    }
+
+    componentWillMount() {
+        const { navigation } = this.props;
+        navigation.addListener('willFocus', this.defineProps);
+    }
+
+    render() {
+        const { state, props } = this;
+        return (
+            <SafeView navigation={props.navigation} isModal={true}>
+                <Header noShadow>
+                    <Left>
+                        <HeaderLeftButton icon onPress={this.onPressBack.bind(this)}>
+                            <Icon name="ios-arrow-back" />
+                        </HeaderLeftButton>
+                    </Left>
+                    <Body>
+                        <Title>{ props.navigation.getParam('logradouro_nome') || 'Indefinido' }</Title>
+                    </Body>
+                    <Right>
+                        <Button icon transparent onPress={this.onPressDestroyLogradouro}>
+                            <Icon name="trash" />
+                        </Button>
+                        <Button icon transparent onPress={this.onPressEditLogradouro}>
+                            <Icon name="mode-edit" type="MaterialIcons" />
+                        </Button>
+                    </Right>
+                </Header>
+                <FlatList
+                    data={state.domicilios}
+                    renderItem={this.renderItem}
+                    ListEmptyComponent={this.renderEmptyContent}
+                    keyboardShouldPersistTaps="handled"
+                />
+                <Fab
+                    style={[{ backgroundColor: Colors.warnColor }]}
+                    onPress={this.onPressNewLogradouro}
+                >
+                    <Icon name="ios-add" />
+                </Fab>
+            </SafeView>
+        );
+    }
+
+    renderItem = ({ item }) => {
+        return (
+            <ListItem>
+                <Body>
+                    <Text>{item.end_numero}</Text>
+                    <Text note>{item.cm_tipo ? Domicilio.cm_tipos[item.cm_tipo] : '' }</Text>
+                </Body>
+            </ListItem>
+        );
+    }
+
+    renderEmptyContent = () => {
+        return (
+            <Container style={styles.emptyContainer}>
+                <Icon name="mood-bad" type="MaterialIcons" style={styles.emptyContainerIcon} />
+                <Text style={[styles.emptyContainerText, { color: Colors.primaryColor }]}>
+                    Oh, não! Você não tem nenhum domicilio cadastrado.
+                </Text>
+                <Text note style={styles.emptyContainerText}>
+                    Começe já a adicionar os domicilios.
+                </Text>
+            </Container>
+        );
+    }
+
+    defineProps = () => {
+        const { props } = this;
+        const quadra_logradouro_key = props.navigation.getParam('quadra_logradouro_key');
+        const domicilios = props.getDomiciliosByQuadraLogradouro(quadra_logradouro_key);
+        this.setState({ domicilios });
+    }
+
+    onPressBack() {
+        const { navigation } = this.props;
+        navigation.goBack();
+    }
+
+    // onPressNewLogradouro = () => {
+    //     const { state, props } = this;
+    //     const { navigation } = props;
+
+    //     const payload = {
+    //         model: {
+    //             nome: state.query,
+    //             quadra_key: props.navigation.getParam('quadra_key'),
+    //             bairro: props.navigation.getParam('bairro')
+    //         },
+    //         title: 'Novo Logradouro',
+    //         action: 'new'
+    //     };
+
+    //     setTimeout(() => {
+    //         navigation.navigate('LogradouroForm', payload);
+    //     }, 200);
+    // }
+
+    onPressEditLogradouro = () => {
+        const { props } = this;
+        const { navigation } = props;
+        const logradouro = navigation.getParam('logradouro');
+
+        const payload = {
+            model: {
+                key: logradouro.key,
+                nome: logradouro.nome,
+                tipo: logradouro.tipo,
+                bairro: logradouro.bairro,
+                quadra_key: props.navigation.getParam('quadra_key'),
+                quadra_logradouro_key: props.navigation.getParam('quadra_logradouro_key'),
+            },
+            title: 'Editar Logradouro',
+            action: 'edit'
+        };
+
+        setTimeout(() => {
+            navigation.navigate('LogradouroForm', payload);
+        }, 200);
+    }
+
+    onPressDestroyLogradouro = () => {
+        Alert.alert(
+            'Deletar Logradouro',
+            'Você realmente deseja apagar este logradouro? Essa ação é irreversível.',
+            [
+                { text: 'Não', style: 'cancel' },
+                { text: 'Sim', onPress: () => this.destroyLogradouro(), style: 'destructive' },
+            ]
+        );
+    }
+
+    destroyLogradouro = () => {
+        const { props } = this;
+
+        props.destroyLogradouro(
+            props.navigation.getParam('logradouro'),
+            props.navigation.getParam('quadra_key')
+        );
+
+        props.navigation.goBack();
+    }
+}
+
+const mapStateToProps = (state) => {
+    const { Domicilios } = state;
+    return { Domicilios };
+};
+
+
+const mapDispatchToProps = (dispatch) => {
+    return Object.assign(
+        DomiciliosActions(dispatch),
+        LogradouroActions(dispatch)
+    );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DomicilioScreen);

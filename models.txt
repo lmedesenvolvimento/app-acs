@@ -1,0 +1,40 @@
+// Domicilio
+an => animal
+cm => condições de moradia
+end => endereço
+
+{
+    "an_animais": Object {
+      "animal_cachorro": "1",
+      "animal_de_criacao": "1",
+      "animal_gato": "1",
+      "animal_outro": "1",
+      "animal_passaro": "1",
+    },
+    "an_cria_animais": true,
+    "an_numero": 1000,
+    "cm_abastecimento_agua": "cisterna",
+    "cm_condicao_posse": "parceiro",
+    "cm_destino_lixo": "queimado_enterrado",
+    "cm_disponibilidade_eletrica": false,
+    "cm_escoamento_banheiro": "fossa_rudimentar",
+    "cm_localizacao": "rural",
+    "cm_material_alvenaria": "com_revestimento",
+    "cm_material_outros": "madeira_aproveitada",
+    "cm_material_taipa": "sem_revestimento",
+    "cm_numero_comodos": 12,
+    "cm_numero_moradores": 12,
+    "cm_situacao_moradia": "financiado",
+    "cm_tipo": "casa",
+    "cm_tipo_acesso": "fluvial",
+    "cm_tratamento_agua": "fervura",
+    "end_complement": "perto de casa",
+    "end_numero": "666",
+    "id": 1,
+    "key": "_G1rooRgYbtt",
+    "mapeamento_id": 1,
+    "quadra_logradouro_id": 1,
+    "quadra_logradouro_key": "WsRQXxpYcZ",
+    "tel_referencia": "777-7777",
+    "tel_residencial": "666-666",
+  },

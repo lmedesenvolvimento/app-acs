@@ -22,6 +22,7 @@ const clearData = {
 
 function asynClearData() {
     return (dispatch) => {
+        console.log(DomiciliosActions.clearDomicilios)
         dispatch(clearData);
         dispatch(QuadrasActions.clearQuadras);
         dispatch(QuadrasLogradourosActions.clearQuadrasLogradouros);

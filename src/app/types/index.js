@@ -6,6 +6,16 @@ export const Logradouro = {
     }
 };
 
+export const Domicilio = {
+    cm_tipos: {
+        casa: 'Casa',
+        apartamento: 'Apartamento',
+        comodo: 'Comodo',
+        outro: 'Outro'
+    }
+}
+
 export default {
-    Logradouro
+    Logradouro,
+    Domicilio
 };

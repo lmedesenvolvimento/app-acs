@@ -80,7 +80,7 @@ class LogradouroScreen extends Component {
                     <ScrollView>
                         <ListItem icon onPress={this.onPressEditLogradouro}>
                             <Left>
-                                <Icon active name="mode-edit" type="MaterialIcons" />
+                                <Icon name="mode-edit" type="MaterialIcons" />
                             </Left>
                             <Body>
                                 <Text>Editar</Text>
@@ -110,7 +110,7 @@ class LogradouroScreen extends Component {
 
     renderItem = ({ item }) => {
         return (
-            <ListItem onPress={() => this.onPressItem(item)}>
+            <ListItem onPress={() => this.onPressItem(item)} onLongPress={() => this.onLongPressItem(item)}>
                 <Body>
                     <Text>{item.nome}</Text>
                     <Text note>{item.bairro ? item.bairro.nome : ''}</Text>
@@ -196,9 +196,22 @@ class LogradouroScreen extends Component {
     }
 
     onPressItem(logradouro) {
+        const { props } = this;
+        const quadra_key = props.navigation.getParam('quadra_key');
+        const logradrouro_key = logradouro.key;
+        const quadra_logradouro = props.getQuadraLogradouro(quadra_key, logradrouro_key);
+
+        props.navigation.navigate('Domicilios', {
+            quadra_logradouro_key: quadra_logradouro.key,
+            logradouro_nome: logradouro.nome,
+            quadra_key,
+            logradouro
+        });
+    }
+
+    onLongPressItem(logradouro) {
         if (!logradouro.id) {
-            setTimeout(this.bottomSheet.open.bind(this));
-            this.setState({ logradouro })
+            this.setState({ logradouro });
         }
     }
 
@@ -267,16 +280,13 @@ class LogradouroScreen extends Component {
     }
 
     onPressDestroyLogradouro = () => {
-        const { props, state } = this;
-
         this.bottomSheet.close();
-
         Alert.alert(
             'Deletar Logradouro',
             'Você realmente deseja apagar este logradouro? Essa ação é irreversível.',
             [
                 { text: 'Não', style: 'cancel' },
-                { text: 'Sim', onPress: () => this.destroyLogradouro(), style: "destructive" },
+                { text: 'Sim', onPress: () => this.destroyLogradouro(), style: 'destructive' },
             ]
         );
     }

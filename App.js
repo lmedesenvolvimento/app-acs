@@ -25,7 +25,6 @@ useScreens();
 const { store, persistor } = configureStore();
 const theme = getTheme(commonColor);
 
-
 export default class App extends Component {
     constructor(props) {
         super(props);
