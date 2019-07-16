@@ -226,7 +226,7 @@ class LogradouroFormScreen extends Component {
         }
 
         props.updateLogradouro(
-            state.quadra_logradouro_key,
+            props.navigation.getParam('model').quadra_logradouro_key,
             {
                 quadra_key: state.quadra_key,
                 logradouro

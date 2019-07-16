@@ -56,12 +56,20 @@ class DomicilioScreen extends Component {
                         <Title>{ props.navigation.getParam('logradouro_nome') || 'Indefinido' }</Title>
                     </Body>
                     <Right>
-                        <Button icon transparent onPress={this.onPressDestroyLogradouro}>
-                            <Icon name="trash" />
-                        </Button>
-                        <Button icon transparent onPress={this.onPressEditLogradouro}>
-                            <Icon name="mode-edit" type="MaterialIcons" />
-                        </Button>
+                        {
+                            !props.navigation.getParam('quadra_logradouro_id') ? (
+                                <Button icon transparent onPress={this.onPressEditLogradouro}>
+                                    <Icon name="mode-edit" type="MaterialIcons" />
+                                </Button>
+                            ) : null
+                        }
+                        {
+                            !props.navigation.getParam('quadra_logradouro_id') ? (
+                                <Button icon transparent onPress={this.onPressDestroyLogradouro}>
+                                    <Icon name="trash" />
+                                </Button>
+                            ) : null
+                        }
                     </Right>
                 </Header>
                 <FlatList
@@ -175,7 +183,7 @@ class DomicilioScreen extends Component {
 
         props.destroyLogradouro(
             props.navigation.getParam('logradouro'),
-            props.navigation.getParam('quadra_key')
+            props.navigation.getParam('quadra_logradouro_key')
         );
 
         props.navigation.goBack();

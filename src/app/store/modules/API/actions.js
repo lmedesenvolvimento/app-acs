@@ -22,20 +22,18 @@ const clearData = {
 
 function asynClearData() {
     return (dispatch) => {
-        console.log(DomiciliosActions.clearDomicilios)
         dispatch(clearData);
         dispatch(QuadrasActions.clearQuadras);
-        dispatch(QuadrasLogradourosActions.clearQuadrasLogradouros);
         dispatch(MicroAreasActions.clearMicroAreas);
         dispatch(LogradourosActions.clearLogradouros);
         dispatch(DomiciliosActions.clearDomicilios);
+        dispatch(QuadrasLogradourosActions.clearQuadrasLogradouros);
     };
 }
 
 function asyncFetchData(onSuccess, onFail) {
     return (dispatch) => {
         Http.get('/api/v1/mapeamentos').then(({ data }) => {
-            // console.log(pick(data, ['logradouros']))
             // create all local key ref
             defineKeysToData(data);
             // dispatch all map list to redux

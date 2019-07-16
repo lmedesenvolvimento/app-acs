@@ -197,11 +197,12 @@ class LogradouroScreen extends Component {
 
     onPressItem(logradouro) {
         const { props } = this;
+        const logradouro_key = logradouro.key;
         const quadra_key = props.navigation.getParam('quadra_key');
-        const logradrouro_key = logradouro.key;
-        const quadra_logradouro = props.getQuadraLogradouro(quadra_key, logradrouro_key);
+        const quadra_logradouro = props.getQuadraLogradouro(quadra_key, logradouro_key);
 
         props.navigation.navigate('Domicilios', {
+            quadra_logradouro_id: quadra_logradouro.id,
             quadra_logradouro_key: quadra_logradouro.key,
             logradouro_nome: logradouro.nome,
             quadra_key,
