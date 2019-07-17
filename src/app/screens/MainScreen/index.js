@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
     Container,
 } from 'native-base';
-
+import MainNavigation from '@/services/MainNavigation';
 import MainNavigator from '@/navigations/MainNavigator';
 
 class MainScreen extends React.Component {
@@ -20,7 +20,9 @@ class MainScreen extends React.Component {
     render() {
         return (
             <Container>
-                <MainNavigator />
+                <MainNavigator
+                    ref={navigationRef => MainNavigation.setMainNavigator(navigationRef)}
+                />
             </Container>
         );
     }

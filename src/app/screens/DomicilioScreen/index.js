@@ -132,24 +132,22 @@ class DomicilioScreen extends Component {
         navigation.goBack();
     }
 
-    // onPressNewLogradouro = () => {
-    //     const { state, props } = this;
-    //     const { navigation } = props;
+    onPressNewLogradouro = () => {
+        const { props } = this;
+        const { navigation } = props;
 
-    //     const payload = {
-    //         model: {
-    //             nome: state.query,
-    //             quadra_key: props.navigation.getParam('quadra_key'),
-    //             bairro: props.navigation.getParam('bairro')
-    //         },
-    //         title: 'Novo Logradouro',
-    //         action: 'new'
-    //     };
+        const payload = {
+            model: {
+                quadra_logradouro_key: props.navigation.getParam('quadra_logradouro_key'),
+            },
+            title: 'Cadastro Domiciliar',
+            action: 'new'
+        };
 
-    //     setTimeout(() => {
-    //         navigation.navigate('LogradouroForm', payload);
-    //     }, 200);
-    // }
+        setTimeout(() => {
+            navigation.navigate('DomiciliosForm', payload);
+        }, 200);
+    }
 
     onPressEditLogradouro = () => {
         const { props } = this;

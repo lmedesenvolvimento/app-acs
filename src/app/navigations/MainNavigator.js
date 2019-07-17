@@ -7,22 +7,24 @@ import { fromBottom, fromRight } from 'react-navigation-transitions';
 
 const MainStack = createStackNavigator({
     MicroAreas: {
-        screen: require('app/screens/MicroAreaScreen').default
+        screen: require('@/screens/MicroAreaScreen').default
     },
     Quadras: {
-        screen: require('app/screens/QuadraScreen').default
+        screen: require('@/screens/QuadraScreen').default
     },
     Logradouros: {
-        screen: require('app/screens/LogradouroScreen').default
+        screen: require('@/screens/LogradouroScreen').default
     },
     Domicilios: {
-        screen: require('app/screens/DomicilioScreen').default
+        screen: require('@/screens/DomicilioScreen').default
     },
+    DomiciliosForm: {
+        screen: require('./DomicilioFormNavigator').default
+    }
 }, {
     initialRouteName: 'MicroAreas',
     headerMode: 'none',
     transitionConfig: () => fromRight(400),
-
 });
 
 const RootStackNavigator = createStackNavigator({
