@@ -32,6 +32,7 @@ class DomicilioScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            title: '',
             domicilios: [],
             domicilio: null
         };
@@ -40,6 +41,12 @@ class DomicilioScreen extends Component {
     componentWillMount() {
         const { navigation } = this.props;
         navigation.addListener('willFocus', this.defineProps);
+    }
+
+    componentDidMount() {
+        const { props } = this;
+        const title = props.navigation.getParam('logradouro_nome');
+        this.setState({ title });
     }
 
     render() {
@@ -53,7 +60,7 @@ class DomicilioScreen extends Component {
                         </HeaderLeftButton>
                     </Left>
                     <Body>
-                        <Title>{ props.navigation.getParam('logradouro_nome') || 'Indefinido' }</Title>
+                        <Title>{ state.title || 'Indefinido' }</Title>
                     </Body>
                     <Right>
                         {
@@ -159,7 +166,8 @@ class DomicilioScreen extends Component {
                 quadra_logradouro_key: props.navigation.getParam('quadra_logradouro_key'),
             },
             title: 'Editar Logradouro',
-            action: 'edit'
+            action: 'edit',
+            returnData: this.onReturnDataEdit
         };
 
         setTimeout(() => {
@@ -187,6 +195,10 @@ class DomicilioScreen extends Component {
         );
 
         props.navigation.goBack();
+    }
+
+    onReturnDataEdit = (title) => {
+        this.setState({ title });
     }
 }
 

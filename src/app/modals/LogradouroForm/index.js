@@ -123,11 +123,11 @@ class LogradouroFormScreen extends Component {
     goBack = () => {
         const { state, props } = this;
 
+        props.navigation.goBack();
+
         setTimeout(() => {
             props.navigation.setParams({ logradouro_nome: state.nome });
-        });
-
-        props.navigation.goBack();
+        }, 200);
     }
 
     submitForm = () => {
@@ -232,6 +232,8 @@ class LogradouroFormScreen extends Component {
                 logradouro
             }
         );
+
+        props.navigation.getParam('returnData')(state.nome);
 
         setTimeout(this.goBack, 600);
     }
