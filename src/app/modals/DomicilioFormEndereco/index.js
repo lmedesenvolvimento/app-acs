@@ -37,8 +37,8 @@ class DomicilioFormEnderecoModal extends Component {
             tel_residencial: '',
             tel_referencia: '',
         };
-
     }
+
     render() {
         const { props, state, inputs } = this;
         return (
@@ -114,7 +114,7 @@ class DomicilioFormEnderecoModal extends Component {
         props.navigation.goBack();
     }
 
-    jumpFocusTo = (target, isNumber) => {
+    jumpFocusTo = (target) => {
         const { inputs } = this;
         inputs[target]._root.focus();
         return true;
