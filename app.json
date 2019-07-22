@@ -30,6 +30,7 @@
     },
     "extra": {
       "baseurl": "https://aedes-agent-staging.herokuapp.com"
-    }
+    },
+    "description": ""
   }
 }

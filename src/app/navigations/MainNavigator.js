@@ -22,7 +22,8 @@ const MainStack = createStackNavigator({
         screen: require('./DomicilioFormNavigator').default
     }
 }, {
-    initialRouteName: 'MicroAreas',
+    // initialRouteName: 'MicroAreas',
+    initialRouteName: 'Domicilios',
     headerMode: 'none',
     transitionConfig: () => fromRight(400),
 });

@@ -22,7 +22,7 @@ class DomicilioFormFamiliasModal extends Component {
         const { props } = this;
         return (
             <SafeView navigation={props.navigation} light={true}>
-                <LightHeader navigation={props.navigation} title={props.navigation.getParam('title')}>
+                <LightHeader navigation={props.navigation} title="Cadastro Domiciliar">
                     <Left>
                         <HeaderLeftButton icon onPress={this.onPressBack}>
                             <Icon name="ios-arrow-back" style={{ color: Colors.textColor }} />

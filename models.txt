@@ -38,3 +38,11 @@ end => endereço
     "tel_referencia": "777-7777",
     "tel_residencial": "666-666",
   },
+
+  // Endereço
+  [
+    'end_numero'
+    'end_complement'
+    'tel_referencia',
+    'tel_residencial'
+  ]

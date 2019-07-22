@@ -21,6 +21,15 @@ class DomicilioFormMainScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            model: {
+                end: {},
+                cm: {},
+                am: {},
+                mapeamento_id: 1,
+                quadra_logradouro_id: 1,
+                tel_referencia: '',
+                tel_residencial: '',
+            },
             steps: [
                 {
                     key: 'Endereco',
