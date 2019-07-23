@@ -89,6 +89,20 @@ export const Domicilio = {
     }
 };
 
+export const Animais = {
+    an_cria_animais: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    an_animais: [
+        { type: 'animal_cachorro' },
+        { type: 'animal_de_criacao' },
+        { type: 'animal_gato' },
+        { type: 'animal_outro' },
+        { type: 'animal_passaro' },
+    ]
+};
+
 export default {
     Logradouro,
     Domicilio

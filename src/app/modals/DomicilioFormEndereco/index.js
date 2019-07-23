@@ -15,7 +15,6 @@ import {
     H1,
 } from 'native-base';
 
-import StringMask from 'string-mask';
 
 import Colors from '@/constants/Colors';
 
@@ -24,10 +23,14 @@ import HeaderLeftButton from '@/components/HeaderLeftButton';
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 
+import { convertToNumber, convertToPhone } from '@/helpers';
+
 import styles from './index.styl';
 
 class DomicilioFormEnderecoModal extends Component {
     inputs = {};
+    convertToNumber = convertToNumber
+    convertToPhone = convertToPhone
 
     constructor(props) {
         super(props);
@@ -58,8 +61,9 @@ class DomicilioFormEnderecoModal extends Component {
                             <Input
                                 keyboardType="numeric"
                                 value={state.end_numero}
-                                onChangeText={end_numero => this.setState({ end_numero })}
-                                onBlur={() => this.jumpFocusTo('end_complement')}
+                                placeholder="Informe o número de telefone"
+                                onChangeText={end_numero => this.convertToNumber(end_numero, 'end_numero')}
+                                onSubmitEditing={() => this.jumpFocusTo('end_complement')}
                             />
                         </Item>
                         <Item stackedLabel>
@@ -67,8 +71,9 @@ class DomicilioFormEnderecoModal extends Component {
                             <Input
                                 ref={ref => inputs.end_complement = ref}
                                 value={state.end_complement}
+                                placeholder="Informe o complemento"
                                 onChangeText={end_complement => this.setState({ end_complement })}
-                                onBlur={() => this.jumpFocusTo('tel_residencial')}
+                                onSubmitEditing={() => this.jumpFocusTo('tel_residencial')}
                             />
                         </Item>
                         <Item stackedLabel>
@@ -77,8 +82,9 @@ class DomicilioFormEnderecoModal extends Component {
                                 ref={ref => inputs.tel_residencial = ref}
                                 keyboardType="phone-pad"
                                 value={state.tel_residencial}
+                                placeholder="Informe Telefone residencial"
                                 onChangeText={tel_residencial => this.convertToPhone(tel_residencial, 'tel_residencial')}
-                                onBlur={() => this.jumpFocusTo('tel_referencia')}
+                                onSubmitEditing={() => this.jumpFocusTo('tel_referencia')}
                             />
                         </Item>
                         <Item stackedLabel>
@@ -87,6 +93,7 @@ class DomicilioFormEnderecoModal extends Component {
                                 ref={ref => inputs.tel_referencia = ref}
                                 keyboardType="phone-pad"
                                 value={state.tel_referencia}
+                                placeholder="Informe Telefone referência"
                                 onChangeText={tel_referencia => this.convertToPhone(tel_referencia, 'tel_referencia')}
                             />
                         </Item>
@@ -116,25 +123,6 @@ class DomicilioFormEnderecoModal extends Component {
     jumpFocusTo = (target) => {
         const { inputs } = this;
         inputs[target]._root.focus();
-        return true;
-    }
-
-    convertToPhone = (phone, target) => {
-        const updates = {};
-
-        if (!phone.length || !phone.match(/\d+/g)) {
-            updates[target] = '';
-            this.setState(updates);
-            return true;
-        }
-
-        const numbers = phone.match(/\d+/g).map(Number).join('');
-        const result = new StringMask('(00) 00000-0000').apply(numbers);
-
-        updates[target] = result;
-
-        this.setState(updates);
-
         return true;
     }
 }

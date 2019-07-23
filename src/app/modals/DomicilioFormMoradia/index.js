@@ -28,6 +28,8 @@ import RadioSelect from '@/components/RadioSelect';
 
 import { Domicilio } from '@/types';
 
+import { convertToNumber } from '@/helpers';
+
 import styles from './index.styl';
 
 class DomicilioFormMoradiaModal extends Component {
@@ -37,6 +39,8 @@ class DomicilioFormMoradiaModal extends Component {
         'cm_numero_moradores',
         'cm_numero_comodos'
     ]
+
+    convertToNumber = convertToNumber
 
     constructor(props) {
         super(props);
@@ -98,7 +102,7 @@ class DomicilioFormMoradiaModal extends Component {
                                             placeholder="Nº de Moradores *"
                                             keyboardType="numeric"
                                             onChangeText={cm_numero_moradores => this.convertToNumber(cm_numero_moradores, 'cm_numero_moradores')}
-                                            onBlur={() => this.jumpFocusTo('cm_numero_comodos')}
+                                            onSubmitEditing={() => this.jumpFocusTo('cm_numero_comodos')}
                                         />
                                     </Item>
                                 </Col>
@@ -212,20 +216,6 @@ class DomicilioFormMoradiaModal extends Component {
         const { inputs } = this;
         inputs[target]._root.focus();
         return true;
-    }
-
-    convertToNumber = (number, target) => {
-        const updates = {};
-
-        if (!number.length || !number.match(/\d+/g)) {
-            updates[target] = '';
-            this.setState(updates);
-        } else {
-            const numbers = number.match(/\d+/g).map(Number).join('');
-            updates[target] = numbers;
-            this.setState(updates);
-        }
-
     }
 }
 
