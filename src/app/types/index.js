@@ -82,6 +82,10 @@ export const Domicilio = {
         queimado_enterrado: 'Queimado enterrado',
         ceu_aberto: 'Céu aberto',
         outro: 'Outro'
+    },
+    cm_disponibilidade_eletrica: {
+        yes: 'Sim',
+        no: 'Não'
     }
 };
 

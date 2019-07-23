@@ -15,14 +15,14 @@ import {
     H1,
 } from 'native-base';
 
+import StringMask from 'string-mask';
+
 import Colors from '@/constants/Colors';
 
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
-
-import StringMask from 'string-mask';
 
 import styles from './index.styl';
 
@@ -56,7 +56,6 @@ class DomicilioFormEnderecoModal extends Component {
                         <Item stackedLabel>
                             <Label>Número</Label>
                             <Input
-                                autoFocus
                                 keyboardType="numeric"
                                 value={state.end_numero}
                                 onChangeText={end_numero => this.setState({ end_numero })}
@@ -121,15 +120,20 @@ class DomicilioFormEnderecoModal extends Component {
     }
 
     convertToPhone = (phone, target) => {
-        if (!phone) return false;
+        const updates = {};
+
+        if (!phone.length || !phone.match(/\d+/g)) {
+            updates[target] = '';
+            this.setState(updates);
+            return true;
+        }
 
         const numbers = phone.match(/\d+/g).map(Number).join('');
         const result = new StringMask('(00) 00000-0000').apply(numbers);
 
-        this.setState((state) => {
-            state[target] = result;
-            return state;
-        });
+        updates[target] = result;
+
+        this.setState(updates);
 
         return true;
     }

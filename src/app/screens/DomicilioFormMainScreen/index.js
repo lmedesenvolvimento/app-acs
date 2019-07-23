@@ -87,7 +87,9 @@ class DomicilioFormMainScreen extends Component {
     }
     goTo = ({ key, title }) => {
         const { props } = this;
-        props.navigation.navigate(key, { title });
+        setTimeout(() => {
+            props.navigation.navigate(key, { title });
+        });
     }
     onPressBack = () => {
         MainNavigation.goBack();

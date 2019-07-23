@@ -24,6 +24,7 @@ class RadioSelectDomicilio extends Component {
 
     componentDidMount() {
         const { props } = this;
+        const selected = props.default ? props.default : null;
         const selection = [];
 
         forEach(
@@ -31,7 +32,7 @@ class RadioSelectDomicilio extends Component {
             (value, key) => selection.push({ value, key })
         );
 
-        this.setState({ selected: props.default, selection });
+        this.setState({ selected, selection });
     }
 
     render() {
@@ -49,12 +50,15 @@ class RadioSelectDomicilio extends Component {
     renderButton = ({ item }) => {
         const { state } = this;
         return (
-            <ListItem onPress={() => this.onSelectItem(item)}>
+            <ListItem onPress={() => this.onSelectItem(item)} last noBorder>
                 <Left>
                     <Text>{ item.value }</Text>
                 </Left>
                 <Right>
-                    <Radio selected={state.selected === item.key} onPress={() => this.onSelectItem(item)} />
+                    <Radio
+                        selected={state.selected === item.key}
+                        onPress={() => this.onSelectItem(item)}
+                    />
                 </Right>
             </ListItem>
         );

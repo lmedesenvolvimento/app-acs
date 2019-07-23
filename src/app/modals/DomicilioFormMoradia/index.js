@@ -9,11 +9,14 @@ import {
     Icon,
     Form,
     Item,
-    Label,
     Input,
     Button,
     H1,
 } from 'native-base';
+
+import { View } from 'react-native';
+
+import { Grid, Row, Col } from 'react-native-easy-grid';
 
 import Colors from '@/constants/Colors';
 
@@ -41,7 +44,7 @@ class DomicilioFormMoradiaModal extends Component {
             cm_destino_lixo: 'queimado_enterrado',
             cm_disponibilidade_eletrica: false,
             cm_escoamento_banheiro: 'fossa_rudimentar',
-            cm_localizacao: 'rural',
+            cm_localizacao: 'urbana',
             cm_material_alvenaria: 'com_revestimento',
             cm_material_outros: 'madeira_aproveitada',
             cm_material_taipa: 'sem_revestimento',
@@ -68,12 +71,71 @@ class DomicilioFormMoradiaModal extends Component {
                 <Content padder>
                     <H1 style={styles.heading}>Condição de Moradia</H1>
                     <Form>
-                        <Text note>Situação de moradia/Posse da terra</Text>
-                        <RadioSelect data={Domicilio.cm_condicao_posses} default="proprietario" />
-                        <Text note>Localização</Text>
-                        <RadioSelect data={Domicilio.cm_localizacoes} default="urbana" />
-                        <Text note>Tipo de Domicilio</Text>
-                        <RadioSelect data={Domicilio.cm_tipos} default="casa" />
+                        <Text style={styles.label} note>Situação de moradia/Posse da terra</Text>
+                        <RadioSelect
+                            data={Domicilio.cm_condicao_posses}
+                        />
+                        <Text style={styles.label} note>Localização</Text>
+                        <RadioSelect
+                            data={Domicilio.cm_localizacoes}
+                        />
+                        <Text style={styles.label} note>Tipo de Domicilio</Text>
+                        <RadioSelect
+                            data={Domicilio.cm_tipos}
+                        />
+                        <Grid style={styles.label}>
+                            <Row>
+                                <Col>
+                                    <Item style={styles.item} last>
+                                        <Input placeholder="Nº de Moradores *" />
+                                    </Item>
+                                </Col>
+                                <Col>
+                                    <Item style={styles.item} last>
+                                        <Input placeholder="Nº de Cômodo *" />
+                                    </Item>
+                                </Col>
+                            </Row>
+                        </Grid>
+
+                        <Text style={styles.label} note>Tipo de Acesso ao Domicílio</Text>
+                        <RadioSelect
+                            data={Domicilio.cm_tipo_acessos}
+                        />
+
+                        <Text style={styles.label} note>Disponibilidade de Energia Elétrica</Text>
+                        <RadioSelect
+                            data={Domicilio.cm_disponibilidade_eletrica}
+                        />
+
+                        <View style={styles.label}>
+                            <Text>EM CASO DE ÁREA DE PRODUÇÃO RURAL</Text>
+                            <Text note>Condição de Posse e Uso da Terra</Text>
+                        </View>
+                        <RadioSelect
+                            data={Domicilio.cm_disponibilidade_eletrica}
+                        />
+
+                        <View style={styles.label}>
+                            <Text>
+                                MATERIAL PREDOMINANTE NA CONTRUÇÃO
+                                DAS PAREDES EXTERNAS DE SEU DOMICÍLIO
+                            </Text>
+                            <Text note>Alvenaria/Tijolo</Text>
+                        </View>
+                        <RadioSelect
+                            data={Domicilio.cm_material_alvenarias}
+                        />
+
+                        <Text style={styles.label} note>Taipa</Text>
+                        <RadioSelect
+                            data={Domicilio.cm_material_taipas}
+                        />
+
+                        <Text style={styles.label} note>Outros</Text>
+                        <RadioSelect
+                            data={Domicilio.cm_material_outros}
+                        />
                     </Form>
                 </Content>
                 <LightFooter>
@@ -104,7 +166,7 @@ class DomicilioFormMoradiaModal extends Component {
     }
 
     convertToPhone = (phone, target) => {
-        if (!phone) return false;
+        if (!phone && !phone.match(/\d+/g).length) return false;
 
         const numbers = phone.match(/\d+/g).map(Number).join('');
         const result = new StringMask('(00) 00000-0000').apply(numbers);
