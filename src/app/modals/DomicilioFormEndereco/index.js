@@ -65,7 +65,7 @@ class DomicilioFormEnderecoModal extends Component {
                         <Item stackedLabel>
                             <Label>Complemento</Label>
                             <Input
-                                ref={ref => inputs['end_complement'] = ref}
+                                ref={ref => inputs.end_complement = ref}
                                 value={state.end_complement}
                                 onChangeText={end_complement => this.setState({ end_complement })}
                                 onBlur={() => this.jumpFocusTo('tel_residencial')}
@@ -74,7 +74,7 @@ class DomicilioFormEnderecoModal extends Component {
                         <Item stackedLabel>
                             <Label>Telefone Residencial</Label>
                             <Input
-                                ref={ref => inputs['tel_residencial'] = ref}
+                                ref={ref => inputs.tel_residencial = ref}
                                 keyboardType="phone-pad"
                                 value={state.tel_residencial}
                                 onChangeText={tel_residencial => this.convertToPhone(tel_residencial, 'tel_residencial')}
@@ -84,7 +84,7 @@ class DomicilioFormEnderecoModal extends Component {
                         <Item stackedLabel>
                             <Label>Telefone Referência</Label>
                             <Input
-                                ref={ref => inputs['tel_referencia'] = ref}
+                                ref={ref => inputs.tel_referencia = ref}
                                 keyboardType="phone-pad"
                                 value={state.tel_referencia}
                                 onChangeText={tel_referencia => this.convertToPhone(tel_referencia, 'tel_referencia')}

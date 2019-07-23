@@ -23,7 +23,7 @@ module.exports = {
         'dot-notation': 'off',
         'global-require': 'off',
         'no-underscore-dangle': 'off',
-        'no-return-assign': 'warn',
+        'no-return-assign': 'off',
         'no-trailing-spaces': 'warn',
         'no-param-reassign': 'warn',
         'import/no-unresolved': 'off',
