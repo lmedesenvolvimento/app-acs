@@ -12,6 +12,8 @@ import {
 
 import { FlatList } from 'react-native';
 
+import { findIndex } from 'lodash';
+
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
 
@@ -21,15 +23,7 @@ class DomicilioFormMainScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            model: {
-                end: {},
-                cm: {},
-                am: {},
-                mapeamento_id: 1,
-                quadra_logradouro_id: 1,
-                tel_referencia: '',
-                tel_residencial: '',
-            },
+            model: {},
             steps: [
                 {
                     key: 'Endereco',
@@ -54,6 +48,7 @@ class DomicilioFormMainScreen extends Component {
             ]
         };
     }
+
     render() {
         const { props, state } = this;
         return (
@@ -71,28 +66,53 @@ class DomicilioFormMainScreen extends Component {
                 </Header>
                 <FlatList
                     data={state.steps}
+                    extraData={state}
                     renderItem={this.renderItem}
                 />
             </SafeView>
         );
     }
+
     renderItem = ({ item }) => {
         return (
-            <ListItem onPress={() => this.goTo(item)} last>
+            <ListItem icon onPress={() => this.goTo(item)} last>
+                <Left>
+                    { item.completed ? <Icon name="ios-checkmark" /> : null }
+                </Left>
                 <Body>
                     <Text>{item.title}</Text>
                 </Body>
             </ListItem>
         );
     }
+
     goTo = ({ key, title }) => {
-        const { props } = this;
+        const { props, state } = this;
         setTimeout(() => {
-            props.navigation.navigate(key, { title });
+            props.navigation.navigate(key, {
+                title,
+                key,
+                model: state.model,
+                onSubmit: this.mergeData
+            });
         });
     }
+
     onPressBack = () => {
         MainNavigation.goBack();
+    }
+
+    mergeData = (newData, key) => {
+        const { model } = this.state;
+        const updates = Object.assign({}, model, newData);
+        this.completeStep(updates, key);
+    }
+
+    completeStep = (model, key) => {
+        const { steps } = this.state;
+        const index = findIndex(steps, { key });
+        steps[index].completed = true;
+        this.setState({ model, steps });
     }
 }
 

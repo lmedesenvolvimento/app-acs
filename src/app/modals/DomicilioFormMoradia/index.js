@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import {
     Text,
+    Container,
     Content,
     Left,
     Right,
@@ -12,11 +13,14 @@ import {
     Input,
     Button,
     H1,
+    Spinner
 } from 'native-base';
 
 import { View } from 'react-native';
 
 import { Grid, Row, Col } from 'react-native-easy-grid';
+
+import { pick } from 'lodash';
 
 import Colors from '@/constants/Colors';
 
@@ -38,33 +42,55 @@ class DomicilioFormMoradiaModal extends Component {
     requireds = [
         'cm_numero_moradores',
         'cm_numero_comodos'
-    ]
+    ];
+
+    fields = [
+        'cm_tipo',
+        'cm_tipo_acesso',
+        'cm_abastecimento_agua',
+        'cm_condicao_posse',
+        'cm_destino_lixo',
+        'cm_disponibilidade_eletrica',
+        'cm_escoamento_banheiro',
+        'cm_localizacao',
+        'cm_material_alvenaria',
+        'cm_material_outros',
+        'cm_material_taipa',
+        'cm_numero_comodos',
+        'cm_numero_moradores',
+        'cm_situacao_moradia',
+        'cm_tratamento_agua',
+    ];
 
     convertToNumber = convertToNumber
 
     constructor(props) {
         super(props);
-        this.state = {
-            cm_abastecimento_agua: 'cisterna',
-            cm_condicao_posse: 'proprietario',
-            cm_destino_lixo: 'queimado_enterrado',
-            cm_disponibilidade_eletrica: false,
-            cm_escoamento_banheiro: 'fossa_rudimentar',
-            cm_localizacao: 'urbana',
-            cm_material_alvenaria: 'com_revestimento',
-            cm_material_outros: 'madeira_aproveitada',
-            cm_material_taipa: 'sem_revestimento',
-            cm_numero_comodos: '12',
-            cm_numero_moradores: '12',
-            cm_situacao_moradia: 'financiado',
-            cm_tipo: 'casa',
-            cm_tipo_acesso: 'fluvial',
-            cm_tratamento_agua: 'fervura',
-        };
+        this.state = {};
+    }
+
+    componentWillMount() {
+        const { props } = this;
+        const model = props.navigation.getParam('model');
+        this.setState({ ...pick(model, this.fields) });
+    }
+
+    componentDidMount() {
+        const { props } = this;
+        props.navigation.addListener('didFocus', () => {
+            this.setState({ ready: true });
+        });
     }
 
     render() {
         const { props, state } = this;
+        if (!state.ready) {
+            return (
+                <Container style={styles.spinContainer}>
+                    <Spinner color="#ddd" size={64} />
+                </Container>
+            );
+        }
         return (
             <SafeView navigation={props.navigation} light={true}>
                 <LightHeader navigation={props.navigation} title="Cadastro Domiciliar">
@@ -79,8 +105,10 @@ class DomicilioFormMoradiaModal extends Component {
                     <Form>
                         <Text style={styles.label} note>Situação de moradia/Posse da terra</Text>
                         <RadioSelect
-                            data={Domicilio.cm_condicao_posses}
-                            onChangeValue={cm_condicao_posse => this.setState({ cm_condicao_posse })}
+                            data={Domicilio.cm_situacao_moradias}
+                            onChangeValue={(cm_situacao_moradia) => {
+                                this.setState({ cm_situacao_moradia });
+                            }}
                         />
                         <Text style={styles.label} note>Localização</Text>
                         <RadioSelect
@@ -151,37 +179,51 @@ class DomicilioFormMoradiaModal extends Component {
                         </View>
                         <RadioSelect
                             data={Domicilio.cm_material_alvenarias}
-                            onChangeValue={cm_material_alvenaria => this.setState({ cm_material_alvenaria })}
+                            onChangeValue={(cm_material_alvenaria) => {
+                                this.setState({ cm_material_alvenaria });
+                            }}
                         />
 
                         <Text style={styles.label} note>Taipa</Text>
                         <RadioSelect
                             data={Domicilio.cm_material_taipas}
-                            onChangeValue={cm_material_taipa => this.setState({ cm_material_taipa })}
+                            onChangeValue={(cm_material_taipa) => {
+                                this.setState({ cm_material_taipa });
+                            }}
                         />
 
                         <Text style={styles.label} note>Outros</Text>
                         <RadioSelect
                             data={Domicilio.cm_material_outros}
-                            onChangeValue={cm_material_outros => this.setState({ cm_material_outros })}
+                            onChangeValue={(cm_material_outros) => {
+                                this.setState({ cm_material_outros });
+                            }}
                         />
 
                         <Text style={styles.label} note>Abastecimento de Água</Text>
                         <RadioSelect
                             data={Domicilio.cm_abastecimento_aguas}
-                            onChangeValue={cm_abastecimento_agua => this.setState({ cm_abastecimento_agua })}
+                            onChangeValue={(cm_abastecimento_agua) => {
+                                this.setState({ cm_abastecimento_agua });
+                            }}
                         />
 
-                        <Text style={styles.label} note>Forma de escoamento do Banheiro Sanitário</Text>
+                        <Text style={styles.label} note>
+                            Forma de escoamento do Banheiro Sanitário
+                        </Text>
                         <RadioSelect
                             data={Domicilio.cm_escoamento_banheiros}
-                            onChangeValue={cm_escoamento_banheiros => this.setState({ cm_escoamento_banheiros })}
+                            onChangeValue={(cm_escoamento_banheiros) => {
+                                this.setState({ cm_escoamento_banheiros });
+                            }}
                         />
 
                         <Text style={styles.label} note>Tratamento de Água no Domicílio</Text>
                         <RadioSelect
                             data={Domicilio.cm_tratamento_aguas}
-                            onChangeValue={cm_tratamento_agua => this.setState({ cm_tratamento_agua })}
+                            onChangeValue={(cm_tratamento_agua) => {
+                                this.setState({ cm_tratamento_agua });
+                            }}
                         />
 
                         <Text style={styles.label} note>Destino do Lixo</Text>
@@ -209,6 +251,12 @@ class DomicilioFormMoradiaModal extends Component {
     }
     onPressBack = () => {
         const { props } = this;
+        props.navigation.goBack();
+    }
+
+    submitForm = () => {
+        const { props, state } = this;
+        props.navigation.getParam('onSubmit')({ ...state }, props.navigation.getParam('key'));
         props.navigation.goBack();
     }
 

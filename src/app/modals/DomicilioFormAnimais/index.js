@@ -2,18 +2,21 @@ import React, { Component } from 'react';
 
 import {
     Text,
+    Container,
     Content,
     Left,
     Icon,
     H1,
     Form,
-    Label,
     Item,
     Input,
     Button,
     Body,
-    Right
+    Right,
+    Spinner
 } from 'native-base';
+
+import { pick } from 'lodash';
 
 import Colors from '@/constants/Colors';
 
@@ -22,6 +25,7 @@ import HeaderLeftButton from '@/components/HeaderLeftButton';
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
+import CheckboxSelect from '@/components/CheckboxSelect';
 
 import styles from './index.styl';
 
@@ -32,16 +36,39 @@ import { Animais } from '@/types';
 class DomicilioFormAnimaisModal extends Component {
     convertToNumber = convertToNumber
 
+    fields = [
+        'an_cria_animais',
+        'an_numero',
+        'an_animais',
+    ]
+
     constructor(props) {
         super(props);
-        this.state = {
-            an_cria_animais: null,
-            an_numero: '',
-            an_animais: Animais.an_animais,
-        };
+        this.state = {};
     }
+
+    componentWillMount() {
+        const { props } = this;
+        const model = props.navigation.getParam('model');
+        this.setState({ ...pick(model, this.fields) });
+    }
+
+    componentDidMount() {
+        const { props } = this;
+        props.navigation.addListener('didFocus', () => {
+            this.setState({ ready: true });
+        });
+    }
+
     render() {
-        const { props, state, inputs } = this;
+        const { props, state } = this;
+        if (!state.ready) {
+            return (
+                <Container style={styles.spinContainer}>
+                    <Spinner color="#ddd" size={64} />
+                </Container>
+            );
+        }
         return (
             <SafeView navigation={props.navigation} light={true}>
                 <LightHeader navigation={props.navigation} title="Cadastro Domiciliar">
@@ -64,14 +91,18 @@ class DomicilioFormAnimaisModal extends Component {
 
                         <Text style={styles.label} note>Quantos</Text>
                         <Item stackedLabel>
-                            <Label>Número</Label>
                             <Input
                                 keyboardType="numeric"
                                 value={state.an_numero}
-                                placeholder="Informe o número de telefone"
+                                placeholder="Informe o total de animais"
                                 onChangeText={an_numero => this.convertToNumber(an_numero, 'an_numero')}
                             />
                         </Item>
+
+                        <Text style={styles.label} note>Qual(is)?</Text>
+                        <CheckboxSelect
+                            data={Animais.an_animais}
+                        />
                     </Form>
                 </Content>
                 <LightFooter>
@@ -92,6 +123,12 @@ class DomicilioFormAnimaisModal extends Component {
     }
     onPressBack = () => {
         const { props } = this;
+        props.navigation.goBack();
+    }
+
+    submitForm = () => {
+        const { props, state } = this;
+        props.navigation.getParam('onSubmit')({ ...state }, props.navigation.getParam('key'));
         props.navigation.goBack();
     }
 }

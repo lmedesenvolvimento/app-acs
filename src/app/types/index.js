@@ -95,11 +95,11 @@ export const Animais = {
         no: 'Não'
     },
     an_animais: [
-        { type: 'animal_cachorro' },
-        { type: 'animal_de_criacao' },
-        { type: 'animal_gato' },
-        { type: 'animal_outro' },
-        { type: 'animal_passaro' },
+        { key: 'animal_gato', text: 'Gato' },
+        { key: 'animal_cachorro', text: 'Cachorro' },
+        { key: 'animal_de_criacao', text: 'De criação (porco, galinha...)' },
+        { key: 'animal_passaro', text: 'Pássaro' },
+        { key: 'animal_outro', text: 'Outros' },
     ]
 };
 

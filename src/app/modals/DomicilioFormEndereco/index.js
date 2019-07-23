@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import {
     Text,
+    Container,
     Content,
     Left,
     Right,
@@ -13,6 +14,7 @@ import {
     Input,
     Button,
     H1,
+    Spinner
 } from 'native-base';
 
 
@@ -25,25 +27,44 @@ import LightFooter from '@/components/LightFooter';
 
 import { convertToNumber, convertToPhone } from '@/helpers';
 
+import { pick } from 'lodash';
+
 import styles from './index.styl';
 
 class DomicilioFormEnderecoModal extends Component {
     inputs = {};
+    fields = ['end_numero', 'end_complement', 'tel_residencial', 'tel_referencia'];
+
     convertToNumber = convertToNumber
     convertToPhone = convertToPhone
 
     constructor(props) {
         super(props);
-        this.state = {
-            end_numero: '',
-            end_complement: '',
-            tel_residencial: '',
-            tel_referencia: '',
-        };
+        this.state = {};
+    }
+
+    componentWillMount() {
+        const { props } = this;
+        const model = props.navigation.getParam('model');
+        this.setState({ ...pick(model, this.fields) });
+    }
+
+    componentDidMount() {
+        const { props } = this;
+        props.navigation.addListener('didFocus', () => {
+            this.setState({ ready: true });
+        });
     }
 
     render() {
         const { props, state, inputs } = this;
+        if (!state.ready) {
+            return (
+                <Container style={styles.spinContainer}>
+                    <Spinner color="#ddd" size={64} />
+                </Container>
+            );
+        }
         return (
             <SafeView navigation={props.navigation} light={true}>
                 <LightHeader navigation={props.navigation} title="Cadastro Domiciliar">
@@ -117,6 +138,12 @@ class DomicilioFormEnderecoModal extends Component {
     }
     onPressBack = () => {
         const { props } = this;
+        props.navigation.goBack();
+    }
+
+    submitForm = () => {
+        const { props, state } = this;
+        props.navigation.getParam('onSubmit')({ ...state }, props.navigation.getParam('key'));
         props.navigation.goBack();
     }
 
