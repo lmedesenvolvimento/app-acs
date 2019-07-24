@@ -38,8 +38,8 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
     inputs = {};
 
     requireds = [
-        'cm_numero_moradores',
-        'cm_numero_comodos'
+        'cm_localizacao',
+        'cm_situacao_moradia'
     ];
 
     fields = [
@@ -84,7 +84,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                     </Left>
                 </LightHeader>
                 <Content padder>
-                    <H1 style={styles.heading}>Condição de Moradia</H1>
+                    <H1 style={styles.heading}>Condição de Moradia *</H1>
                     <Form>
                         <Text style={styles.label} note>Situação de moradia/Posse da terra</Text>
                         <RadioSelect
@@ -93,7 +93,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                                 this.setState({ cm_situacao_moradia });
                             }}
                         />
-                        <Text style={styles.label} note>Localização</Text>
+                        <Text style={styles.label} note>Localização *</Text>
                         <RadioSelect
                             data={Domicilio.cm_localizacoes}
                             onChangeValue={cm_localizacao => this.setState({ cm_localizacao })}
