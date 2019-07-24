@@ -38,8 +38,8 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
     inputs = {};
 
     requireds = [
-        'cm_numero_moradores',
-        'cm_numero_comodos'
+        'cm_localizacao',
+        'cm_situacao_moradia'
     ];
 
     fields = [
@@ -86,27 +86,44 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                 <Content padder>
                     <H1 style={styles.heading}>Condição de Moradia</H1>
                     <Form>
-                        <Text style={styles.label} note>Situação de moradia/Posse da terra</Text>
+                        <Text
+                            style={this.hasError('cm_situacao_moradia') ? styles.labelError : styles.label}
+                            note
+                        >
+                            Situação de moradia/Posse da terra *
+                        </Text>
                         <RadioSelect
                             data={Domicilio.cm_situacao_moradias}
                             onChangeValue={(cm_situacao_moradia) => {
                                 this.setState({ cm_situacao_moradia });
                             }}
                         />
-                        <Text style={styles.label} note>Localização</Text>
+
+                        <Text
+                            style={this.hasError('cm_localizacao') ? styles.labelError : styles.label}
+                            note
+                        >
+                            Localização *
+                        </Text>
                         <RadioSelect
                             data={Domicilio.cm_localizacoes}
+                            error={this.hasError('cm_localizacao')}
                             onChangeValue={cm_localizacao => this.setState({ cm_localizacao })}
                         />
+
                         <Text style={styles.label} note>Tipo de Domicilio</Text>
                         <RadioSelect
                             data={Domicilio.cm_tipos}
                             onChangeValue={cm_tipo => this.setState({ cm_tipo })}
                         />
+
                         <Grid style={styles.label}>
                             <Row>
                                 <Col>
-                                    <Item style={styles.item} error={state.errors ? state.errors.cm_numero_moradores.error : false} last>
+                                    <Item
+                                        style={styles.item}
+                                        last
+                                    >
                                         <Input
                                             ref={ref => this.inputs.cm_numero_moradores = ref}
                                             value={state.cm_numero_moradores}
@@ -118,7 +135,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                                     </Item>
                                 </Col>
                                 <Col>
-                                    <Item style={styles.item} error={state.errors ? state.errors.cm_numero_comodos.error : false} last>
+                                    <Item style={styles.item}  last>
                                         <Input
                                             ref={ref => this.inputs.cm_numero_comodos = ref}
                                             value={state.cm_numero_comodos}

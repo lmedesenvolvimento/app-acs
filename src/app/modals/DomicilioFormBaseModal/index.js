@@ -76,6 +76,11 @@ class DomicilioFormBaseModal extends Component {
 
         return values(errors).filter(({ error }) => error).length ? errors : false;
     }
+
+    hasError = (attr) => {
+        const { state } = this;
+        return state.errors ? state.errors[attr].error : false;
+    }
 }
 
 export default DomicilioFormBaseModal;

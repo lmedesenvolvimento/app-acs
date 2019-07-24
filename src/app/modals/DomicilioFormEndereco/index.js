@@ -31,6 +31,7 @@ import styles from './index.styl';
 class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
     inputs = {};
     fields = ['end_numero', 'end_complement', 'tel_residencial', 'tel_referencia'];
+    requireds = ['end_numero', 'tel_residencial']
 
     constructor(props) {
         super(props);
@@ -58,7 +59,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                 <Content padder>
                     <H1 style={styles.heading}>Endereço</H1>
                     <Form>
-                        <Item stackedLabel>
+                        <Item stackedLabel error={this.hasError('end_numero')}>
                             <Label>Número</Label>
                             <Input
                                 keyboardType="numeric"
@@ -78,7 +79,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                                 onSubmitEditing={() => this.jumpFocusTo('tel_residencial')}
                             />
                         </Item>
-                        <Item stackedLabel>
+                        <Item stackedLabel error={this.hasError('tel_residencial')}>
                             <Label>Telefone Residencial</Label>
                             <Input
                                 ref={ref => inputs.tel_residencial = ref}
