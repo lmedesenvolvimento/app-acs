@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
     Text,
@@ -24,36 +24,17 @@ import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
-
-import { convertToNumber, convertToPhone } from '@/helpers';
-
-import { pick } from 'lodash';
+import DomicilioFormBaseModal from '@/modals/DomicilioFormBaseModal';
 
 import styles from './index.styl';
 
-class DomicilioFormEnderecoModal extends Component {
+class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
     inputs = {};
     fields = ['end_numero', 'end_complement', 'tel_residencial', 'tel_referencia'];
-
-    convertToNumber = convertToNumber
-    convertToPhone = convertToPhone
 
     constructor(props) {
         super(props);
         this.state = {};
-    }
-
-    componentWillMount() {
-        const { props } = this;
-        const model = props.navigation.getParam('model');
-        this.setState({ ...pick(model, this.fields) });
-    }
-
-    componentDidMount() {
-        const { props } = this;
-        props.navigation.addListener('didFocus', () => {
-            this.setState({ ready: true });
-        });
     }
 
     render() {
@@ -135,22 +116,6 @@ class DomicilioFormEnderecoModal extends Component {
                 </LightFooter>
             </SafeView>
         );
-    }
-    onPressBack = () => {
-        const { props } = this;
-        props.navigation.goBack();
-    }
-
-    submitForm = () => {
-        const { props, state } = this;
-        props.navigation.getParam('onSubmit')({ ...state }, props.navigation.getParam('key'));
-        props.navigation.goBack();
-    }
-
-    jumpFocusTo = (target) => {
-        const { inputs } = this;
-        inputs[target]._root.focus();
-        return true;
     }
 }
 

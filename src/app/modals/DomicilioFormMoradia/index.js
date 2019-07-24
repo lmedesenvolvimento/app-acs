@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
     Text,
@@ -20,8 +20,6 @@ import { View } from 'react-native';
 
 import { Grid, Row, Col } from 'react-native-easy-grid';
 
-import { pick } from 'lodash';
-
 import Colors from '@/constants/Colors';
 
 import SafeView from '@/components/SafeView';
@@ -30,13 +28,13 @@ import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
 
-import { Domicilio } from '@/types';
+import DomicilioFormBaseModal from '@/modals/DomicilioFormBaseModal';
 
-import { convertToNumber } from '@/helpers';
+import { Domicilio } from '@/types';
 
 import styles from './index.styl';
 
-class DomicilioFormMoradiaModal extends Component {
+class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
     inputs = {};
 
     requireds = [
@@ -62,24 +60,9 @@ class DomicilioFormMoradiaModal extends Component {
         'cm_tratamento_agua',
     ];
 
-    convertToNumber = convertToNumber
-
     constructor(props) {
         super(props);
         this.state = {};
-    }
-
-    componentWillMount() {
-        const { props } = this;
-        const model = props.navigation.getParam('model');
-        this.setState({ ...pick(model, this.fields) });
-    }
-
-    componentDidMount() {
-        const { props } = this;
-        props.navigation.addListener('didFocus', () => {
-            this.setState({ ready: true });
-        });
     }
 
     render() {
@@ -123,7 +106,7 @@ class DomicilioFormMoradiaModal extends Component {
                         <Grid style={styles.label}>
                             <Row>
                                 <Col>
-                                    <Item style={styles.item} last>
+                                    <Item style={styles.item} error={state.errors ? state.errors.cm_numero_moradores.error : false} last>
                                         <Input
                                             ref={ref => this.inputs.cm_numero_moradores = ref}
                                             value={state.cm_numero_moradores}
@@ -135,7 +118,7 @@ class DomicilioFormMoradiaModal extends Component {
                                     </Item>
                                 </Col>
                                 <Col>
-                                    <Item style={styles.item} last>
+                                    <Item style={styles.item} error={state.errors ? state.errors.cm_numero_comodos.error : false} last>
                                         <Input
                                             ref={ref => this.inputs.cm_numero_comodos = ref}
                                             value={state.cm_numero_comodos}
@@ -248,22 +231,6 @@ class DomicilioFormMoradiaModal extends Component {
                 </LightFooter>
             </SafeView>
         );
-    }
-    onPressBack = () => {
-        const { props } = this;
-        props.navigation.goBack();
-    }
-
-    submitForm = () => {
-        const { props, state } = this;
-        props.navigation.getParam('onSubmit')({ ...state }, props.navigation.getParam('key'));
-        props.navigation.goBack();
-    }
-
-    jumpFocusTo = (target) => {
-        const { inputs } = this;
-        inputs[target]._root.focus();
-        return true;
     }
 }
 

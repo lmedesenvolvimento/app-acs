@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
     Text,
@@ -16,8 +16,6 @@ import {
     Spinner
 } from 'native-base';
 
-import { pick } from 'lodash';
-
 import Colors from '@/constants/Colors';
 
 import SafeView from '@/components/SafeView';
@@ -27,15 +25,13 @@ import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
 import CheckboxSelect from '@/components/CheckboxSelect';
 
-import styles from './index.styl';
+import DomicilioFormBaseModal from '@/modals/DomicilioFormBaseModal';
 
-import { convertToNumber } from '@/helpers';
+import styles from './index.styl';
 
 import { Animais } from '@/types';
 
-class DomicilioFormAnimaisModal extends Component {
-    convertToNumber = convertToNumber
-
+class DomicilioFormAnimaisModal extends DomicilioFormBaseModal {
     fields = [
         'an_cria_animais',
         'an_numero',
@@ -47,25 +43,15 @@ class DomicilioFormAnimaisModal extends Component {
         this.state = {};
     }
 
-    componentWillMount() {
-        const { props } = this;
-        const model = props.navigation.getParam('model');
-        this.setState({ ...pick(model, this.fields) });
-    }
-
-    componentDidMount() {
-        const { props } = this;
-        props.navigation.addListener('didFocus', () => {
-            this.setState({ ready: true });
-        });
-    }
-
     render() {
         const { props, state } = this;
         if (!state.ready) {
             return (
                 <Container style={styles.spinContainer}>
-                    <Spinner color="#ddd" size={64} />
+                    <Spinner
+                        color="#ddd"
+                        size={64}
+                    />
                 </Container>
             );
         }
@@ -120,16 +106,6 @@ class DomicilioFormAnimaisModal extends Component {
                 </LightFooter>
             </SafeView>
         );
-    }
-    onPressBack = () => {
-        const { props } = this;
-        props.navigation.goBack();
-    }
-
-    submitForm = () => {
-        const { props, state } = this;
-        props.navigation.getParam('onSubmit')({ ...state }, props.navigation.getParam('key'));
-        props.navigation.goBack();
     }
 }
 
