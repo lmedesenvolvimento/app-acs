@@ -84,7 +84,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                     </Left>
                 </LightHeader>
                 <Content padder>
-                    <H1 style={styles.heading}>Condição de Moradia</H1>
+                    <H1 style={styles.heading}>Condição de Moradia *</H1>
                     <Form>
                         <Text
                             style={this.hasError('cm_situacao_moradia') ? styles.labelError : styles.label}
@@ -98,6 +98,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                                 this.setState({ cm_situacao_moradia });
                             }}
                         />
+<<<<<<< HEAD
 
                         <Text
                             style={this.hasError('cm_localizacao') ? styles.labelError : styles.label}
@@ -105,6 +106,9 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         >
                             Localização *
                         </Text>
+=======
+                        <Text style={styles.label} note>Localização *</Text>
+>>>>>>> c258c174c8ce3159881b960fc2952b3898cff48c
                         <RadioSelect
                             data={Domicilio.cm_localizacoes}
                             error={this.hasError('cm_localizacao')}
