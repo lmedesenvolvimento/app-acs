@@ -41,7 +41,7 @@ class DomicilioFormMainScreen extends Component {
                     completed: false
                 },
                 {
-                    key: 'Familias',
+                    key: 'FamiliasList',
                     title: 'Famílias',
                     completed: false
                 },

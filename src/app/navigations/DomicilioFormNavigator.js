@@ -18,7 +18,10 @@ export default createStackNavigator({
         screen: require('@/modals/DomicilioFormAnimais').default
     },
     Familias: {
-        screen: require('@/modals/DomicilioFormFamilias').default
+        screen: require('@/modals/DomicilioFormFamiliasList').default
+    },
+    FamiliasList: {
+        screen: require('@/modals/DomicilioFormFamiliasList').default
     }
 }, {
     initialRouteName: 'DomicilioForm',
