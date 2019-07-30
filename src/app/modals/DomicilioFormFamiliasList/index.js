@@ -10,9 +10,11 @@ import {
     H1,
     H2,
     Spinner,
+    ListItem,
+    Body,
 } from 'native-base';
 
-import { View } from 'react-native';
+import { View, FlatList } from 'react-native';
 
 import Colors from '@/constants/Colors';
 
@@ -27,7 +29,9 @@ import styles from './index.styl';
 class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            familias: []
+        };
     }
     render() {
         const { props, state } = this;
@@ -49,16 +53,56 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
                 </LightHeader>
                 <View style={styles.header}>
                     <H1 style={styles.heading}>Famílias</H1>
-                    <Fab style={[{ backgroundColor: Colors.warnColor }, styles.fab]}>
+                    <Fab
+
+                        onPress={() => this.toFamiliaForm()}
+                        style={[{ backgroundColor: Colors.warnColor }, styles.fab]}
+                    >
                         <Icon name="ios-add" />
                     </Fab>
                 </View>
                 <Content style={styles.content} padder>
                     <H2 style={{ color: Colors.primaryColor }}>Membros</H2>
-                    <Text>Minim ea nostrud nostrud ad ex.</Text>
+                    <FlatList
+                        data={state.familias}
+                        extraData={state}
+                        renderItem={this.renderItem}
+                        ListEmptyComponent={this.renderEmptyContent}
+                    />
                 </Content>
             </SafeView>
         );
+    }
+
+    renderItem = ({ item }) => {
+        return (
+            <ListItem>
+                <Body>
+                    <Text>{item.numero_prontuario}</Text>
+                </Body>
+            </ListItem>
+        );
+    }
+
+    renderEmptyContent = () => {
+        return (
+            <ListItem>
+                <Body>
+                    <Text>Nenhum membro cadastrado.</Text>
+                </Body>
+            </ListItem>
+        );
+    }
+
+    toFamiliaForm = (familia) => {
+        const { navigation } = this.props;
+        navigation.navigate('Familias', { model: {}, onSubmit: this.onSubmit });
+    }
+
+    onSubmit = (familia) => {
+        const { familias } = this.state;
+        familias.push(familia);
+        this.setState({ familias });
     }
 }
 

@@ -103,7 +103,15 @@ export const Animais = {
     ]
 };
 
+export const Familia = {
+    mudou_se: {
+        yes: 'Sim',
+        no: 'Não'
+    }
+}
+
 export default {
     Logradouro,
-    Domicilio
+    Domicilio,
+    Familia
 };

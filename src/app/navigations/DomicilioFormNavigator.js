@@ -4,6 +4,19 @@ import {
 
 import { fromBottom } from 'react-navigation-transitions';
 
+const FamiliaStack = createStackNavigator({
+    List: {
+        screen: require('@/modals/DomicilioFormFamiliasList').default
+    },
+    Familias: {
+        screen: require('@/modals/DomicilioFormFamilias').default
+    }
+}, {
+    initialRouteName: 'List',
+    headerMode: 'none',
+    transitionConfig: () => fromBottom(600),
+});
+
 export default createStackNavigator({
     DomicilioForm: {
         screen: require('@/screens/DomicilioFormMainScreen').default
@@ -18,11 +31,8 @@ export default createStackNavigator({
         screen: require('@/modals/DomicilioFormAnimais').default
     },
     Familias: {
-        screen: require('@/modals/DomicilioFormFamiliasList').default
+        screen: FamiliaStack
     },
-    FamiliasList: {
-        screen: require('@/modals/DomicilioFormFamiliasList').default
-    }
 }, {
     initialRouteName: 'DomicilioForm',
     mode: 'modal',
