@@ -13,7 +13,8 @@ import {
     Input,
     Button,
     H1,
-    Spinner
+    Spinner,
+    Picker
 } from 'native-base';
 
 
@@ -37,8 +38,11 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
         'numero_prontuario',
         'numero_cartao_sus_responsavel',
         'data_de_nascimento',
+        'renda_familiar',
         'numero_membros_familia',
         'reside',
+        'mudou_se',
+        'key',
     ];
 
     requireds = [
@@ -101,20 +105,27 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 value={state.data_de_nascimento}
                                 placeholder="Data de nascimento do responsável *"
                                 onChangeText={data_de_nascimento => this.convertToDate(data_de_nascimento, 'data_de_nascimento')}
-                                onSubmitEditing={() => this.jumpFocusTo('renda_familiar')}
                             />
                         </Item>
 
-                        <Item stackedLabel>
-                            <Input
-                                ref={ref => inputs.renda_familiar = ref}
-                                keyboardType="numeric"
-                                value={state.renda_familiar}
-                                placeholder="Renda familiar"
-                                onChangeText={renda_familiar => this.convertToMoney(renda_familiar, 'renda_familiar')}
-                                onSubmitEditing={() => this.jumpFocusTo('numero_membros_familia')}
-                            />
-                        </Item>
+                        <Text style={styles.label} note>Renda familiar</Text>
+                        <Picker
+                            mode="dropdown"
+                            iosIcon={<Icon name="arrow-down" />}
+                            style={[styles.picker, { width: undefined }]}
+                            placeholder="Selecione o tipo de renda"
+                            placeholderIconColor="#007aff"
+                            selectedValue={state.renda_familiar}
+                            onValueChange={renda_familiar => this.setState({ renda_familiar })}
+                        >
+                            <Picker.Item label="Selecione o tipo de renda" value={undefined} />
+                            <Picker.Item label={Familia.renda_familiar.menos_que_meio_salario} value="menos_que_meio_salario" />
+                            <Picker.Item label={Familia.renda_familiar.meio_salario} value="meio_salario" />
+                            <Picker.Item label={Familia.renda_familiar.um_salario} value="um_salario" />
+                            <Picker.Item label={Familia.renda_familiar.um_salario_meio} value="um_salario_meio" />
+                            <Picker.Item label={Familia.renda_familiar.tres_salario} value="tres_salario" />
+                            <Picker.Item label={Familia.renda_familiar.mais_que_tres_salario} value="mais_que_tres_salario" />
+                        </Picker>
 
                         <Item stackedLabel>
                             <Input
@@ -140,6 +151,8 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                         <Text style={styles.label} note>Possui algum animal?</Text>
                         <RadioSelect
                             data={Familia.mudou_se}
+                            default={state.mudou_se}
+                            isBoolean={true}
                             onChangeValue={mudou_se => this.setState({
                                 mudou_se: mudou_se === 'yes'
                             })}

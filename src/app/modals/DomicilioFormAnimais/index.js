@@ -70,6 +70,8 @@ class DomicilioFormAnimaisModal extends DomicilioFormBaseModal {
                         <Text style={styles.label} note>Possui algum animal?</Text>
                         <RadioSelect
                             data={Animais.an_cria_animais}
+                            default={state.an_cria_animais}
+                            isBoolean={true}
                             onChangeValue={an_cria_animais => this.setState({
                                 an_cria_animais: an_cria_animais === 'yes'
                             })}

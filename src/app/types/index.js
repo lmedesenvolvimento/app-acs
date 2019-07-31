@@ -107,8 +107,16 @@ export const Familia = {
     mudou_se: {
         yes: 'Sim',
         no: 'Não'
+    },
+    renda_familiar: {
+        menos_que_meio_salario: 'Menos que meio salário mínimo',
+        meio_salario: 'Meio salário mínimo',
+        um_salario: 'Um salário mínimo',
+        um_salario_meio: 'Um salário mínimo e meio',
+        tres_salario: 'Três salários mínimos',
+        mais_que_tres_salario: 'Mais que três salários mínimos',
     }
-}
+};
 
 export default {
     Logradouro,

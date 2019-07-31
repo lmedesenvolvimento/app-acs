@@ -79,7 +79,7 @@ export function convertToMoney(date, target) {
         return true;
     }
 
-    const numbers = date.match(/\d+/g).map(Number).join('');
+    const numbers = date.match(/\d+/g).join('');
     const result = new StringMask('#.##0,00', { reverse: true }).apply(numbers);
 
     updates[target] = result;
@@ -91,5 +91,7 @@ export function convertToMoney(date, target) {
 
 export default {
     convertToNumber,
-    convertToPhone
+    convertToPhone,
+    convertToMoney,
+    convertToYear
 };

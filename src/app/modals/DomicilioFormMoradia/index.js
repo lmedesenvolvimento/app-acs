@@ -94,6 +94,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         </Text>
                         <RadioSelect
                             data={Domicilio.cm_situacao_moradias}
+                            default={state.cm_situacao_moradia}
                             onChangeValue={(cm_situacao_moradia) => {
                                 this.setState({ cm_situacao_moradia });
                             }}
@@ -107,6 +108,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         </Text>
                         <RadioSelect
                             data={Domicilio.cm_localizacoes}
+                            default={state.cm_localizacao}
                             error={this.hasError('cm_localizacao')}
                             onChangeValue={cm_localizacao => this.setState({ cm_localizacao })}
                         />
@@ -151,12 +153,14 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         <Text style={styles.label} note>Tipo de Acesso ao Domicílio</Text>
                         <RadioSelect
                             data={Domicilio.cm_tipo_acessos}
+                            default={state.cm_tipo_acesso}
                             onChangeValue={cm_tipo_acesso => this.setState({ cm_tipo_acesso })}
                         />
 
                         <Text style={styles.label} note>Disponibilidade de Energia Elétrica</Text>
                         <RadioSelect
                             data={Domicilio.cm_disponibilidade_eletrica}
+                            default={state.cm_disponibilidade_eletrica}
                             onChangeValue={cm_disponibilidade_eletrica => this.setState({
                                 cm_disponibilidade_eletrica: cm_disponibilidade_eletrica === 'yes'
                             })}
@@ -179,6 +183,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         </View>
                         <RadioSelect
                             data={Domicilio.cm_material_alvenarias}
+                            default={state.cm_material_alvenaria}
                             onChangeValue={(cm_material_alvenaria) => {
                                 this.setState({ cm_material_alvenaria });
                             }}
@@ -187,6 +192,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         <Text style={styles.label} note>Taipa</Text>
                         <RadioSelect
                             data={Domicilio.cm_material_taipas}
+                            default={state.cm_material_taipa}
                             onChangeValue={(cm_material_taipa) => {
                                 this.setState({ cm_material_taipa });
                             }}
@@ -195,6 +201,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         <Text style={styles.label} note>Outros</Text>
                         <RadioSelect
                             data={Domicilio.cm_material_outros}
+                            default={state.cm_material_outro}
                             onChangeValue={(cm_material_outros) => {
                                 this.setState({ cm_material_outros });
                             }}
@@ -203,6 +210,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         <Text style={styles.label} note>Abastecimento de Água</Text>
                         <RadioSelect
                             data={Domicilio.cm_abastecimento_aguas}
+                            default={state.cm_abastecimento_agua}
                             onChangeValue={(cm_abastecimento_agua) => {
                                 this.setState({ cm_abastecimento_agua });
                             }}
@@ -213,6 +221,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         </Text>
                         <RadioSelect
                             data={Domicilio.cm_escoamento_banheiros}
+                            default={state.cm_escoamento_banheiro}
                             onChangeValue={(cm_escoamento_banheiros) => {
                                 this.setState({ cm_escoamento_banheiros });
                             }}
@@ -221,6 +230,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         <Text style={styles.label} note>Tratamento de Água no Domicílio</Text>
                         <RadioSelect
                             data={Domicilio.cm_tratamento_aguas}
+                            default={state.cm_tratamento_agua}
                             onChangeValue={(cm_tratamento_agua) => {
                                 this.setState({ cm_tratamento_agua });
                             }}
@@ -229,6 +239,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         <Text style={styles.label} note>Destino do Lixo</Text>
                         <RadioSelect
                             data={Domicilio.cm_destino_lixo}
+                            default={state.cm_destino_lixo}
                             onChangeValue={cm_destino_lixo => this.setState({ cm_destino_lixo })}
                         />
                     </Form>

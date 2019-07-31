@@ -24,8 +24,21 @@ class RadioSelectDomicilio extends Component {
 
     componentDidMount() {
         const { props } = this;
-        const selected = props.default ? props.default : null;
         const selection = [];
+
+        let selected = null;
+
+        if (props.isBoolean) {
+            if (typeof props.default === 'boolean') {
+                selected = props.default ? 'yes' : 'no';
+            } else {
+                selected = null;
+            }
+        } else {
+            selected = props.default ? props.default : null;
+        }
+
+        console.log('componentDidMount', props.default);
 
         forEach(
             props.data,
@@ -62,10 +75,6 @@ class RadioSelectDomicilio extends Component {
                 </Right>
             </ListItem>
         );
-    }
-
-    isSelected = (item, newKey) => {
-        return item.key === newKey;
     }
 
     onSelectItem = (item) => {

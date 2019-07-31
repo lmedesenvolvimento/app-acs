@@ -14,7 +14,12 @@ import {
     Body,
 } from 'native-base';
 
+// import { Grid, Row, Col } from 'react-native-easy-grid';
+
 import { View, FlatList } from 'react-native';
+
+import { findIndex } from 'lodash';
+import shortid from 'shortid';
 
 import Colors from '@/constants/Colors';
 
@@ -45,7 +50,7 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
             );
         }
         return (
-            <SafeView navigation={props.navigation} light={true}>
+            <SafeView navigation={props.navigation} light={true} isModal={true}>
                 <LightHeader navigation={props.navigation} title="Cadastro Domiciliar">
                     <Left>
                         <HeaderLeftButton icon onPress={this.onPressBack}>
@@ -57,14 +62,14 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
                     <H1 style={styles.heading}>Famílias</H1>
                     <Fab
 
-                        onPress={() => this.toFamiliaForm()}
+                        onPress={() => this.toNewFamilia()}
                         style={[{ backgroundColor: Colors.warnColor }, styles.fab]}
                     >
                         <Icon name="ios-add" />
                     </Fab>
                 </View>
                 <Content style={styles.content} padder>
-                    <H2 style={{ color: Colors.primaryColor }}>Membros</H2>
+                    <H2 style={[styles.subHeading, { color: Colors.primaryColor }]}>Membros</H2>
                     <FlatList
                         data={state.familias}
                         extraData={state}
@@ -78,32 +83,77 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
 
     renderItem = ({ item }) => {
         return (
-            <ListItem last>
-                <Body>
+            <ListItem onPress={() => this.toEditFamilia(item)} last>
+                <Body style={{ paddingHorizontal: 2 }}>
+                    <Text>Nº do numero prontuário</Text>
                     <Text>{item.numero_prontuario}</Text>
+                    <Text note>{item.data_de_nascimento}</Text>
                 </Body>
             </ListItem>
         );
+        // return (
+        //     <ListItem onPress={() => this.toEditFamilia(item)} last>
+        //         <Grid>
+        //             <Row>
+        //                 <Col>
+        //                     <Body>
+        //                         <Text>Nº do numero prontuário</Text>
+        //                         <Text>{item.numero_prontuario}</Text>
+        //                         <Text note>{item.data_de_nascimento}</Text>
+        //                     </Body>
+        //                 </Col>
+        //                 <Col>
+        //                     <Body>
+        //                         <Text note>{`${item.numero_membros_familia} membros`}</Text>
+        //                         <Text note>{item.renda_familiar}</Text>
+        //                         <Row>
+        //                             <Text note>{`reside ${item.reside} - ${item.mudou_se ? 'mudou-se' : 'não se mudou'} `}</Text>
+        //                         </Row>
+        //                     </Body>
+        //                 </Col>
+        //             </Row>
+        //         </Grid>
+        //     </ListItem>
+        // );
     }
 
     renderEmptyContent = () => {
         return (
             <ListItem last>
-                <Body>
+                <Body style={{ paddingHorizontal: 2 }}>
                     <Text>Nenhum membro cadastrado.</Text>
                 </Body>
             </ListItem>
         );
     }
 
-    toFamiliaForm = (familia) => {
+    toNewFamilia = () => {
         const { navigation } = this.props;
-        navigation.navigate('Familias', { model: {}, onSubmit: this.onSubmit });
+        navigation.navigate('Familias', { model: {}, onSubmit: this.onSubmitNew });
     }
 
-    onSubmit = (familia) => {
+    toEditFamilia = (familia) => {
+        const { navigation } = this.props;
+        navigation.navigate('Familias', { model: familia, onSubmit: this.onSubmitUpdate });
+    }
+
+    onSubmitNew = (familia) => {
         const { familias } = this.state;
-        familias.push(familia);
+        const key = shortid.generate();
+        const payload = Object.assign({}, familia, { key });
+
+        familias.push(payload);
+
+        this.setState({ familias });
+    }
+
+    onSubmitUpdate = (familia) => {
+        const { familias } = this.state;
+        const { key } = familia;
+        const indexOf = findIndex(familias, { key });
+
+        familias[indexOf] = Object.assign({}, familia);
+
         this.setState({ familias });
     }
 
