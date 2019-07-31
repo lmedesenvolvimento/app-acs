@@ -2,15 +2,24 @@ import React, { Component } from 'react';
 import { View, Alert } from 'react-native';
 import { pick, omit, values } from 'lodash';
 
-import { convertToNumber, convertToPhone } from '@/helpers';
+import {
+    convertToNumber,
+    convertToPhone,
+    convertToDate,
+    convertToYear,
+    convertToMoney
+} from '@/helpers';
 
 class DomicilioFormBaseModal extends Component {
     fields = [];
     hiddenFields = ['ready'];
     requireds = [];
 
-    convertToNumber = convertToNumber
+    convertToDate = convertToDate
+    convertToYear = convertToYear
     convertToPhone = convertToPhone
+    convertToMoney = convertToMoney
+    convertToNumber = convertToNumber
 
     constructor(props) {
         super(props);

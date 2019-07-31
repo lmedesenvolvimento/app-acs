@@ -24,6 +24,8 @@ import LightHeader from '@/components/LightHeader';
 
 import DomicilioFormBaseModal from '@/modals/DomicilioFormBaseModal';
 
+import MainNavigation from '@/services/MainNavigation';
+
 import styles from './index.styl';
 
 class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
@@ -76,7 +78,7 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
 
     renderItem = ({ item }) => {
         return (
-            <ListItem>
+            <ListItem last>
                 <Body>
                     <Text>{item.numero_prontuario}</Text>
                 </Body>
@@ -86,7 +88,7 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
 
     renderEmptyContent = () => {
         return (
-            <ListItem>
+            <ListItem last>
                 <Body>
                     <Text>Nenhum membro cadastrado.</Text>
                 </Body>
@@ -103,6 +105,10 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
         const { familias } = this.state;
         familias.push(familia);
         this.setState({ familias });
+    }
+
+    onPressBack = () => {
+        MainNavigation.goBack();
     }
 }
 

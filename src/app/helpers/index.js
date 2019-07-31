@@ -7,7 +7,7 @@ export function convertToNumber(number, target) {
         updates[target] = '';
         this.setState(updates);
     } else {
-        const numbers = number.match(/\d+/g).map(Number).join('');
+        const numbers = number.match(/\d+/g).join('');
         updates[target] = numbers;
         this.setState(updates);
     }
@@ -22,8 +22,65 @@ export function convertToPhone(phone, target) {
         return true;
     }
 
-    const numbers = phone.match(/\d+/g).map(Number).join('');
+    const numbers = phone.match(/\d+/g).join('');
     const result = new StringMask('(00) 00000-0000').apply(numbers);
+
+    updates[target] = result;
+
+    this.setState(updates);
+
+    return true;
+}
+
+export function convertToDate(date, target) {
+    const updates = {};
+
+    if (!date.length || !date.match(/\d+/g)) {
+        updates[target] = '';
+        this.setState(updates);
+        return true;
+    }
+
+    const numbers = date.match(/\d+/g).join('');
+    const result = new StringMask('00/00/0000').apply(numbers);
+
+    updates[target] = result;
+
+    this.setState(updates);
+
+    return true;
+}
+
+export function convertToYear(date, target) {
+    const updates = {};
+
+    if (!date.length || !date.match(/\d+/g)) {
+        updates[target] = '';
+        this.setState(updates);
+        return true;
+    }
+
+    const numbers = date.match(/\d+/g).join('');
+    const result = new StringMask('0000').apply(numbers);
+
+    updates[target] = result;
+
+    this.setState(updates);
+
+    return true;
+}
+
+export function convertToMoney(date, target) {
+    const updates = {};
+
+    if (!date.length || !date.match(/\d+/g)) {
+        updates[target] = '';
+        this.setState(updates);
+        return true;
+    }
+
+    const numbers = date.match(/\d+/g).map(Number).join('');
+    const result = new StringMask('#.##0,00', { reverse: true }).apply(numbers);
 
     updates[target] = result;
 
