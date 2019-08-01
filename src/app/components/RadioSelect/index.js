@@ -38,8 +38,6 @@ class RadioSelectDomicilio extends Component {
             selected = props.default ? props.default : null;
         }
 
-        console.log('componentDidMount', props.default);
-
         forEach(
             props.data,
             (value, key) => selection.push({ value, key })

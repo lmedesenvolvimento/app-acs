@@ -61,7 +61,7 @@ export function convertToYear(date, target) {
     }
 
     const numbers = date.match(/\d+/g).join('');
-    const result = new StringMask('0000').apply(numbers);
+    const result = new StringMask('00/0000').apply(numbers);
 
     updates[target] = result;
 
@@ -70,16 +70,16 @@ export function convertToYear(date, target) {
     return true;
 }
 
-export function convertToMoney(date, target) {
+export function convertToMoney(number, target) {
     const updates = {};
 
-    if (!date.length || !date.match(/\d+/g)) {
+    if (!number.length || !number.match(/\d+/g)) {
         updates[target] = '';
         this.setState(updates);
         return true;
     }
 
-    const numbers = date.match(/\d+/g).join('');
+    const numbers = number.match(/\d+/g).join('');
     const result = new StringMask('#.##0,00', { reverse: true }).apply(numbers);
 
     updates[target] = result;

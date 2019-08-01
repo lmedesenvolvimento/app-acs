@@ -64,7 +64,7 @@ class DomicilioFormBaseModal extends Component {
         }
 
         props.navigation.getParam('onSubmit')({ ...payload }, props.navigation.getParam('key'));
-        props.navigation.goBack();
+        this.onPressBack();
     }
 
     jumpFocusTo = (target) => {

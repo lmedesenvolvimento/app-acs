@@ -3,7 +3,6 @@ import React from 'react';
 import {
     Text,
     Container,
-    Content,
     Left,
     Fab,
     Icon,
@@ -12,11 +11,12 @@ import {
     Spinner,
     ListItem,
     Body,
+    Right,
+    Button
 } from 'native-base';
 
-// import { Grid, Row, Col } from 'react-native-easy-grid';
 
-import { View, FlatList } from 'react-native';
+import { Alert, View, FlatList } from 'react-native';
 
 import { findIndex } from 'lodash';
 import shortid from 'shortid';
@@ -26,6 +26,7 @@ import Colors from '@/constants/Colors';
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
 import LightHeader from '@/components/LightHeader';
+import LightFooter from '@/components/LightFooter';
 
 import DomicilioFormBaseModal from '@/modals/DomicilioFormBaseModal';
 
@@ -34,6 +35,8 @@ import MainNavigation from '@/services/MainNavigation';
 import styles from './index.styl';
 
 class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
+    fields = ['familias']
+
     constructor(props) {
         super(props);
         this.state = {
@@ -68,53 +71,40 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
                         <Icon name="ios-add" />
                     </Fab>
                 </View>
-                <Content style={styles.content} padder>
-                    <H2 style={[styles.subHeading, { color: Colors.primaryColor }]}>Membros</H2>
-                    <FlatList
-                        data={state.familias}
-                        extraData={state}
-                        renderItem={this.renderItem}
-                        ListEmptyComponent={this.renderEmptyContent}
-                    />
-                </Content>
+                <H2 style={[styles.subHeading, { color: Colors.primaryColor }]}>Membros</H2>
+                <FlatList
+                    data={state.familias}
+                    extraData={state}
+                    renderItem={this.renderItem}
+                    ListEmptyComponent={this.renderEmptyContent}
+                />
+                <LightFooter>
+                    <Left>
+                        <Button transparent block small onPress={this.onPressBack}>
+                            <Text style={{ color: Colors.textColor }}>Voltar</Text>
+                        </Button>
+                    </Left>
+                    <Body />
+                    <Right>
+                        <Button transparent block small onPress={this.submitForm}>
+                            <Text style={{ color: Colors.textColor }}>Salvar</Text>
+                        </Button>
+                    </Right>
+                </LightFooter>
             </SafeView>
         );
     }
 
     renderItem = ({ item }) => {
         return (
-            <ListItem onPress={() => this.toEditFamilia(item)} last>
-                <Body style={{ paddingHorizontal: 2 }}>
+            <ListItem onPress={() => this.onPressItem(item)} last>
+                <Body>
                     <Text>Nº do numero prontuário</Text>
                     <Text>{item.numero_prontuario}</Text>
                     <Text note>{item.data_de_nascimento}</Text>
                 </Body>
             </ListItem>
         );
-        // return (
-        //     <ListItem onPress={() => this.toEditFamilia(item)} last>
-        //         <Grid>
-        //             <Row>
-        //                 <Col>
-        //                     <Body>
-        //                         <Text>Nº do numero prontuário</Text>
-        //                         <Text>{item.numero_prontuario}</Text>
-        //                         <Text note>{item.data_de_nascimento}</Text>
-        //                     </Body>
-        //                 </Col>
-        //                 <Col>
-        //                     <Body>
-        //                         <Text note>{`${item.numero_membros_familia} membros`}</Text>
-        //                         <Text note>{item.renda_familiar}</Text>
-        //                         <Row>
-        //                             <Text note>{`reside ${item.reside} - ${item.mudou_se ? 'mudou-se' : 'não se mudou'} `}</Text>
-        //                         </Row>
-        //                     </Body>
-        //                 </Col>
-        //             </Row>
-        //         </Grid>
-        //     </ListItem>
-        // );
     }
 
     renderEmptyContent = () => {
@@ -137,6 +127,18 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
         navigation.navigate('Familias', { model: familia, onSubmit: this.onSubmitUpdate });
     }
 
+    onPressItem = (item) => {
+        Alert.alert(
+            'Cadastro de Moradia',
+            'O que você deseja fazer?',
+            [
+                { text: 'Editar', onPress: () => this.toEditFamilia(item) },
+                { text: 'Excluir', onPress: () => this.onDestroy(item), style: 'destructive' },
+                { text: 'Cancelar', style: 'cancel' }
+            ]
+        );
+    }
+
     onSubmitNew = (familia) => {
         const { familias } = this.state;
         const key = shortid.generate();
@@ -153,6 +155,16 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
         const indexOf = findIndex(familias, { key });
 
         familias[indexOf] = Object.assign({}, familia);
+
+        this.setState({ familias });
+    }
+
+    onDestroy = (familia) => {
+        const { familias } = this.state;
+        const { key } = familia;
+        const indexOf = findIndex(familias, { key });
+
+        familias.splice(indexOf, 1);
 
         this.setState({ familias });
     }
