@@ -33,11 +33,10 @@ function destroyDomicilios(quadra_key, logradouro_key) {
 function getDomiciliosByQuadraLogradouro(quadra_logradrouro_key) {
     return (dispatch, getState) => {
         const state = getState();
-        return state.Domicilios.data;
-        // return chain(state.Domicilios.data)
-        //     .filter({ quadra_logradrouro_key })
-        //     .orderBy('asc')
-        //     .value();
+        return chain(state.Domicilios.data)
+            .filter({ quadra_logradrouro_key })
+            .orderBy('asc')
+            .value();
     };
 }
 

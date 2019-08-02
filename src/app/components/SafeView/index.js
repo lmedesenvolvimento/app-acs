@@ -3,6 +3,7 @@ import { Animated, Dimensions, Easing } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
 import Colors from '@/constants/Colors';
+import { modals } from '@/navigations/index.const';
 
 import MainStatusBar from '@/components/MainStatusBar';
 import OverlayScene from '@/components/OverlayScene';
@@ -38,13 +39,13 @@ class SafeView extends Component {
     }
 
     translateIn = (payload) => {
-        const { state, props } = this;
+        const { state } = this;
 
         if (payload.action.type === NavigationActions.BACK) return;
 
         this.setState({ isOverlay: true });
 
-        if (props.isModal) return;
+        if (modals.includes(payload.action.routeName)) return;
 
         Animated.timing(
             state.translateX,
@@ -57,12 +58,12 @@ class SafeView extends Component {
         ).start();
     }
 
-    translateOut = () => {
-        const { state, props } = this;
+    translateOut = (payload) => {
+        const { state } = this;
 
         this.setState({ isOverlay: false });
 
-        if (props.isModal) return;
+        if (modals.includes(payload.action.routeName)) return;
 
         Animated.timing(
             state.translateX,

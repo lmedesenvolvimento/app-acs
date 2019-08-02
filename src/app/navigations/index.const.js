@@ -10,6 +10,15 @@ export const defaultNavigationOptions = {
     },
 };
 
+export const modals = [
+    'LogradouroForm',
+    'DomicilioForm',
+    'Endereco',
+    'Moradia',
+    'Animais',
+    'Familias'
+];
+
 export default {
     defaultNavigationOptions
 };
