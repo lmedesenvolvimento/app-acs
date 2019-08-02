@@ -14,10 +14,10 @@ function setDomicilios(data) {
     };
 }
 
-function addDomicilios(quadra_key, logradouro_key) {
+function addDomicilios(data) {
     return {
         type: Types.ADD_DOMICILIOS,
-        data: { quadra_key, logradouro_key }
+        data
     };
 }
 function destroyDomicilios(quadra_key, logradouro_key) {
