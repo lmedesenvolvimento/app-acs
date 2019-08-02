@@ -63,6 +63,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                             <Label>Número</Label>
                             <Input
                                 keyboardType="numeric"
+                                autoCorrect={false}
                                 value={state.end_numero}
                                 placeholder="Informe o número de telefone"
                                 onChangeText={end_numero => this.convertToNumber(end_numero, 'end_numero')}
@@ -73,6 +74,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                             <Label>Complemento</Label>
                             <Input
                                 ref={ref => inputs.end_complement = ref}
+                                autoCorrect={false}
                                 value={state.end_complement}
                                 placeholder="Informe o complemento"
                                 onChangeText={end_complement => this.setState({ end_complement })}
@@ -83,6 +85,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                             <Label>Telefone Residencial</Label>
                             <Input
                                 ref={ref => inputs.tel_residencial = ref}
+                                autoCorrect={false}
                                 keyboardType="phone-pad"
                                 value={state.tel_residencial}
                                 placeholder="Informe Telefone residencial"
@@ -94,6 +97,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                             <Label>Telefone Referência</Label>
                             <Input
                                 ref={ref => inputs.tel_referencia = ref}
+                                autoCorrect={false}
                                 keyboardType="phone-pad"
                                 value={state.tel_referencia}
                                 placeholder="Informe Telefone referência"

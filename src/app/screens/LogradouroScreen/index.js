@@ -154,6 +154,7 @@ class LogradouroScreen extends Component {
                             : <Icon name="ios-search" />
                     }
                     <Input
+                        autoCorrect={false}
                         value={state.query}
                         placeholder="Insira o nome do Logradouro"
                         onBlur={this.onSerchBlur}

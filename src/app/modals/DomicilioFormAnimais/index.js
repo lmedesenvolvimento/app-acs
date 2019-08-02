@@ -81,6 +81,7 @@ class DomicilioFormAnimaisModal extends DomicilioFormBaseModal {
                         <Item stackedLabel>
                             <Input
                                 keyboardType="numeric"
+                                autoCorrect={false}
                                 value={state.an_numero}
                                 placeholder="Informe o total de animais"
                                 onChangeText={an_numero => this.convertToNumber(an_numero, 'an_numero')}

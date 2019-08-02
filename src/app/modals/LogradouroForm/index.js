@@ -88,6 +88,7 @@ class LogradouroFormScreen extends Component {
                                 <Label>Nome</Label>
                                 <Input
                                     ref={ref => this.inputNome = ref}
+                                    autoCorrect={false}
                                     placeholder="Insira o nome do Logradouro"
                                     value={state.nome}
                                     onBlur={this.onNomeBlur}
@@ -245,7 +246,11 @@ class LogradouroFormScreen extends Component {
                 <View style={styles.inputGroup}>
                     <Item stackedLabel last>
                         <Label>Bairro</Label>
-                        <Input value={state.bairro ? state.bairro.nome : ''} disabled />
+                        <Input
+                            autoCorrect={false}
+                            value={state.bairro ? state.bairro.nome : ''}
+                            disabled
+                        />
                     </Item>
                 </View>
                 <View style={styles.pickGroup}>

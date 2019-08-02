@@ -61,6 +61,7 @@ class LoginScreen extends Component {
                             <Label>Email</Label>
                             <Input
                                 onChangeText={email => this.setState({ email })}
+                                autoCorrect={false}
                                 keyboardType="email-address"
                                 disabled={Auth.authenticating}
                             />
@@ -70,6 +71,7 @@ class LoginScreen extends Component {
                             <Label>Password</Label>
                             <Input
                                 secureTextEntry
+                                autoCorrect={false}
                                 onChangeText={password => this.setState({ password })}
                                 disabled={Auth.authenticating}
                             />

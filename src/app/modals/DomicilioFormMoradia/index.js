@@ -128,6 +128,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                                     >
                                         <Input
                                             ref={ref => this.inputs.cm_numero_moradores = ref}
+                                            autoCorrect={false}
                                             value={state.cm_numero_moradores}
                                             placeholder="Nº de Moradores *"
                                             keyboardType="numeric"
@@ -140,6 +141,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                                     <Item style={styles.item} last>
                                         <Input
                                             ref={ref => this.inputs.cm_numero_comodos = ref}
+                                            autoCorrect={false}
                                             value={state.cm_numero_comodos}
                                             placeholder="Nº de Cômodo *"
                                             keyboardType="numeric"

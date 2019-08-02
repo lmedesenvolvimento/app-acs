@@ -80,6 +80,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                         <Item stackedLabel error={this.hasError('numero_prontuario')}>
                             <Input
                                 keyboardType="numeric"
+                                autoCorrect={false}
                                 value={state.numero_prontuario}
                                 placeholder="Nº do prontuário familiar *"
                                 onChangeText={numero_prontuario => this.convertToNumber(numero_prontuario, 'numero_prontuario')}
@@ -90,6 +91,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                         <Item stackedLabel error={this.hasError('numero_cartao_sus_responsavel')}>
                             <Input
                                 ref={ref => inputs.numero_cartao_sus_responsavel = ref}
+                                autoCorrect={false}
                                 keyboardType="numeric"
                                 value={state.numero_cartao_sus_responsavel}
                                 placeholder="Nº cartão SUS do responsável *"
@@ -101,6 +103,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                         <Item stackedLabel error={this.hasError('data_de_nascimento')}>
                             <Input
                                 ref={ref => inputs.data_de_nascimento = ref}
+                                autoCorrect={false}
                                 keyboardType="numeric"
                                 value={state.data_de_nascimento}
                                 placeholder="Data de nascimento do responsável *"
@@ -130,6 +133,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                         <Item stackedLabel>
                             <Input
                                 ref={ref => inputs.numero_membros_familia = ref}
+                                autoCorrect={false}
                                 keyboardType="numeric"
                                 value={state.numero_membros_familia}
                                 placeholder="Nº de membros da família"
@@ -141,6 +145,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                         <Item stackedLabel>
                             <Input
                                 ref={ref => inputs.reside = ref}
+                                autoCorrect={false}
                                 keyboardType="numeric"
                                 value={state.reside}
                                 placeholder="Reside desde: 1990"
