@@ -21,9 +21,12 @@ import shortid from 'shortid';
 import DomiciliosActions from '@redux/modules/Domicilios/actions';
 
 import SafeView from '@/components/SafeView';
+import LightFooter from '@/components/LightFooter';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
 
 import MainNavigation from '@/services/MainNavigation';
+
+import Colors from '@/constants/Colors';
 
 import styles from './index.styl';
 
@@ -63,6 +66,7 @@ class DomicilioFormMainScreen extends Component {
 
     render() {
         const { props, state } = this;
+        const model = props.navigation.getParam('model');
         return (
             <SafeView navigation={props.navigation} isModal={true}>
                 <Header noShadow>
@@ -77,16 +81,26 @@ class DomicilioFormMainScreen extends Component {
                     <Right />
                 </Header>
                 <H1 style={styles.heading}>
-                    { props.navigation.getParam('model').logradouro_nome }
+                    { model ? model.logradouro_nome : 'Indefinido' }
                 </H1>
                 <FlatList
                     data={state.steps}
                     extraData={state}
                     renderItem={this.renderItem}
                 />
-                <Button block primary onPress={this.onSubmit}>
-                    <Text>Salvar</Text>
-                </Button>
+                <LightFooter>
+                    <Left>
+                        <Button transparent block small onPress={this.onPressBack}>
+                            <Text style={{ color: Colors.textColor }}>Voltar</Text>
+                        </Button>
+                    </Left>
+                    <Body />
+                    <Right>
+                        <Button transparent block small onPress={() => this.onSubmit()}>
+                            <Text style={{ color: Colors.textColor }}>Salvar</Text>
+                        </Button>
+                    </Right>
+                </LightFooter>
             </SafeView>
         );
     }
@@ -120,6 +134,10 @@ class DomicilioFormMainScreen extends Component {
         MainNavigation.goBack();
     }
 
+    onSubmit = () => {
+        this.createDomicilio();
+    }
+
     createDomicilio = () => {
         const { props, state } = this;
         const { quadra_logradouro_key } = props.navigation.getParam('model');
@@ -149,22 +167,10 @@ class DomicilioFormMainScreen extends Component {
 
     mapSteps = () => {
         const { steps } = this.state;
+        const isValid = this.isStepsValid();
         let updates = {};
 
-        if (!find(steps, { key: 'Endereco', completed: true }).length) {
-            Alert.alert('Cadastro de Domicílio', 'Endereço é obrigatório');
-            return null;
-        }
-
-        if (!find(steps, { key: 'Moradia', completed: true }).length) {
-            Alert.alert('Cadastro de Domicílio', 'Moradia é obrigatório');
-            return null;
-        }
-
-        if (!find(steps, { key: 'Animais', completed: true }).length) {
-            Alert.alert('Cadastro de Domicílio', 'Animais é obrigatório');
-            return null;
-        }
+        if (!isValid) return null;
 
         steps.forEach((step) => {
             updates = Object.assign(updates, step.model);
@@ -174,10 +180,43 @@ class DomicilioFormMainScreen extends Component {
 
         return updates;
     }
+
+    isStepsValid = () => {
+        const { steps } = this.state;
+
+        console.log(steps);
+
+        const endereco = find(steps, { key: 'Endereco', completed: true });
+        if (!endereco) {
+            Alert.alert('Cadastro de Domicílio', 'Endereço é obrigatório');
+            return false;
+        }
+
+        const moradia = find(steps, { key: 'Moradia', completed: true });
+        if (!moradia) {
+            Alert.alert('Cadastro de Domicílio', 'Moradia é obrigatório');
+            return false;
+        }
+
+        const animais = find(steps, { key: 'Animais', completed: true });
+        if (!animais) {
+            Alert.alert('Cadastro de Domicílio', 'Animais é obrigatório');
+            return false;
+        }
+
+        const familias = find(steps, { key: 'Familias', completed: true });
+        if (!familias) {
+            Alert.alert('Cadastro de Domicílio', 'Familias é obrigatório');
+            return false;
+        }
+
+        return true;
+    }
 }
 
 const mapStateToProps = () => {
     return {};
 };
+
 
 export default connect(mapStateToProps, DomiciliosActions)(DomicilioFormMainScreen);

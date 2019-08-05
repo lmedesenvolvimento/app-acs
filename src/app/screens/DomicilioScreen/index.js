@@ -135,10 +135,11 @@ class DomicilioScreen extends Component {
     onPressNewLogradouro = () => {
         const { props } = this;
         const { navigation } = props;
+        const logradouro = props.navigation.getParam('logradouro');
 
         const payload = {
             model: {
-                logradouro_nome: props.navigation.getParam('logradouro').nome,
+                logradouro_nome: logradouro ? logradouro.nome : '',
                 quadra_logradouro_key: props.navigation.getParam('quadra_logradouro_key'),
             },
             title: 'Cadastro Domiciliar',

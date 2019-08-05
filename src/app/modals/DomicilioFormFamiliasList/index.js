@@ -86,7 +86,7 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
                     </Left>
                     <Body />
                     <Right>
-                        <Button transparent block small onPress={this.submitForm}>
+                        <Button transparent block small onPress={this.submitFamiliaForm}>
                             <Text style={{ color: Colors.textColor }}>Salvar</Text>
                         </Button>
                     </Right>
@@ -167,6 +167,17 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
         familias.splice(indexOf, 1);
 
         this.setState({ familias });
+    }
+
+    submitFamiliaForm = () => {
+        const { familias } = this.state;
+
+        if (!familias.length) {
+            Alert.alert('Cadastro Domiciliar', 'È obrigado existir algum membro cadastrado no domicílio.');
+            return;
+        }
+
+        this.submitForm();
     }
 
     onPressBack = () => {
