@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, Dimensions, Easing } from 'react-native';
+import { Animated, Dimensions, Easing, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
 import Colors from '@/constants/Colors';
@@ -8,15 +8,31 @@ import { modals } from '@/navigations/index.const';
 import MainStatusBar from '@/components/MainStatusBar';
 import OverlayScene from '@/components/OverlayScene';
 
+import posed from 'react-native-pose';
+
 import styles from './index.styl';
+
+const Content = posed.View({
+    in: {
+        x: -(Dimensions.get('window').width * 0.50),
+        transition: {
+            translateX: { ease: 'easeOut', duration: 300 }
+        }
+    },
+    out: {
+        x: 0,
+        transition: {
+            x: { ease: 'easeOut', duration: 300 }
+        }
+    }
+});
 
 class SafeView extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isOverlay: false,
-            screenWidth: Dimensions.get('window').width,
-            translateX: new Animated.Value(0),
+            pushed: false,
         };
     }
     componentDidMount() {
@@ -26,54 +42,33 @@ class SafeView extends Component {
     }
     render() {
         const { props, state } = this;
-        const { translateX } = state;
-        const transform = [{ translateX }];
 
         return (
-            <Animated.View style={[styles.container, transform]}>
+            <Content style={styles.container} pose={state.pushed ? 'in' : 'out'}>
                 <MainStatusBar barStyle="light-content" backgroundColor={props.light ? '#FFFFFF' : Colors.primaryColor} />
                 {props.children}
                 <OverlayScene opacity={0.36} visible={state.isOverlay} />
-            </Animated.View>
+            </Content>
         );
     }
 
     translateIn = (payload) => {
-        const { state } = this;
-
         if (payload.action.type === NavigationActions.BACK) return;
 
         this.setState({ isOverlay: true });
 
         if (modals.includes(payload.action.routeName)) return;
 
-        Animated.timing(
-            state.translateX,
-            {
-                toValue: -(state.screenWidth * 0.24),
-                easing: Easing.ease,
-                duration: 200,
-                useNativeDriver: true
-            }
-        ).start();
+        this.setState({ pushed: true });
+
     }
 
     translateOut = (payload) => {
-        const { state } = this;
-
         this.setState({ isOverlay: false });
 
-        if (modals.includes(payload.action.routeName)) return;
+        if (!modals.includes(payload.action.routeName)) return;
 
-        Animated.timing(
-            state.translateX,
-            {
-                toValue: 0,
-                easing: Easing.linear,
-                duration: 240,
-                useNativeDriver: true
-            }
-        ).start();
+        this.setState({ pushed: false });
     }
 }
 
