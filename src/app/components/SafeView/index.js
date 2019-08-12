@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, Dimensions, Easing, View } from 'react-native';
+import { Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
 import Colors from '@/constants/Colors';
@@ -12,7 +12,7 @@ import posed from 'react-native-pose';
 
 import styles from './index.styl';
 
-const Content = posed.View({
+const AnimatedView = posed.View({
     in: {
         x: -(Dimensions.get('window').width * 0.50),
         transition: {
@@ -44,11 +44,11 @@ class SafeView extends Component {
         const { props, state } = this;
 
         return (
-            <Content style={styles.container} pose={state.pushed ? 'in' : 'out'}>
+            <AnimatedView style={styles.container} pose={state.pushed ? 'in' : 'out'}>
                 <MainStatusBar barStyle="light-content" backgroundColor={props.light ? '#FFFFFF' : Colors.primaryColor} />
                 {props.children}
                 <OverlayScene opacity={0.36} visible={state.isOverlay} />
-            </Content>
+            </AnimatedView>
         );
     }
 
@@ -60,13 +60,12 @@ class SafeView extends Component {
         if (modals.includes(payload.action.routeName)) return;
 
         this.setState({ pushed: true });
-
     }
 
     translateOut = (payload) => {
         this.setState({ isOverlay: false });
 
-        if (!modals.includes(payload.action.routeName)) return;
+        if (modals.includes(payload.action.routeName)) return;
 
         this.setState({ pushed: false });
     }

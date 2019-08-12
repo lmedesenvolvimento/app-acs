@@ -166,25 +166,16 @@ class DomicilioFormMainScreen extends Component {
     }
 
     mapSteps = () => {
-        const { steps } = this.state;
+        const { model } = this.state;
         const isValid = this.isStepsValid();
-        let updates = {};
 
         if (!isValid) return null;
 
-        steps.forEach((step) => {
-            updates = Object.assign(updates, step.model);
-        });
-
-        console.log(updates);
-
-        return updates;
+        return Object.assign({}, model);
     }
 
     isStepsValid = () => {
         const { steps } = this.state;
-
-        console.log(steps);
 
         const endereco = find(steps, { key: 'Endereco', completed: true });
         if (!endereco) {
@@ -214,8 +205,10 @@ class DomicilioFormMainScreen extends Component {
     }
 }
 
-const mapStateToProps = () => {
-    return {};
+const mapStateToProps = ({ Domicilios }) => {
+    return {
+        Domicilios
+    };
 };
 
 

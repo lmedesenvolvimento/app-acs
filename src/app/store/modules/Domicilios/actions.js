@@ -1,5 +1,5 @@
 import { bindActionCreators } from 'redux';
-import { findIndex, chain } from 'lodash';
+import { findIndex, filter, chain } from 'lodash';
 import Types from './types';
 
 const clearDomicilios = {
@@ -15,9 +15,12 @@ function setDomicilios(data) {
 }
 
 function addDomicilios(data) {
-    return {
-        type: Types.ADD_DOMICILIOS,
-        data
+    console.log('addDomicilios', data);
+    return (dispatch) => {
+        dispatch({
+            type: Types.ADD_DOMICILIOS,
+            data
+        });
     };
 }
 function destroyDomicilios(quadra_key, logradouro_key) {
@@ -30,11 +33,12 @@ function destroyDomicilios(quadra_key, logradouro_key) {
     };
 }
 
-function getDomiciliosByQuadraLogradouro(quadra_logradrouro_key) {
+function getDomiciliosByQuadraLogradouro(quadra_logradouro_key) {
     return (dispatch, getState) => {
-        const state = getState();
-        return chain(state.Domicilios.data)
-            .filter({ quadra_logradrouro_key })
+        const { Domicilios } = getState();
+
+        return chain(Domicilios.data)
+            .filter({ quadra_logradouro_key })
             .orderBy('asc')
             .value();
     };

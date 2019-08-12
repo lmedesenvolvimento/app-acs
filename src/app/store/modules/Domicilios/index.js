@@ -17,10 +17,11 @@ export default (state = initialState, action) => {
             data: action.data
         };
     case Types.ADD_DOMICILIOS:
-        data.push(domicilio);
+        console.log('ADD_DOMICILIOS', action.data, data)
+        state.data.push(action.data);
         return Object.assign({}, state);
     case Types.DESTROY_DOMICILIOS:
-        data.splice(action.index, 1);
+        state.data.splice(action.index, 1);
         return Object.assign({}, state);
     default:
         return state;
