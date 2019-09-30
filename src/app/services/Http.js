@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import axios from 'axios';
 
-const baseURL = Constants.manifest.baseurl;
+const baseURL = Constants.manifest.extra.baseurl;
 const instance = axios.create({
     baseURL
 });
