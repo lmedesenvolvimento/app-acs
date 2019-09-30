@@ -1,8 +1,9 @@
-import { BASE_URL } from 'react-native-dotenv';
+import Constants from 'expo-constants';
 import axios from 'axios';
 
+const baseURL = Constants.manifest.baseurl;
 const instance = axios.create({
-    baseURL: BASE_URL
+    baseURL
 });
 
 export const defineAccessToken = (token) => {
