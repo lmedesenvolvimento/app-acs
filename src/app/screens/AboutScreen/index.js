@@ -41,11 +41,8 @@ class AboutScreen extends Component {
     }
 }
 
-mapActions = (dispatch) => {
-    return Object.assign(
-        APIActions(dispatch), 
-        AuthActions(dispatch)
-    );
-}
+const mapActions = (dispatch) => {
+    return Object.assign({}, APIActions(dispatch), AuthActions(dispatch));
+};
 
 export default connect(UserMapState, mapActions)(AboutScreen);

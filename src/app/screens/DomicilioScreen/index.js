@@ -33,8 +33,7 @@ class DomicilioScreen extends Component {
         super(props);
         this.state = {
             title: '',
-            domicilios: [],
-            domicilio: null
+            domicilios: []
         };
     }
 
@@ -99,8 +98,12 @@ class DomicilioScreen extends Component {
         return (
             <ListItem>
                 <Body>
-                    <Text>{item.end_numero}</Text>
-                    <Text note>{item.cm_tipo ? Domicilio.cm_tipos[item.cm_tipo] : '' }</Text>
+                    <Text>
+                        {`Nº ${item.end_numero}`}
+                    </Text>
+                    <Text note>
+                        {item.cm_tipo ? Domicilio.cm_tipos[item.cm_tipo] : '' }
+                    </Text>
                 </Body>
             </ListItem>
         );

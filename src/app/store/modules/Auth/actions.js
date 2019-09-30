@@ -40,6 +40,7 @@ function signInAsync(email, password, onSuccess, onFail) {
                 // callback
                 onSuccess(data);
             }).catch((error) => {
+                console.warn(error);
                 dispatch(signInFail);
                 dispatch(signInDone);
                 onFail(error);

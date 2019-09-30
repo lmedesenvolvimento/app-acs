@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Font, AppLoading } from 'expo';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { AppLoading } from 'expo';
+import * as Font from 'expo-font';
+import { SafeAreaView } from 'react-native';
 import { Root, StyleProvider } from 'native-base';
 
 import { Ionicons } from '@expo/vector-icons';
