@@ -90,7 +90,8 @@ class DomicilioFormAnimaisModal extends DomicilioFormBaseModal {
 
                         <Text style={styles.label} note>Qual(is)?</Text>
                         <CheckboxSelect
-                            data={Animais.an_animais}
+                            data={state.an_animais || Animais.an_animais}
+                            onChangeValue={an_animais => this.setState({ an_animais })}
                         />
                     </Form>
                 </Content>
