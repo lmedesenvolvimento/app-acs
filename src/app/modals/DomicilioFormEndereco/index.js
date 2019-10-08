@@ -64,11 +64,12 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                             <Input
                                 keyboardType="numeric"
                                 autoCorrect={false}
-                                value={state.end_numero}
                                 placeholder="Informe o número de telefone"
                                 onChangeText={end_numero => this.convertToNumber(end_numero, 'end_numero')}
                                 onSubmitEditing={() => this.jumpFocusTo('end_complement')}
-                            />
+                            >
+                                {state.end_numero}
+                            </Input>
                         </Item>
                         <Item stackedLabel>
                             <Label>Complemento</Label>
@@ -79,7 +80,9 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                                 placeholder="Informe o complemento"
                                 onChangeText={end_complement => this.setState({ end_complement })}
                                 onSubmitEditing={() => this.jumpFocusTo('tel_residencial')}
-                            />
+                            >
+                                {state.end_complement}
+                            </Input>
                         </Item>
                         <Item stackedLabel error={this.hasError('tel_residencial')}>
                             <Label>Telefone Residencial</Label>
@@ -87,11 +90,12 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                                 ref={ref => inputs.tel_residencial = ref}
                                 autoCorrect={false}
                                 keyboardType="phone-pad"
-                                value={state.tel_residencial}
                                 placeholder="Informe Telefone residencial"
                                 onChangeText={tel_residencial => this.convertToPhone(tel_residencial, 'tel_residencial')}
                                 onSubmitEditing={() => this.jumpFocusTo('tel_referencia')}
-                            />
+                            >
+                                {state.tel_residencial}
+                            </Input>
                         </Item>
                         <Item stackedLabel>
                             <Label>Telefone Referência</Label>
@@ -99,10 +103,11 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                                 ref={ref => inputs.tel_referencia = ref}
                                 autoCorrect={false}
                                 keyboardType="phone-pad"
-                                value={state.tel_referencia}
                                 placeholder="Informe Telefone referência"
                                 onChangeText={tel_referencia => this.convertToPhone(tel_referencia, 'tel_referencia')}
-                            />
+                            >
+                                {state.tel_referencia}
+                            </Input>
                         </Item>
                     </Form>
                 </Content>

@@ -64,7 +64,6 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
                 <View style={styles.header}>
                     <H1 style={styles.heading}>Famílias</H1>
                     <Fab
-
                         onPress={() => this.toNewFamilia()}
                         style={[{ backgroundColor: Colors.warnColor }, styles.fab]}
                     >
@@ -132,8 +131,8 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
             'Cadastro de Moradia',
             'O que você deseja fazer?',
             [
-                { text: 'Editar', onPress: () => this.toEditFamilia(item) },
                 { text: 'Excluir', onPress: () => this.onDestroy(item), style: 'destructive' },
+                { text: 'Editar', onPress: () => this.toEditFamilia(item) },
                 { text: 'Cancelar', style: 'cancel' }
             ]
         );

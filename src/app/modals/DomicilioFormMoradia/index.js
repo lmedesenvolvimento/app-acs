@@ -129,12 +129,13 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                                         <Input
                                             ref={ref => this.inputs.cm_numero_moradores = ref}
                                             autoCorrect={false}
-                                            value={state.cm_numero_moradores}
                                             placeholder="Nº de Moradores *"
                                             keyboardType="numeric"
                                             onChangeText={cm_numero_moradores => this.convertToNumber(cm_numero_moradores, 'cm_numero_moradores')}
                                             onSubmitEditing={() => this.jumpFocusTo('cm_numero_comodos')}
-                                        />
+                                        >
+                                            {state.cm_numero_moradores}
+                                        </Input>
                                     </Item>
                                 </Col>
                                 <Col>
@@ -146,7 +147,9 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                                             placeholder="Nº de Cômodo *"
                                             keyboardType="numeric"
                                             onChangeText={cm_numero_comodos => this.convertToNumber(cm_numero_comodos, 'cm_numero_comodos')}
-                                        />
+                                        >
+                                            {state.cm_numero_comodos}
+                                        </Input>
                                     </Item>
                                 </Col>
                             </Row>

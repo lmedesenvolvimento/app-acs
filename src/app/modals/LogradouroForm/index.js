@@ -90,11 +90,12 @@ class LogradouroFormScreen extends Component {
                                     ref={ref => this.inputNome = ref}
                                     autoCorrect={false}
                                     placeholder="Insira o nome do Logradouro"
-                                    value={state.nome}
                                     onBlur={this.onNomeBlur}
                                     onFocus={this.onNomeFocus}
                                     onChangeText={this.handleSearch}
-                                />
+                                >
+                                    {state.nome}
+                                </Input>
                             </Item>
                         </View>
                         {

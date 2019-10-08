@@ -82,10 +82,11 @@ class DomicilioFormAnimaisModal extends DomicilioFormBaseModal {
                             <Input
                                 keyboardType="numeric"
                                 autoCorrect={false}
-                                value={state.an_numero}
                                 placeholder="Informe o total de animais"
                                 onChangeText={an_numero => this.convertToNumber(an_numero, 'an_numero')}
-                            />
+                            >
+                                {state.an_numero}
+                            </Input>
                         </Item>
 
                         <Text style={styles.label} note>Qual(is)?</Text>

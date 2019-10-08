@@ -81,11 +81,12 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                             <Input
                                 keyboardType="numeric"
                                 autoCorrect={false}
-                                value={state.numero_prontuario}
                                 placeholder="Nº do prontuário familiar *"
                                 onChangeText={numero_prontuario => this.convertToNumber(numero_prontuario, 'numero_prontuario')}
                                 onSubmitEditing={() => this.jumpFocusTo('numero_cartao_sus_responsavel')}
-                            />
+                            >
+                                { state.numero_prontuario }
+                            </Input>
                         </Item>
 
                         <Item stackedLabel error={this.hasError('numero_cartao_sus_responsavel')}>
@@ -93,11 +94,12 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 ref={ref => inputs.numero_cartao_sus_responsavel = ref}
                                 autoCorrect={false}
                                 keyboardType="numeric"
-                                value={state.numero_cartao_sus_responsavel}
                                 placeholder="Nº cartão SUS do responsável *"
                                 onChangeText={numero_cartao_sus_responsavel => this.convertToNumber(numero_cartao_sus_responsavel, 'numero_cartao_sus_responsavel')}
                                 onSubmitEditing={() => this.jumpFocusTo('data_de_nascimento')}
-                            />
+                            >
+                                {state.numero_cartao_sus_responsavel}
+                            </Input>
                         </Item>
 
                         <Item stackedLabel error={this.hasError('data_de_nascimento')}>
@@ -105,10 +107,11 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 ref={ref => inputs.data_de_nascimento = ref}
                                 autoCorrect={false}
                                 keyboardType="numeric"
-                                value={state.data_de_nascimento}
                                 placeholder="Data de nascimento do responsável *"
                                 onChangeText={data_de_nascimento => this.convertToDate(data_de_nascimento, 'data_de_nascimento')}
-                            />
+                            >
+                                {state.data_de_nascimento}
+                            </Input>
                         </Item>
 
                         <Text style={styles.label} note>Renda familiar</Text>
@@ -135,11 +138,12 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 ref={ref => inputs.numero_membros_familia = ref}
                                 autoCorrect={false}
                                 keyboardType="numeric"
-                                value={state.numero_membros_familia}
                                 placeholder="Nº de membros da família"
                                 onChangeText={numero_membros_familia => this.convertToNumber(numero_membros_familia, 'numero_membros_familia')}
                                 onSubmitEditing={() => this.jumpFocusTo('reside')}
-                            />
+                            >
+                                { state.numero_membros_familia }
+                            </Input>
                         </Item>
 
                         <Item stackedLabel>
@@ -147,10 +151,11 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 ref={ref => inputs.reside = ref}
                                 autoCorrect={false}
                                 keyboardType="numeric"
-                                value={state.reside}
                                 placeholder="Reside desde: 1990"
                                 onChangeText={reside => this.convertToDate(reside, 'reside')}
-                            />
+                            >
+                                { state.reside }
+                            </Input>
                         </Item>
 
                         <Text style={styles.label} note>Possui algum animal?</Text>

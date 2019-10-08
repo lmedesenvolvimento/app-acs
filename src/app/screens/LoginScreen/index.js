@@ -46,8 +46,9 @@ class LoginScreen extends Component {
     }
 
     render() {
-        const { Auth } = this.props;
-        const { emailValid, passwordValid } = this.state;
+        const { state, props } = this;
+        const { Auth } = props;
+        const { emailValid, passwordValid } = state;
         return (
             <Container>
                 <StatusBar barStyle="dark-content" />
@@ -64,7 +65,9 @@ class LoginScreen extends Component {
                                 autoCorrect={false}
                                 keyboardType="email-address"
                                 disabled={Auth.authenticating}
-                            />
+                            >
+                                {state.email}
+                            </Input>
                             { !emailValid ? <Icon name="close-circle" /> : null }
                         </Item>
                         <Item inlineLabel error={!passwordValid}>
@@ -74,7 +77,9 @@ class LoginScreen extends Component {
                                 autoCorrect={false}
                                 onChangeText={password => this.setState({ password })}
                                 disabled={Auth.authenticating}
-                            />
+                            >
+                                {state.password}
+                            </Input>
                             { !passwordValid ? <Icon name="close-circle" /> : null }
                         </Item>
                     </Form>

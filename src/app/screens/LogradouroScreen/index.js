@@ -110,7 +110,10 @@ class LogradouroScreen extends Component {
 
     renderItem = ({ item }) => {
         return (
-            <ListItem onPress={() => this.onPressItem(item)} onLongPress={() => this.onLongPressItem(item)}>
+            <ListItem
+                onPress={() => this.onPressItem(item)}
+                onLongPress={() => this.onLongPressItem(item)}
+            >
                 <Body>
                     <Text>{item.nome}</Text>
                     <Text note>{item.bairro ? item.bairro.nome : ''}</Text>
@@ -155,12 +158,13 @@ class LogradouroScreen extends Component {
                     }
                     <Input
                         autoCorrect={false}
-                        value={state.query}
                         placeholder="Insira o nome do Logradouro"
                         onBlur={this.onSerchBlur}
                         onFocus={this.onSerchFocus}
                         onChangeText={this.handleSearch}
-                    />
+                    >
+                        {state.query}
+                    </Input>
                     <Icon name="md-business" />
                 </Item>
                 <Button transparent>
