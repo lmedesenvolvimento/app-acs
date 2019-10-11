@@ -76,7 +76,6 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                             <Input
                                 ref={ref => inputs.end_complement = ref}
                                 autoCorrect={false}
-                                value={state.end_complement}
                                 placeholder="Informe o complemento"
                                 onChangeText={end_complement => this.setState({ end_complement })}
                                 onSubmitEditing={() => this.jumpFocusTo('tel_residencial')}

@@ -17,8 +17,8 @@ import {
 import DrawerNavigation from '@/services/DrawerNavigation';
 import MicroAreaActions from '@redux/modules/MicroAreas/actions';
 
-import SafeView from 'app/components/SafeView';
-import HeaderLeftButton from 'app/components/HeaderLeftButton';
+import SafeView from '@/components/SafeView';
+import HeaderLeftButton from '@/components/HeaderLeftButton';
 
 class MicroAreaScreen extends Component {
     static navigationOptions = {

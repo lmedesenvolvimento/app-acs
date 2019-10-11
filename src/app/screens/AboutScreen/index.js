@@ -1,48 +1,66 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { connect, useSelector } from 'react-redux';
+import { DrawerActions } from 'react-navigation';
 
 import {
     Text,
     Button,
-    Container,
-    Content
+    Content,
+    Header,
+    Left,
+    Right,
+    Body,
+    Title,
+    Icon
 } from 'native-base';
 
-import { UserMapState } from '@redux/modules/User/mappers';
 import AuthActions from '@redux/modules/Auth/actions';
 import APIActions from '@redux/modules/API/actions';
 
-class AboutScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
+import DrawerNavigation from '@/services/DrawerNavigation';
 
-    render() {
-        const { User } = this.props;
-        return (
-            <Container>
-                <Content>
-                    <Text>{JSON.stringify(User.data)}</Text>
-                </Content>
-                <Button block onPress={this.logout.bind(this)}>
-                    <Text>Logout</Text>
-                </Button>
-            </Container>
-        );
-    }
+import SafeView from '@/components/SafeView';
+import HeaderLeftButton from 'app/components/HeaderLeftButton';
 
-    logout() {
-        const { props } = this;
+const AboutScreen = (props) => {
+    const { navigation } = props;
+    const User = useSelector(state => state.User);
+
+    const logout = () => {
         props.signOutAsync();
         props.asynClearData();
-        props.navigation.navigate('Auth');
-    }
-}
+        navigation.navigate('Auth');
+    };
+
+    const onPressMenu = () => {
+        DrawerNavigation.getDrawerNavigator().dispatch(DrawerActions.toggleDrawer());
+    };
+
+    return (
+        <SafeView navigation={navigation}>
+            <Header noShadow>
+                <Left>
+                    <HeaderLeftButton icon onPress={onPressMenu}>
+                        <Icon name="menu" />
+                    </HeaderLeftButton>
+                </Left>
+                <Body>
+                    <Title>Sobre</Title>
+                </Body>
+                <Right />
+            </Header>
+            <Content padder>
+                <Text>{JSON.stringify(User.data)}</Text>
+            </Content>
+            <Button block onPress={logout}>
+                <Text>Logout</Text>
+            </Button>
+        </SafeView>
+    );
+};
 
 const mapActions = (dispatch) => {
     return Object.assign({}, APIActions(dispatch), AuthActions(dispatch));
 };
 
-export default connect(UserMapState, mapActions)(AboutScreen);
+export default connect(null, mapActions)(AboutScreen);

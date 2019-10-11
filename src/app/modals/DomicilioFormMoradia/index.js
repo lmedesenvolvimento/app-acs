@@ -143,7 +143,6 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                                         <Input
                                             ref={ref => this.inputs.cm_numero_comodos = ref}
                                             autoCorrect={false}
-                                            value={state.cm_numero_comodos}
                                             placeholder="Nº de Cômodo *"
                                             keyboardType="numeric"
                                             onChangeText={cm_numero_comodos => this.convertToNumber(cm_numero_comodos, 'cm_numero_comodos')}

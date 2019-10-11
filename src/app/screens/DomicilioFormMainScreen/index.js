@@ -64,6 +64,21 @@ class DomicilioFormMainScreen extends Component {
         };
     }
 
+    componentDidMount() {
+        const { props, state } = this;
+        const { navigation } = props;
+        const { steps } = state;
+        const model = navigation.getParam('model');
+
+        if (navigation.getParam('action') !== 'edit') {
+            return true;
+        }
+
+        steps.forEach(step => step.completed = true);
+
+        return this.setState({ model, steps });
+    }
+
     render() {
         const { props, state } = this;
         const model = props.navigation.getParam('model');
@@ -135,7 +150,11 @@ class DomicilioFormMainScreen extends Component {
     }
 
     onSubmit = () => {
-        this.createDomicilio();
+        const { navigation } = this.props;
+        if (navigation.getParam('action') !== 'edit') {
+            return this.createDomicilio();
+        }
+        return this.editDomicilio();
     }
 
     createDomicilio = () => {
@@ -148,6 +167,21 @@ class DomicilioFormMainScreen extends Component {
         if (model) {
             const payload = Object.assign({ quadra_logradouro_key, key }, model);
             props.addDomicilios(payload);
+            this.onPressBack();
+        }
+    }
+
+    editDomicilio = () => {
+        const { props, state } = this;
+        const { navigation, updateDomicilios } = props;
+        const { key } = navigation.getParam('model');
+
+        const model = this.mapSteps(state.steps);
+
+        if (model) {
+            const payload = Object.assign({}, model);
+            updateDomicilios(key, payload);
+            navigation.getParam('onSubmit')(model);
             this.onPressBack();
         }
     }

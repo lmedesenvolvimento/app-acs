@@ -96,13 +96,13 @@ class DomicilioScreen extends Component {
 
     renderItem = ({ item }) => {
         return (
-            <ListItem>
+            <ListItem onPress={() => this.onPressDomicilio(item)}>
                 <Body>
                     <Text>
                         {`Nº ${item.end_numero}`}
                     </Text>
                     <Text note>
-                        {item.cm_tipo ? Domicilio.cm_tipos[item.cm_tipo] : '' }
+                        {item.cm_tipo ? Domicilio.cm_tipos[item.cm_tipo] : 'Não Informado' }
                     </Text>
                 </Body>
             </ListItem>
@@ -133,6 +133,12 @@ class DomicilioScreen extends Component {
     onPressBack() {
         const { navigation } = this.props;
         navigation.goBack();
+    }
+
+    onPressDomicilio = (domicilio) => {
+        const { navigation } = this.props;
+        const logradouro = navigation.getParam('logradouro');
+        navigation.navigate('Individuos', { domicilio, logradouro });
     }
 
     onPressNewLogradouro = () => {

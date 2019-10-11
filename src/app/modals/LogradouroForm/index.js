@@ -249,9 +249,10 @@ class LogradouroFormScreen extends Component {
                         <Label>Bairro</Label>
                         <Input
                             autoCorrect={false}
-                            value={state.bairro ? state.bairro.nome : ''}
                             disabled
-                        />
+                        >
+                            {state.bairro ? state.bairro.nome : ''}
+                        </Input>
                     </Item>
                 </View>
                 <View style={styles.pickGroup}>
