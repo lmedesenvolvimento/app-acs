@@ -83,7 +83,9 @@ class DomicilioFormAnimaisModal extends DomicilioFormBaseModal {
                                 keyboardType="numeric"
                                 autoCorrect={false}
                                 placeholder="Informe o total de animais"
-                                onChangeText={an_numero => this.convertToNumber(an_numero, 'an_numero')}
+                                maxLength={3}
+                                onChangeText={an_numero => this.setState({ an_numero })}
+                                blurOnSubmit={() => this.convertToNumber(state.an_numero, 'an_numero')}
                             >
                                 {state.an_numero}
                             </Input>

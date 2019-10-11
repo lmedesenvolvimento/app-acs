@@ -12,6 +12,7 @@
     "apollo-fetch": "^0.7.0",
     "axios": "^0.18.0",
     "babel-plugin-module-resolver": "^3.2.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "expo": "^34.0.3",
     "expo-constants": "~6.0.0",
     "expo-font": "~6.0.1",

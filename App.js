@@ -18,11 +18,6 @@ import configureStore from '@redux';
 
 import DrawerNavigation from '@/services/DrawerNavigation';
 
-// Use native navigation
-import { useScreens } from 'react-native-screens';
-
-useScreens();
-
 const { store, persistor } = configureStore();
 const theme = getTheme(commonColor);
 

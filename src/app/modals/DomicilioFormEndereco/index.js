@@ -65,6 +65,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                                 keyboardType="numeric"
                                 autoCorrect={false}
                                 placeholder="Informe o número de telefone"
+                                maxLength={5}
                                 onChangeText={end_numero => this.convertToNumber(end_numero, 'end_numero')}
                                 onSubmitEditing={() => this.jumpFocusTo('end_complement')}
                             >
@@ -90,6 +91,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                                 autoCorrect={false}
                                 keyboardType="phone-pad"
                                 placeholder="Informe Telefone residencial"
+                                maxLength={15}
                                 onChangeText={tel_residencial => this.convertToPhone(tel_residencial, 'tel_residencial')}
                                 onSubmitEditing={() => this.jumpFocusTo('tel_referencia')}
                             >
@@ -103,6 +105,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                                 autoCorrect={false}
                                 keyboardType="phone-pad"
                                 placeholder="Informe Telefone referência"
+                                maxLength={15}
                                 onChangeText={tel_referencia => this.convertToPhone(tel_referencia, 'tel_referencia')}
                             >
                                 {state.tel_referencia}

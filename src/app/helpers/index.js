@@ -5,12 +5,14 @@ export function convertToNumber(number, target) {
 
     if (!number.length || !number.match(/\d+/g)) {
         updates[target] = '';
-        this.setState(updates);
     } else {
         const numbers = number.match(/\d+/g).join('');
         updates[target] = numbers;
-        this.setState(updates);
     }
+
+    this.setState(updates);
+
+    return true;
 }
 
 export function convertToPhone(phone, target) {

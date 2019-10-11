@@ -84,6 +84,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 placeholder="Nº do prontuário familiar *"
                                 onChangeText={numero_prontuario => this.convertToNumber(numero_prontuario, 'numero_prontuario')}
                                 onSubmitEditing={() => this.jumpFocusTo('numero_cartao_sus_responsavel')}
+                                maxLength={11}
                             >
                                 { state.numero_prontuario }
                             </Input>
@@ -97,6 +98,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 placeholder="Nº cartão SUS do responsável *"
                                 onChangeText={numero_cartao_sus_responsavel => this.convertToNumber(numero_cartao_sus_responsavel, 'numero_cartao_sus_responsavel')}
                                 onSubmitEditing={() => this.jumpFocusTo('data_de_nascimento')}
+                                maxLength={11}
                             >
                                 {state.numero_cartao_sus_responsavel}
                             </Input>
@@ -108,7 +110,9 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 autoCorrect={false}
                                 keyboardType="numeric"
                                 placeholder="Data de nascimento do responsável *"
-                                onChangeText={data_de_nascimento => this.convertToDate(data_de_nascimento, 'data_de_nascimento')}
+                                onChangeText={data_de_nascimento => this.setState({ data_de_nascimento })}
+                                blurOnSubmit={() => this.convertToNumber(state.data_de_nascimento, 'data_de_nascimento')}
+                                maxLength={10}
                             >
                                 {state.data_de_nascimento}
                             </Input>
@@ -141,6 +145,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 placeholder="Nº de membros da família"
                                 onChangeText={numero_membros_familia => this.convertToNumber(numero_membros_familia, 'numero_membros_familia')}
                                 onSubmitEditing={() => this.jumpFocusTo('reside')}
+                                maxLength={3}
                             >
                                 { state.numero_membros_familia }
                             </Input>
@@ -153,6 +158,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 keyboardType="numeric"
                                 placeholder="Reside desde: 1990"
                                 onChangeText={reside => this.convertToDate(reside, 'reside')}
+                                maxLength={10}
                             >
                                 { state.reside }
                             </Input>
