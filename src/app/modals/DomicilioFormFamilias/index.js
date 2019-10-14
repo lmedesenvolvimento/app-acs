@@ -86,7 +86,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 onSubmitEditing={() => this.jumpFocusTo('numero_cartao_sus_responsavel')}
                                 maxLength={11}
                             >
-                                { state.numero_prontuario }
+                                {state.numero_prontuario}
                             </Input>
                         </Item>
 
@@ -110,7 +110,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 autoCorrect={false}
                                 keyboardType="numeric"
                                 placeholder="Data de nascimento do responsável *"
-                                onChangeText={data_de_nascimento => this.setState({ data_de_nascimento })}
+                                onChangeText={data_de_nascimento => this.convertToDate(data_de_nascimento, 'data_de_nascimento')}
                                 blurOnSubmit={() => this.convertToNumber(state.data_de_nascimento, 'data_de_nascimento')}
                                 maxLength={10}
                             >

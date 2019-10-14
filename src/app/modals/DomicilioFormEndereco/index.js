@@ -17,7 +17,6 @@ import {
     Spinner
 } from 'native-base';
 
-
 import Colors from '@/constants/Colors';
 
 import SafeView from '@/components/SafeView';
@@ -64,7 +63,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                             <Input
                                 keyboardType="numeric"
                                 autoCorrect={false}
-                                placeholder="Informe o número de telefone"
+                                placeholder="Informe o número da casa"
                                 maxLength={5}
                                 onChangeText={end_numero => this.convertToNumber(end_numero, 'end_numero')}
                                 onSubmitEditing={() => this.jumpFocusTo('end_complement')}
@@ -79,7 +78,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                                 autoCorrect={false}
                                 placeholder="Informe o complemento"
                                 onChangeText={end_complement => this.setState({ end_complement })}
-                                onSubmitEditing={() => this.jumpFocusTo('tel_residencial')}
+                                // onSubmitEditing={() => this.jumpFocusTo('tel_residencial')}
                             >
                                 {state.end_complement}
                             </Input>
