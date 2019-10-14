@@ -11,6 +11,7 @@ module.exports = {
         'no-use-before-define': 'off',
         'react/jsx-indent': ['error', 4],
         'react/jsx-indent-props': ['error', 4],
+        'react/destructuring-assignment': 'off',
         'react/jsx-filename-extension': 'off',
         'react/prefer-stateless-function': 'off',
         'react/jsx-boolean-value': 'off',

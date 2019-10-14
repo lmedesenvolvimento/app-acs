@@ -21,8 +21,8 @@ export default createStackNavigator({
     IndividuoForm: {
         screen: require('@/screens/IndividuoFormMainScreen').default
     },
-    Endereco: {
-        screen: require('@/modals/DomicilioFormEndereco').default
+    IndividuoIDUsuario: {
+        screen: require('app/modals/IndividuoIDUsuario').default
     },
     Moradia: {
         screen: require('@/modals/DomicilioFormMoradia').default

@@ -118,6 +118,29 @@ export const Familia = {
     }
 };
 
+export const Individuo = {
+    iden_sexo: {
+        feminino: 'Feminino',
+        masculino: 'Masculino'
+    },
+    iden_raca: {
+        branca: 'Branca',
+        preta: 'Preta',
+        Parda: 'Parda',
+        amarela: 'Amarela',
+        indigena: 'Indígena'
+    },
+    iden_nacionalidade: {
+        brasileira: 'Brasileira',
+        naturalizado: 'Naturalizado',
+        estrangeiro: 'estrangeiro',
+    },
+    iden_responsavel_familiar: {
+        yes: 'Sim',
+        no: 'Não'
+    }
+};
+
 export default {
     Logradouro,
     Domicilio,

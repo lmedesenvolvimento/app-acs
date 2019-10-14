@@ -35,7 +35,7 @@ const IndividuoMainScreen = (props) => {
     const _model = navigation.getParam('model');
     const _steps = [
         {
-            key: 'IndentificacaoUsuario',
+            key: 'IndividuoIDUsuario',
             title: 'Indentificação do usuário / cidadão',
             completed: false,
             model: {}
@@ -152,7 +152,7 @@ const IndividuoMainScreen = (props) => {
     };
 
     const isStepsValid = () => {
-        const endereco = find(steps, { key: 'IndentificacaoUsuario', completed: true });
+        const endereco = find(steps, { key: 'IndividuoIDUsuario', completed: true });
         if (!endereco) {
             Alert.alert('Cadastro de Indivíduo', 'Indentificação do usuário / cidadão é obrigatório');
             return false;
@@ -194,12 +194,12 @@ const IndividuoMainScreen = (props) => {
                     </HeaderLeftButton>
                 </Left>
                 <Body>
-                    <Title>Cadastro Domiciliar</Title>
+                    <Title>Cadastro Indivíduo</Title>
                 </Body>
                 <Right />
             </Header>
             <H1 style={styles.heading}>
-                {model ? model.domicilio.end_number : 'Indefinido'}
+                { model ? model.domicilio.an_numero : 'Indefinido' }
             </H1>
             <FlatList
                 data={steps}

@@ -16,7 +16,8 @@ export const modals = [
     'Endereco',
     'Moradia',
     'Animais',
-    'Familias'
+    'Familias',
+    'IndividuoIDUsuario'
 ];
 
 export default {
