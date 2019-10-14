@@ -223,11 +223,12 @@ class DomicilioFormMainScreen extends Component {
             return false;
         }
 
-        const animais = find(steps, { key: 'Animais', completed: true });
-        if (!animais) {
-            Alert.alert('Cadastro de Domicílio', 'Animais é obrigatório');
-            return false;
-        }
+        // Opcional
+        // const animais = find(steps, { key: 'Animais', completed: true });
+        // if (!animais) {
+        //     Alert.alert('Cadastro de Domicílio', 'Animais é obrigatório');
+        //     return false;
+        // }
 
         const familias = find(steps, { key: 'Familias', completed: true });
         if (!familias) {

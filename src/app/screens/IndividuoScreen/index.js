@@ -92,7 +92,15 @@ const IndividuoScreen = (props) => {
     const [domicilio, setDomicilio] = useState(navigation.getParam('domicilio'));
 
     const onPressNewIndividuo = () => {
-        return true;
+        const payload = {
+            model: { domicilio },
+            title: 'Cadastro Individuo',
+            action: 'new'
+        };
+
+        setTimeout(() => {
+            navigation.navigate('IndividuosForm', payload);
+        }, 200);
     };
 
     const onPressBack = () => {

@@ -23,6 +23,9 @@ const MainStack = createStackNavigator({
     },
     Individuos: {
         screen: require('@/screens/IndividuoScreen').default
+    },
+    IndividuosForm: {
+        screen: require('./IndividuoFormNavigator').default
     }
 }, {
     // initialRouteName: 'Domicilios',
