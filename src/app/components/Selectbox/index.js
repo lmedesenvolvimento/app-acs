@@ -3,12 +3,11 @@ import { Picker, Icon } from 'native-base';
 
 import { isObject, map } from 'lodash';
 
-
 const SelectBox = (props) => {
     const [value, setValue] = useState(props.default || undefined);
     const onValueChange = (val) => {
         setValue(val);
-        props.onValueChange(value);
+        props.onValueChange(val);
     };
 
     const PickerItems = () => {
@@ -25,9 +24,10 @@ const SelectBox = (props) => {
 
     return (
         <Picker
+            note={!value}
             mode="dropdown"
-            iosIcon={<Icon name="arrow-down" />}
             style={{ width: undefined }}
+            iosIcon={<Icon name="arrow-down" />}
             placeholder={props.placeholder}
             placeholderIconColor="#007aff"
             selectedValue={value}

@@ -1,6 +1,12 @@
 
 import DomicilioFormBaseModal from '@/modals/DomicilioFormBaseModal';
 
-class IndividuoFormBaseModal extends DomicilioFormBaseModal {}
+import {
+    convertToPISNIS
+} from '@/helpers';
+
+class IndividuoFormBaseModal extends DomicilioFormBaseModal {
+    convertToPISNIS = convertToPISNIS
+}
 
 export default IndividuoFormBaseModal;

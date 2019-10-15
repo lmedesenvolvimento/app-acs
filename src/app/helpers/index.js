@@ -63,10 +63,9 @@ export function convertToYear(date, target) {
     }
 
     const numbers = date.match(/\d+/g).join('');
-    const result = new StringMask('00/0000').apply(numbers);
+    const result = new StringMask('0000').apply(numbers);
 
     updates[target] = result;
-
     this.setState(updates);
 
     return true;
@@ -78,7 +77,7 @@ export function convertToMoney(number, target) {
     if (!number.length || !number.match(/\d+/g)) {
         updates[target] = '';
         this.setState(updates);
-        return true;
+        return;
     }
 
     const numbers = number.match(/\d+/g).join('');
@@ -87,13 +86,29 @@ export function convertToMoney(number, target) {
     updates[target] = result;
 
     this.setState(updates);
+}
 
-    return true;
+export function convertToPISNIS(number, target) {
+    const updates = {};
+
+    if (!number.length || !number.match(/\d+/g)) {
+        updates[target] = '';
+        this.setState(updates);
+        return;
+    }
+
+    const numbers = number.match(/\d+/g).join('');
+    const result = new StringMask('000.00000.00-0').apply(numbers);
+
+    updates[target] = result;
+
+    this.setState(updates);
 }
 
 export default {
     convertToNumber,
     convertToPhone,
     convertToMoney,
-    convertToYear
+    convertToYear,
+    convertToPISNIS
 };

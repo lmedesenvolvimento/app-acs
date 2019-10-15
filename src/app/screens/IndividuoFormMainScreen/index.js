@@ -199,11 +199,11 @@ const IndividuoMainScreen = (props) => {
                 <Right />
             </Header>
             <H1 style={styles.heading}>
-                { model ? model.domicilio.an_numero : 'Indefinido' }
+                {model ? `Nº ${model.domicilio.end_numero}` : 'Indefinido' }
             </H1>
             <FlatList
                 data={steps}
-                extraData={props}
+                extraData={model}
                 renderItem={renderItem}
             />
             <LightFooter>

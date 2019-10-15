@@ -138,7 +138,7 @@ export const Individuo = {
     iden_responsavel_familiar: {
         yes: 'Sim',
         no: 'Não'
-    }
+    },
 };
 
 export default {
