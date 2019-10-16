@@ -25,7 +25,7 @@ export function convertToPhone(phone, target) {
     }
 
     const numbers = phone.match(/\d+/g).join('');
-    const result = new StringMask('(00) 00000-0000').apply(numbers);
+    const result = new StringMask('(00) 90000-0000').apply(numbers);
 
     updates[target] = result;
 

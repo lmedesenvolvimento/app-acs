@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, KeyboardAvoidingView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
 import Colors from '@/constants/Colors';
@@ -46,7 +46,9 @@ class SafeView extends Component {
         return (
             <AnimatedView style={styles.container} pose={state.pushed ? 'in' : 'out'}>
                 <MainStatusBar barStyle="light-content" backgroundColor={props.light ? '#FFFFFF' : Colors.primaryColor} />
-                {props.children}
+                <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                    {props.children}
+                </KeyboardAvoidingView>
                 <OverlayScene opacity={0.36} visible={state.isOverlay} />
             </AnimatedView>
         );

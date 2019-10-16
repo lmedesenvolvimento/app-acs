@@ -38,7 +38,7 @@ import styles from './index.styl';
 class IndividuoIDUsuario extends IndividuoFormBaseModal {
     inputs = {};
 
-    emptyField = 'Desconhecido'
+    emptyField = 'Desconhecido';
 
     requireds = [
         'iden_cns',
@@ -233,6 +233,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Label>Nº NIS (PIS/PASEP)</Label>
                             <Input
                                 ref={ref => this.inputs.iden_n_nis = ref}
+                                keyboardType="numeric"
                                 onChangeText={iden_n_nis => this.convertToPISNIS(iden_n_nis, 'iden_n_nis')}
                                 placeholder="000.00000.00-0"
                             >
@@ -242,6 +243,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
                         <Item
                             style={styles.item}
+                            error={this.hasError('iden_nome_mae')}
                             stackedLabel
                         >
                             <Label>Nome Completo da Mãe *</Label>
@@ -273,6 +275,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
                         <Item
                             style={styles.item}
+                            error={this.hasError('iden_nome_pai')}
                             stackedLabel
                         >
                             <Label>Nome Completo do Pai *</Label>
@@ -304,24 +307,30 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
                         <Item
                             style={styles.pickerItem}
+                            error={this.hasError('iden_nacionalidade')}
                             picker
                         >
                             <Selectbox
                                 data={Individuo.iden_nacionalidade}
                                 default={state.iden_nacionalidade}
                                 placeholder="Nacionalidade"
-                                onValueChange={iden_nacionalidade => this.setState({ iden_nacionalidade })}
+                                onValueChange={(iden_nacionalidade) => {
+                                    this.setState({ iden_nacionalidade });
+                                }}
                             />
                         </Item>
 
                         <Item
                             style={styles.item}
+                            error={this.hasError('iden_pais_nascimento')}
                             stackedLabel
                         >
                             <Label>País de Nascimento *</Label>
                             <Input
                                 ref={ref => this.inputs.iden_pais_nascimento = ref}
-                                onChangeText={iden_pais_nascimento => this.setState({ iden_pais_nascimento })}
+                                onChangeText={(iden_pais_nascimento) => {
+                                    this.setState({ iden_pais_nascimento });
+                                }}
                                 placeholder="Informe o país de Nascimento"
                             >
                                 {state.iden_pais_nascimento}
@@ -330,12 +339,15 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
                         <Item
                             style={styles.item}
+                            error={this.hasError('iden_data_naturalizacao')}
                             stackedLabel
                         >
                             <Label>Data da Naturalização *</Label>
                             <Input
                                 ref={ref => this.inputs.iden_data_naturalizacao = ref}
-                                onChangeText={iden_data_naturalizacao => this.convertToYear({ iden_data_naturalizacao })}
+                                onChangeText={(iden_data_naturalizacao) => {
+                                    this.convertToYear(iden_data_naturalizacao, 'iden_data_naturalizacao');
+                                }}
                                 maxLength={4}
                                 placeholder="0000"
                             >
@@ -345,12 +357,15 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
                         <Item
                             style={styles.item}
+                            error={this.hasError('iden_portaria_naturalizacao')}
                             stackedLabel
                         >
                             <Label>Portaria da Naturalização *</Label>
                             <Input
                                 ref={ref => this.inputs.iden_portaria_naturalizacao = ref}
-                                onChangeText={iden_portaria_naturalizacao => this.setState({ iden_portaria_naturalizacao })}
+                                onChangeText={(iden_portaria_naturalizacao) => {
+                                    this.setState({ iden_portaria_naturalizacao });
+                                }}
                                 keyboardType="numeric"
                                 placeholder="Informe a portaria da naturalização"
                             >
@@ -365,7 +380,9 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Label>Município e UF de Nascimento *</Label>
                             <Input
                                 ref={ref => this.inputs.iden_municipio_uf_nascimento = ref}
-                                onChangeText={iden_municipio_uf_nascimento => this.setState({ iden_municipio_uf_nascimento })}
+                                onChangeText={(iden_municipio_uf_nascimento) => {
+                                    this.setState({ iden_municipio_uf_nascimento });
+                                }}
                                 placeholder="Informe município e UF de nascimento"
                             >
                                 {state.iden_municipio_uf_nascimento}
@@ -379,7 +396,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Label>Data de entrada no Brasil *</Label>
                             <Input
                                 ref={ref => this.inputs.iden_data_entrada_brasil = ref}
-                                onChangeText={iden_data_entrada_brasil => this.convertToYear({ iden_data_entrada_brasil })}
+                                onChangeText={iden_data_entrada_brasil => this.convertToYear(iden_data_entrada_brasil, 'iden_data_entrada_brasil')}
                                 placeholder="Informe a portaria da naturalização"
                                 maxLength={4}
                             >
@@ -394,8 +411,8 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Label>Telefone Celular</Label>
                             <Input
                                 ref={ref => this.inputs.iden_tel_celular = ref}
-                                keyboardType="number-pad"
-                                onChangeText={iden_tel_celular => this.convertToPhone({ iden_tel_celular })}
+                                keyboardType="numeric"
+                                onChangeText={iden_tel_celular => this.convertToPhone(iden_tel_celular, 'iden_tel_celular')}
                                 placeholder="(00) 00000-0000"
                             >
                                 {state.iden_tel_celular}
