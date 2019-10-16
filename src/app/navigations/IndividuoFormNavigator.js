@@ -24,8 +24,8 @@ export default createStackNavigator({
     IndividuoIDUsuario: {
         screen: require('app/modals/IndividuoIDUsuario').default
     },
-    Moradia: {
-        screen: require('@/modals/DomicilioFormMoradia').default
+    IndividuoInfoSocio: {
+        screen: require('@/modals/IndividuoInfoSocio').default
     },
     Animais: {
         screen: require('@/modals/DomicilioFormAnimais').default

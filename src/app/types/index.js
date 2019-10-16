@@ -139,7 +139,104 @@ export const Individuo = {
         yes: 'Sim',
         no: 'Não'
     },
+    is_parentesco_responsavel_familiar: {
+        conjuge: 'Conjuge/Companheiro(a)',
+        filho: 'Filho(a)',
+        enteado: 'Enteado(a)',
+        neto: 'Neto(a)/Bisneto(a)',
+        pai: 'Pai/Mãe',
+        sogro: 'Sogro(a)',
+        irmao: 'Irmão(a)',
+        genro: 'Genro/Nora',
+        outros: 'Outro parente',
+        nao_parente: 'Não Parente',
+    },
+    is_frequenta_escola: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    is_curso_elevado_frequentou: {
+        creche: 'Creche',
+        pre_escola: 'Pré-escola',
+        classe_alfabetizacao: 'Classe Alfabetização',
+        ensino_fundamental_um_quarta: 'Ensino Fundamental um Quarta',
+        ensino_fundamental_quinta_oitava: 'Ensino Fundamental Quinta Oitava',
+        ensino_fundamental_completo: 'Ensino Fundamental Completo',
+        ensino_fundamental_especial: 'Ensino Fundamental Especial',
+        ensino_fundamental_eja_iniciais: 'Ensino Fundamental EJA iniciais',
+        ensino_fundamental_eja_finais: 'Ensino Fundamental EJA finais',
+        ensino_medio_segundo_ciclo: 'Ensino Médio Segundo Ciclo',
+        ensino_medio_especial: 'Ensino Médio Especial',
+        ensino_medio_eja: 'Ensino Médio EJA',
+        superior: 'Superior',
+        alfabetizacao_adultos: 'Alfabetizacao Adultos',
+        nenhum: 'Nenhum'
+    },
+    is_situacao_mercado_trabalho: {
+        empregador: 'Empregador',
+        assalariado_com_carteira: 'Assalariado com carteira',
+        assalariado_sem_carteira: 'Assalariado sem carteira',
+        autonomo_com_previdencia: 'Autônomo com previdencia',
+        autonomo_sem_previdencia: 'Autônomo sem previdencia',
+        aposentado: 'Aposentado',
+        desempregado: 'Desempregado',
+        nao_trabalha: 'Não Trabalha',
+        servidor_publico: 'Servidor Público',
+        outro: 'Outro'
+    },
+    is_informar_orientacao_sexual: {
+        heterossexual: 'Heterossexual',
+        homossexual: 'Homossexual(gay/lésbica)',
+        bissexual: 'Bissexual',
+        outra: 'Outra'
+    },
+    is_informar_identidade_genero: {
+        homem_transexual: 'Homem transexual',
+        mulher_transexual: 'Mulher transexual',
+        travesti: 'Travesti',
+        outro: 'Outro'
+    },
+    is_criancas_cuidadores: [
+        { key: 'criancas_adulto_responsavel', text: 'Adulto Responsável' },
+        { key: 'criancas_outra_crianca', text: 'Outra(s) Criança(s)' },
+        { key: 'criancas_adolescente', text: 'Adolecente' },
+        { key: 'criancas_sozinha', text: 'Sozinha' },
+        { key: 'criancas_creche', text: 'Creche' },
+        { key: 'criancas_outro', text: 'Outro' },
+    ],
+    is_deficiencias: [
+        { key: 'deficiencia_auditiva', text: 'Deficiência auditiva' },
+        { key: 'deficiencia_visual', text: 'Deficiência visual' },
+        { key: 'deficiencia_intelectual', text: 'Deficiência intelectual' },
+        { key: 'deficiencia_fisica', text: 'Deficiência física' },
+        { key: 'deficiencia_outra', text: 'Outra' },
+    ],
+    is_frequenta_cuidador_tradicional: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    is_participa_grupo_comunitario: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    is_possui_plano_saude: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    is_e_membro_comunidade: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    is_deseja_informar_orientacao_sexual: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    is_possui_deficiencia: {
+        yes: 'Sim',
+        no: 'Não'
+    }
 };
+
 
 export default {
     Logradouro,

@@ -41,7 +41,7 @@ const IndividuoMainScreen = (props) => {
             model: {}
         },
         {
-            key: 'InformacaoSocio',
+            key: 'IndividuoInfoSocio',
             title: 'Informações sociodemográficas',
             completed: false,
             model: {}
@@ -158,7 +158,7 @@ const IndividuoMainScreen = (props) => {
             return false;
         }
 
-        const moradia = find(steps, { key: 'InformacaoSocio', completed: true });
+        const moradia = find(steps, { key: 'IndividuoInfoSocio', completed: true });
         if (!moradia) {
             Alert.alert('Cadastro de Indivíduo', 'Informações sociodemográficas é obrigatório');
             return false;
@@ -199,7 +199,7 @@ const IndividuoMainScreen = (props) => {
                 <Right />
             </Header>
             <H1 style={styles.heading}>
-                {model ? `Nº ${model.domicilio.end_numero}` : 'Indefinido' }
+                {model && model.domicilio ? `Nº ${model.domicilio.end_numero}` : 'Indefinido' }
             </H1>
             <FlatList
                 data={steps}

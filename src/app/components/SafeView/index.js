@@ -46,7 +46,11 @@ class SafeView extends Component {
         return (
             <AnimatedView style={styles.container} pose={state.pushed ? 'in' : 'out'}>
                 <MainStatusBar barStyle="light-content" backgroundColor={props.light ? '#FFFFFF' : Colors.primaryColor} />
-                <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                <KeyboardAvoidingView
+                    style={styles.container}
+                    behavior="padding"
+                    enabled
+                >
                     {props.children}
                 </KeyboardAvoidingView>
                 <OverlayScene opacity={0.36} visible={state.isOverlay} />
