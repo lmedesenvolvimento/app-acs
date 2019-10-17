@@ -47,7 +47,7 @@ const IndividuoMainScreen = (props) => {
             model: {}
         },
         {
-            key: 'IndividuoSaidaCadastro',
+            key: 'IndividuoCadastroSaida',
             title: 'Saída do cidadão do cadastro',
             completed: false,
             model: {}
@@ -164,7 +164,7 @@ const IndividuoMainScreen = (props) => {
             return false;
         }
 
-        const animais = find(steps, { key: 'IndividuoSaidaCadastro', completed: true });
+        const animais = find(steps, { key: 'IndividuoCadastroSaida', completed: true });
         if (!animais) {
             Alert.alert('Cadastro de Indivíduo', 'Saída do cidadão do cadastro é obrigatório');
             return false;

@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { View, Alert } from 'react-native';
-import { pick, omit, values } from 'lodash';
+
+import {
+    pick,
+    omit,
+    values,
+    isObject
+} from 'lodash';
 
 import {
     convertToNumber,
@@ -24,7 +30,8 @@ class DomicilioFormBaseModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ready: false
+            ready: false,
+            errors: {}
         };
     }
 
@@ -77,18 +84,54 @@ class DomicilioFormBaseModal extends Component {
         const { state } = this;
         const errors = {};
 
-        this.requireds.forEach((key) => {
-            errors[key] = { error: !state[key] };
+        this.requireds.forEach((field) => {
+            const key = isObject(field) ? field.name : field;
+            errors[key] = {
+                error: isObject(field)
+                    ? this.validateRequireChildrenFields(field.children)
+                    : !state[key]
+            };
         });
 
-        this.setState({ errors });
+        this.setState((prevState) => {
+            return {
+                errors: Object.assign({}, prevState.errors, errors)
+            };
+        });
 
-        return values(errors).filter(({ error }) => error).length ? errors : false;
+        if (values(errors).filter(({ error }) => error).length) {
+            return errors;
+        }
+
+        return false;
+    }
+
+    validateRequireChildrenFields = (fields) => {
+        const { state } = this;
+        const errors = {};
+
+        fields.forEach((field) => {
+            errors[field] = {
+                error: !state[field]
+            };
+        });
+
+        this.setState((prevState) => {
+            return {
+                errors: Object.assign({}, prevState.errors, errors)
+            };
+        });
+
+        if (values(errors).filter(({ error }) => error).length) {
+            return true;
+        }
+
+        return false;
     }
 
     hasError = (attr) => {
         const { state } = this;
-        return state.errors ? state.errors[attr].error : false;
+        return state.errors && state.errors[attr] ? state.errors[attr].error : false;
     }
 }
 

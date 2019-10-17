@@ -234,6 +234,10 @@ export const Individuo = {
     is_possui_deficiencia: {
         yes: 'Sim',
         no: 'Não'
+    },
+    sc_tipo: {
+        mudanca_territorio: 'Mudança de Territorio',
+        obito: 'Óbito'
     }
 };
 

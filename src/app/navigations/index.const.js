@@ -18,7 +18,8 @@ export const modals = [
     'Animais',
     'Familias',
     'IndividuoIDUsuario',
-    'IndividuoInfoSocio'
+    'IndividuoInfoSocio',
+    'IndividuoCadastroSaida'
 ];
 
 export default {
