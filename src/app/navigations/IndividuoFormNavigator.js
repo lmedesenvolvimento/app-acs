@@ -4,19 +4,6 @@ import {
 
 import { fromBottom } from 'react-navigation-transitions';
 
-const FamiliaStack = createStackNavigator({
-    List: {
-        screen: require('@/modals/DomicilioFormFamiliasList').default
-    },
-    Familias: {
-        screen: require('@/modals/DomicilioFormFamilias').default
-    }
-}, {
-    initialRouteName: 'List',
-    headerMode: 'none',
-    transitionConfig: () => fromBottom(600),
-});
-
 export default createStackNavigator({
     IndividuoForm: {
         screen: require('@/screens/IndividuoFormMainScreen').default
@@ -30,8 +17,8 @@ export default createStackNavigator({
     IndividuoCadastroSaida: {
         screen: require('@/modals/IndividuoCadastroSaida').default
     },
-    Familias: {
-        screen: FamiliaStack
+    IndividuoCondicaoSaude: {
+        screen: require('@/modals/IndividuoCondicaoSaude').default
     },
 }, {
     initialRouteName: 'IndividuoForm',

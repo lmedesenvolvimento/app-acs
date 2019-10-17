@@ -1,3 +1,4 @@
+import PropsTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Dimensions, KeyboardAvoidingView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
@@ -76,5 +77,9 @@ class SafeView extends Component {
         this.setState({ pushed: false });
     }
 }
+
+SafeView.propsTypes = {
+    light: PropsTypes.string
+};
 
 export default SafeView;

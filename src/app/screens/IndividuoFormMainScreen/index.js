@@ -53,7 +53,7 @@ const IndividuoMainScreen = (props) => {
             model: {}
         },
         {
-            key: 'CondicaoSaude',
+            key: 'IndividuoCondicaoSaude',
             title: 'Condições / situações de saúde',
             completed: false,
             model: {}
@@ -170,7 +170,7 @@ const IndividuoMainScreen = (props) => {
             return false;
         }
 
-        const familias = find(steps, { key: 'CondicaoSaude', completed: true });
+        const familias = find(steps, { key: 'IndividuoCondicaoSaude', completed: true });
         if (!familias) {
             Alert.alert('Cadastro de Indivíduo', 'Condições / situações de saúde é obrigatório');
             return false;

@@ -19,7 +19,8 @@ export const modals = [
     'Familias',
     'IndividuoIDUsuario',
     'IndividuoInfoSocio',
-    'IndividuoCadastroSaida'
+    'IndividuoCadastroSaida',
+    'IndividuoCondicaoSaude'
 ];
 
 export default {

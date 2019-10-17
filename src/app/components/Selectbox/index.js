@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Picker, Icon } from 'native-base';
-
 import { isObject, map } from 'lodash';
 
 const SelectBox = (props) => {
@@ -37,6 +37,13 @@ const SelectBox = (props) => {
             { PickerItems() }
         </Picker>
     );
+};
+
+SelectBox.propTypes = {
+    data: PropTypes.array,
+    default: PropTypes.object,
+    placeholder: PropTypes.string,
+    onValueChange: PropTypes.func
 };
 
 export default SelectBox;

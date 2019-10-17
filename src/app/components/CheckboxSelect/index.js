@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 
@@ -14,7 +15,7 @@ import Colors from '@/constants/Colors';
 
 import styles from './index.styl';
 
-class RadioSelectDomicilio extends Component {
+class CheckboxSelect extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -74,4 +75,9 @@ class RadioSelectDomicilio extends Component {
     }
 }
 
-export default RadioSelectDomicilio;
+CheckboxSelect.propTypes = {
+    data: PropTypes.array,
+    onChangeValue: PropTypes.func,
+};
+
+export default CheckboxSelect;

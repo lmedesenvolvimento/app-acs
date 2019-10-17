@@ -238,7 +238,87 @@ export const Individuo = {
     sc_tipo: {
         mudanca_territorio: 'Mudança de Territorio',
         obito: 'Óbito'
-    }
+    },
+    cs_esta_gestante: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_esta_fumante: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_usa_alcool: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_usa_drogas: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_tem_hipertensao_arterial: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_tem_diabetes: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_teve_avc: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_teve_infarto: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_tem_doenca_cardiaca: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_tem_teve_problemas_rins: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_tem_doenca_respiratoria: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_esta_com_hanseniase: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_esta_com_turberculose: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_tem_teve_cancer: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_teve_internacao: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_teve_problema_saude_mental: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_esta_acamado: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_esta_domiciliado: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_usa_plantas_medicinais: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    cs_usa_praticas_integrativas: {
+        yes: 'Sim',
+        no: 'Não'
+    },
 };
 
 

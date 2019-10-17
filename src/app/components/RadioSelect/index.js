@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 
@@ -13,7 +14,7 @@ import { forEach } from 'lodash';
 
 import styles from './index.styl';
 
-class RadioSelectDomicilio extends Component {
+class RadioSelect extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -87,4 +88,11 @@ class RadioSelectDomicilio extends Component {
     }
 }
 
-export default RadioSelectDomicilio;
+RadioSelect.propTypes = {
+    data: PropTypes.array,
+    default: PropTypes.object,
+    onChangeValue: PropTypes.func,
+    isBoolean: PropTypes.bool,
+};
+
+export default RadioSelect;
