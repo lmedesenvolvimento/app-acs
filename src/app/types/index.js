@@ -239,6 +239,27 @@ export const Individuo = {
         mudanca_territorio: 'Mudança de Territorio',
         obito: 'Óbito'
     },
+    cs_peso: {
+        abaixo_do_peso: 'Abaixo do peso',
+        peso_adequado: 'Peso adequado',
+        acima_do_peso: 'Acima do peso',
+    },
+    cs_doencas_coracao: [
+        { key: 'doenca_cardiaca_insuficiencia_cardiaca', text: 'Insuficiência cardíaca' },
+        { key: 'doenca_cardiaca_outra', text: 'Outro' },
+        { key: 'doenca_cardiaca_nao_sabe', text: 'Não sabe' },
+    ],
+    cs_problemas_rins: [
+        { key: 'problema_rins_insuficiencia_renal', text: 'Insuficiência renal' },
+        { key: 'problema_rins_outro', text: 'Outro' },
+        { key: 'problema_rins_nao_sabe', text: 'Não sabe' },
+    ],
+    cs_doencas_respiratorias: [
+        { key: 'doenca_respiratoria_asma', text: 'Asma' },
+        { key: 'doenca_respiratoria_dpoc_esfisema', text: 'DPOC/Enfisema' },
+        { key: 'doenca_respiratoria_outra', text: 'Outra' },
+        { key: 'doenca_respiratoria_nao_sabe', text: 'Não sabe' },
+    ],
     cs_esta_gestante: {
         yes: 'Sim',
         no: 'Não'

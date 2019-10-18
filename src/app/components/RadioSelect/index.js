@@ -89,7 +89,7 @@ class RadioSelect extends Component {
 }
 
 RadioSelect.propTypes = {
-    data: PropTypes.array,
+    data: PropTypes.object,
     default: PropTypes.object,
     onChangeValue: PropTypes.func,
     isBoolean: PropTypes.bool,
