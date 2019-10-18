@@ -340,6 +340,36 @@ export const Individuo = {
         yes: 'Sim',
         no: 'Não'
     },
+    sr_tempo_rua: {
+        menor_seis_meses: 'menor_seis_meses',
+        seis_a_doze_meses: 'seis_a_doze_meses',
+        um_a_cinco_anos: 'um_a_cinco_anos',
+        maior_cinco_anos: 'maior_cinco_anos',
+    },
+    sr_vezes_alimenta_dia: {
+        uma: 'Uma',
+        duas_ou_tres: 'Duas ou três',
+        mais_de_tres: 'Mais de três',
+    },
+    sr_origem_alimentacao: {
+        origem_alimentacao_restaurante_popular: 'Restaurante popular',
+        origem_alimentacao_doacao_grupo_religioso: 'Doação grupo religioso',
+        origem_alimentacao_doacao_restaurante: 'Doação restaurante',
+        origem_alimentacao_doacao_popular: 'Doação de popular',
+        origem_alimentacao_outras: 'Outras',
+    },
+    sr_esta_situacao_rua: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    sr_recebe_beneficio: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    sr_possui_referencia_familiar: {
+        yes: 'Sim',
+        no: 'Não'
+    }
 };
 
 

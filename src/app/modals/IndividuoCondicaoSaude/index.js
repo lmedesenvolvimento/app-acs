@@ -493,41 +493,6 @@ class IndividuoCondicaoSaude extends IndividuoFormBaseModal {
 
         return false;
     }
-
-    onChangeValueScTipo = (sc_tipo) => {
-        const newRequires = ['sc_obito_data', 'sc_obito_numero'];
-
-        if (sc_tipo === 'mudanca_territorio') {
-            this.setState({
-                sc_tipo,
-                sc_obito_data: null,
-                sc_obito_numero: null,
-            });
-
-            /**
-             *  Se sc_tipo for não obito remove
-             *  itens ['sc_obito_data', 'sc_obito_numero'] como obrigatórios
-             * */
-            newRequires.forEach((field) => {
-                if (this.requireds.includes(field)) {
-                    this.requireds.slice(1, this.requireds.indexOf(field));
-                }
-            });
-
-            return;
-        }
-
-        // Se sc_tipo for obito adicionar novos itens obrigatórios
-        newRequires.forEach((field) => {
-            if (!this.requireds.includes(field)) {
-                this.requireds.push(field);
-            }
-        });
-
-        this.setState({
-            sc_tipo
-        });
-    }
 }
 
 export default IndividuoCondicaoSaude;

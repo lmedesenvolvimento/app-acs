@@ -59,7 +59,7 @@ const IndividuoMainScreen = (props) => {
             model: {}
         },
         {
-            key: 'SituacaoRua',
+            key: 'IndividuoSituacaoRua',
             title: 'Cidadão em situação de rua',
             completed: false,
             model: {}

@@ -20,6 +20,9 @@ export default createStackNavigator({
     IndividuoCondicaoSaude: {
         screen: require('@/modals/IndividuoCondicaoSaude').default
     },
+    IndividuoSituacaoRua: {
+        screen: require('@/modals/IndividuoSituacaoRua').default
+    },
 }, {
     initialRouteName: 'IndividuoForm',
     mode: 'modal',
