@@ -10,6 +10,7 @@ import Quadras from './Quadras';
 import QuadrasLogradouros from './QuadrasLogradouros';
 import Domicilios from './Domicilios';
 import UI from './UI';
+import Individuos from './Individuos';
 
 export default combineReducers({
     Auth,
@@ -21,5 +22,6 @@ export default combineReducers({
     Quadras,
     QuadrasLogradouros,
     Domicilios,
-    UI,
+    Individuos,
+    UI
 });

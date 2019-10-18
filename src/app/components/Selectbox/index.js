@@ -40,8 +40,8 @@ const SelectBox = (props) => {
 };
 
 SelectBox.propTypes = {
-    data: PropTypes.array,
-    default: PropTypes.object,
+    data: PropTypes.object,
+    default: PropTypes.any,
     placeholder: PropTypes.string,
     onValueChange: PropTypes.func
 };

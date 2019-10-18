@@ -14,11 +14,11 @@ import {
 
 import { Alert, FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import { findIndex, find } from 'lodash';
+import { findIndex, find, omit } from 'lodash';
 
 import shortid from 'shortid';
 
-import DomiciliosActions from '@redux/modules/Domicilios/actions';
+import IndividuosActions from '@redux/modules/Individuos/actions';
 
 import SafeView from '@/components/SafeView';
 import LightFooter from '@/components/LightFooter';
@@ -30,9 +30,9 @@ import Colors from '@/constants/Colors';
 
 import styles from './index.styl';
 
-const IndividuoMainScreen = (props) => {
-    const { navigation } = props;
+const IndividuoMainScreen = ({ navigation, addIndividuo, updateIndividuo }) => {
     const _model = navigation.getParam('model');
+
     const _steps = [
         {
             key: 'IndividuoIDUsuario',
@@ -103,31 +103,31 @@ const IndividuoMainScreen = (props) => {
 
     const onSubmit = () => {
         if (navigation.getParam('action') !== 'edit') {
-            return createDomicilio();
+            return createIndividuo();
         }
-        return editDomicilio();
+        return editIndividuo();
     };
 
-    const createDomicilio = () => {
-        const { quadra_logradouro_key } = navigation.getParam('model');
+    const createIndividuo = () => {
+        const domicilio_key = model.domicilio.key;
 
         const result = mapSteps(steps);
         const key = shortid.generate();
 
         if (_model) {
-            const payload = Object.assign({ quadra_logradouro_key, key }, result);
-            props.addDomicilios(payload);
+            const payload = Object.assign({ domicilio_key, key }, omit(result, ['domicilio']));
+            addIndividuo(payload);
             onPressBack();
         }
     };
 
-    const editDomicilio = () => {
-        const { key } = navigation.getParam('model');
+    const editIndividuo = () => {
+        const { key } = model;
         const result = mapSteps(steps);
 
         if (model) {
-            const payload = Object.assign({}, result);
-            props.updateDomicilios(key, payload);
+            const payload = Object.assign({}, omit(result, ['domicilio']));
+            updateIndividuo(key, payload);
             navigation.getParam('onSubmit')(model);
             onPressBack();
         }
@@ -223,4 +223,4 @@ const IndividuoMainScreen = (props) => {
     );
 };
 
-export default connect(null, DomiciliosActions)(IndividuoMainScreen);
+export default connect(null, IndividuosActions)(IndividuoMainScreen);

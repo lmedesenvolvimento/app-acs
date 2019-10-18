@@ -28,8 +28,7 @@ const MainStack = createStackNavigator({
         screen: require('./IndividuoFormNavigator').default
     }
 }, {
-    // initialRouteName: 'MicroAreas',
-    initialRouteName: 'IndividuosForm',
+    initialRouteName: 'MicroAreas',
     headerMode: 'none',
     transitionConfig: () => fromRight(400),
 });
