@@ -38,31 +38,38 @@ const IndividuoMainScreen = ({ navigation, addIndividuo, updateIndividuo }) => {
             key: 'IndividuoIDUsuario',
             title: 'Indentificação do usuário / cidadão',
             completed: false,
-            model: {}
         },
         {
             key: 'IndividuoInfoSocio',
             title: 'Informações sociodemográficas',
             completed: false,
-            model: {}
         },
         {
             key: 'IndividuoCadastroSaida',
             title: 'Saída do cidadão do cadastro',
             completed: false,
-            model: {}
+            optional: true,
+            optionalRequireFields: ['sc_tipo'],
         },
         {
             key: 'IndividuoCondicaoSaude',
             title: 'Condições / situações de saúde',
             completed: false,
-            model: {}
         },
         {
             key: 'IndividuoSituacaoRua',
             title: 'Cidadão em situação de rua',
             completed: false,
-            model: {}
+            optional: true,
+            optionalRequireFields: [
+                'sr_esta_situacao_rua',
+                'sr_tempo_rua',
+                'sr_recebe_beneficio',
+                'sr_recebe_beneficio',
+                'sr_possui_referencia_familiar',
+                'sr_vezes_alimenta_dia',
+                'sr_origem_alimentacao',
+            ],
         },
     ];
 
@@ -110,12 +117,11 @@ const IndividuoMainScreen = ({ navigation, addIndividuo, updateIndividuo }) => {
 
     const createIndividuo = () => {
         const domicilio_key = model.domicilio.key;
-
         const result = mapSteps(steps);
         const key = shortid.generate();
 
-        if (_model) {
-            const payload = Object.assign({ domicilio_key, key }, omit(result, ['domicilio']));
+        if (result) {
+            const payload = Object.assign({}, { domicilio_key, key }, omit(result, ['domicilio']));
             addIndividuo(payload);
             onPressBack();
         }
@@ -125,7 +131,7 @@ const IndividuoMainScreen = ({ navigation, addIndividuo, updateIndividuo }) => {
         const { key } = model;
         const result = mapSteps(steps);
 
-        if (model) {
+        if (result) {
             const payload = Object.assign({}, omit(result, ['domicilio']));
             updateIndividuo(key, payload);
             navigation.getParam('onSubmit')(model);
@@ -152,26 +158,20 @@ const IndividuoMainScreen = ({ navigation, addIndividuo, updateIndividuo }) => {
     };
 
     const isStepsValid = () => {
-        const endereco = find(steps, { key: 'IndividuoIDUsuario', completed: true });
-        if (!endereco) {
+        const idUsuario = find(steps, { key: 'IndividuoIDUsuario', completed: true });
+        if (!idUsuario) {
             Alert.alert('Cadastro de Indivíduo', 'Indentificação do usuário / cidadão é obrigatório');
             return false;
         }
 
-        const moradia = find(steps, { key: 'IndividuoInfoSocio', completed: true });
-        if (!moradia) {
+        const infoSocio = find(steps, { key: 'IndividuoInfoSocio', completed: true });
+        if (!infoSocio) {
             Alert.alert('Cadastro de Indivíduo', 'Informações sociodemográficas é obrigatório');
             return false;
         }
 
-        const animais = find(steps, { key: 'IndividuoCadastroSaida', completed: true });
-        if (!animais) {
-            Alert.alert('Cadastro de Indivíduo', 'Saída do cidadão do cadastro é obrigatório');
-            return false;
-        }
-
-        const familias = find(steps, { key: 'IndividuoCondicaoSaude', completed: true });
-        if (!familias) {
+        const condicaoSaude = find(steps, { key: 'IndividuoCondicaoSaude', completed: true });
+        if (!condicaoSaude) {
             Alert.alert('Cadastro de Indivíduo', 'Condições / situações de saúde é obrigatório');
             return false;
         }
@@ -179,11 +179,17 @@ const IndividuoMainScreen = ({ navigation, addIndividuo, updateIndividuo }) => {
         return true;
     };
 
-    const completeSteps = (step) => {
+    function completeSteps(step) {
         const _step = step;
-        _step.completed = true;
+        if (_step.optional) {
+            Object.keys(model).some((key) => {
+                return _step.optionalRequireFields.includes(key);
+            });
+        } else {
+            _step.completed = true;
+        }
         return step;
-    };
+    }
 
     return (
         <SafeView navigation={navigation} isModal={true}>

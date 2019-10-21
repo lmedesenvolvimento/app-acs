@@ -34,9 +34,23 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
     inputs = {};
 
     requireds = [
+        'sr_esta_situacao_rua',
+        'sr_tempo_rua',
+        'sr_recebe_beneficio',
+        'sr_recebe_beneficio',
+        'sr_possui_referencia_familiar',
+        'sr_vezes_alimenta_dia',
+        'sr_origem_alimentacao',
     ];
 
     fields = [
+        'sr_esta_situacao_rua',
+        'sr_tempo_rua',
+        'sr_recebe_beneficio',
+        'sr_recebe_beneficio',
+        'sr_possui_referencia_familiar',
+        'sr_vezes_alimenta_dia',
+        'sr_origem_alimentacao',
     ];
 
     constructor(props) {
@@ -65,7 +79,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                 <Content padder>
                     <H1 style={styles.heading}>Cidadão em situação de rua</H1>
                     <Form>
-                        <Text style={this.hasError('sc_tipo') ? styles.labelError : styles.label} note>
+                        <Text style={this.hasError('sr_esta_situacao_rua') ? styles.labelError : styles.label} note>
                             Está em situação de rua?
                         </Text>
                         <RadioSelect
@@ -77,7 +91,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                             })}
                         />
 
-                        <Text style={this.hasError('sc_tipo') ? styles.labelError : styles.label} note>
+                        <Text style={this.hasError('sr_tempo_rua') ? styles.labelError : styles.label} note>
                             Tempo em situação de rua?
                         </Text>
                         <RadioSelect
@@ -88,7 +102,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                             })}
                         />
 
-                        <Text style={this.hasError('sc_tipo') ? styles.labelError : styles.label} note>
+                        <Text style={this.hasError('sr_recebe_beneficio') ? styles.labelError : styles.label} note>
                             Recebe algum benefício?
                         </Text>
                         <RadioSelect
@@ -99,7 +113,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                             })}
                         />
 
-                        <Text style={this.hasError('sc_tipo') ? styles.labelError : styles.label} note>
+                        <Text style={this.hasError('sr_possui_referencia_familiar') ? styles.labelError : styles.label} note>
                             Possui referência familiar?
                         </Text>
                         <RadioSelect
@@ -110,7 +124,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                             })}
                         />
 
-                        <Text style={this.hasError('sc_tipo') ? styles.labelError : styles.label} note>
+                        <Text style={this.hasError('sr_vezes_alimenta_dia') ? styles.labelError : styles.label} note>
                             Quantas vezes se alimenta ao dia?
                         </Text>
                         <RadioSelect
@@ -121,7 +135,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                             })}
                         />
 
-                        <Text style={this.hasError('sc_tipo') ? styles.labelError : styles.label} note>
+                        <Text style={this.hasError('sr_origem_alimentacao') ? styles.labelError : styles.label} note>
                             Qual a origem da alimentação?
                         </Text>
                         <CheckboxSelect

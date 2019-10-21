@@ -25,10 +25,10 @@ function addIndividuo(data) {
 
 function updateIndividuo(key, data) {
     return (dispatch, getState) => {
-        const domicilios = getState().Domicilios.data;
+        const individuos = getState().Individuos.data;
         dispatch({
             type: Types.UPDATE_INDIVIDUOS,
-            index: findIndex(domicilios, { key }),
+            index: findIndex(individuos, { key }),
             data
         });
     };
@@ -36,15 +36,15 @@ function updateIndividuo(key, data) {
 
 function destroyIndividuo(key) {
     return (dispatch, getState) => {
-        const Domicilios = getState().Domicilios.data;
+        const individuos = getState().Individuos.data;
         dispatch({
             type: Types.DESTROY_INDIVIDUOS,
-            index: findIndex(Domicilios, { key })
+            index: findIndex(individuos, { key })
         });
     };
 }
 
-function getIndividuoByDomicilio(domicilio_key) {
+function getIndividuosByDomicilio(domicilio_key) {
     return (dispatch, getState) => {
         const { Individuos } = getState();
 
@@ -64,7 +64,7 @@ export const actions = {
 };
 
 export const getters = {
-    getIndividuoByDomicilio
+    getIndividuosByDomicilio
 };
 
 export default dispatch => (

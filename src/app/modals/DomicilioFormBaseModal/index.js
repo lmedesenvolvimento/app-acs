@@ -70,7 +70,7 @@ class DomicilioFormBaseModal extends Component {
             return;
         }
 
-        props.navigation.getParam('onSubmit')({ ...payload }, props.navigation.getParam('key'));
+        props.navigation.getParam('onSubmit')({ ...omit(payload, ['errors']) }, props.navigation.getParam('key'));
         this.onPressBack();
     }
 

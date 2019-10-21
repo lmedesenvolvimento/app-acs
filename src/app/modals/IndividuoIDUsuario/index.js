@@ -150,7 +150,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Label>Nome Completo</Label>
                             <Input
                                 ref={ref => this.inputs.iden_nome = ref}
-                                onChangeText={iden_nome => this.convertToNumber(iden_nome, 'iden_nome')}
+                                onChangeText={iden_nome => this.setState({ iden_nome })}
                                 placeholder="Informe o nome completo do indivíduo"
                             >
                                 {state.iden_nome}
@@ -348,6 +348,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                                 onChangeText={(iden_data_naturalizacao) => {
                                     this.convertToYear(iden_data_naturalizacao, 'iden_data_naturalizacao');
                                 }}
+                                keyboardType="numeric"
                                 maxLength={4}
                                 placeholder="0000"
                             >
@@ -364,7 +365,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Input
                                 ref={ref => this.inputs.iden_portaria_naturalizacao = ref}
                                 onChangeText={(iden_portaria_naturalizacao) => {
-                                    this.setState({ iden_portaria_naturalizacao });
+                                    this.convertToNumber(iden_portaria_naturalizacao, 'iden_portaria_naturalizacao');
                                 }}
                                 keyboardType="numeric"
                                 placeholder="Informe a portaria da naturalização"
@@ -398,6 +399,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                                 ref={ref => this.inputs.iden_data_entrada_brasil = ref}
                                 onChangeText={iden_data_entrada_brasil => this.convertToYear(iden_data_entrada_brasil, 'iden_data_entrada_brasil')}
                                 placeholder="Informe a portaria da naturalização"
+                                keyboardType="numeric"
                                 maxLength={4}
                             >
                                 {state.iden_data_entrada_brasil}
@@ -411,7 +413,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Label>Telefone Celular</Label>
                             <Input
                                 ref={ref => this.inputs.iden_tel_celular = ref}
-                                keyboardType="numeric"
+                                keyboardType="phone-pad"
                                 onChangeText={iden_tel_celular => this.convertToPhone(iden_tel_celular, 'iden_tel_celular')}
                                 placeholder="(00) 00000-0000"
                             >

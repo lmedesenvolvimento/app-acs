@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Alert } from 'react-native';
+import React from 'react';
+import { Alert, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
 import DomiciliosActions from '@redux/modules/Domicilios/actions';
+import IndividuosActions from '@redux/modules/Individuos/actions';
 
 import {
+    Text,
     Title,
     Header,
     Left,
@@ -12,8 +14,11 @@ import {
     Body,
     Fab,
     Button,
-    Right
+    Right,
+    ListItem
 } from 'native-base';
+
+import { pick } from 'lodash';
 
 
 import Colors from '@/constants/Colors';
@@ -52,13 +57,7 @@ const ButtonEditDomicilio = (props) => {
     return null;
 };
 
-const ButtonRemoveDomicilio = (props) => {
-    const {
-        navigation,
-        destroyDomicilios,
-        domicilio
-    } = props;
-
+const ButtonRemoveDomicilio = ({ navigation, domicilio, destroyDomicilios }) => {
     const onPressRemoveDomicilio = () => {
         Alert.alert(
             'Remover Domicílio',
@@ -86,14 +85,100 @@ const ButtonRemoveDomicilio = (props) => {
     return null;
 };
 
-const IndividuoScreen = (props) => {
-    const { navigation } = props;
+const EmptyContentIndividuosList = () => (
+    <Text note>Este domicílo não possui nenhum individuo cadastrado</Text>
+);
 
-    const [domicilio, setDomicilio] = useState(navigation.getParam('domicilio'));
+class IndividuoScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            domicilio: {},
+            individuos: []
+        };
+    }
 
-    const onPressNewIndividuo = () => {
+    componentWillMount() {
+        const { navigation } = this.props;
+        navigation.addListener('willFocus', this.defineProps);
+    }
+
+    componentDidMount() {
+        const { navigation } = this.props;
+        const domicilio = navigation.getParam('domicilio');
+        this.setState({ domicilio });
+    }
+
+    render() {
+        const { props, state } = this;
+        const { navigation } = props;
+        const { domicilio, individuos } = state;
+
+        return (
+            <SafeView navigation={navigation} isModal={true}>
+                <Header noShadow>
+                    <Left>
+                        <HeaderLeftButton icon onPress={this.onPressBack}>
+                            <Icon name="ios-arrow-back" />
+                        </HeaderLeftButton>
+                    </Left>
+                    <Body>
+                        <Title>{`Domicílio - ${domicilio.end_numero}`}</Title>
+                    </Body>
+                    <Right>
+                        <ButtonEditDomicilio
+                            domicilio={domicilio}
+                            onEditSubmit={this.onEditSubmit}
+                            {...props}
+                        />
+                        <ButtonRemoveDomicilio
+                            domicilio={domicilio}
+                            {...props}
+                        />
+                    </Right>
+                </Header>
+                <FlatList
+                    data={individuos}
+                    extraData={state}
+                    renderItem={this.renderItem}
+                    ListEmptyComponent={EmptyContentIndividuosList}
+                />
+                <Fab
+                    style={[{ backgroundColor: Colors.warnColor }]}
+                    onPress={this.onPressNewIndividuo}
+                >
+                    <Icon name="ios-add" />
+                </Fab>
+            </SafeView>
+        );
+    }
+
+    renderItem = ({ item }) => {
+        return (
+            <ListItem onPress={() => this.onPressItem(item)}>
+                <Body>
+                    <Text>{item.iden_cns}</Text>
+                    <Text note>{item.iden_nome}</Text>
+                </Body>
+            </ListItem>
+        );
+    }
+
+    defineProps = () => {
+        const { navigation, getIndividuosByDomicilio } = this.props;
+
+        const domicilio = navigation.getParam('domicilio');
+        const individuos = getIndividuosByDomicilio(domicilio.key);
+
+        this.setState({ individuos });
+    }
+
+    onPressNewIndividuo = () => {
+        const { navigation } = this.props;
+        const domicilio = navigation.getParam('domicilio');
+
         const payload = {
-            model: { domicilio },
+            model: { domicilio: pick(domicilio, ['key', 'end_numero']) },
             title: 'Cadastro Individuo',
             action: 'new'
         };
@@ -103,46 +188,61 @@ const IndividuoScreen = (props) => {
         }, 200);
     };
 
-    const onPressBack = () => {
+    onPressEditIndividuo = (individuo) => {
+        const { navigation } = this.props;
+        const domicilio = navigation.getParam('domicilio');
+        const payload = {
+            model: Object.assign({}, individuo, { domicilio: pick(domicilio, ['key', 'end_numero']) }),
+            title: 'Editar Individuo',
+            action: 'edit',
+            onSubmit: this.onEditSubmit
+        };
+
+        navigation.navigate('IndividuosForm', payload);
+    }
+
+    onPressDestroyIndividuo = (individuo) => {
+        Alert.alert(
+            'Deletar Individuo',
+            'Você deseja realmente excluir este indivíduo?',
+            [
+                { text: 'Sim', onPress: () => this.onConfirmDestroyIndividuo(individuo), style: 'destructive' },
+                { text: 'Não', style: 'cancel' },
+            ]
+        );
+    }
+
+    onConfirmDestroyIndividuo = ({ key }) => {
+        const { destroyIndividuo } = this.props;
+        destroyIndividuo(key);
+        this.defineProps(); // force reload flatlist
+    }
+
+    onPressBack = () => {
+        const { navigation } = this.props;
         navigation.goBack();
     };
 
-    const onEditSubmit = (payload) => {
-        setDomicilio(payload);
+    onEditSubmit = () => {
+        return false;
     };
 
-    return (
-        <SafeView navigation={navigation} isModal={true}>
-            <Header noShadow>
-                <Left>
-                    <HeaderLeftButton icon onPress={onPressBack}>
-                        <Icon name="ios-arrow-back" />
-                    </HeaderLeftButton>
-                </Left>
-                <Body>
-                    <Title>{`Domicílio - ${domicilio.end_numero}`}</Title>
-                </Body>
-                <Right>
-                    <ButtonEditDomicilio
-                        domicilio={domicilio}
-                        onEditSubmit={onEditSubmit}
-                        {...props}
-                    />
+    onPressItem = (item) => {
+        Alert.alert(
+            'Ações',
+            'Escolha uma ação para o indivíduo',
+            [
+                { text: 'Excluir', onPress: () => this.onPressDestroyIndividuo(item), style: 'destructive' },
+                { text: 'Editar', onPress: () => this.onPressEditIndividuo(item) },
+                { text: 'Cancelar', style: 'cancel' },
+            ]
+        );
+    };
+}
 
-                    <ButtonRemoveDomicilio
-                        domicilio={domicilio}
-                        {...props}
-                    />
-                </Right>
-            </Header>
-            <Fab
-                style={[{ backgroundColor: Colors.warnColor }]}
-                onPress={onPressNewIndividuo}
-            >
-                <Icon name="ios-add" />
-            </Fab>
-        </SafeView>
-    );
+const mapDispatchToProps = (dispatch) => {
+    return Object.assign({}, DomiciliosActions(dispatch), IndividuosActions(dispatch));
 };
 
-export default connect(null, DomiciliosActions)(IndividuoScreen);
+// DomiciliosActions
+export default connect(null, mapDispatchToProps)(IndividuoScreen);

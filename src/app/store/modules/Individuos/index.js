@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
 
     case Types.UPDATE_INDIVIDUOS:
         data[action.index] = action.data;
-        return Object.assign({}, state);
+        return Object.assign({}, state, { data });
 
     case Types.DESTROY_INDIVIDUOS:
         state.data.splice(action.index, 1);
