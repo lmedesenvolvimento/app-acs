@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
-import { DrawerActions } from 'react-navigation';
+import { connect } from 'react-redux';
+import { DrawerActions, SwitchActions } from 'react-navigation';
 
 import {
     Text,
@@ -24,12 +24,16 @@ import HeaderLeftButton from 'app/components/HeaderLeftButton';
 
 const AboutScreen = (props) => {
     const { navigation } = props;
-    const User = useSelector(state => state.User);
 
-    const logout = () => {
-        props.signOutAsync();
-        props.asynClearData();
-        navigation.navigate('Auth');
+    const logout = async () => {
+        await props.signOutAsync();
+        await props.asynClearData();
+
+        const logoutAction = SwitchActions.jumpTo({
+            routeName: 'Auth'
+        });
+
+        navigation.dispatch(logoutAction);
     };
 
     const onPressMenu = () => {
@@ -49,9 +53,7 @@ const AboutScreen = (props) => {
                 </Body>
                 <Right />
             </Header>
-            <Content padder>
-                <Text>{JSON.stringify(User.data)}</Text>
-            </Content>
+            <Content padder />
             <Button block onPress={logout}>
                 <Text>Logout</Text>
             </Button>

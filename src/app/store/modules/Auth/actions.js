@@ -49,7 +49,7 @@ function signInAsync(email, password, onSuccess, onFail) {
 }
 
 function signOutAsync() {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(UserActions.setUser(null));
         dispatch({ type: Types.SIGNOUT });
     };

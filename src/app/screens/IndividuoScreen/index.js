@@ -15,16 +15,18 @@ import {
     Fab,
     Button,
     Right,
-    ListItem
+    ListItem,
+    Container
 } from 'native-base';
 
 import { pick } from 'lodash';
-
 
 import Colors from '@/constants/Colors';
 
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
+
+import styles from './index.styl';
 
 const ButtonEditDomicilio = (props) => {
     const { navigation } = props;
@@ -86,7 +88,15 @@ const ButtonRemoveDomicilio = ({ navigation, domicilio, destroyDomicilios }) => 
 };
 
 const EmptyContentIndividuosList = () => (
-    <Text note>Este domicílo não possui nenhum individuo cadastrado</Text>
+    <Container style={styles.emptyContainer}>
+        <Icon name="mood-bad" type="MaterialIcons" style={styles.emptyContainerIcon} />
+        <Text style={[styles.emptyContainerText, { color: Colors.primaryColor }]}>
+            Oh, não! Você não tem nenhum domicilio cadastrado.
+        </Text>
+        <Text note style={styles.emptyContainerText}>
+            Começe já a adicionar os domicilios.
+        </Text>
+    </Container>
 );
 
 class IndividuoScreen extends React.Component {
