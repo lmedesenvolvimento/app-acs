@@ -238,12 +238,14 @@ class IndividuoScreen extends React.Component {
     };
 
     onPressItem = (item) => {
+        const { navigation } = this.props;
         Alert.alert(
             'Ações',
             'Escolha uma ação para o indivíduo',
             [
                 { text: 'Excluir', onPress: () => this.onPressDestroyIndividuo(item), style: 'destructive' },
                 { text: 'Editar', onPress: () => this.onPressEditIndividuo(item) },
+                { text: 'Realizar Visita', onPress: () => navigation.navigate('VisitaForm') },
                 { text: 'Cancelar', style: 'cancel' },
             ]
         );

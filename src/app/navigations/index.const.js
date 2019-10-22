@@ -20,7 +20,10 @@ export const modals = [
     'IndividuoIDUsuario',
     'IndividuoInfoSocio',
     'IndividuoCadastroSaida',
-    'IndividuoCondicaoSaude'
+    'IndividuoCondicaoSaude',
+    'Visita',
+    'Motivo',
+    'Desfecho'
 ];
 
 export default {
