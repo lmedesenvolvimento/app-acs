@@ -14,8 +14,8 @@ export default createStackNavigator({
     Motivo: {
         screen: require('@/modals/VisitaMotivo').default
     },
-    DesfechoVisitia: {
-        screen: require('@/modals/DesfechoVisitia').default
+    Desfecho: {
+        screen: require('@/modals/VisitaDesfecho').default
     },
 }, {
     initialRouteName: 'Visita',

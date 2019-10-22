@@ -22,6 +22,7 @@ export const modals = [
     'IndividuoCadastroSaida',
     'IndividuoCondicaoSaude',
     'Visita',
+    'Ficha',
     'Motivo',
     'Desfecho'
 ];

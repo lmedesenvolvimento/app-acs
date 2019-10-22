@@ -15,8 +15,9 @@ import {
     Fab,
     Button,
     Right,
+    List,
     ListItem,
-    Container
+    Container,
 } from 'native-base';
 
 import { pick } from 'lodash';
@@ -25,6 +26,8 @@ import Colors from '@/constants/Colors';
 
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
+
+import RBSheet from "react-native-raw-bottom-sheet";
 
 import styles from './index.styl';
 
@@ -102,10 +105,14 @@ const EmptyContentIndividuosList = () => (
 class IndividuoScreen extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             domicilio: {},
+            individuo: {},
             individuos: []
         };
+
+        this.RBSheet = null;
     }
 
     componentWillMount() {
@@ -159,6 +166,29 @@ class IndividuoScreen extends React.Component {
                 >
                     <Icon name="ios-add" />
                 </Fab>
+                <RBSheet
+                    ref={ref => this.RBSheet = ref}
+                    height={300}
+                    duration={250}
+                >
+                    <List>
+                        <ListItem onPress={() => this.onPressNewVisita(state.individuo)}>
+                            <Body>
+                                <Text>Realizar Visita</Text>
+                            </Body>
+                        </ListItem>
+                        <ListItem onPress={() => this.onPressEditIndividuo(state.individuo)}>
+                            <Body>
+                                <Text>Editar</Text>
+                            </Body>
+                        </ListItem>
+                        <ListItem onPress={() => this.onPressDestroyIndividuo(state.individuo)}>
+                            <Body>
+                                <Text>Excluir</Text>
+                            </Body>
+                        </ListItem>
+                    </List>
+                </RBSheet>
             </SafeView>
         );
     }
@@ -198,6 +228,21 @@ class IndividuoScreen extends React.Component {
         }, 200);
     };
 
+    onPressNewVisita = (individuo) => {
+        const { navigation } = this.props;
+        const model = Object.assign({}, { individuo: pick(individuo, ['key', 'iden_nome']) });
+
+        const payload = {
+            model,
+            action: 'new',
+            onSubmit: this.onEditSubmit
+        };
+
+        this.RBSheet.close();
+
+        navigation.navigate('VisitaForm', payload);
+    };
+
     onPressEditIndividuo = (individuo) => {
         const { navigation } = this.props;
         const domicilio = navigation.getParam('domicilio');
@@ -207,7 +252,7 @@ class IndividuoScreen extends React.Component {
             action: 'edit',
             onSubmit: this.onEditSubmit
         };
-
+        this.RBSheet.close();
         navigation.navigate('IndividuosForm', payload);
     }
 
@@ -224,6 +269,7 @@ class IndividuoScreen extends React.Component {
 
     onConfirmDestroyIndividuo = ({ key }) => {
         const { destroyIndividuo } = this.props;
+        this.RBSheet.close();
         destroyIndividuo(key);
         this.defineProps(); // force reload flatlist
     }
@@ -237,18 +283,9 @@ class IndividuoScreen extends React.Component {
         return false;
     };
 
-    onPressItem = (item) => {
-        const { navigation } = this.props;
-        Alert.alert(
-            'Ações',
-            'Escolha uma ação para o indivíduo',
-            [
-                { text: 'Excluir', onPress: () => this.onPressDestroyIndividuo(item), style: 'destructive' },
-                { text: 'Editar', onPress: () => this.onPressEditIndividuo(item) },
-                { text: 'Realizar Visita', onPress: () => navigation.navigate('VisitaForm') },
-                { text: 'Cancelar', style: 'cancel' },
-            ]
-        );
+    onPressItem = (individuo) => {
+        this.setState({ individuo });
+        this.RBSheet.open();
     };
 }
 

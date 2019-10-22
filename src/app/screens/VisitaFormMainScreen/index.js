@@ -18,7 +18,7 @@ import { findIndex, find, omit } from 'lodash';
 
 import shortid from 'shortid';
 
-import VisitasActions from '@redux/modules/Visitas/actions';
+import VisitasActions from '@redux/modules/Individuos/actions';
 
 import SafeView from '@/components/SafeView';
 import LightFooter from '@/components/LightFooter';
@@ -43,8 +43,8 @@ const VisitaMainScreen = ({ navigation, addVisita, updateVisita }) => {
             completed: false,
         },
         {
-            key: 'Desfecho da visita',
-            title: 'Saída do cidadão do cadastro',
+            key: 'Desfecho',
+            title: 'Desfecho da visita',
             completed: false,
         }
     ];
@@ -179,12 +179,12 @@ const VisitaMainScreen = ({ navigation, addVisita, updateVisita }) => {
                     </HeaderLeftButton>
                 </Left>
                 <Body>
-                    <Title>Cadastro Indivíduo</Title>
+                    <Title>Visita</Title>
                 </Body>
                 <Right />
             </Header>
             <H1 style={styles.heading}>
-                {model && model.domicilio ? `Nº ${model.domicilio.end_numero}` : 'Indefinido' }
+                { model && model.individuo ? model.individuo.iden_nome : 'Indefinido' }
             </H1>
             <FlatList
                 data={steps}

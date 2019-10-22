@@ -6078,6 +6078,11 @@ react-native-pose@^0.9.1:
     animated-pose "^1.2.0"
     react-pose-core "^0.5.0"
 
+react-native-raw-bottom-sheet@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-raw-bottom-sheet/-/react-native-raw-bottom-sheet-2.0.5.tgz#bb1bffd23e81af2646d933ac68ed19913063c531"
+  integrity sha512-xnAaue/fDypIp7vBeTXgUI+Mz05sb2JYZ1aXMpK+4ilYAjfXmhYMI2w5xF85Vh+Cxc6cbaniOla5Lm0sin2+lg==
+
 react-native-safe-area-view@^0.14.1:
   version "0.14.8"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.14.8.tgz#ef33c46ff8164ae77acad48c3039ec9c34873e5b"
