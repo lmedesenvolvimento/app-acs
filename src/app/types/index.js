@@ -373,8 +373,78 @@ export const Individuo = {
 };
 
 
+export const Visita = {
+    turno: {
+        manha: 'Manhã',
+        tarde: 'Tarde',
+        noite: 'Noite'
+    },
+    tipo_imovel: {
+        domicilio: 'Domicilio',
+        comercio: 'Comércio',
+        terreno_baldio: 'Terreno Baldio',
+        ponto_estrategico: 'Ponto Estrategico',
+        escola: 'Escola',
+        creche: 'Creche',
+        abrigo: 'Abrigo',
+        instituicao_idosos: 'Instituição de idosos',
+        unidade_prisional: 'Unidade Prisional',
+        unidade_socioeducativa: 'Unidade socioeducativa',
+        delegacia: 'Delegacia',
+        estabelecimento_religioso: 'Estabelecimento religioso',
+        outros: 'Outros'
+    },
+    desfecho: {
+        visita_realizada: 'Visita realizada',
+        visita_recusada: 'Visita recusada',
+        ausente: 'Ausente'
+    }
+};
+
+export const Motivo = {
+    tipo: [
+        { key: 'cadastramento_atualizacao', text: 'Cadastramento Atualizacao' },
+        { key: 'visita_periodica', text: 'Visita periódica' },
+        { key: 'busca_consulta', text: 'Busca consulta' },
+        { key: 'busca_exame', text: 'Busca exame' },
+        { key: 'busca_vacina', text: 'Busca vacina' },
+        { key: 'busca_bolsa_familia', text: 'Busca bolsa familia' },
+        { key: 'acompanhamento_gestante', text: 'Acompanhamento gestante' },
+        { key: 'acompanhamento_puerpera', text: 'Acompanhamento puerpera' },
+        { key: 'acompanhamento_recem_nascido', text: 'Acompanhamento recém nascido' },
+        { key: 'acompanhamento_crianca', text: 'Acompanhamento crianca' },
+        { key: 'acompanhamento_desnutricao', text: 'Acompanhamento desnutricao' },
+        { key: 'acompanhamento_reabilitacao', text: 'Acompanhamento reabilitacao' },
+        { key: 'acompanhamento_hipertensao', text: 'Acompanhamento hipertensao' },
+        { key: 'acompanhamento_diabetes', text: 'Acompanhamento diabetes' },
+        { key: 'acompanhamento_asma', text: 'Acompanhamento asma' },
+        { key: 'acompnhamento_dpoc_enfisema', text: 'Acompnhamento DPOC enfisema' },
+        { key: 'acompanhamento_cancer', text: 'Acompanhamento cancer' },
+        { key: 'acompanhamento_outras_doencas_cronicas', text: 'Acompanhamento outras doencas crônicas' },
+        { key: 'acompanhamento_hanseniase', text: 'Acompanhamento hanseniase' },
+        { key: 'acompanhamento_tuberculose', text: 'Acompanhamento tuberculose' },
+        { key: 'acompanhamento_sintomaticos_respiratorios', text: 'Acompanhamento sintomaticos respiratorios' },
+        { key: 'acompanhamento_tabagista', text: 'Acompanhamento tabagista' },
+        { key: 'acompanhamento_acamados', text: 'Acompanhamento acamados' },
+        { key: 'acompanhamento_vulnerabilidade_social', text: 'Acompanhamento vulnerabilidade social' },
+        { key: 'acompanhamento_bolsa_familia', text: 'Acompanhamento bolsa familia' },
+        { key: 'acompanhamento_saude_mental', text: 'Acompanhamento saude mental' },
+        { key: 'acompanhamento_alcool', text: 'Acompanhamento alcool' },
+        { key: 'acompanhamento_outras_drogas', text: 'Acompanhamento outras drogas' },
+        { key: 'controle_vetorial_acao_educativa', text: 'Controle vetorial ação educativa' },
+        { key: 'controle_vetorial_imovel_foco', text: 'Controle vetorial imóvel foco' },
+        { key: 'controle_vetorial_acao_mecanica', text: 'Controle vetorial ação mecânica' },
+        { key: 'controle_vetorial_tratamento_focal', text: 'Controle vetorial tratamento focal' },
+        { key: 'egresso_internacao', text: 'Egresso internação' },
+        { key: 'convite_atividades_coletivas', text: 'Convite atividades coletivas' },
+        { key: 'orientacao_prevencao', text: 'Orientação prevencao' },
+        { key: 'outro', text: 'Outro' }
+    ]
+};
+
 export default {
     Logradouro,
     Domicilio,
-    Familia
+    Familia,
+    Visita
 };

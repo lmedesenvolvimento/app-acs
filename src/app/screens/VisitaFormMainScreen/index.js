@@ -95,27 +95,29 @@ const VisitaMainScreen = ({ navigation, addVisita, updateVisita }) => {
     };
 
     const createVisita = () => {
-        const domicilio_key = model.domicilio.key;
-        const result = mapSteps(steps);
-        const key = shortid.generate();
+        // const domicilio_key = model.domicilio.key;
+        // const result = mapSteps(steps);
+        // const key = shortid.generate();
 
-        if (result) {
-            const payload = Object.assign({}, { domicilio_key, key }, omit(result, ['domicilio']));
-            addVisita(payload);
-            onPressBack();
-        }
+        // if (result) {
+        //     const payload = Object.assign({}, { domicilio_key, key }, omit(result, ['domicilio']));
+        //     addVisita(payload);
+        //     onPressBack();
+        // }
+        return false;
     };
 
     const editVisita = () => {
-        const { key } = model;
-        const result = mapSteps(steps);
+        // const { key } = model;
+        // const result = mapSteps(steps);
 
-        if (result) {
-            const payload = Object.assign({}, omit(result, ['domicilio']));
-            updateVisita(key, payload);
-            navigation.getParam('onSubmit')(model);
-            onPressBack();
-        }
+        // if (result) {
+        //     const payload = Object.assign({}, omit(result, ['domicilio']));
+        //     updateVisita(key, payload);
+        //     navigation.getParam('onSubmit')(model);
+        //     onPressBack();
+        // }
+        return true;
     };
 
     const mergeData = (newData, key) => {
