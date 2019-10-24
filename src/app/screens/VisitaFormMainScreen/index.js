@@ -18,7 +18,7 @@ import { findIndex, find, omit } from 'lodash';
 
 import shortid from 'shortid';
 
-import VisitasActions from '@redux/modules/Individuos/actions';
+import VisitasActions from '@redux/modules/Visitas/actions';
 
 import SafeView from '@/components/SafeView';
 import LightFooter from '@/components/LightFooter';
@@ -95,28 +95,28 @@ const VisitaMainScreen = ({ navigation, addVisita, updateVisita }) => {
     };
 
     const createVisita = () => {
-        // const domicilio_key = model.domicilio.key;
-        // const result = mapSteps(steps);
-        // const key = shortid.generate();
+        const individuo_key = model.individuo.key;
+        const result = mapSteps(steps);
+        const key = shortid.generate();
 
-        // if (result) {
-        //     const payload = Object.assign({}, { domicilio_key, key }, omit(result, ['domicilio']));
-        //     addVisita(payload);
-        //     onPressBack();
-        // }
+        if (result) {
+            const payload = Object.assign({}, { individuo_key, key }, omit(result, ['individuo']));
+            addVisita(payload);
+            onPressBack();
+        }
         return false;
     };
 
     const editVisita = () => {
-        // const { key } = model;
-        // const result = mapSteps(steps);
+        const { key } = model;
+        const result = mapSteps(steps);
 
-        // if (result) {
-        //     const payload = Object.assign({}, omit(result, ['domicilio']));
-        //     updateVisita(key, payload);
-        //     navigation.getParam('onSubmit')(model);
-        //     onPressBack();
-        // }
+        if (result) {
+            const payload = Object.assign({}, omit(result, ['individuo']));
+            updateVisita(key, payload);
+            navigation.getParam('onSubmit')(model);
+            onPressBack();
+        }
         return true;
     };
 

@@ -1,8 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { findIndex, chain, last } from 'lodash';
 
-import { Visita } from '@/types';
-
 import Types from './types';
 
 const clearIndividuos = {
@@ -62,8 +60,6 @@ function getNotVisitedIndividuos(domicilio_key) {
     return (dispatch, getState) => {
         const { Individuos, Visitas } = getState();
 
-        console.log(Visitas);
-
         return chain(Individuos.data)
             .filter({ domicilio_key })
             .filter(individuo => notVisitedFilter(individuo, Visitas))
@@ -75,8 +71,6 @@ function getNotVisitedIndividuos(domicilio_key) {
 function getVisitedIndividuos(domicilio_key) {
     return (dispatch, getState) => {
         const { Individuos, Visitas } = getState();
-
-        console.log(Visitas);
 
         return chain(Individuos.data)
             .filter({ domicilio_key })
@@ -105,17 +99,17 @@ function notVisitedFilter(individuo, Visitas) {
         return true;
     }
 
-    return last(visitas).desfecho !== Visita.desfecho.visita_realizada;
+    return last(visitas).desfecho !== 'visita_realizada';
 }
 
 function visitedFilter(individuo, Visitas) {
     const visitas = Visitas.data.filter(visita => visita.individuo_key === individuo.key);
 
-    if (!visitas.length) {
+    if (visitas.length === 0) {
         return false;
     }
 
-    return last(visitas).desfecho === Visita.desfecho.visita_realizada;
+    return last(visitas).desfecho === 'visita_realizada';
 }
 
 export const actions = {
