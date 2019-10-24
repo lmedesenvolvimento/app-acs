@@ -1,0 +1,5 @@
+export default {
+    SET_VISITAS: 'SET_VISITAS',
+    ADD_VISITA: 'ADD_VISITA',
+    UPDATE_VISITA: 'UPDATE_VISITA'
+};

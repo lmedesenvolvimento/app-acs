@@ -6,6 +6,7 @@ import { actions as QuadrasActions } from '@redux/modules/Quadras/actions';
 import { actions as QuadrasLogradourosActions } from '@redux/modules/QuadrasLogradouros/actions';
 import { actions as DomiciliosActions } from '@redux/modules/Domicilios/actions';
 import { actions as IndividuosActions } from '@redux/modules/Individuos/actions';
+import { actions as VisitasActions } from '@redux/modules/Visitas/actions';
 
 import shortid from 'shortid';
 
@@ -47,9 +48,9 @@ function asyncFetchData(onSuccess, onFail) {
             dispatch(QuadrasLogradourosActions.setQuadrasLogradouros(data.quadra_logradouros));
             dispatch(DomiciliosActions.setDomicilios(data.domicilios));
             dispatch(IndividuosActions.setIndividuos(data.individuos));
+            dispatch(VisitasActions.setIndividuos(data.visitas));
             onSuccess(data);
         }).catch((err) => {
-            console.warn(err);
             dispatch(AuthActions.signOutAsync());
             onFail(err);
         });
@@ -68,7 +69,8 @@ const defineKeysToData = ({
     logradouros,
     quadra_logradouros,
     domicilios,
-    individuos
+    individuos,
+    visitas
 }) => {
     // Define unique keys for reducers
     if (microareas) {
@@ -78,7 +80,7 @@ const defineKeysToData = ({
         quadras.forEach(quadra => quadra.key = shortid.generate());
 
         // Combine relationship
-        defineParentKeysToQuadras(microareas, quadras)
+        defineParentKeysToQuadras(microareas, quadras);
     }
 
     if (quadra_logradouros) {
@@ -108,6 +110,12 @@ const defineKeysToData = ({
         individuos.forEach(individuo => individuo.key = shortid.generate());
         // Combine relationship
         defineParentKeysToIndividuos(domicilios, individuos);
+    }
+
+    if (visitas) {
+        visitas.forEach(visita => visita.key = shortid.generate());
+        // Combine relationship
+        defineParentKeysToVisitas(individuos, visitas);
     }
 };
 
@@ -157,6 +165,16 @@ const defineParentKeysToIndividuos = (domicilios, individuos) => {
         individuos.forEach((individuo) => {
             if (domicilio.id === individuo.domicilio_id) {
                 individuo.domicilio_key = domicilio.key;
+            }
+        });
+    });
+};
+
+const defineParentKeysToVisitas = (individuos, visitas) => {
+    individuos.forEach((individuo) => {
+        visitas.forEach((visita) => {
+            if (individuo.id === visita.individuo_id) {
+                visita.individuo_key = individuo.key;
             }
         });
     });

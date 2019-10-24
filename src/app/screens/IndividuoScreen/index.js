@@ -1,6 +1,7 @@
 import React from 'react';
-import { Alert, FlatList } from 'react-native';
+import { Alert, SectionList } from 'react-native';
 import { connect } from 'react-redux';
+// import { createSelector } from 'reselect';
 
 import DomiciliosActions from '@redux/modules/Domicilios/actions';
 import IndividuosActions from '@redux/modules/Individuos/actions';
@@ -17,6 +18,7 @@ import {
     Right,
     List,
     ListItem,
+    Separator,
     Container,
 } from 'native-base';
 
@@ -27,7 +29,7 @@ import Colors from '@/constants/Colors';
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
 
-import RBSheet from "react-native-raw-bottom-sheet";
+import RBSheet from 'react-native-raw-bottom-sheet';
 
 import styles from './index.styl';
 
@@ -109,7 +111,18 @@ class IndividuoScreen extends React.Component {
         this.state = {
             domicilio: {},
             individuo: {},
-            individuos: []
+            individuos: [
+                {
+                    key: 'not_visited',
+                    title: 'Não Visitadas',
+                    data: []
+                },
+                {
+                    key: 'visited',
+                    title: 'Visitadas',
+                    data: []
+                },
+            ]
         };
 
         this.RBSheet = null;
@@ -154,10 +167,11 @@ class IndividuoScreen extends React.Component {
                         />
                     </Right>
                 </Header>
-                <FlatList
-                    data={individuos}
+                <SectionList
+                    sections={individuos}
                     extraData={state}
                     renderItem={this.renderItem}
+                    renderSectionHeader={this.renderSectionHeader}
                     ListEmptyComponent={EmptyContentIndividuosList}
                 />
                 <Fab
@@ -204,11 +218,25 @@ class IndividuoScreen extends React.Component {
         );
     }
 
+    renderSectionHeader = ({ section: { title, data } }) => {
+        if (data.length) {
+            return (
+                <Separator bordered>
+                    <Text uppercase>{title}</Text>
+                </Separator>
+            );
+        }
+        return null;
+    };
+
     defineProps = () => {
-        const { navigation, getIndividuosByDomicilio } = this.props;
+        const { navigation, getVisitedIndividuos, getNotVisitedIndividuos } = this.props;
+        const { individuos } = this.state;
 
         const domicilio = navigation.getParam('domicilio');
-        const individuos = getIndividuosByDomicilio(domicilio.key);
+
+        individuos[0].data = getNotVisitedIndividuos(domicilio.key);
+        individuos[1].data = getVisitedIndividuos(domicilio.key);
 
         this.setState({ individuos });
     }
