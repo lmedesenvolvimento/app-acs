@@ -1,5 +1,12 @@
 import { bindActionCreators } from 'redux';
-import { find, findIndex, chain, omit } from 'lodash';
+
+import {
+    find,
+    findIndex,
+    chain,
+    omit
+} from 'lodash';
+
 import shortid from 'shortid';
 import Types from './types';
 

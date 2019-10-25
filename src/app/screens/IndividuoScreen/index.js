@@ -219,7 +219,7 @@ class IndividuoScreen extends React.Component {
             <ListItem onPress={() => this.onPressItem(item)}>
                 <Body>
                     <Text>{item.iden_cns}</Text>
-                    <Text note>{`${item.iden_nome} - Total Visitas ${item.visita.total}`}</Text>
+                    <Text note>{`${item.iden_nome} - Total Visitas ${item.visita.total} DEBUG`}</Text>
                 </Body>
             </ListItem>
         );
