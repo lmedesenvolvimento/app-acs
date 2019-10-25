@@ -158,7 +158,7 @@ class IndividuoScreen extends React.Component {
                     <Right>
                         <ButtonEditDomicilio
                             domicilio={domicilio}
-                            onEditSubmit={this.onEditSubmit}
+                            onEditSubmit={this.defineProps}
                             {...props}
                         />
                         <ButtonRemoveDomicilio
@@ -186,11 +186,18 @@ class IndividuoScreen extends React.Component {
                     duration={250}
                 >
                     <List>
-                        <ListItem onPress={() => this.onPressNewVisita(state.individuo)}>
-                            <Body>
-                                <Text>Realizar Visita</Text>
-                            </Body>
-                        </ListItem>
+                        {(() => {
+                            if (this.canVisit()) {
+                                return (
+                                    <ListItem onPress={() => this.onPressNewVisita(state.individuo)}>
+                                        <Body>
+                                            <Text>Realizar Visita</Text>
+                                        </Body>
+                                    </ListItem>
+                                );
+                            }
+                            return null;
+                        })()}
                         <ListItem onPress={() => this.onPressEditIndividuo(state.individuo)}>
                             <Body>
                                 <Text>Editar</Text>
@@ -212,7 +219,7 @@ class IndividuoScreen extends React.Component {
             <ListItem onPress={() => this.onPressItem(item)}>
                 <Body>
                     <Text>{item.iden_cns}</Text>
-                    <Text note>{item.iden_nome}</Text>
+                    <Text note>{`${item.iden_nome} - Total Visitas ${item.visita.total}`}</Text>
                 </Body>
             </ListItem>
         );
@@ -258,12 +265,18 @@ class IndividuoScreen extends React.Component {
 
     onPressNewVisita = (individuo) => {
         const { navigation } = this.props;
-        const model = Object.assign({}, { individuo: pick(individuo, ['key', 'iden_nome']) });
+        const { action } = this.canVisit();
+
+        let model = Object.assign({}, { individuo: pick(individuo, ['key', 'iden_nome']) });
+
+        if (action === 'edit') {
+            model = { ...model, ...individuo.visita };
+        }
 
         const payload = {
             model,
-            action: 'new',
-            onSubmit: this.onEditSubmit
+            action,
+            onSubmit: this.defineProps
         };
 
         this.RBSheet.close();
@@ -278,7 +291,7 @@ class IndividuoScreen extends React.Component {
             model: Object.assign({}, individuo, { domicilio: pick(domicilio, ['key', 'end_numero']) }),
             title: 'Editar Individuo',
             action: 'edit',
-            onSubmit: this.onEditSubmit
+            onSubmit: this.defineProps
         };
         this.RBSheet.close();
         navigation.navigate('IndividuosForm', payload);
@@ -307,14 +320,23 @@ class IndividuoScreen extends React.Component {
         navigation.goBack();
     };
 
-    onEditSubmit = () => {
-        return false;
-    };
-
     onPressItem = (individuo) => {
         this.setState({ individuo });
         this.RBSheet.open();
     };
+
+    canVisit = () => {
+        const { individuo } = this.state;
+        const { visita } = individuo;
+
+        if (!visita) return { can: true, action: 'new' };
+
+        if (visita.id && visita.desfecho === 'visita_realizada') {
+            return false;
+        }
+
+        return { can: true, action: 'edit' };
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {

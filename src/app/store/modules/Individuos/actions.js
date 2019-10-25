@@ -81,19 +81,19 @@ function getVisitedIndividuos(domicilio_key) {
 }
 
 function injectLastVisitInIndividuo(individuo, Visitas) {
-    const visitas = Visitas.data.filter(visita => visita.individuo_key === individuo.key);
+    const visitas = Visitas.data.filter(visita => visita && visita.individuo_key === individuo.key);
 
     if (!visitas.length) {
         return individuo;
     }
 
-    individuo.visita = last(visitas);
+    individuo.visita = { total: visitas.length, ...last(visitas) };
 
     return individuo;
 }
 
 function notVisitedFilter(individuo, Visitas) {
-    const visitas = Visitas.data.filter(visita => visita.individuo_key === individuo.key);
+    const visitas = Visitas.data.filter(visita => visita && visita.individuo_key === individuo.key);
 
     if (!visitas.length) {
         return true;
@@ -103,7 +103,7 @@ function notVisitedFilter(individuo, Visitas) {
 }
 
 function visitedFilter(individuo, Visitas) {
-    const visitas = Visitas.data.filter(visita => visita.individuo_key === individuo.key);
+    const visitas = Visitas.data.filter(visita => visita && visita.individuo_key === individuo.key);
 
     if (visitas.length === 0) {
         return false;

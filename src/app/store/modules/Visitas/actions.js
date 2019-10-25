@@ -1,5 +1,6 @@
 import { bindActionCreators } from 'redux';
-import { findIndex, chain } from 'lodash';
+import { find, findIndex, chain, omit } from 'lodash';
+import shortid from 'shortid';
 import Types from './types';
 
 const clearVisitas = {
@@ -25,11 +26,22 @@ function addVisita(data) {
 
 function updateVisita(key, data) {
     return (dispatch, getState) => {
-        const domicilios = getState().Domicilios.data;
+        const visitas = getState().Visitas.data;
+        const oldVisita = find(visitas, { key });
+
+        if (oldVisita.desfecho !== data.desfecho) {
+            dispatch({
+                type: Types.ADD_VISITA,
+                data: Object.assign({}, omit(data, ['total', 'key']), { key: shortid.generate() })
+            });
+
+            return;
+        }
+
         dispatch({
             type: Types.UPDATE_VISITA,
-            index: findIndex(domicilios, { key }),
-            data
+            index: findIndex(visitas, { key }),
+            data: omit(data, ['total'])
         });
     };
 }
