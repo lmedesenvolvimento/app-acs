@@ -145,7 +145,8 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             Crianças de 0 a 9 anos, com quem fica?
                         </Text>
                         <CheckboxSelect
-                            data={state.is_criancas_cuidadores || Individuo.is_criancas_cuidadores}
+                            default={state.is_criancas_cuidadores}
+                            data={Individuo.is_criancas_cuidadores}
                             onChangeValue={(is_criancas_cuidadores) => {
                                 this.setState({ is_criancas_cuidadores });
                             }}
@@ -263,7 +264,8 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             Se sim, qual?
                         </Text>
                         <CheckboxSelect
-                            data={state.is_deficiencias || Individuo.is_deficiencias}
+                            default={state.is_deficiencias}
+                            data={Individuo.is_deficiencias}
                             onChangeValue={is_deficiencias => this.setState({ is_deficiencias })}
                         />
                     </Form>

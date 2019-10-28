@@ -158,7 +158,7 @@ class IndividuoScreen extends React.Component {
                     <Right>
                         <ButtonEditDomicilio
                             domicilio={domicilio}
-                            onEditSubmit={this.defineProps}
+                            onEditSubmit={this.onEditSubmitDomicilio}
                             {...props}
                         />
                         <ButtonRemoveDomicilio
@@ -245,7 +245,13 @@ class IndividuoScreen extends React.Component {
         individuos[0].data = getNotVisitedIndividuos(domicilio.key);
         individuos[1].data = getVisitedIndividuos(domicilio.key);
 
-        this.setState({ individuos });
+        this.setState({ individuos, domicilio });
+    }
+
+    onEditSubmitDomicilio = (domicilio) => {
+        const { navigation } = this.props;
+        navigation.setParams({ ...navigation.state.params, domicilio });
+        this.defineProps();
     }
 
     onPressNewIndividuo = () => {

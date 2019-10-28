@@ -219,7 +219,8 @@ class IndividuoCondicaoSaude extends IndividuoFormBaseModal {
                             Se sim, indique qual(is)?
                         </Text>
                         <CheckboxSelect
-                            data={state.cs_doencas_coracao || Individuo.cs_doencas_coracao}
+                            default={state.cs_doencas_coracao}
+                            data={Individuo.cs_doencas_coracao}
                             onChangeValue={(cs_doencas_coracao) => {
                                 this.setState({ cs_doencas_coracao });
                             }}
@@ -241,7 +242,8 @@ class IndividuoCondicaoSaude extends IndividuoFormBaseModal {
                             Se sim, indique qual(is)?
                         </Text>
                         <CheckboxSelect
-                            data={state.cs_problemas_rins || Individuo.cs_problemas_rins}
+                            default={state.cs_problemas_rins}
+                            data={Individuo.cs_problemas_rins}
                             onChangeValue={(cs_problemas_rins) => {
                                 this.setState({ cs_problemas_rins });
                             }}
@@ -263,9 +265,8 @@ class IndividuoCondicaoSaude extends IndividuoFormBaseModal {
                             Se sim, indique qual(is)?
                         </Text>
                         <CheckboxSelect
-                            data={
-                                state.cs_doencas_respiratorias || Individuo.cs_doencas_respiratorias
-                            }
+                            default={state.cs_doencas_respiratorias}
+                            data={Individuo.cs_doencas_respiratorias}
                             onChangeValue={(cs_doencas_respiratorias) => {
                                 this.setState({ cs_doencas_respiratorias });
                             }}

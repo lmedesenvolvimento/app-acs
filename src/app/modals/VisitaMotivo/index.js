@@ -70,7 +70,8 @@ class VisitaMotivo extends IndividuoFormBaseModal {
                             Tipo
                         </Text>
                         <CheckboxSelect
-                            data={state.tipo || Motivo.tipo}
+                            default={state.tipo}
+                            data={Motivo.tipo}
                             onChangeValue={tipo => this.setState({ tipo })}
                         />
                     </Form>

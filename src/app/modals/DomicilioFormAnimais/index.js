@@ -84,8 +84,7 @@ class DomicilioFormAnimaisModal extends DomicilioFormBaseModal {
                                 autoCorrect={false}
                                 placeholder="Informe o total de animais"
                                 maxLength={3}
-                                onChangeText={an_numero => this.setState({ an_numero })}
-                                blurOnSubmit={() => this.convertToNumber(state.an_numero, 'an_numero')}
+                                onChangeText={an_numero => this.convertToNumber(an_numero, 'an_numero')}
                             >
                                 {state.an_numero}
                             </Input>
@@ -93,7 +92,8 @@ class DomicilioFormAnimaisModal extends DomicilioFormBaseModal {
 
                         <Text style={styles.label} note>Qual(is)?</Text>
                         <CheckboxSelect
-                            data={state.an_animais || Animais.an_animais}
+                            default={state.an_animais}
+                            data={Animais.an_animais}
                             onChangeValue={an_animais => this.setState({ an_animais })}
                         />
                     </Form>
