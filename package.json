@@ -4,8 +4,8 @@
     "start": "expo start --lan",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "react-devtool": "react-devtools",
-    "redux-devtool": "remotedev",
+    "devtool": "react-devtools",
+    "redux": "remotedev",
     "eject": "expo eject"
   },
   "dependencies": {
@@ -48,6 +48,7 @@
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
+    "react-devtools": "^3",
     "react-native-dotenv": "^0.2.0",
     "react-native-stylus-transformer": "^1.2.0",
     "remote-redux-devtools": "^0.5.16",

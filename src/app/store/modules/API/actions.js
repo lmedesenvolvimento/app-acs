@@ -32,6 +32,7 @@ function asynClearData() {
         dispatch(QuadrasLogradourosActions.clearQuadrasLogradouros);
         dispatch(DomiciliosActions.clearDomicilios);
         dispatch(IndividuosActions.clearIndividuos);
+        dispatch(VisitasActions.clearVisitas);
     };
 }
 
@@ -40,6 +41,7 @@ function asyncFetchData(onSuccess, onFail) {
         Http.get('/api/v1/mapeamentos').then(({ data }) => {
             // create all local key ref
             defineKeysToData(data);
+            console.log(data.visitas || []);
             // dispatch all map list to redux
             dispatch(fetchData);
             dispatch(MicroAreasActions.setMicroAreas(data.microareas));
@@ -48,7 +50,7 @@ function asyncFetchData(onSuccess, onFail) {
             dispatch(QuadrasLogradourosActions.setQuadrasLogradouros(data.quadra_logradouros));
             dispatch(DomiciliosActions.setDomicilios(data.domicilios));
             dispatch(IndividuosActions.setIndividuos(data.individuos));
-            dispatch(VisitasActions.setIndividuos(data.visitas));
+            dispatch(VisitasActions.setVisitas(data.visitas || []));
             onSuccess(data);
         }).catch((err) => {
             dispatch(AuthActions.signOutAsync());

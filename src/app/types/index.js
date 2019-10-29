@@ -341,10 +341,10 @@ export const Individuo = {
         no: 'Não'
     },
     sr_tempo_rua: {
-        menor_seis_meses: 'menor_seis_meses',
-        seis_a_doze_meses: 'seis_a_doze_meses',
-        um_a_cinco_anos: 'um_a_cinco_anos',
-        maior_cinco_anos: 'maior_cinco_anos',
+        menor_seis_meses: 'Menos de que 6 meses',
+        seis_a_doze_meses: '6-12 meses',
+        um_a_cinco_anos: '1-5 anos',
+        maior_cinco_anos: 'Mais do que 5 anos',
     },
     sr_vezes_alimenta_dia: {
         uma: 'Uma',

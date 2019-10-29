@@ -22,7 +22,7 @@ import HeaderLeftButton from '@/components/HeaderLeftButton';
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
-import CheckboxSelect from '@/components/CheckboxSelect';
+import SelectBox from '@/components/Selectbox';
 
 import IndividuoFormBaseModal from '@/modals/IndividuoFormBaseModal';
 
@@ -97,9 +97,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                         <RadioSelect
                             data={Individuo.sr_tempo_rua}
                             default={state.sr_tempo_rua}
-                            onChangeValue={sr_tempo_rua => this.setState({
-                                sr_tempo_rua: sr_tempo_rua === 'yes'
-                            })}
+                            onChangeValue={sr_tempo_rua => this.setState({ sr_tempo_rua })}
                         />
 
                         <Text style={this.hasError('sr_recebe_beneficio') ? styles.labelError : styles.label} note>
@@ -138,10 +136,10 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                         <Text style={this.hasError('sr_origem_alimentacao') ? styles.labelError : styles.label} note>
                             Qual a origem da alimentação?
                         </Text>
-                        <CheckboxSelect
+                        <SelectBox
                             default={state.sr_origem_alimentacao}
                             data={Individuo.sr_origem_alimentacao}
-                            onChangeValue={(sr_origem_alimentacao) => {
+                            onValueChange={(sr_origem_alimentacao) => {
                                 this.setState({ sr_origem_alimentacao });
                             }}
                         />
