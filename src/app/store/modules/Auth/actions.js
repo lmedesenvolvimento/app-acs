@@ -2,6 +2,8 @@ import { bindActionCreators } from 'redux';
 import Http, { defineAccessToken } from '@/services/Http';
 import { actions as UserActions } from '@redux/modules/User/actions';
 
+import Localstorage from '@/services/LocalStorage';
+
 import Types from './types';
 
 const signed = {
@@ -24,26 +26,43 @@ function signInAsync(email, password, onSuccess, onFail) {
     return async (dispatch) => {
         dispatch(signInStart);
 
-        Http.post('/oauth/token', {
-            email,
-            password,
-            grant_type: 'password'
-        })
-            .then(({ data }) => {
-                const payload = Object.assign({}, data, { email });
+        Localstorage.read().then((state) => {
+            const normalizedEmail = email.replace(/\./g, ';');
+            const session = state.get(normalizedEmail).value();
+
+            if (session) {
                 dispatch(signed);
                 dispatch(signInDone);
                 // create user storages
-                dispatch(UserActions.setUser(payload));
+                dispatch(UserActions.setUser(session.user));
                 // set in all request axios bearer token
-                defineAccessToken(data);
+                defineAccessToken(session.user);
                 // callback
-                onSuccess(data);
-            }).catch((error) => {
-                dispatch(signInFail);
-                dispatch(signInDone);
-                onFail(error);
-            });
+                onSuccess(session.user);
+                return;
+            }
+
+            Http.post('/oauth/token', {
+                email,
+                password,
+                grant_type: 'password'
+            })
+                .then(({ data }) => {
+                    const payload = Object.assign({}, data, { email });
+                    dispatch(signed);
+                    dispatch(signInDone);
+                    // create user storages
+                    dispatch(UserActions.setUser(payload));
+                    // set in all request axios bearer token
+                    defineAccessToken(data);
+                    // callback
+                    onSuccess(data);
+                }).catch((error) => {
+                    dispatch(signInFail);
+                    dispatch(signInDone);
+                    onFail(error);
+                });
+        });
     };
 }
 

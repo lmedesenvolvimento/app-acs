@@ -1,17 +1,21 @@
+import Constants from 'expo-constants';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'remote-redux-devtools';
-import Constants from 'expo-constants';
 
 
 import thunk from 'redux-thunk';
 import rootReducer from './modules';
 
-const persistConfig = {
+import { blacklist } from './index.const';
+
+import sessions from './middlewares/sessions';
+
+export const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['Auth', 'Loading', 'UI', 'Network']
+    blacklist
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -29,7 +33,7 @@ export default () => {
         });
 
         store = createStore(persistedReducer, enhance(
-            applyMiddleware(thunk)
+            applyMiddleware(thunk, sessions)
         ));
     } else {
         store = createStore(persistedReducer, applyMiddleware(thunk));

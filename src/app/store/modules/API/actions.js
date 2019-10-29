@@ -10,6 +10,7 @@ import { actions as VisitasActions } from '@redux/modules/Visitas/actions';
 
 import shortid from 'shortid';
 
+import Localstorage from '@/services/LocalStorage';
 import Http from '@/services/Http';
 
 import Types from './types';
@@ -25,38 +26,60 @@ const clearData = {
 function asynClearData() {
     return async (dispatch) => {
         dispatch(clearData);
-        dispatch(QuadrasActions.clearQuadras);
-        dispatch(MicroAreasActions.clearMicroAreas);
-        dispatch(LogradourosActions.clearLogradouros);
-        dispatch(DomiciliosActions.clearDomicilios);
-        dispatch(QuadrasLogradourosActions.clearQuadrasLogradouros);
-        dispatch(DomiciliosActions.clearDomicilios);
-        dispatch(IndividuosActions.clearIndividuos);
-        dispatch(VisitasActions.clearVisitas);
     };
 }
 
 function asyncFetchData(onSuccess, onFail) {
-    return (dispatch) => {
-        Http.get('/api/v1/mapeamentos').then(({ data }) => {
-            // create all local key ref
-            defineKeysToData(data);
-            console.log(data.visitas || []);
-            // dispatch all map list to redux
-            dispatch(fetchData);
-            dispatch(MicroAreasActions.setMicroAreas(data.microareas));
-            dispatch(QuadrasActions.setQuadras(data.quadras));
-            dispatch(LogradourosActions.setLogradouros(data.logradouros));
-            dispatch(QuadrasLogradourosActions.setQuadrasLogradouros(data.quadra_logradouros));
-            dispatch(DomiciliosActions.setDomicilios(data.domicilios));
-            dispatch(IndividuosActions.setIndividuos(data.individuos));
-            dispatch(VisitasActions.setVisitas(data.visitas || []));
-            onSuccess(data);
-        }).catch((err) => {
-            dispatch(AuthActions.signOutAsync());
-            onFail(err);
+    return (dispatch, getState) => {
+        const { User } = getState();
+        const email = User.data.email.replace(/\./g, ';');
+
+        Localstorage.read().then((state) => {
+            const session = state.get(email).value();
+
+            if (session) {
+                persistLocalData(dispatch, session.data, result => onSuccess(result));
+                return;
+            }
+
+            Http.get('/api/v1/mapeamentos').then(({ data }) => {
+                persistRemoteData(dispatch, data, result => onSuccess(result));
+            }).catch((err) => {
+                dispatch(AuthActions.signOutAsync());
+                onFail(err);
+            });
         });
     };
+}
+
+function persistLocalData(dispatch, data, callback) {
+    // create all local key ref
+    defineKeysToLocalData(data);
+    // dispatch all map list to redux
+    dispatch(fetchData);
+    dispatch(MicroAreasActions.setMicroAreas(data.MicroAreas.data));
+    dispatch(QuadrasActions.setQuadras(data.Quadras.data));
+    dispatch(LogradourosActions.setLogradouros(data.Logradouros.data));
+    dispatch(QuadrasLogradourosActions.setQuadrasLogradouros(data.QuadrasLogradouros.data));
+    dispatch(DomiciliosActions.setDomicilios(data.Domicilios.data));
+    dispatch(IndividuosActions.setIndividuos(data.Individuos.data));
+    dispatch(VisitasActions.setVisitas(data.Visitas.data || []));
+    callback(data);
+}
+
+function persistRemoteData(dispatch, data, callback) {
+    // create all local key ref
+    defineKeysToRemoteData(data);
+    // dispatch all map list to redux
+    dispatch(fetchData);
+    dispatch(MicroAreasActions.setMicroAreas(data.microareas));
+    dispatch(QuadrasActions.setQuadras(data.quadras));
+    dispatch(LogradourosActions.setLogradouros(data.logradouros));
+    dispatch(QuadrasLogradourosActions.setQuadrasLogradouros(data.quadra_logradouros));
+    dispatch(DomiciliosActions.setDomicilios(data.domicilios));
+    dispatch(IndividuosActions.setIndividuos(data.individuos));
+    dispatch(VisitasActions.setVisitas(data.visitas || []));
+    callback(data);
 }
 
 export const actions = {
@@ -65,7 +88,73 @@ export const actions = {
     asynClearData
 };
 
-const defineKeysToData = ({
+const defineKeysToLocalData = ({
+    MicroAreas,
+    Quadras,
+    Logradouros,
+    QuadrasLogradouros,
+    Domicilios,
+    Individuos,
+    Visitas
+}) => {
+    // Define unique keys for reducers
+    if (MicroAreas.data) {
+        MicroAreas.data.forEach(microarea => microarea.key = shortid.generate());
+    }
+    if (Quadras.data) {
+        Quadras.data.forEach(quadra => quadra.key = shortid.generate());
+
+        // Combine relationship
+        defineParentKeysToQuadras(MicroAreas.data, Quadras.data);
+    }
+
+    if (QuadrasLogradouros.data) {
+        QuadrasLogradouros.data
+            .forEach(quadra_logradouro => quadra_logradouro.key = shortid.generate());
+
+        // Combine relationship
+        defineParentKeysToQuadrasLogradouros(
+            Logradouros.data,
+            Quadras.data, QuadrasLogradouros.data
+        );
+    }
+
+    if (Logradouros.data) {
+        Logradouros.data
+            .forEach(logradouro => logradouro.key = shortid.generate());
+
+        // Combine relationship
+        defineParentKeysToQuadrasLogradouros(
+            Logradouros.data,
+            Quadras.data,
+            QuadrasLogradouros.data
+        );
+    }
+
+    if (Domicilios.data) {
+        Domicilios.data.forEach(domicilio => domicilio.key = shortid.generate());
+
+        // Combine relationship
+        defineParentKeysToDomicilios(
+            QuadrasLogradouros.data,
+            Domicilios.data
+        );
+    }
+
+    if (Individuos.data) {
+        Individuos.data.forEach(individuo => individuo.key = shortid.generate());
+        // Combine relationship
+        defineParentKeysToIndividuos(Domicilios.data, Individuos.data);
+    }
+
+    if (Visitas.data) {
+        Visitas.data.forEach(visita => visita.key = shortid.generate());
+        // Combine relationship
+        defineParentKeysToVisitas(Individuos.data, Visitas.data);
+    }
+};
+
+const defineKeysToRemoteData = ({
     microareas,
     quadras,
     logradouros,

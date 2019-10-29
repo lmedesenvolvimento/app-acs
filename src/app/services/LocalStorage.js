@@ -41,7 +41,7 @@ class LocalStorage {
 
     async clear() {
         try {
-            return await AsyncStorage.removeItem(this.store)
+            return await AsyncStorage.removeItem(this.store);
         } catch (error) {
             return null;
         }
@@ -56,6 +56,6 @@ class LocalStorage {
     }
 }
 
-const localStorage = new LocalStorage('@localStorage', { user: null, users: {} });
+const localStorage = new LocalStorage('@localStorage', {});
 
 export default localStorage;
