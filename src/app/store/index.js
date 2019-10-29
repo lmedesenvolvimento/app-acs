@@ -11,7 +11,7 @@ import rootReducer from './modules';
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['Auth', 'Loading', 'UI']
+    blacklist: ['Auth', 'Loading', 'UI', 'Network']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

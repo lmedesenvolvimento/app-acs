@@ -12,6 +12,7 @@ import Domicilios from './Domicilios';
 import UI from './UI';
 import Individuos from './Individuos';
 import Visitas from './Visitas';
+import Network from './Network';
 
 export default combineReducers({
     Auth,
@@ -25,5 +26,6 @@ export default combineReducers({
     Domicilios,
     Individuos,
     Visitas,
+    Network,
     UI
 });

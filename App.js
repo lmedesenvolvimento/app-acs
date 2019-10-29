@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
-import Constants from 'expo-constants';
 import { SafeAreaView } from 'react-native';
 import { Root, StyleProvider } from 'native-base';
 
@@ -16,6 +15,8 @@ import LoadingModal from '@/components/Loading';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import configureStore from '@redux';
+
+import NetworkProvider from '@/components/NetworkProvider';
 
 import DrawerNavigation from '@/services/DrawerNavigation';
 
@@ -55,14 +56,16 @@ export default class App extends Component {
                 <PersistGate loading={null} persistor={persistor}>
                     <StyleProvider style={theme}>
                         <Root>
-                            <SafeAreaView style={styles.droidSafeArea}>
-                                <AppNavigator
-                                    ref={(navigationRef) => {
-                                        return DrawerNavigation.setDrawerNavigator(navigationRef);
-                                    }}
-                                />
-                            </SafeAreaView>
-                            <LoadingModal />
+                            <NetworkProvider>
+                                <SafeAreaView style={styles.droidSafeArea}>
+                                    <AppNavigator
+                                        ref={(navigationRef) => {
+                                            return DrawerNavigation.setDrawerNavigator(navigationRef);
+                                        }}
+                                    />
+                                </SafeAreaView>
+                                <LoadingModal />
+                            </NetworkProvider>
                         </Root>
                     </StyleProvider>
                 </PersistGate>
