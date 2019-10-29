@@ -2,6 +2,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'remote-redux-devtools';
+import Constants from 'expo-constants';
 
 
 import thunk from 'redux-thunk';
@@ -16,17 +17,23 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default () => {
-    const enhance = composeWithDevTools({
-        realtime: true,
-        hostname: '10.101.59.153',
-        port: '8000'
-    });
+    let store = null;
 
-    const store = createStore(persistedReducer, enhance(
-        applyMiddleware(thunk)
-    ));
+    // eslint-disable-next-line no-undef
+    if (__DEV__) {
+        const { manifest } = Constants;
+        const enhance = composeWithDevTools({
+            realtime: true,
+            hostname: manifest.debuggerHost.split(':')[0],
+            port: '8000'
+        });
 
-    // const store = createStore(persistedReducer, applyMiddleware(thunk));
+        store = createStore(persistedReducer, enhance(
+            applyMiddleware(thunk)
+        ));
+    } else {
+        store = createStore(persistedReducer, applyMiddleware(thunk));
+    }
 
     const persistor = persistStore(store);
 

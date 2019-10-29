@@ -186,6 +186,10 @@ export default {
     return this.textColor;
   },
   get inputColorPlaceholder() {
+    return "#ccc";
+    // return "#575757";
+  },
+  get inputColorLabel() {
     return "#575757";
   },
 

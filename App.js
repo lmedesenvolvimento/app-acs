@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
+import Constants from 'expo-constants';
 import { SafeAreaView } from 'react-native';
 import { Root, StyleProvider } from 'native-base';
 
@@ -55,7 +56,11 @@ export default class App extends Component {
                     <StyleProvider style={theme}>
                         <Root>
                             <SafeAreaView style={styles.droidSafeArea}>
-                                <AppNavigator ref={navigationRef => DrawerNavigation.setDrawerNavigator(navigationRef)} />
+                                <AppNavigator
+                                    ref={(navigationRef) => {
+                                        return DrawerNavigation.setDrawerNavigator(navigationRef);
+                                    }}
+                                />
                             </SafeAreaView>
                             <LoadingModal />
                         </Root>
