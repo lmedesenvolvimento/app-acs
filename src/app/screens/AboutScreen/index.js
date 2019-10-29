@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { Alert } from 'react-native';
+import { connect, useSelector } from 'react-redux';
 import { DrawerActions, SwitchActions } from 'react-navigation';
 
 import {
@@ -22,12 +23,12 @@ import DrawerNavigation from '@/services/DrawerNavigation';
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from 'app/components/HeaderLeftButton';
 
-const AboutScreen = (props) => {
-    const { navigation } = props;
+const AboutScreen = ({ navigation, signOutAsync, asynClearData }) => {
+    const isConnected = useSelector(({ Network }) => Network.isConnected);
 
     const logout = async () => {
-        await props.signOutAsync();
-        await props.asynClearData();
+        await signOutAsync();
+        await asynClearData();
 
         const logoutAction = SwitchActions.jumpTo({
             routeName: 'Auth'
@@ -36,9 +37,22 @@ const AboutScreen = (props) => {
         navigation.dispatch(logoutAction);
     };
 
+    const onPressLogout = () => {
+        Alert.alert('Sair do Aplicativo', 'Deseja realmente sair do Aplicativo', [
+            { text: 'Não', style: 'cancel' },
+            { text: 'Sim', onPress: logout },
+        ]);
+    };
+
     const onPressMenu = () => {
         DrawerNavigation.getDrawerNavigator().dispatch(DrawerActions.toggleDrawer());
     };
+
+    const LogoutButton = () => (
+        <Button block onPress={onPressLogout}>
+            <Text>Logout</Text>
+        </Button>
+    );
 
     return (
         <SafeView navigation={navigation}>
@@ -54,9 +68,7 @@ const AboutScreen = (props) => {
                 <Right />
             </Header>
             <Content padder />
-            <Button block onPress={logout}>
-                <Text>Logout</Text>
-            </Button>
+            { isConnected ? LogoutButton() : null }
         </SafeView>
     );
 };

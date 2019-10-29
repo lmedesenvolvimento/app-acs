@@ -21,6 +21,10 @@ const NetworkProvider = ({ children, setStatusOnline, setStatusOffline }) => {
         isConnected => onConnectivityChange(isConnected)
     );
 
+    NetInfo.getConnectionInfo().then((isConnected) => {
+        onConnectivityChange(isConnected);
+    });
+
     return children;
 };
 
