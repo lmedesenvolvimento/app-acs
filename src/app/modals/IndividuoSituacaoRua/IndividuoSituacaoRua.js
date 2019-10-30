@@ -33,15 +33,7 @@ import styles from './index.styl';
 class IndividuoSituacaoRua extends IndividuoFormBaseModal {
     inputs = {};
 
-    requireds = [
-        'sr_esta_situacao_rua',
-        'sr_tempo_rua',
-        'sr_recebe_beneficio',
-        'sr_recebe_beneficio',
-        'sr_possui_referencia_familiar',
-        'sr_vezes_alimenta_dia',
-        'sr_origem_alimentacao',
-    ];
+    requireds = [];
 
     fields = [
         'sr_esta_situacao_rua',

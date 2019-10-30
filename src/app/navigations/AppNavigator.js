@@ -10,9 +10,10 @@ import { defaultNavigationOptions } from './index.const';
 
 const AppStack = createDrawerNavigator({
     Home: require('@/screens/MainScreen').default,
-    About: require('@/screens/AboutScreen').default
+    About: require('@/screens/AboutScreen').default,
+    Sync: require('@/screens/SyncScreeen').default
 }, {
-    initialRouteName: 'Home',
+    initialRouteName: 'Sync',
     defaultNavigationOptions
 });
 

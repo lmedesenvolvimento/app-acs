@@ -42,12 +42,10 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
     requireds = [
         'iden_cns',
+        'iden_nome',
         'iden_nome_mae',
         'iden_nome_pai',
-        'iden_nacionalidade',
-        'iden_pais_nascimento',
-        'iden_data_naturalizacao',
-        'iden_portaria_naturalizacao',
+        'iden_raca',
     ];
 
     fields = [
@@ -145,6 +143,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
                         <Item
                             style={styles.item}
+                            error={this.hasError('iden_nome')}
                             stackedLabel
                         >
                             <Label>Nome Completo</Label>
@@ -202,6 +201,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
                         <Item
                             style={styles.pickerItem}
+                            error={this.hasError('iden_raca')}
                             picker
                         >
                             <Selectbox

@@ -37,6 +37,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
     inputs = {};
 
     requireds = [
+        'is_frequenta_escola',
     ];
 
     fields = [
@@ -107,7 +108,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             </Input>
                         </Item>
 
-                        <Text style={styles.label} note>
+                        <Text style={this.hasError('is_frequenta_escola') ? styles.labelError : styles.label} note>
                             Frequenta escola ou creche:
                         </Text>
                         <RadioSelect

@@ -402,7 +402,7 @@ export const Visita = {
 };
 
 export const Motivo = {
-    tipo: [
+    motivos: [
         { key: 'cadastramento_atualizacao', text: 'Cadastramento Atualizacao' },
         { key: 'visita_periodica', text: 'Visita periódica' },
         { key: 'busca_consulta', text: 'Busca consulta' },

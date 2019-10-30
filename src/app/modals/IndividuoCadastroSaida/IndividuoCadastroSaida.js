@@ -36,7 +36,7 @@ class IndividuoCadastroSaida extends IndividuoFormBaseModal {
     inputs = {};
 
     requireds = [
-        'sc_tipo'
+        'sc_tipo',
     ];
 
     fields = [

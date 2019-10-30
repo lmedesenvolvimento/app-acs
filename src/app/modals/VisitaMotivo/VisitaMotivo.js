@@ -33,11 +33,11 @@ class VisitaMotivo extends IndividuoFormBaseModal {
     inputs = {};
 
     requireds = [
-        'tipo',
+        'motivos',
     ];
 
     fields = [
-        'tipo',
+        'motivos',
     ];
 
     constructor(props) {
@@ -66,13 +66,13 @@ class VisitaMotivo extends IndividuoFormBaseModal {
                 <Content padder>
                     <H1 style={styles.heading}>Motivo da Visita</H1>
                     <Form>
-                        <Text style={this.hasError('turno') ? styles.labelError : styles.label} note>
+                        <Text style={this.hasError('motivos') ? styles.labelError : styles.label} note>
                             Tipo
                         </Text>
                         <CheckboxSelect
-                            default={state.tipo}
-                            data={Motivo.tipo}
-                            onChangeValue={tipo => this.setState({ tipo })}
+                            default={state.motivos}
+                            data={Motivo.motivos}
+                            onChangeValue={motivos => this.setState({ motivos })}
                         />
                     </Form>
                 </Content>
