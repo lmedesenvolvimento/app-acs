@@ -60,7 +60,8 @@ class QuadraScreen extends Component {
     renderItem({ item }) {
         const { navigation } = this.props;
         return (
-            <ListItem onPress={this.onPressItem.bind(this, item)}>
+            <ListItem iconLeft onPress={this.onPressItem.bind(this, item)}>
+                <Icon name="map" type="FontAwesome" />
                 <Body>
                     <Text>{item.nome}</Text>
                     <Text note>{navigation.getParam('microarea_nome')}</Text>

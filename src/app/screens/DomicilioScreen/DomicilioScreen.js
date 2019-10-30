@@ -96,7 +96,8 @@ class DomicilioScreen extends Component {
 
     renderItem = ({ item }) => {
         return (
-            <ListItem onPress={() => this.onPressDomicilio(item)}>
+            <ListItem iconLeft onPress={() => this.onPressDomicilio(item)}>
+                <Icon name="md-pin" type="Ionicons" />
                 <Body>
                     <Text>
                         {`Nº ${item.end_numero}`}

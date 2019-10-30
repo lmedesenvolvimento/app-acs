@@ -52,6 +52,8 @@ class DomicilioFormMainScreen extends Component {
                     key: 'Animais',
                     title: 'Animais de estimação',
                     completed: false,
+                    optional: true,
+                    optionalRequireFields: ['an_cria_animais'],
                     model: {}
                 },
                 {
@@ -74,7 +76,7 @@ class DomicilioFormMainScreen extends Component {
             return true;
         }
 
-        steps.forEach(step => step.completed = true);
+        steps.forEach(step => this.completeSteps(state.model, step));
 
         return this.setState({ model, steps });
     }
@@ -190,6 +192,17 @@ class DomicilioFormMainScreen extends Component {
         const { model } = this.state;
         const updates = Object.assign({}, model, newData);
         this.completeStep(updates, key);
+    }
+
+    completeSteps = (model, step) => {
+        if (step.optional) {
+            Object.keys(model).some((key) => {
+                return step.optionalRequireFields.includes(key);
+            });
+        } else {
+            step.completed = true;
+        }
+        return step;
     }
 
     completeStep = (model, key) => {

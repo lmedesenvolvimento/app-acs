@@ -110,10 +110,8 @@ class LogradouroScreen extends Component {
 
     renderItem = ({ item }) => {
         return (
-            <ListItem
-                onPress={() => this.onPressItem(item)}
-                onLongPress={() => this.onLongPressItem(item)}
-            >
+            <ListItem iconLeft onPress={() => this.onPressItem(item)}>
+                <Icon name="md-pin" type="Ionicons" />
                 <Body>
                     <Text>{item.nome}</Text>
                     <Text note>{item.bairro ? item.bairro.nome : ''}</Text>
@@ -213,12 +211,6 @@ class LogradouroScreen extends Component {
             quadra_key,
             logradouro
         });
-    }
-
-    onLongPressItem(logradouro) {
-        if (!logradouro.id) {
-            this.setState({ logradouro });
-        }
     }
 
     onSerchFocus = () => {

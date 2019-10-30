@@ -9,7 +9,7 @@ import MainNavigator from '@/navigations/MainNavigator';
 
 class MainScreen extends React.Component {
     static navigationOptions = {
-        title: 'Fluxo Principal',
+        title: 'Página principal',
     };
 
     constructor(props) {

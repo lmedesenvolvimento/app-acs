@@ -111,7 +111,6 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 keyboardType="numeric"
                                 placeholder="Data de nascimento do responsável *"
                                 onChangeText={data_de_nascimento => this.convertToDate(data_de_nascimento, 'data_de_nascimento')}
-                                blurOnSubmit={() => this.convertToNumber(state.data_de_nascimento, 'data_de_nascimento')}
                                 maxLength={10}
                             >
                                 {state.data_de_nascimento}

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "aedes-agent-saude-react-native",
+    "name": "Aedes em Foco Agente de Saúde",
     "slug": "aedes-agent-saude-react-native",
     "privacy": "public",
     "sdkVersion": "34.0.0",
@@ -11,7 +11,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/SplashScreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,6 +22,13 @@
         "js",
         "jsx",
         "styl"
+      ]
+    },
+    "android": {
+      "package": "br.ufc.lme.aedesemfoco.saude",
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_FINE_LOCATION"
       ]
     },
     "updates": {
@@ -36,6 +43,6 @@
     "extra": {
       "baseurl": "https://aedes-acs-staging.herokuapp.com/"
     },
-    "description": ""
+    "description": "Aplicativo para auxiliar os agentes de saúde de cedro no monitoramento da saúde da população"
   }
 }

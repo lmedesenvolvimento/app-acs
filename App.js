@@ -4,7 +4,7 @@ import * as Font from 'expo-font';
 import { SafeAreaView } from 'react-native';
 import { Root, StyleProvider } from 'native-base';
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 import getTheme from '@/themes/native-base-theme/components';
 import commonColor from '@/themes/native-base-theme/variables/commonColor';
@@ -39,7 +39,8 @@ export default class App extends Component {
         await Font.loadAsync({
             Roboto: require('native-base/Fonts/Roboto.ttf'),
             Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-            ...Ionicons.font
+            ...Ionicons.font,
+            ...FontAwesome.font
         });
         this.setState({ ready: true });
     }
@@ -60,7 +61,8 @@ export default class App extends Component {
                                 <SafeAreaView style={styles.droidSafeArea}>
                                     <AppNavigator
                                         ref={(navigationRef) => {
-                                            return DrawerNavigation.setDrawerNavigator(navigationRef);
+                                            return DrawerNavigation
+                                                .setDrawerNavigator(navigationRef);
                                         }}
                                     />
                                 </SafeAreaView>

@@ -65,7 +65,8 @@ class MicroAreaScreen extends Component {
 
     renderItem({ item }) {
         return (
-            <ListItem onPress={this.onPressItem.bind(this, item)}>
+            <ListItem iconLeft onPress={this.onPressItem.bind(this, item)}>
+                <Icon name="street-view" type="FontAwesome" />
                 <Body>
                     <Text>{item.nome}</Text>
                     <Text note>{`Posto ID: ${item.posto.nome}`}</Text>

@@ -171,6 +171,7 @@ class IndividuoScreen extends React.Component {
                     sections={individuos}
                     extraData={state}
                     renderItem={this.renderItem}
+                    renderEmptyContent={this.renderEmptyContent}
                     renderSectionHeader={this.renderSectionHeader}
                     ListEmptyComponent={EmptyContentIndividuosList}
                 />
@@ -189,7 +190,9 @@ class IndividuoScreen extends React.Component {
                         {(() => {
                             if (this.canVisit()) {
                                 return (
-                                    <ListItem onPress={() => this.onPressNewVisita(state.individuo)}>
+                                    <ListItem
+                                        onPress={() => this.onPressNewVisita(state.individuo)}
+                                    >
                                         <Body>
                                             <Text>Realizar Visita</Text>
                                         </Body>
@@ -214,9 +217,24 @@ class IndividuoScreen extends React.Component {
         );
     }
 
+    renderEmptyContent = () => {
+        return (
+            <Container style={styles.emptyContainer}>
+                <Icon name="mood-bad" type="MaterialIcons" style={styles.emptyContainerIcon} />
+                <Text style={[styles.emptyContainerText, { color: Colors.primaryColor }]}>
+                    Oh, não! Você não tem nenhum indivíduo cadastrado.
+                </Text>
+                <Text note style={styles.emptyContainerText}>
+                    Começe já a adicionar os individuos.
+                </Text>
+            </Container>
+        );
+    }
+
     renderItem = ({ item }) => {
         return (
-            <ListItem onPress={() => this.onPressItem(item)}>
+            <ListItem iconLeft onPress={() => this.onPressItem(item)}>
+                <Icon name="address-card" type="FontAwesome" />
                 <Body>
                     <Text>{item.iden_cns}</Text>
                     <Text note>{`${item.iden_nome} - Total Visitas ${item.visita ? item.visita.total : '0'} DEBUG`}</Text>

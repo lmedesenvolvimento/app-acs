@@ -1,5 +1,6 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, View } from 'react-native';
+import Constants from 'expo-constants';
 import { connect, useSelector } from 'react-redux';
 import { DrawerActions, SwitchActions } from 'react-navigation';
 
@@ -23,8 +24,11 @@ import DrawerNavigation from '@/services/DrawerNavigation';
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from 'app/components/HeaderLeftButton';
 
+import styles from './index.styl';
+
 const AboutScreen = ({ navigation, signOutAsync, asynClearData }) => {
     const isConnected = useSelector(({ Network }) => Network.isConnected);
+    const { manifest } = Constants;
 
     const logout = async () => {
         await signOutAsync();
@@ -49,8 +53,8 @@ const AboutScreen = ({ navigation, signOutAsync, asynClearData }) => {
     };
 
     const LogoutButton = () => (
-        <Button block onPress={onPressLogout}>
-            <Text>Logout</Text>
+        <Button danger onPress={onPressLogout}>
+            <Text>Finalizar Sessão</Text>
         </Button>
     );
 
@@ -67,10 +71,29 @@ const AboutScreen = ({ navigation, signOutAsync, asynClearData }) => {
                 </Body>
                 <Right />
             </Header>
-            <Content padder />
-            {isConnected ? LogoutButton() : null}
+            <Content padder>
+                <View style={styles.item}>
+                    <Text>{manifest.name}</Text>
+                    <Text note>{manifest.version}</Text>
+                </View>
+
+                <View style={styles.item}>
+                    <Text>Descrição</Text>
+                    <Text note>{manifest.description || 'Sem descrição'}</Text>
+                </View>
+
+                <View style={styles.lastItem}>
+                    <Text>Autor</Text>
+                    <Text note>Laboratório de Mídias Educacional</Text>
+                </View>
+                {isConnected ? LogoutButton() : null}
+            </Content>
         </SafeView>
     );
+};
+
+AboutScreen.navigationOptions = {
+    title: 'Sobre o Aplicativo'
 };
 
 const mapActions = (dispatch) => {
