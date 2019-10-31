@@ -41,7 +41,7 @@
       "supportsTablet": true
     },
     "extra": {
-      "baseurl": "https://aedes-acs-staging.herokuapp.com/"
+      "baseurl": "https://aedes-acs-production.herokuapp.com/"
     },
     "description": "Aplicativo para auxiliar os agentes de saúde de cedro no monitoramento da saúde da população"
   }
