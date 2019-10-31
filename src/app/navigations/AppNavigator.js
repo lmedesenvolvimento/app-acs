@@ -13,7 +13,7 @@ const AppStack = createDrawerNavigator({
     About: require('@/screens/AboutScreen').default,
     Sync: require('@/screens/SyncScreeen').default
 }, {
-    initialRouteName: 'Sync',
+    initialRouteName: 'Home',
     defaultNavigationOptions
 });
 

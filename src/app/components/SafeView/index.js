@@ -79,7 +79,7 @@ class SafeView extends Component {
 }
 
 SafeView.propsTypes = {
-    light: PropsTypes.string
+    light: PropsTypes.bool
 };
 
 export default SafeView;

@@ -7,6 +7,7 @@ const instance = axios.create({
 });
 
 export const defineAccessToken = (token) => {
+    instance.defaults.headers.post['Authorization'] = `${token.token_type} ${token.access_token}`;
     instance.defaults.headers.common['Authorization'] = `${token.token_type} ${token.access_token}`;
 };
 

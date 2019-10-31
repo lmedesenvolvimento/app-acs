@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, View } from 'react-native';
 import Constants from 'expo-constants';
 import { connect, useSelector } from 'react-redux';
-import { DrawerActions, SwitchActions } from 'react-navigation';
+import { DrawerActions } from 'react-navigation';
 
 import {
     Text,
@@ -33,12 +33,6 @@ const AboutScreen = ({ navigation, signOutAsync, asynClearData }) => {
     const logout = async () => {
         await signOutAsync();
         await asynClearData();
-
-        const logoutAction = SwitchActions.jumpTo({
-            routeName: 'Auth'
-        });
-
-        navigation.dispatch(logoutAction);
     };
 
     const onPressLogout = () => {

@@ -1,8 +1,8 @@
+import { SwitchActions } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import Http, { defineAccessToken } from '@/services/Http';
+import DrawerNavigation from '@/services/DrawerNavigation';
 import { actions as UserActions } from '@redux/modules/User/actions';
-
-import Localstorage from '@/services/LocalStorage';
 
 import Types from './types';
 
@@ -26,43 +26,26 @@ function signInAsync(email, password, onSuccess, onFail) {
     return async (dispatch) => {
         dispatch(signInStart);
 
-        Localstorage.read().then((state) => {
-            const normalizedEmail = email.replace(/\./g, ';');
-            const session = state.get(normalizedEmail).value();
-
-            if (session) {
+        Http.post('/oauth/token', {
+            email,
+            password,
+            grant_type: 'password'
+        })
+            .then(({ data }) => {
+                const payload = Object.assign({}, data, { email });
                 dispatch(signed);
                 dispatch(signInDone);
                 // create user storages
-                dispatch(UserActions.setUser(session.user));
+                dispatch(UserActions.setUser(payload));
                 // set in all request axios bearer token
-                defineAccessToken(session.user);
+                defineAccessToken(data);
                 // callback
-                onSuccess(session.user);
-                return;
-            }
-
-            Http.post('/oauth/token', {
-                email,
-                password,
-                grant_type: 'password'
-            })
-                .then(({ data }) => {
-                    const payload = Object.assign({}, data, { email });
-                    dispatch(signed);
-                    dispatch(signInDone);
-                    // create user storages
-                    dispatch(UserActions.setUser(payload));
-                    // set in all request axios bearer token
-                    defineAccessToken(data);
-                    // callback
-                    onSuccess(data);
-                }).catch((error) => {
-                    dispatch(signInFail);
-                    dispatch(signInDone);
-                    onFail(error);
-                });
-        });
+                onSuccess(data);
+            }).catch((error) => {
+                dispatch(signInFail);
+                dispatch(signInDone);
+                onFail(error);
+            });
     };
 }
 
@@ -70,6 +53,14 @@ function signOutAsync() {
     return async (dispatch) => {
         dispatch(UserActions.setUser(null));
         dispatch({ type: Types.SIGNOUT });
+
+        const LOGOUT_ACTION = SwitchActions.jumpTo({
+            routeName: 'Auth'
+        });
+
+        DrawerNavigation
+            .getDrawerNavigator()
+            .dispatch(LOGOUT_ACTION);
     };
 }
 

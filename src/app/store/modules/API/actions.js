@@ -9,11 +9,15 @@ import { actions as IndividuosActions } from '@redux/modules/Individuos/actions'
 import { actions as VisitasActions } from '@redux/modules/Visitas/actions';
 
 import shortid from 'shortid';
+import { omit } from 'lodash';
+import axios from 'axios';
 
 import Localstorage from '@/services/LocalStorage';
 import Http from '@/services/Http';
+import { blacklist } from '@redux/index.const';
 
 import Types from './types';
+
 
 const fetchData = {
     type: Types.FETCH_DATA,
@@ -26,6 +30,47 @@ const clearData = {
 function asynClearData() {
     return async (dispatch) => {
         dispatch(clearData);
+    };
+}
+
+function emitData(onSuccess, onFail) {
+    return (dispatch, getState) => {
+        const rootState = getState();
+        const user = rootState.User;
+        const email = user.data.email.replace(/\./g, ';');
+
+        const data = omit(rootState, blacklist);
+
+        Http.post('/api/v1/sync_logs', { data: { data } }).then(() => {
+            Localstorage.read().then((state) => {
+                // Clear old data
+                state
+                    .set(email, null)
+                    .write()
+                    .value();
+
+                asyncFetchData(onSuccess, () => {
+                    throw new Error('Falha na busca de novos dados');
+                });
+            });
+        }).catch((error) => {
+            if (error.response) {
+                const { status } = error.response;
+                switch (status) {
+                case 403:
+                    dispatch(AuthActions.signOutAsync());
+                    break;
+                case 422:
+                    console.warn('422 Unprocessable Entity')
+                    break;
+                default:
+                    break;
+                }
+
+                console.log(error.response.headers, error.response.data);
+            }
+            onFail(error);
+        });
     };
 }
 
@@ -84,6 +129,7 @@ function persistRemoteData(dispatch, data, callback) {
 
 export const actions = {
     fetchData,
+    emitData,
     asyncFetchData,
     asynClearData
 };
