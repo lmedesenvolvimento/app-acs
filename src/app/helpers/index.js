@@ -105,6 +105,40 @@ export function convertToPISNIS(number, target) {
     this.setState(updates);
 }
 
+export function convertToHeight(number, target) {
+    const updates = {};
+
+    if (!number.length || !number.match(/\d+/g)) {
+        updates[target] = '';
+        this.setState(updates);
+        return;
+    }
+
+    const numbers = number.match(/\d+/g).join('');
+    const result = new StringMask('0,99', { reverse: true }).apply(numbers);
+
+    updates[target] = result;
+
+    this.setState(updates);
+}
+
+export function convertToWeight(number, target) {
+    const updates = {};
+
+    if (!number.length || !number.match(/\d+/g)) {
+        updates[target] = '';
+        this.setState(updates);
+        return;
+    }
+
+    const numbers = number.match(/\d+/g).join('');
+    const result = new StringMask('099,99', { reverse: true }).apply(numbers);
+
+    updates[target] = result;
+
+    this.setState(updates);
+}
+
 export default {
     convertToNumber,
     convertToPhone,

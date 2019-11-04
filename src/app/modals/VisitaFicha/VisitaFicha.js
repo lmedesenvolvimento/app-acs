@@ -7,7 +7,9 @@ import {
     Left,
     Right,
     Body,
+    Label,
     Item,
+    Input,
     Icon,
     Form,
     Button,
@@ -15,6 +17,8 @@ import {
     Spinner,
 } from 'native-base';
 
+
+import { connect } from 'react-redux';
 
 import Colors from '@/constants/Colors';
 
@@ -29,6 +33,8 @@ import IndividuoFormBaseModal from '@/modals/IndividuoFormBaseModal';
 
 import { Visita } from '@/types';
 
+import IndividuoActions from '@redux/modules/Individuos/actions';
+
 import styles from './index.styl';
 
 class VisitaFicha extends IndividuoFormBaseModal {
@@ -42,11 +48,25 @@ class VisitaFicha extends IndividuoFormBaseModal {
     fields = [
         'turno',
         'tipo_imovel',
+        'antropometria_peso',
+        'antropometria_altura'
     ];
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            individuo: {}
+        };
+    }
+
+    componentDidMount() {
+        const { getIndividuo, navigation } = this.props;
+        const { key } = navigation.getParam('model').individuo;
+        const individuo = getIndividuo(key);
+
+        this.setState({ individuo });
+
+        super.componentDidMount();
     }
 
     render() {
@@ -90,6 +110,63 @@ class VisitaFicha extends IndividuoFormBaseModal {
                                 onValueChange={tipo_imovel => this.setState({ tipo_imovel })}
                             />
                         </Item>
+
+                        <Item
+                            stackedLabel
+                        >
+                            <Label>CNS do cidadão</Label>
+                            <Input disabled>
+                                {state.individuo.iden_cns ? state.individuo.iden_cns : 'Não Informado'}
+                            </Input>
+                        </Item>
+
+                        <Item
+                            stackedLabel
+                        >
+                            <Label>Sexo</Label>
+                            <Input disabled>
+                                {state.individuo.iden_sexo ? state.individuo.iden_sexo : 'Não Informado'}
+                            </Input>
+                        </Item>
+
+                        <Item
+                            stackedLabel
+                        >
+                            <Label>Data de nascimento</Label>
+                            <Input disabled>
+                                {state.individuo.iden_sexo ? state.individuo.iden_pais_nascimento : 'Não Informado'}
+                            </Input>
+                        </Item>
+
+                        <Item
+                            stackedLabel
+                        >
+                            <Label>Altura cm</Label>
+                            <Input
+                                ref={ref => this.inputs.antropometria_altura = ref}
+                                keyboardType="numeric"
+                                maxLength={4}
+                                onChangeText={antropometria_altura => this.convertToHeight(antropometria_altura, 'antropometria_altura')}
+                                placeholder="Informe a altura da pessoa"
+                            >
+                                {state.antropometria_altura}
+                            </Input>
+                        </Item>
+
+                        <Item
+                            stackedLabel
+                        >
+                            <Label>Peso kg</Label>
+                            <Input
+                                ref={ref => this.inputs.antropometria_peso = ref}
+                                keyboardType="numeric"
+                                maxLength={6}
+                                onChangeText={antropometria_peso => this.convertToWeight(antropometria_peso, 'antropometria_peso')}
+                                placeholder="Informe a peso da pessoa"
+                            >
+                                {state.antropometria_peso}
+                            </Input>
+                        </Item>
                     </Form>
                 </Content>
                 <LightFooter>
@@ -110,4 +187,4 @@ class VisitaFicha extends IndividuoFormBaseModal {
     }
 }
 
-export default VisitaFicha;
+export default connect(null, IndividuoActions)(VisitaFicha);

@@ -46,6 +46,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
         'iden_nome_mae',
         'iden_nome_pai',
         'iden_raca',
+        'iden_etnia'
     ];
 
     fields = [
@@ -214,6 +215,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
                         <Item
                             style={styles.item}
+                            error={this.hasError('iden_etnia')}
                             stackedLabel
                         >
                             <Label>Etinia</Label>

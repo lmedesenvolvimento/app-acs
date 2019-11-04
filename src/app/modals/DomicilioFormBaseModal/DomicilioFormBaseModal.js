@@ -13,7 +13,9 @@ import {
     convertToPhone,
     convertToDate,
     convertToYear,
-    convertToMoney
+    convertToMoney,
+    convertToHeight,
+    convertToWeight
 } from '@/helpers';
 
 class DomicilioFormBaseModal extends Component {
@@ -26,6 +28,8 @@ class DomicilioFormBaseModal extends Component {
     convertToPhone = convertToPhone
     convertToMoney = convertToMoney
     convertToNumber = convertToNumber
+    convertToHeight = convertToHeight
+    convertToWeight = convertToWeight
 
     constructor(props) {
         super(props);

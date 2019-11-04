@@ -45,6 +45,16 @@ function destroyIndividuo(key) {
     };
 }
 
+function getIndividuo(key) {
+    return (dispatch, getState) => {
+        const { Individuos } = getState();
+
+        return chain(Individuos.data)
+            .find({ key })
+            .value();
+    };
+}
+
 function getIndividuosByDomicilio(domicilio_key) {
     return (dispatch, getState) => {
         const { Individuos } = getState();
@@ -121,6 +131,7 @@ export const actions = {
 };
 
 export const getters = {
+    getIndividuo,
     getIndividuosByDomicilio,
     getVisitedIndividuos,
     getNotVisitedIndividuos
