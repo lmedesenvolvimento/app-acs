@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { Alert, BackHandler, FlatList } from 'react-native';
 import { DrawerActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
@@ -33,7 +33,21 @@ class MicroAreaScreen extends Component {
     }
 
     componentDidMount() {
-        const { getMicroAreas } = this.props;
+        const { getMicroAreas, navigation } = this.props;
+
+        navigation.addListener('didFocus', () => {
+            BackHandler.addEventListener(
+                'hardwareBackPress',
+                this.onBackButtonPressAndroid
+            );
+        });
+
+        navigation.addListener('willBlur', () => {
+            BackHandler.removeEventListener(
+                'hardwareBackPress',
+                this.onBackButtonPressAndroid
+            );
+        });
 
         this.setState({
             areas: getMicroAreas()
@@ -89,6 +103,19 @@ class MicroAreaScreen extends Component {
     onPressMenu() {
         DrawerNavigation.getDrawerNavigator().dispatch(DrawerActions.toggleDrawer());
     }
+
+    onBackButtonPressAndroid = () => {
+        Alert.alert(
+            'Confirmação',
+            'Você deseja realmente sair do Aplicativo',
+            [
+                { text: 'Não', style: 'cancel' },
+                { text: 'Sim', style: 'destructive', onPress: () => BackHandler.exitApp() }
+            ]
+        );
+
+        return true;
+    };
 }
 
 const mapState = (state) => {

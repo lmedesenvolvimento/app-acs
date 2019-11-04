@@ -149,9 +149,9 @@ class LogradouroFormScreen extends Component {
         const { state, props } = this;
 
         const logradourosByQuadras = props.getLogradourosByQuadra(state.quadra_key);
-        const logradourosByBairro = props.getLogradourosByBairroID(state.bairro.id);
+        const logradourosByBairro = props.getLogradouros(state.bairro.id);
         const isHasInLograsByQuadras = filter(logradourosByQuadras, { nome: state.nome }).length;
-        const isHasInLograsByBairro = filter(logradourosByBairro, { nome: state.nome }).length;
+        const isHasInLogradouros = filter(logradourosByBairro, { nome: state.nome }).length;
 
         const errors = {};
 
@@ -169,7 +169,7 @@ class LogradouroFormScreen extends Component {
             return;
         }
 
-        if (isHasInLograsByBairro) {
+        if (isHasInLogradouros) {
             logradouro = {
                 ...find(logradourosByBairro, { nome: state.nome }),
                 _action: props.navigation.getParam('action')
@@ -191,9 +191,9 @@ class LogradouroFormScreen extends Component {
         const { state, props } = this;
 
         const logradourosByQuadras = props.getLogradourosByQuadra(state.quadra_key);
-        const logradourosByBairro = props.getLogradourosByBairroID(state.bairro.id);
+        const logradourosByBairro = props.getLogradouros(state.bairro.id);
         const isHasInLograsByQuadras = filter(logradourosByQuadras, { nome: state.nome }).length;
-        const isHasInLograsByBairro = filter(logradourosByBairro, { nome: state.nome }).length;
+        const isHasInLogradouros = filter(logradourosByBairro, { nome: state.nome }).length;
 
         let logradouro = {};
 
@@ -212,7 +212,7 @@ class LogradouroFormScreen extends Component {
             return;
         }
 
-        if (isHasInLograsByBairro) {
+        if (isHasInLogradouros) {
             logradouro = {
                 ...find(logradourosByBairro, { nome: state.nome }),
                 _action: props.navigation.getParam('action')
@@ -335,13 +335,13 @@ class LogradouroFormScreen extends Component {
 
     fetchLogradouros = () => {
         const { props, state } = this;
-        const logradouros = props.getLogradourosByBairroID(state.bairro.id);
+        const logradouros = props.getLogradouros(state.bairro.id);
         this.setState({ logradouros });
     }
 
     handleSearch = (nome) => {
         const { props, state } = this;
-        const data = props.getLogradourosByBairroID(state.bairro.id);
+        const data = props.getLogradouros(state.bairro.id);
         const logradouros = filter(data, l => contains(l, nome.toLowerCase()));
         this.setState({ nome, logradouros });
     }

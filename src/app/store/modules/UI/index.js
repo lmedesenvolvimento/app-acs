@@ -1,7 +1,8 @@
 import Types from './types';
 
 const inititalState = {
-    lightStatusBar: false
+    lightStatusBar: false,
+    interventionalModal: false
 };
 
 export default (state = inititalState, action) => {
@@ -15,6 +16,16 @@ export default (state = inititalState, action) => {
         return {
             ...state,
             lightStatusBar: false
+        };
+    case Types.OPEN_INTERVENTIONAL_MODAL:
+        return {
+            ...state,
+            interventionalModal: true
+        };
+    case Types.CLOSE_INTERVENTIONAL_MODAL:
+        return {
+            ...state,
+            interventionalModal: false
         };
     default:
         return state;

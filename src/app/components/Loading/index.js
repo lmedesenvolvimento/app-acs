@@ -1,30 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, StatusBar } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import { connect } from 'react-redux';
-
-import { LoadingMapState } from '@redux/modules/Loading/mappers';
-import LoadingActions from '@redux/modules/Loading/actions';
+import { connect, useSelector } from 'react-redux';
 
 import styles from './index.styl';
 
-class LoadingScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
+const LoadingScreen = () => {
+    const visible = useSelector(state => state.UI.interventionalModal);
 
-    render() {
-        const { Loading } = this.props;
-        return (
-            <View style={styles}>
-                <StatusBar hidden={Loading.visible} />
-                <Spinner visible={Loading.visible} textContent="Aguarde alguns instantes" textStyle={{ color: '#fff' }} />
-            </View>
-        );
-    }
-}
+    return (
+        <View style={styles}>
+            <StatusBar hidden={visible} />
+            <Spinner
+                visible={visible}
+                textContent="Aguarde alguns instantes"
+                textStyle={{ color: '#fff' }}
+                size="large"
+                overlayColor="rgba(0, 0, 0, 0.75)"
+            />
+        </View>
+    );
+};
 
-export default connect(LoadingMapState, LoadingActions)(LoadingScreen);
+export default connect(null)(LoadingScreen);

@@ -7,6 +7,7 @@ import { actions as QuadrasLogradourosActions } from '@redux/modules/QuadrasLogr
 import { actions as DomiciliosActions } from '@redux/modules/Domicilios/actions';
 import { actions as IndividuosActions } from '@redux/modules/Individuos/actions';
 import { actions as VisitasActions } from '@redux/modules/Visitas/actions';
+import { actions as UIActions } from '@redux/modules/UI/actions';
 
 import shortid from 'shortid';
 import { omit } from 'lodash';
@@ -98,6 +99,21 @@ function asyncFetchData(onSuccess, onFail) {
     };
 }
 
+function forceAsyncFetchData(onSuccess, onFail) {
+    return (dispatch) => {
+        dispatch(UIActions.openInteventionalModal());
+
+        Http.get('/api/v1/mapeamentos').then(({ data }) => {
+            persistRemoteData(dispatch, data, result => onSuccess(result));
+        }).catch((err) => {
+            dispatch(AuthActions.signOutAsync());
+            onFail(err);
+        }).finally(() => {
+            dispatch(UIActions.closeInteventionalModal());
+        });
+    };
+}
+
 function persistLocalData(dispatch, data, callback) {
     // create all local key ref
     defineKeysToLocalData(data);
@@ -132,7 +148,8 @@ export const actions = {
     fetchData,
     emitData,
     asyncFetchData,
-    asynClearData
+    asynClearData,
+    forceAsyncFetchData
 };
 
 const defineKeysToLocalData = ({

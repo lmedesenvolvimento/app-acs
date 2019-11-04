@@ -10,9 +10,19 @@ const defineStatusBarContentToDark = () => ({
     type: Types.TO_DARK_STATUSBAR
 });
 
+const openInteventionalModal = () => ({
+    type: Types.OPEN_INTERVENTIONAL_MODAL
+});
+
+const closeInteventionalModal = () => ({
+    type: Types.CLOSE_INTERVENTIONAL_MODAL
+});
+
 export const actions = {
     defineStatusBarContentToDark,
     defineStatusBarContentToLight,
+    openInteventionalModal,
+    closeInteventionalModal
 };
 
 export default dispatch => (
