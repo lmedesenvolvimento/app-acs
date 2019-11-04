@@ -10,7 +10,6 @@ import { actions as VisitasActions } from '@redux/modules/Visitas/actions';
 
 import shortid from 'shortid';
 import { omit } from 'lodash';
-import axios from 'axios';
 
 import Localstorage from '@/services/LocalStorage';
 import Http from '@/services/Http';
@@ -61,15 +60,17 @@ function emitData(onSuccess, onFail) {
                     dispatch(AuthActions.signOutAsync());
                     break;
                 case 422:
-                    console.warn('422 Unprocessable Entity')
+                    onFail(error.response.data);
                     break;
                 default:
                     break;
                 }
-
-                console.log(error.response.headers, error.response.data);
+                return;
             }
-            onFail(error);
+
+            onFail({
+                data: 'Error Desconhecido, por favor contacte o administrador.'
+            });
         });
     };
 }

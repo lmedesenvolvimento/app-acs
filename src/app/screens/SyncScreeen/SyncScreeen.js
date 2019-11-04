@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, ToastAndroid } from 'react-native';
 import { View as AnimateView } from 'react-native-animatable';
 import { connect, useSelector } from 'react-redux';
 import { DrawerActions } from 'react-navigation';
@@ -47,12 +47,11 @@ const AwaitStatus = ({
         onStartSync(onSuccess, onFail);
     };
 
-    const onSuccess = () => {
-        updateStatus(Status.done);
-    };
+    const onSuccess = () => updateStatus(Status.done);
 
-    const onFail = () => {
+    const onFail = (error) => {
         updateStatus(Status.fail);
+        ToastAndroid.show(error.data, ToastAndroid.LONG);
     };
 
     if (Status.await === currentStatus) {
@@ -154,7 +153,7 @@ const DoneStatus = ({ navigation, currentStatus }) => {
     return null;
 };
 
-const OfflineStatus = () => (
+const OfflineStatus = ({ navigation }) => (
     <Container>
         <View style={styles.container}>
             <View style={styles.statusContainer}>
@@ -172,7 +171,7 @@ const OfflineStatus = () => (
                     light
                     full
                     style={styles.block}
-                    onPress={() => updateStatus(Status.await)}
+                    onPress={() => navigation.goBack()}
                 >
                     <Text>Tentar novamente</Text>
                 </Button>
@@ -274,7 +273,7 @@ const SyncScreeen = ({ navigation, emitData }) => {
                 </Body>
                 <Right />
             </Header>
-            <OfflineStatus />
+            <OfflineStatus navigation={navigation} />
         </SafeView>
     );
 };
