@@ -107,7 +107,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Input
                                 ref={ref => this.inputs.cm_numero_moradores = ref}
                                 keyboardType="numeric"
-                                maxLength={11}
+                                maxLength={18}
                                 onChangeText={iden_cns => this.convertToNumber(iden_cns, 'iden_cns')}
                                 placeholder="Informe o CNS do cidadão"
                             >
@@ -133,7 +133,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Input
                                 ref={ref => this.inputs.iden_cns_responsavel_familiar = ref}
                                 keyboardType="numeric"
-                                maxLength={11}
+                                maxLength={18}
                                 onChangeText={iden_cns_responsavel_familiar => this.convertToNumber(iden_cns_responsavel_familiar, 'iden_cns_responsavel_familiar')}
                                 placeholder="Informe o CNS do responsável familiar"
 
