@@ -14,6 +14,8 @@ import {
     Icon,
 } from 'native-base';
 
+import { orderBy } from 'lodash';
+
 import DrawerNavigation from '@/services/DrawerNavigation';
 import MicroAreaActions from '@redux/modules/MicroAreas/actions';
 
@@ -25,15 +27,8 @@ class MicroAreaScreen extends Component {
         title: 'Micro Areas Screen',
     };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            areas: [],
-        };
-    }
-
     componentDidMount() {
-        const { getMicroAreas, navigation } = this.props;
+        const { navigation } = this.props;
 
         navigation.addListener('didFocus', () => {
             BackHandler.addEventListener(
@@ -48,14 +43,11 @@ class MicroAreaScreen extends Component {
                 this.onBackButtonPressAndroid
             );
         });
-
-        this.setState({
-            areas: getMicroAreas()
-        });
     }
 
     render() {
         const { state, props } = this;
+        const { MicroAreas } = props;
         return (
             <SafeView navigation={props.navigation}>
                 <Header noShadow>
@@ -70,7 +62,8 @@ class MicroAreaScreen extends Component {
                     <Right />
                 </Header>
                 <FlatList
-                    data={state.areas}
+                    data={this.orderMicroAreas(MicroAreas.data)}
+                    extraData={state}
                     renderItem={this.renderItem.bind(this)}
                 />
             </SafeView>
@@ -116,6 +109,10 @@ class MicroAreaScreen extends Component {
 
         return true;
     };
+
+    orderMicroAreas = (data) => {
+        return orderBy(data, ['nome']);
+    }
 }
 
 const mapState = (state) => {

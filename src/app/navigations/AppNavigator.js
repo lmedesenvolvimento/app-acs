@@ -15,6 +15,7 @@ const AppStack = createDrawerNavigator({
     Reload: require('@/screens/ReloadStoreScreen').default
 }, {
     initialRouteName: 'Home',
+    drawerLockMode: 'locked-closed',
     defaultNavigationOptions
 });
 
