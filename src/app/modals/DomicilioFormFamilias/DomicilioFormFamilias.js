@@ -128,12 +128,13 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                             onValueChange={renda_familiar => this.setState({ renda_familiar })}
                         >
                             <Picker.Item label="Selecione o tipo de renda" value={undefined} />
-                            <Picker.Item label={Familia.renda_familiar.menos_que_meio_salario} value="menos_que_meio_salario" />
-                            <Picker.Item label={Familia.renda_familiar.meio_salario} value="meio_salario" />
-                            <Picker.Item label={Familia.renda_familiar.um_salario} value="um_salario" />
-                            <Picker.Item label={Familia.renda_familiar.um_salario_meio} value="um_salario_meio" />
-                            <Picker.Item label={Familia.renda_familiar.tres_salario} value="tres_salario" />
-                            <Picker.Item label={Familia.renda_familiar.mais_que_tres_salario} value="mais_que_tres_salario" />
+                            <Picker.Item label={Familia.renda_familiar.um_quarto} value="um_quarto" />
+                            <Picker.Item label={Familia.renda_familiar.meio} value="meio" />
+                            <Picker.Item label={Familia.renda_familiar.um} value="um" />
+                            <Picker.Item label={Familia.renda_familiar.dois} value="dois" />
+                            <Picker.Item label={Familia.renda_familiar.tres} value="tres" />
+                            <Picker.Item label={Familia.renda_familiar.quatro} value="quatro" />
+                            <Picker.Item label={Familia.renda_familiar.mais} value="mais" />
                         </Picker>
 
                         <Item stackedLabel>

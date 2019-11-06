@@ -114,7 +114,7 @@ export const Familia = {
         um: 'Um salário mínimo',
         dois: 'Dois salários mínimo',
         tres: 'Três salários mínimo',
-        quarto: 'Quatro salários mínimo',
+        quatro: 'Quatro salários mínimo',
         mais: 'Mais que quatro salários mínimo'
     }
 };
