@@ -427,7 +427,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             style={styles.item}
                             stackedLabel
                         >
-                            <Label>Telefone Celular</Label>
+                            <Label>Email Pessoal</Label>
                             <Input
                                 ref={ref => this.inputs.iden_email = ref}
                                 keyboardType="email-address"
@@ -442,7 +442,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                 <LightFooter>
                     <Left>
                         <Button transparent block small onPress={this.onPressBack}>
-                            <Text style={{ color: Colors.textColor }}>Voltar</Text>
+                            <Text style={{ color: Colors.textColor }}>Cancelar</Text>
                         </Button>
                     </Left>
                     <Body />

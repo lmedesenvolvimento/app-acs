@@ -44,7 +44,7 @@ class QuadraScreen extends Component {
                         </HeaderLeftButton>
                     </Left>
                     <Body>
-                        <Title>{`Quadras - ${props.navigation.getParam('microarea_nome')}`}</Title>
+                        <Title>{`Quarteirões - ${props.navigation.getParam('microarea_nome')}`}</Title>
                     </Body>
                     <Right />
                 </Header>

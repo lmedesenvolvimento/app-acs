@@ -78,7 +78,7 @@ const AwaitStatus = ({
                                     style={styles.actionButton}
                                     onPress={() => navigation.goBack()}
                                 >
-                                    <Text>Voltar</Text>
+                                    <Text>Cancelar</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -143,7 +143,7 @@ const DoneStatus = ({ navigation, currentStatus }) => {
                 </View>
                 <View style={styles.container}>
                     <Button light full style={styles.block} onPress={() => navigation.goBack()}>
-                        <Text>Voltar</Text>
+                        <Text>Cancelar</Text>
                     </Button>
                 </View>
             </Container>

@@ -181,7 +181,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             Possui plano de saúde?
                         </Text>
                         <RadioSelect
-                            data={Individuo.is_possui_plano_saudel}
+                            data={Individuo.is_possui_plano_saude}
                             default={state.is_possui_plano_saude}
                             isBoolean={true}
                             onChangeValue={is_possui_plano_saude => this.setState({
@@ -274,7 +274,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                 <LightFooter>
                     <Left>
                         <Button transparent block small onPress={this.onPressBack}>
-                            <Text style={{ color: Colors.textColor }}>Voltar</Text>
+                            <Text style={{ color: Colors.textColor }}>Cancelar</Text>
                         </Button>
                     </Left>
                     <Body />

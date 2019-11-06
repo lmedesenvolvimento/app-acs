@@ -115,7 +115,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                 <LightFooter>
                     <Left>
                         <Button transparent block small onPress={this.onPressBack}>
-                            <Text style={{ color: Colors.textColor }}>Voltar</Text>
+                            <Text style={{ color: Colors.textColor }}>Cancelar</Text>
                         </Button>
                     </Left>
                     <Body />

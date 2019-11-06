@@ -196,7 +196,7 @@ const VisitaMainScreen = ({ navigation, addVisita, updateVisita }) => {
             <LightFooter>
                 <Left>
                     <Button transparent block small onPress={onPressBack}>
-                        <Text style={{ color: Colors.textColor }}>Voltar</Text>
+                        <Text style={{ color: Colors.textColor }}>Cancelar</Text>
                     </Button>
                 </Left>
                 <Body />

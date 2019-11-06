@@ -5,7 +5,8 @@ import {
     pick,
     omit,
     values,
-    isObject
+    isObject,
+    isBoolean
 } from 'lodash';
 
 import {
@@ -93,7 +94,7 @@ class DomicilioFormBaseModal extends Component {
             errors[key] = {
                 error: isObject(field)
                     ? this.validateRequireChildrenFields(field.children)
-                    : !state[key]
+                    : this.isInvalidField(state, key)
             };
         });
 
@@ -116,7 +117,7 @@ class DomicilioFormBaseModal extends Component {
 
         fields.forEach((field) => {
             errors[field] = {
-                error: !state[field]
+                error: this.isInvalidField(state, field)
             };
         });
 
@@ -136,6 +137,17 @@ class DomicilioFormBaseModal extends Component {
     hasError = (attr) => {
         const { state } = this;
         return state.errors && state.errors[attr] ? state.errors[attr].error : false;
+    }
+
+    isInvalidField = (state, field) => {
+        const value = state[field];
+
+        // eslint-disable-next-line no-extra-boolean-cast
+        if (isBoolean(value)) {
+            return false;
+        }
+
+        return !state[field];
     }
 }
 
