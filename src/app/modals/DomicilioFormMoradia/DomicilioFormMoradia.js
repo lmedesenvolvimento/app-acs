@@ -178,9 +178,9 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         </View>
                         <RadioSelect
                             data={Domicilio.cm_condicao_posses}
-                            default={state.cm_condicao_posses}
-                            onChangeValue={cm_condicao_posses => this.setState({
-                                cm_condicao_posses
+                            default={state.cm_condicao_posse}
+                            onChangeValue={cm_condicao_posse => this.setState({
+                                cm_condicao_posse
                             })}
                         />
 

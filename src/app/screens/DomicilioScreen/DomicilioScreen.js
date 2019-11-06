@@ -103,7 +103,7 @@ class DomicilioScreen extends Component {
                         {`Nº ${item.end_numero}`}
                     </Text>
                     <Text note>
-                        {item.cm_tipo ? Domicilio.cm_tipos[item.cm_tipo] : 'Não Informado'}
+                        { item.cm_tipo ? this.renderDomicilioComplement() : 'Não Informado' }
                     </Text>
                 </Body>
             </ListItem>
@@ -122,6 +122,13 @@ class DomicilioScreen extends Component {
                 </Text>
             </Container>
         );
+    }
+
+    renderDomicilioComplement = (item) => {
+        if (item.end_complement) {
+            return `${Domicilio.cm_tipos[item.cm_tipo]} - ${item.end_complement}`;
+        }
+        return Domicilio.cm_tipos[item.cm_tipo];
     }
 
     defineProps = () => {
