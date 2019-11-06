@@ -39,28 +39,24 @@ class DomicilioFormMainScreen extends Component {
                 {
                     key: 'Endereco',
                     title: 'Endereços',
-                    completed: false,
-                    model: {}
+                    completed: false
                 },
                 {
                     key: 'Moradia',
                     title: 'Condição de moradia',
-                    completed: false,
-                    model: {}
+                    completed: false
                 },
                 {
                     key: 'Animais',
                     title: 'Animais de estimação',
                     completed: false,
                     optional: true,
-                    optionalRequireFields: ['an_cria_animais'],
-                    model: {}
+                    optionalRequireFields: ['an_cria_animais']
                 },
                 {
                     key: 'Familias',
                     title: 'Famílias',
-                    completed: false,
-                    model: {}
+                    completed: false
                 },
             ]
         };

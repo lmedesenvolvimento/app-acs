@@ -164,7 +164,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                             </Input>
                         </Item>
 
-                        <Text style={styles.label} note>Possui algum animal?</Text>
+                        <Text style={styles.label} note>Mudou-se?</Text>
                         <RadioSelect
                             data={Familia.mudou_se}
                             default={state.mudou_se}

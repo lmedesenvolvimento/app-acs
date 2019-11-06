@@ -76,7 +76,7 @@ class MicroAreaScreen extends Component {
                 <Icon name="street-view" type="FontAwesome" />
                 <Body>
                     <Text>{item.nome}</Text>
-                    <Text note>{`Posto ID: ${item.posto.nome}`}</Text>
+                    <Text note>{item.posto.nome}</Text>
                 </Body>
             </ListItem>
         );
