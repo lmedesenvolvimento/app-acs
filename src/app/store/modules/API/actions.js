@@ -133,7 +133,6 @@ function persistLocalData(dispatch, data, callback) {
 }
 
 function persistRemoteData(dispatch, data, callback) {
-    console.log(data);
     // create all local key ref
     defineKeysToRemoteData(data);
     // dispatch all map list to redux
