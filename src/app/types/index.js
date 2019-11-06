@@ -241,9 +241,9 @@ export const Individuo = {
         obito: 'Óbito'
     },
     cs_peso: {
-        abaixo_do_peso: 'Abaixo do peso',
+        abaixo_peso: 'Abaixo do peso',
         peso_adequado: 'Peso adequado',
-        acima_do_peso: 'Acima do peso',
+        acima_peso: 'Acima do peso',
     },
     cs_doencas_coracao: [
         { key: 'doenca_cardiaca_insuficiencia_cardiaca', text: 'Insuficiência cardíaca' },
