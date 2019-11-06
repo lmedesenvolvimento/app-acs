@@ -1,3 +1,4 @@
+import qs from 'qs';
 import { bindActionCreators } from 'redux';
 import { actions as AuthActions } from '@redux/modules/Auth/actions';
 import { actions as MicroAreasActions } from '@redux/modules/MicroAreas/actions';
@@ -38,10 +39,13 @@ function emitData(onSuccess, onFail) {
         const rootState = getState();
         const user = rootState.User;
         const email = user.data.email.replace(/\./g, ';');
-
         const data = omit(rootState, blacklist);
 
-        Http.post('/api/v1/sync_logs', { data: { data } }).then(() => {
+        Http({
+            method: 'POST',
+            url: '/api/v1/sync_logs',
+            data: { data },
+        }).then((response) => {
             Localstorage.read().then((state) => {
                 // Clear old data
                 state
@@ -49,9 +53,7 @@ function emitData(onSuccess, onFail) {
                     .write()
                     .value();
 
-                asyncFetchData(onSuccess, () => {
-                    throw new Error('Falha na busca de novos dados');
-                });
+                persistRemoteData(dispatch, response.data.user, onSuccess);
             });
         }).catch((error) => {
             if (error.response) {
@@ -64,6 +66,7 @@ function emitData(onSuccess, onFail) {
                     onFail(error.response.data);
                     break;
                 default:
+                    onFail(error.message);
                     break;
                 }
                 return;
@@ -130,6 +133,7 @@ function persistLocalData(dispatch, data, callback) {
 }
 
 function persistRemoteData(dispatch, data, callback) {
+    console.log(data);
     // create all local key ref
     defineKeysToRemoteData(data);
     // dispatch all map list to redux

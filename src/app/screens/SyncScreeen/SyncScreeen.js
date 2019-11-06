@@ -51,7 +51,7 @@ const AwaitStatus = ({
 
     const onFail = (error) => {
         updateStatus(Status.fail);
-        ToastAndroid.show(error.data, ToastAndroid.LONG);
+        ToastAndroid.show(error.message, ToastAndroid.LONG);
     };
 
     if (Status.await === currentStatus) {
@@ -228,12 +228,16 @@ const SynchronizingStatus = ({ currentStatus }) => {
 
 
 const SyncScreeen = ({ navigation, emitData }) => {
-    const [status, setStatus] = useState(1);
+    const [status, setStatus] = useState(Status.await);
     const isConnected = useSelector(({ Network }) => Network.isConnected);
 
     const onPressMenu = () => {
         DrawerNavigation.getDrawerNavigator().dispatch(DrawerActions.toggleDrawer());
     };
+
+    navigation.addListener('willBlur', () => {
+        setStatus(Status.await);
+    });
 
     if (isConnected) {
         return (
