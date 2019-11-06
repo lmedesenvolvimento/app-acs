@@ -109,12 +109,13 @@ export const Familia = {
         no: 'Não'
     },
     renda_familiar: {
-        menos_que_meio_salario: 'Menos que meio salário mínimo',
-        meio_salario: 'Meio salário mínimo',
-        um_salario: 'Um salário mínimo',
-        um_salario_meio: 'Um salário mínimo e meio',
-        tres_salario: 'Três salários mínimos',
-        mais_que_tres_salario: 'Mais que três salários mínimos',
+        um_quarto: 'Um quarto salário mínimo',
+        meio: 'Meio salário mínimo',
+        um: 'Um salário mínimo',
+        dois: 'Dois salários mínimo',
+        tres: 'Três salários mínimo',
+        quarto: 'Quatro salários mínimo',
+        mais: 'Mais que quatro salários mínimo'
     }
 };
 
