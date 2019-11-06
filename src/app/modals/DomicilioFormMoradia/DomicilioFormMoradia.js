@@ -232,8 +232,8 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                         <RadioSelect
                             data={Domicilio.cm_escoamento_banheiros}
                             default={state.cm_escoamento_banheiro}
-                            onChangeValue={(cm_escoamento_banheiros) => {
-                                this.setState({ cm_escoamento_banheiros });
+                            onChangeValue={(cm_escoamento_banheiro) => {
+                                this.setState({ cm_escoamento_banheiro });
                             }}
                         />
 
