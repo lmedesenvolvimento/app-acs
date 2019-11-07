@@ -56,7 +56,9 @@ class DomicilioFormMainScreen extends Component {
                 {
                     key: 'Familias',
                     title: 'Famílias',
-                    completed: false
+                    completed: false,
+                    optional: true,
+                    optionalRequireFields: ['familias']
                 },
             ]
         };
@@ -72,7 +74,7 @@ class DomicilioFormMainScreen extends Component {
             return true;
         }
 
-        steps.forEach(step => this.completeSteps(state.model, step));
+        steps.forEach(step => this.completeSteps(model, step));
 
         return this.setState({ model, steps });
     }
@@ -144,7 +146,14 @@ class DomicilioFormMainScreen extends Component {
     }
 
     onPressBack = () => {
-        MainNavigation.goBack();
+        Alert.alert(
+            'Atenção',
+            'Todos os dados dos formulários serão perdidos.',
+            [
+                { text: 'Cancelar', style: 'cancel' },
+                { text: 'Confirmar', style: 'destructive', onPress: () => MainNavigation.goBack() }
+            ]
+        );
     }
 
     onSubmit = () => {
@@ -192,7 +201,7 @@ class DomicilioFormMainScreen extends Component {
 
     completeSteps = (model, step) => {
         if (step.optional) {
-            Object.keys(model).some((key) => {
+            step.completed = Object.keys(model).some((key) => {
                 return step.optionalRequireFields.includes(key);
             });
         } else {
@@ -239,11 +248,11 @@ class DomicilioFormMainScreen extends Component {
         //     return false;
         // }
 
-        const familias = find(steps, { key: 'Familias', completed: true });
-        if (!familias) {
-            Alert.alert('Cadastro de Domicílio', 'Familias é obrigatório');
-            return false;
-        }
+        // const familias = find(steps, { key: 'Familias', completed: true });
+        // if (!familias) {
+        //     Alert.alert('Cadastro de Domicílio', 'Familias é obrigatório');
+        //     return false;
+        // }
 
         return true;
     }

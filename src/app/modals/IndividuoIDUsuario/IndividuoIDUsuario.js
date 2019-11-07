@@ -45,8 +45,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
         'iden_nome',
         'iden_nome_mae',
         'iden_nome_pai',
-        'iden_raca',
-        'iden_etnia'
+        'iden_raca'
     ];
 
     fields = [

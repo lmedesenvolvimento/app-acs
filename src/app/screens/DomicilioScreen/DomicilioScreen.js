@@ -21,6 +21,8 @@ import DomiciliosActions from '@redux/modules/Domicilios/actions';
 
 import Colors from '@/constants/Colors';
 
+import DrawerNavigation from '@/services/DrawerNavigation';
+
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
 
@@ -62,6 +64,9 @@ class DomicilioScreen extends Component {
                         <Title>{state.title || 'Indefinido'}</Title>
                     </Body>
                     <Right>
+                        <Button icon transparent onPress={this.goSync}>
+                            <Icon name="md-sync" />
+                        </Button>
                         {
                             !props.navigation.getParam('quadra_logradouro_id') ? (
                                 <Button icon transparent onPress={this.onPressEditLogradouro}>
@@ -145,6 +150,10 @@ class DomicilioScreen extends Component {
         const quadra_logradouro_key = props.navigation.getParam('quadra_logradouro_key');
         const domicilios = props.getDomiciliosByQuadraLogradouro(quadra_logradouro_key);
         this.setState({ domicilios });
+    }
+
+    goSync = () => {
+        DrawerNavigation.navigate('Sync');
     }
 
     onPressBack() {

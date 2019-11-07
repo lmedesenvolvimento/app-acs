@@ -47,7 +47,6 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
     ];
 
     requireds = [
-        'numero_prontuario',
         'numero_cartao_sus_responsavel',
         'data_de_nascimento'
     ]

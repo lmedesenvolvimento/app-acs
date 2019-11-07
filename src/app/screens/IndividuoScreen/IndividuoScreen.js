@@ -1,8 +1,8 @@
 import React from 'react';
 import { Alert, SectionList } from 'react-native';
 import { connect } from 'react-redux';
-// import { createSelector } from 'reselect';
 
+import DrawerNavigation from '@/services/DrawerNavigation';
 import DomiciliosActions from '@redux/modules/Domicilios/actions';
 import IndividuosActions from '@redux/modules/Individuos/actions';
 
@@ -156,6 +156,9 @@ class IndividuoScreen extends React.Component {
                         <Title>{`Domicílio - ${domicilio.end_numero}`}</Title>
                     </Body>
                     <Right>
+                        <Button icon transparent onPress={this.goSync}>
+                            <Icon name="md-sync" />
+                        </Button>
                         <ButtonEditDomicilio
                             domicilio={domicilio}
                             onEditSubmit={this.onEditSubmitDomicilio}
@@ -264,6 +267,10 @@ class IndividuoScreen extends React.Component {
         individuos[1].data = getVisitedIndividuos(domicilio.key);
 
         this.setState({ individuos, domicilio });
+    }
+
+    goSync = () => {
+        DrawerNavigation.navigate('Sync');
     }
 
     onEditSubmitDomicilio = (domicilio) => {

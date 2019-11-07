@@ -25,6 +25,8 @@ import LogradouroActions from '@redux/modules/Logradouros/actions';
 
 import Colors from '@/constants/Colors';
 
+import DrawerNavigation from '@/services/DrawerNavigation';
+
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
 import BottomSheet from '@/components/BottomSheet';
@@ -136,7 +138,11 @@ class LogradouroScreen extends Component {
                     <Body>
                         <Title>{`Logradouros - ${navigation.state.params ? navigation.state.params.quadra_nome : 'Indefinido'}`}</Title>
                     </Body>
-                    <Right />
+                    <Right>
+                        <Button icon transparent onPress={this.goSync}>
+                            <Icon name="md-sync" />
+                        </Button>
+                    </Right>
                 </Header>
             );
         }
@@ -181,7 +187,11 @@ class LogradouroScreen extends Component {
                     if (state.query) {
                         return (
                             <>
-                                <Text style={[styles.emptyContainerText, { color: Colors.primaryColor }]}>
+                                <Text style={[
+                                    styles.emptyContainerText,
+                                    { color: Colors.primaryColor }
+                                ]}
+                                >
                                     Não encontramos nenhum logradouro cadastrado com este nome.
                                 </Text>
                             </>
@@ -189,7 +199,11 @@ class LogradouroScreen extends Component {
                     }
                     return (
                         <>
-                            <Text style={[styles.emptyContainerText, { color: Colors.primaryColor }]}>
+                            <Text style={[
+                                styles.emptyContainerText,
+                                { color: Colors.primaryColor }
+                            ]}
+                            >
                                 Oh, não! Você não tem nenhum logradouro cadastrado.
                             </Text>
                             <Text note style={styles.emptyContainerText}>
@@ -207,6 +221,10 @@ class LogradouroScreen extends Component {
         const quadra_key = props.navigation.getParam('quadra_key');
         const logradouros = props.getLogradourosByQuadra(quadra_key);
         this.setState({ logradouros, data: logradouros });
+    }
+
+    goSync = () => {
+        DrawerNavigation.navigate('Sync');
     }
 
     onPressBack() {

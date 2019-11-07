@@ -18,6 +18,8 @@ import { findIndex, find, omit } from 'lodash';
 
 import shortid from 'shortid';
 
+import DrawerNavigation from '@/services/DrawerNavigation';
+
 import VisitasActions from '@redux/modules/Visitas/actions';
 
 import SafeView from '@/components/SafeView';
@@ -81,6 +83,10 @@ const VisitaMainScreen = ({ navigation, addVisita, updateVisita }) => {
                 onSubmit: mergeData
             });
         });
+    };
+
+    const goSync = () => {
+        DrawerNavigation.navigate('Sync');
     };
 
     const onPressBack = () => {
@@ -183,7 +189,11 @@ const VisitaMainScreen = ({ navigation, addVisita, updateVisita }) => {
                 <Body>
                     <Title>Visita</Title>
                 </Body>
-                <Right />
+                <Right>
+                    <Button icon transparent onPress={goSync}>
+                        <Icon name="md-sync" />
+                    </Button>
+                </Right>
             </Header>
             <H1 style={styles.heading}>
                 {model && model.individuo ? model.individuo.iden_nome : 'Indefinido'}

@@ -10,8 +10,11 @@ import {
     Left,
     Right,
     Body,
+    Button,
     Icon,
 } from 'native-base';
+
+import DrawerNavigation from '@/services/DrawerNavigation';
 
 import QuadraActions from '@redux/modules/Quadras/actions';
 
@@ -46,7 +49,11 @@ class QuadraScreen extends Component {
                     <Body>
                         <Title>{`Quarteirões - ${props.navigation.getParam('microarea_nome')}`}</Title>
                     </Body>
-                    <Right />
+                    <Right>
+                        <Button icon transparent onPress={this.goSync}>
+                            <Icon name="md-sync" />
+                        </Button>
+                    </Right>
                 </Header>
                 <FlatList
                     data={state.quadras}
@@ -78,6 +85,10 @@ class QuadraScreen extends Component {
                 </Body>
             </ListItem>
         );
+    }
+
+    goSync = () => {
+        DrawerNavigation.navigate('Sync');
     }
 
     onPressItem(item) {

@@ -1,4 +1,3 @@
-import qs from 'qs';
 import { bindActionCreators } from 'redux';
 import { actions as AuthActions } from '@redux/modules/Auth/actions';
 import { actions as MicroAreasActions } from '@redux/modules/MicroAreas/actions';
@@ -9,6 +8,8 @@ import { actions as DomiciliosActions } from '@redux/modules/Domicilios/actions'
 import { actions as IndividuosActions } from '@redux/modules/Individuos/actions';
 import { actions as VisitasActions } from '@redux/modules/Visitas/actions';
 import { actions as UIActions } from '@redux/modules/UI/actions';
+
+import MainNavigation from '@/services/MainNavigation';
 
 import shortid from 'shortid';
 import { omit } from 'lodash';
@@ -53,7 +54,10 @@ function emitData(onSuccess, onFail) {
                     .write()
                     .value();
 
-                persistRemoteData(dispatch, response.data.user, onSuccess);
+                persistRemoteData(dispatch, response.data.user, () => {
+                    MainNavigation.navigate('MicroAreas');
+                    onSuccess();
+                });
             });
         }).catch((error) => {
             if (error.response) {

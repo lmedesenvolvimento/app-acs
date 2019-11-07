@@ -11,6 +11,7 @@ import {
     Left,
     Right,
     Body,
+    Button,
     Icon,
 } from 'native-base';
 
@@ -59,7 +60,11 @@ class MicroAreaScreen extends Component {
                     <Body>
                         <Title>Microáreas</Title>
                     </Body>
-                    <Right />
+                    <Right>
+                        <Button icon transparent onPress={this.goSync}>
+                            <Icon name="md-sync" />
+                        </Button>
+                    </Right>
                 </Header>
                 <FlatList
                     data={this.orderMicroAreas(MicroAreas.data)}
@@ -80,6 +85,10 @@ class MicroAreaScreen extends Component {
                 </Body>
             </ListItem>
         );
+    }
+
+    goSync = () => {
+        DrawerNavigation.navigate('Sync');
     }
 
     onPressItem(item) {
