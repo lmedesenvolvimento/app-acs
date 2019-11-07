@@ -7,7 +7,7 @@
     "platforms": [
       "android"
     ],
-    "version": "0.6.12",
+    "version": "0.6.13",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -31,7 +31,7 @@
         "ACCESS_FINE_LOCATION"
       ]
     },
-    "updates": {
+    "updates"3 {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
