@@ -11,10 +11,10 @@ import {
     Form,
     Item,
     Input,
+    Label,
     Button,
     H1,
     Spinner,
-    Picker
 } from 'native-base';
 
 
@@ -25,6 +25,7 @@ import HeaderLeftButton from '@/components/HeaderLeftButton';
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
+import Selectbox from '@/components/Selectbox';
 import DomicilioFormBaseModal from '@/modals/DomicilioFormBaseModal';
 
 import { Familia } from '@/types';
@@ -78,38 +79,46 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                     <H1 style={styles.heading}>Cadastro Domiciliar</H1>
                     <Form>
                         <Item stackedLabel error={this.hasError('numero_prontuario')}>
+                            <Label>Nº do prontuário familiar *</Label>
                             <Input
                                 keyboardType="numeric"
                                 autoCorrect={false}
-                                placeholder="Nº do prontuário familiar *"
+                                placeholder="Informe Nº do prontuário familiar"
                                 onChangeText={numero_prontuario => this.convertToNumber(numero_prontuario, 'numero_prontuario')}
                                 onSubmitEditing={() => this.jumpFocusTo('numero_cartao_sus_responsavel')}
-                                maxLength={11}
+                                maxLength={18}
                             >
                                 {state.numero_prontuario}
                             </Input>
                         </Item>
 
                         <Item stackedLabel error={this.hasError('numero_cartao_sus_responsavel')}>
+                            <Label>Nº cartão SUS do responsável *</Label>
                             <Input
                                 ref={ref => inputs.numero_cartao_sus_responsavel = ref}
                                 autoCorrect={false}
                                 keyboardType="numeric"
-                                placeholder="Nº cartão SUS do responsável *"
-                                onChangeText={numero_cartao_sus_responsavel => this.convertToNumber(numero_cartao_sus_responsavel, 'numero_cartao_sus_responsavel')}
+                                placeholder="Informe Nº cartão SUS do responsável"
+                                onChangeText={(numero_cartao_sus_responsavel) => {
+                                    this.convertToNumber(
+                                        numero_cartao_sus_responsavel,
+                                        'numero_cartao_sus_responsavel'
+                                    );
+                                }}
                                 onSubmitEditing={() => this.jumpFocusTo('data_de_nascimento')}
-                                maxLength={11}
+                                maxLength={18}
                             >
                                 {state.numero_cartao_sus_responsavel}
                             </Input>
                         </Item>
 
                         <Item stackedLabel error={this.hasError('data_de_nascimento')}>
+                            <Label>Data de nascimento do responsável *</Label>
                             <Input
                                 ref={ref => inputs.data_de_nascimento = ref}
                                 autoCorrect={false}
                                 keyboardType="numeric"
-                                placeholder="Data de nascimento do responsável *"
+                                placeholder="Informe data de nascimento do responsável"
                                 onChangeText={data_de_nascimento => this.convertToDate(data_de_nascimento, 'data_de_nascimento')}
                                 maxLength={10}
                             >
@@ -117,32 +126,25 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                             </Input>
                         </Item>
 
-                        <Text style={styles.label} note>Renda familiar</Text>
-                        <Picker
-                            mode="dropdown"
-                            iosIcon={<Icon name="arrow-down" />}
-                            style={[styles.picker, { width: undefined }]}
-                            placeholder="Selecione o tipo de renda"
-                            placeholderIconColor="#007aff"
-                            selectedValue={state.renda_familiar}
-                            onValueChange={renda_familiar => this.setState({ renda_familiar })}
+                        <Item
+                            style={styles.pickerItem}
+                            picker
                         >
-                            <Picker.Item label="Selecione o tipo de renda" value={undefined} />
-                            <Picker.Item label={Familia.renda_familiar.um_quarto} value="um_quarto" />
-                            <Picker.Item label={Familia.renda_familiar.meio} value="meio" />
-                            <Picker.Item label={Familia.renda_familiar.um} value="um" />
-                            <Picker.Item label={Familia.renda_familiar.dois} value="dois" />
-                            <Picker.Item label={Familia.renda_familiar.tres} value="tres" />
-                            <Picker.Item label={Familia.renda_familiar.quatro} value="quatro" />
-                            <Picker.Item label={Familia.renda_familiar.mais} value="mais" />
-                        </Picker>
+                            <Selectbox
+                                default={state.renda_familiar}
+                                data={Familia.renda_familiar}
+                                placeholder="Renda Familiar"
+                                onValueChange={renda_familiar => this.setState({ renda_familiar })}
+                            />
+                        </Item>
 
                         <Item stackedLabel>
+                            <Label>Nº de membros da família</Label>
                             <Input
                                 ref={ref => inputs.numero_membros_familia = ref}
                                 autoCorrect={false}
                                 keyboardType="numeric"
-                                placeholder="Nº de membros da família"
+                                placeholder="Informe Nº de membros da família"
                                 onChangeText={numero_membros_familia => this.convertToNumber(numero_membros_familia, 'numero_membros_familia')}
                                 onSubmitEditing={() => this.jumpFocusTo('reside')}
                                 maxLength={3}
@@ -152,13 +154,14 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                         </Item>
 
                         <Item stackedLabel>
+                            <Label>Reside desde: </Label>
                             <Input
                                 ref={ref => inputs.reside = ref}
                                 autoCorrect={false}
                                 keyboardType="numeric"
-                                placeholder="Reside desde: 1990"
-                                onChangeText={reside => this.convertToDate(reside, 'reside')}
-                                maxLength={10}
+                                placeholder="Exemplo: 1990"
+                                onChangeText={reside => this.convertToYear(reside, 'reside')}
+                                maxLength={4}
                             >
                                 {state.reside}
                             </Input>
