@@ -18,7 +18,7 @@ import {
     Card,
 } from 'native-base';
 
-import { View, FlatList, Alert } from 'react-native';
+import { View, FlatList, Alert, ToastAndroid } from 'react-native';
 
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
@@ -133,7 +133,16 @@ class LogradouroFormScreen extends Component {
     }
 
     submitForm = () => {
-        const { props } = this;
+        const { props, state } = this;
+        if (!state.nome) {
+            Alert.alert(
+                'Falha no Formulário',
+                'Nome do logradouro não pode ficar em branco.'
+            );
+
+            return null;
+        }
+
         if (props.navigation.getParam('action') === 'new') {
             return this.create();
         }
@@ -184,6 +193,9 @@ class LogradouroFormScreen extends Component {
         }
 
         props.createLogradouro(logradouro, state.quadra_key);
+
+        ToastAndroid.show('Logradouro criado com sucesso!', ToastAndroid.SHORT);
+
         setTimeout(this.goBack, 200);
     }
 
@@ -234,6 +246,8 @@ class LogradouroFormScreen extends Component {
                 logradouro
             }
         );
+
+        ToastAndroid.show('Logradouro atualizado com sucesso!', ToastAndroid.SHORT);
 
         props.navigation.getParam('returnData')(state.nome);
 

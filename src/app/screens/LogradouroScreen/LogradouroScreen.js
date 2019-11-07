@@ -173,15 +173,31 @@ class LogradouroScreen extends Component {
     }
 
     renderEmptyContent = () => {
+        const { state } = this;
         return (
             <Container style={styles.emptyContainer}>
                 <Icon name="mood-bad" type="MaterialIcons" style={styles.emptyContainerIcon} />
-                <Text style={[styles.emptyContainerText, { color: Colors.primaryColor }]}>
-                    Oh, não! Você não tem nenhum logradouro cadastrado.
-                </Text>
-                <Text note style={styles.emptyContainerText}>
-                    Começe já a adicionar as localizações.
-                </Text>
+                {(() => {
+                    if (state.query) {
+                        return (
+                            <>
+                                <Text style={[styles.emptyContainerText, { color: Colors.primaryColor }]}>
+                                    Não encontramos nenhum logradouro cadastrado com este nome.
+                                </Text>
+                            </>
+                        );
+                    }
+                    return (
+                        <>
+                            <Text style={[styles.emptyContainerText, { color: Colors.primaryColor }]}>
+                                Oh, não! Você não tem nenhum logradouro cadastrado.
+                            </Text>
+                            <Text note style={styles.emptyContainerText}>
+                                Começe já a adicionar as localizações.
+                            </Text>
+                        </>
+                    );
+                })()}
             </Container>
         );
     }

@@ -67,6 +67,7 @@ export const Domicilio = {
         filtracao: 'Filtração',
         fervura: 'Fervura',
         cloracao: 'Cloração',
+        mineral: 'Mineral',
         sem_tratamento: 'Sem tratamento'
     },
     cm_escoamento_banheiros: {

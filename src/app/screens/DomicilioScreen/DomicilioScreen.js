@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Alert } from 'react-native';
+import { FlatList, Alert, ToastAndroid } from 'react-native';
 import { connect } from 'react-redux';
 
 import {
@@ -219,6 +219,8 @@ class DomicilioScreen extends Component {
             props.navigation.getParam('logradouro'),
             props.navigation.getParam('quadra_logradouro_key')
         );
+
+        ToastAndroid.show('Logradouro removido com sucesso!', ToastAndroid.SHORT);
 
         props.navigation.goBack();
     }

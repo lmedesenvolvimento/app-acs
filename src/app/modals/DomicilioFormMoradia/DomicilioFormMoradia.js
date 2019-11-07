@@ -237,7 +237,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                             }}
                         />
 
-                        <Text style={styles.label} note>Tratamento de Água no Domicílio</Text>
+                        <Text style={styles.label} note>Água para consumo no Domicílio</Text>
                         <RadioSelect
                             data={Domicilio.cm_tratamento_aguas}
                             default={state.cm_tratamento_agua}
