@@ -29,8 +29,13 @@ import styles from './index.styl';
 
 class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
     inputs = {};
-    fields = ['end_numero', 'end_complement', 'tel_residencial', 'tel_referencia'];
-    requireds = ['end_numero', 'tel_residencial']
+    fields = [
+        'end_numero',
+        'end_complement',
+        'tel_residencial',
+        'tel_referencia'
+    ];
+    requireds = ['end_numero']
 
     constructor(props) {
         super(props);
