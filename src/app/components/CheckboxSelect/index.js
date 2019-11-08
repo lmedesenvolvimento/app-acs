@@ -9,7 +9,11 @@ import {
     CheckBox
 } from 'native-base';
 
-import { cloneDeep, isArray } from 'lodash';
+import {
+    cloneDeep,
+    isObject,
+    has
+} from 'lodash';
 
 import Colors from '@/constants/Colors';
 
@@ -27,7 +31,10 @@ class CheckboxSelect extends Component {
         const { props } = this;
 
         const items = cloneDeep(props.data).map((item) => {
-            item.checked = isArray(props.default) ? props.default.includes(item.key) : false;
+            item.checked = (isObject(props.default) && has(props.default, item.key))
+                ? props.default[item.key] === 1
+                : false;
+
             return item;
         });
 
@@ -68,13 +75,25 @@ class CheckboxSelect extends Component {
     onSelectItem = (item, index) => {
         const { props, state } = this;
         const { items } = state;
+
         items[index].checked = !items[index].checked;
 
+        // Update Views
         this.setState({ items });
 
-        const result = items.filter(i => i.checked).map(i => i.key);
+        // return data to parent component
+        if (props.onChangeValue) {
+            const data = {};
 
-        if (props.onChangeValue) props.onChangeValue(result);
+            items.forEach((i) => {
+                if (i.checked) {
+                    return data[i.key] = 1;
+                }
+                return data[i.key] = 0;
+            });
+
+            props.onChangeValue(data);
+        }
     }
 
     mappingEnum = (value, key) => {

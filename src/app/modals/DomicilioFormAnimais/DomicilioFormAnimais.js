@@ -16,8 +16,6 @@ import {
     Spinner
 } from 'native-base';
 
-import { pickBy } from 'lodash';
-
 import Colors from '@/constants/Colors';
 
 import SafeView from '@/components/SafeView';
@@ -94,9 +92,9 @@ class DomicilioFormAnimaisModal extends DomicilioFormBaseModal {
 
                         <Text style={styles.label} note>Qual(is)?</Text>
                         <CheckboxSelect
-                            default={this.mapAnAnimaisDefaultValue()}
+                            default={state.an_animais}
                             data={Animais.an_animais}
-                            onChangeValue={an_animais => this.onChangeValueAnAnimais(an_animais)}
+                            onChangeValue={an_animais => this.setState({ an_animais })}
                         />
                     </Form>
                 </Content>
@@ -115,22 +113,6 @@ class DomicilioFormAnimaisModal extends DomicilioFormBaseModal {
                 </LightFooter>
             </SafeView>
         );
-    }
-
-    mapAnAnimaisDefaultValue = () => {
-        const { an_animais } = this.state;
-        const selection = pickBy(an_animais, animal => animal);
-        return Object.keys(selection);
-    }
-
-    onChangeValueAnAnimais = (data) => {
-        const an_animais = {};
-
-        Animais.an_animais.forEach((animal) => {
-            an_animais[animal.key] = data.includes(animal.key) ? 1 : 0;
-        });
-
-        this.setState({ an_animais });
     }
 }
 
