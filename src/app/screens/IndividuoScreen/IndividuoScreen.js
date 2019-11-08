@@ -36,7 +36,6 @@ import styles from './index.styl';
 const ButtonEditDomicilio = (props) => {
     const { navigation } = props;
     const { domicilio, onEditSubmit } = props;
-
     const logradouro = navigation.getParam('logradouro');
 
     const onPressEditDomicilio = () => {
@@ -53,7 +52,7 @@ const ButtonEditDomicilio = (props) => {
         navigation.navigate('DomiciliosForm', payload);
     };
 
-    if (!navigation.getParam('id')) {
+    if (!domicilio.id) {
         return (
             <Button icon transparent onPress={onPressEditDomicilio}>
                 <Icon name="mode-edit" type="MaterialIcons" />
@@ -81,7 +80,7 @@ const ButtonRemoveDomicilio = ({ navigation, domicilio, destroyDomicilios }) => 
         navigation.goBack();
     };
 
-    if (!navigation.getParam('id')) {
+    if (!domicilio.id) {
         return (
             <Button icon transparent onPress={onPressRemoveDomicilio}>
                 <Icon name="trash" />
@@ -153,7 +152,7 @@ class IndividuoScreen extends React.Component {
                         </HeaderLeftButton>
                     </Left>
                     <Body>
-                        <Title>{`Domicílio - ${domicilio.end_numero}`}</Title>
+                        <Title>{`Nº ${domicilio.end_numero}`}</Title>
                     </Body>
                     <Right>
                         <Button icon transparent onPress={this.goSync}>
