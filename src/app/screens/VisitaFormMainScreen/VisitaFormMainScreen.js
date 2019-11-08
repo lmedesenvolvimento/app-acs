@@ -38,11 +38,15 @@ const VisitaMainScreen = ({ navigation, addVisita, updateVisita }) => {
             key: 'Ficha',
             title: 'Ficha de visita',
             completed: false,
+            optional: true,
+            optionalRequireFields: ['turno', 'tipo_imovel']
         },
         {
             key: 'Motivo',
             title: 'Motivo da visita',
             completed: false,
+            optional: true,
+            optionalRequireFields: ['motivos']
         },
         {
             key: 'Desfecho',
@@ -145,17 +149,19 @@ const VisitaMainScreen = ({ navigation, addVisita, updateVisita }) => {
     };
 
     const isStepsValid = () => {
-        const ficha = find(steps, { key: 'Ficha', completed: true });
-        if (!ficha) {
-            Alert.alert('Cadastro de Visita', 'Ficha de visita é obrigatório');
-            return false;
-        }
+        // DECREPTED
+        // const ficha = find(steps, { key: 'Ficha', completed: true });
+        // if (!ficha) {
+        //     Alert.alert('Cadastro de Visita', 'Ficha de visita é obrigatório');
+        //     return false;
+        // }
 
-        const motivo = find(steps, { key: 'Motivo', completed: true });
-        if (!motivo) {
-            Alert.alert('Cadastro de Visita', 'Motivo da visita é obrigatório');
-            return false;
-        }
+        // DECREPTED
+        // const motivo = find(steps, { key: 'Motivo', completed: true });
+        // if (!motivo) {
+        //     Alert.alert('Cadastro de Visita', 'Motivo da visita é obrigatório');
+        //     return false;
+        // }
 
         const desfecho = find(steps, { key: 'Desfecho', completed: true });
         if (!desfecho) {
@@ -169,7 +175,7 @@ const VisitaMainScreen = ({ navigation, addVisita, updateVisita }) => {
     function completeSteps(step) {
         const _step = step;
         if (_step.optional) {
-            Object.keys(model).some((key) => {
+            _step.completed = Object.keys(model).some((key) => {
                 return _step.optionalRequireFields.includes(key);
             });
         } else {

@@ -182,7 +182,7 @@ const IndividuoMainScreen = ({ navigation, addIndividuo, updateIndividuo }) => {
     function completeSteps(step) {
         const _step = step;
         if (_step.optional) {
-            Object.keys(model).some((key) => {
+            _step.completed = Object.keys(model).some((key) => {
                 return _step.optionalRequireFields.includes(key);
             });
         } else {

@@ -406,83 +406,58 @@ export const Visita = {
 export const Motivo = {
     motivos: [
         {
-            title: 'Cadastramento Atualizacao',
+            title: 'Busca ativa',
             data: [
-                { key: 'cadastramento_atualizacao', text: 'Cadastramento Atualizacao' },
+                { key: 'busca_consulta', text: 'Consulta' },
+                { key: 'busca_exame', text: 'Exame' },
+                { key: 'busca_vacina', text: 'Vacina' },
+                { key: 'busca_bolsa_familia', text: 'Bolsa Família' },
             ]
         },
         {
-            title: 'Visita periódica',
+            title: 'Acompanhamento',
             data: [
-                { key: 'visita_periodica', text: 'Visita periódica' },
-            ]
-        },
-        {
-            title: 'Busca consulta',
-            data: [
-                { key: 'busca_consulta', text: 'Busca consulta' },
-                { key: 'busca_exame', text: 'Busca exame' },
-                { key: 'busca_vacina', text: 'Busca vacina' },
-                { key: 'busca_bolsa_familia', text: 'Busca bolsa familia' },
-            ]
-        },
-        {
-            title: 'Acompanhamento gestante',
-            data: [
-                { key: 'acompanhamento_gestante', text: 'Acompanhamento gestante' },
-                { key: 'acompanhamento_puerpera', text: 'Acompanhamento puerpera' },
-                { key: 'acompanhamento_recem_nascido', text: 'Acompanhamento recém nascido' },
-                { key: 'acompanhamento_crianca', text: 'Acompanhamento crianca' },
-                { key: 'acompanhamento_desnutricao', text: 'Acompanhamento desnutricao' },
-                { key: 'acompanhamento_reabilitacao', text: 'Acompanhamento reabilitacao' },
-                { key: 'acompanhamento_hipertensao', text: 'Acompanhamento hipertensao' },
-                { key: 'acompanhamento_diabetes', text: 'Acompanhamento diabetes' },
-                { key: 'acompanhamento_asma', text: 'Acompanhamento asma' },
+                { key: 'acompanhamento_gestante', text: 'Gestante' },
+                { key: 'acompanhamento_puerpera', text: 'Puerpera' },
+                { key: 'acompanhamento_recem_nascido', text: 'Recém Nascido' },
+                { key: 'acompanhamento_crianca', text: 'Criança' },
+                { key: 'acompanhamento_desnutricao', text: 'Desnutrição' },
+                { key: 'acompanhamento_reabilitacao', text: 'Reabilitação' },
+                { key: 'acompanhamento_hipertensao', text: 'Hipertensão' },
+                { key: 'acompanhamento_diabetes', text: 'Diabetes' },
+                { key: 'acompanhamento_asma', text: 'Asma' },
                 { key: 'acompnhamento_dpoc_enfisema', text: 'Acompnhamento DPOC enfisema' },
-                { key: 'acompanhamento_cancer', text: 'Acompanhamento cancer' },
-                { key: 'acompanhamento_outras_doencas_cronicas', text: 'Acompanhamento outras doencas crônicas' },
-                { key: 'acompanhamento_hanseniase', text: 'Acompanhamento hanseniase' },
-                { key: 'acompanhamento_tuberculose', text: 'Acompanhamento tuberculose' },
-                { key: 'acompanhamento_sintomaticos_respiratorios', text: 'Acompanhamento sintomaticos respiratorios' },
-                { key: 'acompanhamento_tabagista', text: 'Acompanhamento tabagista' },
-                { key: 'acompanhamento_acamados', text: 'Acompanhamento acamados' },
-                { key: 'acompanhamento_vulnerabilidade_social', text: 'Acompanhamento vulnerabilidade social' },
-                { key: 'acompanhamento_bolsa_familia', text: 'Acompanhamento bolsa familia' },
-                { key: 'acompanhamento_saude_mental', text: 'Acompanhamento saude mental' },
-                { key: 'acompanhamento_alcool', text: 'Acompanhamento alcool' },
-                { key: 'acompanhamento_outras_drogas', text: 'Acompanhamento outras drogas' },
+                { key: 'acompanhamento_cancer', text: 'Câncer' },
+                { key: 'acompanhamento_outras_doencas_cronicas', text: 'Outras doencas crônicas' },
+                { key: 'acompanhamento_hanseniase', text: 'Hanseníase' },
+                { key: 'acompanhamento_tuberculose', text: 'Tuberculose' },
+                { key: 'acompanhamento_sintomaticos_respiratorios', text: 'Sintomáticos respiratórios' },
+                { key: 'acompanhamento_tabagista', text: 'Tabagista' },
+                { key: 'acompanhamento_acamados', text: 'Acamados' },
+                { key: 'acompanhamento_vulnerabilidade_social', text: 'Vulnerabilidade social' },
+                { key: 'acompanhamento_bolsa_familia', text: 'Bolsa Familia' },
+                { key: 'acompanhamento_saude_mental', text: 'Saúde mental' },
+                { key: 'acompanhamento_alcool', text: 'Álcool' },
+                { key: 'acompanhamento_outras_drogas', text: 'Outras drogas' },
             ]
         },
         {
             title: 'Controle vetorial ação educativa',
             data: [
-                { key: 'controle_vetorial_acao_educativa', text: 'Controle vetorial ação educativa' },
-                { key: 'controle_vetorial_imovel_foco', text: 'Controle vetorial imóvel foco' },
-                { key: 'controle_vetorial_acao_mecanica', text: 'Controle vetorial ação mecânica' },
-                { key: 'controle_vetorial_tratamento_focal', text: 'Controle vetorial tratamento focal' },
+                { key: 'controle_vetorial_acao_educativa', text: 'Ação educativa' },
+                { key: 'controle_vetorial_imovel_foco', text: 'Imóvel foco' },
+                { key: 'controle_vetorial_acao_mecanica', text: 'Ação mecânica' },
+                { key: 'controle_vetorial_tratamento_focal', text: 'Tratamento focal' },
             ]
         },
         {
-            title: 'Egresso internação',
+            title: 'Outros',
             data: [
-                { key: 'egresso_internacao', text: 'Egresso internação' },
-            ]
-        },
-        {
-            title: 'Convite atividades coletivas',
-            data: [
+                { key: 'visita_periodica', text: 'Visita periódica' },
+                { key: 'cadastramento_atualizacao', text: 'Cadastramento Atualizacao' },
                 { key: 'convite_atividades_coletivas', text: 'Convite atividades coletivas' },
-            ]
-        },
-        {
-            title: 'Orientação prevencao',
-            data: [
                 { key: 'orientacao_prevencao', text: 'Orientação prevencao' },
-            ]
-        },
-        {
-            title: 'Outro',
-            data: [
+                { key: 'egresso_internacao', text: 'Egresso internação' },
                 { key: 'outro', text: 'Outro' }
             ]
         }
