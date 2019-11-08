@@ -21,7 +21,7 @@ import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
-import CheckboxSelect from '@/components/CheckboxSelect';
+import SectionCheckboxSelect from '@/components/SectionCheckboxSelect';
 
 import IndividuoFormBaseModal from '@/modals/IndividuoFormBaseModal';
 
@@ -66,12 +66,9 @@ class VisitaMotivo extends IndividuoFormBaseModal {
                 <Content padder>
                     <H1 style={styles.heading}>Motivo da Visita</H1>
                     <Form>
-                        <Text style={this.hasError('motivos') ? styles.labelError : styles.label} note>
-                            Tipo
-                        </Text>
-                        <CheckboxSelect
+                        <SectionCheckboxSelect
                             default={state.motivos}
-                            data={Motivo.motivos}
+                            sections={Motivo.motivos}
                             onChangeValue={motivos => this.setState({ motivos })}
                         />
                     </Form>
