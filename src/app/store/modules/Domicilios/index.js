@@ -1,8 +1,7 @@
 import Types from './types';
 
 const initialState = {
-    data: [],
-    domicilio: {}
+    data: []
 };
 
 export default (state = initialState, action) => {

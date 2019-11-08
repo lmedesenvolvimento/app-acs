@@ -21,5 +21,5 @@ export default createStackNavigator({
     initialRouteName: 'Visita',
     mode: 'modal',
     headerMode: 'none',
-    transitionConfig: () => fromBottom(600),
+    transitionConfig: () => fromBottom(700),
 });

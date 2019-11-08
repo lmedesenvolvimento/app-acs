@@ -174,7 +174,7 @@ class DomicilioFormMainScreen extends Component {
         if (model) {
             const payload = Object.assign({ quadra_logradouro_key, key }, model);
             props.addDomicilios(payload);
-            this.onPressBack();
+            MainNavigation.goBack();
         }
     }
 
@@ -189,7 +189,7 @@ class DomicilioFormMainScreen extends Component {
             const payload = Object.assign({}, model);
             updateDomicilios(key, payload);
             navigation.getParam('onSubmit')(model);
-            this.onPressBack();
+            MainNavigation.goBack();
         }
     }
 

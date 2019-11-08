@@ -14,7 +14,7 @@ const FamiliaStack = createStackNavigator({
 }, {
     initialRouteName: 'List',
     headerMode: 'none',
-    transitionConfig: () => fromBottom(600),
+    transitionConfig: () => fromBottom(700),
 });
 
 export default createStackNavigator({
@@ -37,5 +37,5 @@ export default createStackNavigator({
     initialRouteName: 'DomicilioForm',
     mode: 'modal',
     headerMode: 'none',
-    transitionConfig: () => fromBottom(600),
+    transitionConfig: () => fromBottom(700),
 });
