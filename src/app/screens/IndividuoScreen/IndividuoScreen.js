@@ -239,7 +239,7 @@ class IndividuoScreen extends React.Component {
                 <Icon name="address-card" type="FontAwesome" />
                 <Body>
                     <Text>{item.iden_cns}</Text>
-                    <Text note>{`${item.iden_nome} - Total Visitas ${item.visita ? item.visita.total : '0'} DEBUG`}</Text>
+                    <Text note>{item.iden_nome}</Text>
                 </Body>
             </ListItem>
         );
