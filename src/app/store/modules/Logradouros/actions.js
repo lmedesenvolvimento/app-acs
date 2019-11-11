@@ -4,8 +4,8 @@ import {
     filter,
     find,
     findIndex,
-    chain,
-    omit
+    omit,
+    chain
 } from 'lodash';
 
 import shortid from 'shortid';
@@ -54,18 +54,20 @@ function getLogradourosByBairroID(bairro_id = 0) {
     };
 }
 
-function createLogradouro(logradouro, quadraKey) {
+function createLogradouro(quadra, logradouro) {
     return (dispatch) => {
-        const key = logradouro.key || shortid.generate();
-
         if (!logradouro.key) {
-            dispatch(addLogradouro({ key, ...logradouro }));
+            logradouro.key = shortid.generate();
+
+            dispatch(
+                addLogradouro({ key: logradouro.key, ...logradouro })
+            );
         }
 
         // dispacth assossiation in relational list quadras_logradrouros
         dispatch(
             QuadrasLogradourosActions
-                .addQuadrasLogradouros(quadraKey, key)
+                .addQuadrasLogradouros(quadra, logradouro)
         );
     };
 }
@@ -77,19 +79,25 @@ function addLogradouro(logradouro) {
     };
 }
 
-function updateLogradouro(quadra_logradouro_key, { logradouro, quadra_key }) {
+function updateLogradouro(quadra_logradouro_key, { logradouro, quadra }) {
     return (dispatch, getState) => {
         const logradouros = getState().Logradouros.data;
+        const quadra_key = quadra.key;
         const quadrasLogradouros = getState().QuadrasLogradouros.data;
         const quadraLogradouro = find(quadrasLogradouros, { key: quadra_logradouro_key });
         const oldLogra = find(logradouros, { key: quadraLogradouro.logradouro_key });
+
+        console.log('oldLogra', oldLogra);
+
 
         // Se o novo logradouro já existir no servidor
         if (logradouro.id && quadra_key) {
             const payload = {
                 key: quadraLogradouro.key,
-                logradouro_key: logradouro.key,
-                quadra_key
+                quadra,
+                quadra_key,
+                logradouro,
+                logradouro_key: logradouro.key
             };
 
             if (!oldLogra.id) {
@@ -108,6 +116,7 @@ function updateLogradouro(quadra_logradouro_key, { logradouro, quadra_key }) {
         // Se logradrouro sincronizado existir e o nome for modificado é preservado
         // o logradouro e uma novo referencia é criada
         if (oldLogra.id) {
+            console.log('oldLogra.id', quadra, logradouro);
             // Deletando relação entre logradouro e quadra
             dispatch(
                 QuadrasLogradourosActions
@@ -116,12 +125,13 @@ function updateLogradouro(quadra_logradouro_key, { logradouro, quadra_key }) {
             // Criando novo logradouro e nova referências
             dispatch(
                 createLogradouro(
-                    omit(logradouro, ['key']),
-                    quadra_key
+                    quadra,
+                    omit(logradouro, ['key'])
                 )
             );
         } else {
             const data = Object.assign(oldLogra, logradouro);
+            console.log(data);
             dispatch({
                 type: Types.UPDATE_LOGRADOURO,
                 index: findIndex(logradouros, { key: data.key }),

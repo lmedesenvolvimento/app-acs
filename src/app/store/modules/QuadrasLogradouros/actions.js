@@ -15,10 +15,18 @@ function setQuadrasLogradouros(data) {
     };
 }
 
-function addQuadrasLogradouros(quadra_key, logradouro_key) {
+function addQuadrasLogradouros(quadra, logradouro) {
+    const quadra_key = quadra.key;
+    const logradouro_key = logradouro.key;
     return {
         type: Types.ADD_QUADRAS_LOGRADOUROS,
-        data: { quadra_key, logradouro_key, key: shortid.generate() }
+        data: {
+            quadra_key,
+            logradouro_key,
+            key: shortid.generate(),
+            quadra,
+            logradouro
+        }
     };
 }
 

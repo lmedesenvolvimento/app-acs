@@ -18,14 +18,20 @@ import {
     Card,
 } from 'native-base';
 
-import { View, FlatList, Alert, ToastAndroid } from 'react-native';
+import {
+    View,
+    FlatList,
+    Alert,
+    ToastAndroid
+} from 'react-native';
 
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import SafeView from '@/components/SafeView';
 import HeaderLeftButton from '@/components/HeaderLeftButton';
 
-import actions from '@redux/modules/Logradouros/actions';
+import LogradouroActions from '@redux/modules/Logradouros/actions';
+import QuadraActions from '@redux/modules/Quadras/actions';
 import Colors from '@/constants/Colors';
 
 import { Logradouro as Types } from '@/types';
@@ -192,7 +198,7 @@ class LogradouroFormScreen extends Component {
             };
         }
 
-        props.createLogradouro(logradouro, state.quadra_key);
+        props.createLogradouro(props.getQuadra(state.quadra_key), logradouro);
 
         ToastAndroid.show('Logradouro criado com sucesso!', ToastAndroid.SHORT);
 
@@ -242,7 +248,7 @@ class LogradouroFormScreen extends Component {
         props.updateLogradouro(
             props.navigation.getParam('model').quadra_logradouro_key,
             {
-                quadra_key: state.quadra_key,
+                quadra: props.getQuadra(state.quadra_key),
                 logradouro
             }
         );
@@ -365,4 +371,8 @@ const mapStateToProps = ({ Logradouro }) => ({
     Logradouro,
 });
 
-export default connect(mapStateToProps, actions)(LogradouroFormScreen);
+const mapDispatchToProps = (dispatch) => {
+    return Object.assign({}, LogradouroActions(dispatch), QuadraActions(dispatch));
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogradouroFormScreen);

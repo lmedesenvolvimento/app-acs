@@ -1,5 +1,5 @@
 import { bindActionCreators } from 'redux';
-import { chain, orderBy } from 'lodash';
+import { chain, orderBy, find } from 'lodash';
 import Types from './types';
 
 const clearQuadras = {
@@ -20,6 +20,12 @@ function getQuadras() {
     };
 }
 
+function getQuadra(key) {
+    return (dispatch, getState) => {
+        return find(getState().Quadras.data, { key });
+    };
+}
+
 function getQuadrasByMicroareaID(microarea_key) {
     return (dispatch, getState) => {
         return chain(getState().Quadras.data)
@@ -36,6 +42,7 @@ export const actions = {
 
 export const getters = {
     getQuadras,
+    getQuadra,
     getQuadrasByMicroareaID
 };
 
