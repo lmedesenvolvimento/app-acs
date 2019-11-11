@@ -217,11 +217,11 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             error={this.hasError('iden_etnia')}
                             stackedLabel
                         >
-                            <Label>Etinia</Label>
+                            <Label>Etnia</Label>
                             <Input
                                 ref={ref => this.inputs.iden_etnia = ref}
                                 onChangeText={iden_etnia => this.setState({ iden_etnia })}
-                                placeholder="Informe a etinia"
+                                placeholder="Informe a etnia"
                             >
                                 {state.iden_etnia}
                             </Input>

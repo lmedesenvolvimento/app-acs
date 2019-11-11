@@ -284,7 +284,7 @@ class IndividuoScreen extends React.Component {
 
         const payload = {
             model: { domicilio: pick(domicilio, ['key', 'end_numero']) },
-            title: 'Cadastro Individuo',
+            title: 'Cadastro individual',
             action: 'new'
         };
 
