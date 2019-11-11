@@ -36,7 +36,7 @@ const AboutScreen = ({ navigation, signOutAsync, asynClearData }) => {
     };
 
     const onPressLogout = () => {
-        Alert.alert('Sair do Aplicativo', 'Deseja realmente sair do Aplicativo', [
+        Alert.alert('Encerrar Sessão', 'Deseja realmente encerrar a sua sessão?', [
             { text: 'Não', style: 'cancel' },
             { text: 'Sim', onPress: logout },
         ]);

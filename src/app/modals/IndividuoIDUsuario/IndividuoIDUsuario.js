@@ -146,7 +146,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             error={this.hasError('iden_nome')}
                             stackedLabel
                         >
-                            <Label>Nome Completo</Label>
+                            <Label>Nome Completo *</Label>
                             <Input
                                 ref={ref => this.inputs.iden_nome = ref}
                                 onChangeText={iden_nome => this.setState({ iden_nome })}
@@ -326,7 +326,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             error={this.hasError('iden_pais_nascimento')}
                             stackedLabel
                         >
-                            <Label>País de Nascimento *</Label>
+                            <Label>País de Nascimento</Label>
                             <Input
                                 ref={ref => this.inputs.iden_pais_nascimento = ref}
                                 onChangeText={(iden_pais_nascimento) => {
@@ -343,7 +343,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             error={this.hasError('iden_data_naturalizacao')}
                             stackedLabel
                         >
-                            <Label>Data da Naturalização *</Label>
+                            <Label>Data da Naturalização</Label>
                             <Input
                                 ref={ref => this.inputs.iden_data_naturalizacao = ref}
                                 onChangeText={(iden_data_naturalizacao) => {
@@ -362,7 +362,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             error={this.hasError('iden_portaria_naturalizacao')}
                             stackedLabel
                         >
-                            <Label>Portaria da Naturalização *</Label>
+                            <Label>Portaria da Naturalização</Label>
                             <Input
                                 ref={ref => this.inputs.iden_portaria_naturalizacao = ref}
                                 onChangeText={(iden_portaria_naturalizacao) => {
@@ -379,7 +379,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             style={styles.item}
                             stackedLabel
                         >
-                            <Label>Município e UF de Nascimento *</Label>
+                            <Label>Município e UF de Nascimento</Label>
                             <Input
                                 ref={ref => this.inputs.iden_municipio_uf_nascimento = ref}
                                 onChangeText={(iden_municipio_uf_nascimento) => {
@@ -395,7 +395,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             style={styles.item}
                             stackedLabel
                         >
-                            <Label>Data de entrada no Brasil *</Label>
+                            <Label>Data de entrada no Brasil</Label>
                             <Input
                                 ref={ref => this.inputs.iden_data_entrada_brasil = ref}
                                 onChangeText={iden_data_entrada_brasil => this.convertToYear(iden_data_entrada_brasil, 'iden_data_entrada_brasil')}

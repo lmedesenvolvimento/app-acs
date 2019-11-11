@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+    CheckBox,
     Header,
     Left,
     Right,
@@ -69,10 +70,10 @@ const VisitaMainScreen = ({ navigation, addVisita, updateVisita }) => {
         return (
             <ListItem icon onPress={() => goTo(item)} last>
                 <Left>
-                    {item.completed ? <Icon name="ios-checkmark" /> : null}
+                    <CheckBox style={styles.checkbox} checked={item.completed} />
                 </Left>
                 <Body>
-                    <Text>{item.title}</Text>
+                    <Text>{item.optional ? item.title : `${item.title} *`}</Text>
                 </Body>
             </ListItem>
         );

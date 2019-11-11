@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+    CheckBox,
     Header,
     Left,
     Right,
@@ -124,10 +125,10 @@ class DomicilioFormMainScreen extends Component {
         return (
             <ListItem icon onPress={() => this.goTo(item)} last>
                 <Left>
-                    {item.completed ? <Icon name="ios-checkmark" /> : null}
+                    <CheckBox style={styles.checkbox} checked={item.completed} />
                 </Left>
                 <Body>
-                    <Text>{item.title}</Text>
+                    <Text>{item.optional ? item.title : `${item.title} *`}</Text>
                 </Body>
             </ListItem>
         );
