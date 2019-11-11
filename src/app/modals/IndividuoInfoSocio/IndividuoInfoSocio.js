@@ -38,6 +38,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
 
     requireds = [
         'is_frequenta_escola',
+        'is_possui_deficiencia'
     ];
 
     fields = [
@@ -249,8 +250,15 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             })}
                         />
 
-                        <Text style={styles.label} note>
-                            Possui algum tipo de deficiência?
+                        <Text
+                            style={
+                                this.hasError('is_possui_deficiencia')
+                                    ? styles.labelError
+                                    : styles.label
+                            }
+                            note
+                        >
+                            Possui algum tipo de deficiência? *
                         </Text>
                         <RadioSelect
                             data={Individuo.is_possui_deficiencia}

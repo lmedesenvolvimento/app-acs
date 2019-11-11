@@ -296,7 +296,7 @@ const defineParentKeysToQuadrasLogradouros = (logradouros, quadras, quadra_logra
     logradouros.forEach((logra) => {
         quadra_logradouros.forEach((quadra_logradouro) => {
             const { logradouro } = quadra_logradouro;
-            if (logradouro.id === logra.id) {
+            if (logradouro && logradouro.id === logra.id) {
                 quadra_logradouro.logradouro_key = logra.key;
             }
         });
@@ -305,7 +305,7 @@ const defineParentKeysToQuadrasLogradouros = (logradouros, quadras, quadra_logra
     quadras.forEach((q) => {
         quadra_logradouros.forEach((quadra_logradouro) => {
             const { quadra } = quadra_logradouro;
-            if (quadra.id === q.id) {
+            if (quadra && quadra.id === q.id) {
                 quadra_logradouro.quadra_key = q.key;
             }
         });

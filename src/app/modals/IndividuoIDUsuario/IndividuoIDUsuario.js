@@ -45,6 +45,8 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
         'iden_nome',
         'iden_nome_mae',
         'iden_nome_pai',
+        'iden_data_nascimento',
+        'iden_nacionalidade',
         'iden_raca'
     ];
 
@@ -73,7 +75,9 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            iden_nacionalidade: 'brasileira'
+        };
     }
 
     render() {
@@ -185,9 +189,10 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
                         <Item
                             style={styles.item}
+                            error={this.hasError('iden_data_nascimento')}
                             stackedLabel
                         >
-                            <Label>Data de Nascimento</Label>
+                            <Label>Data de Nascimento *</Label>
                             <Input
                                 ref={ref => this.inputs.iden_data_nascimento = ref}
                                 keyboardType="numeric"
@@ -314,7 +319,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Selectbox
                                 data={Individuo.iden_nacionalidade}
                                 default={state.iden_nacionalidade}
-                                placeholder="Nacionalidade"
+                                placeholder="Nacionalidade *"
                                 onValueChange={(iden_nacionalidade) => {
                                     this.setState({ iden_nacionalidade });
                                 }}

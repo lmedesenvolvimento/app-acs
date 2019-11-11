@@ -135,7 +135,7 @@ export const Individuo = {
     iden_nacionalidade: {
         brasileira: 'Brasileira',
         naturalizado: 'Naturalizado',
-        estrangeiro: 'estrangeiro',
+        estrangeiro: 'Estrangeiro',
     },
     iden_responsavel_familiar: {
         yes: 'Sim',
