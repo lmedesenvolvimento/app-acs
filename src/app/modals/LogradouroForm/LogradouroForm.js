@@ -57,7 +57,7 @@ class LogradouroFormScreen extends Component {
             nome: '',
             bairro: null,
             quadra_key: null,
-            tipo: Types.tipos.rua,
+            tipo: 'rua',
             tipos: Types.tipos,
             nomeFocus: false,
             logradouros: [],
