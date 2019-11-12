@@ -1,5 +1,7 @@
 import StringMask from 'string-mask';
 
+import moment from '@/services/Timestamp';
+
 export function convertToNumber(number, target) {
     const updates = {};
 
@@ -62,10 +64,42 @@ export function convertToYear(date, target) {
         return true;
     }
 
+    const yearDate = new Date();
     const numbers = date.match(/\d+/g).join('');
     const result = new StringMask('0000').apply(numbers);
+    const year = parseInt(result, 10);
+
+    updates[target] = yearDate.setFullYear(year);
+
+    this.setState(updates);
+
+    return true;
+}
+
+export function convertToMonthYear(date, target) {
+    const updates = {};
+
+    if (!date.length || !date.match(/\d+/g)) {
+        updates[target] = '';
+        this.setState(updates);
+        return true;
+    }
+
+    const numbers = date.match(/\d+/g).join('');
+    const result = new StringMask('00/0000').apply(numbers);
 
     updates[target] = result;
+
+    this.setState(updates);
+
+    return true;
+}
+
+export function convertToTimestamp(date, target) {
+    const updates = {};
+
+    updates[target] = moment(date, 'M/YYYY');
+
     this.setState(updates);
 
     return true;
@@ -82,6 +116,23 @@ export function convertToMoney(number, target) {
 
     const numbers = number.match(/\d+/g).join('');
     const result = new StringMask('#.##0,00', { reverse: true }).apply(numbers);
+
+    updates[target] = result;
+
+    this.setState(updates);
+}
+
+export function convertToCPF(number, target) {
+    const updates = {};
+
+    if (!number.length || !number.match(/\d+/g)) {
+        updates[target] = '';
+        this.setState(updates);
+        return;
+    }
+
+    const numbers = number.match(/\d+/g).join('');
+    const result = new StringMask('000.000.000-00').apply(numbers);
 
     updates[target] = result;
 

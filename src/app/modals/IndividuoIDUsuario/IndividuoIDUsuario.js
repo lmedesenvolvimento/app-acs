@@ -51,6 +51,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
     ];
 
     fields = [
+        'iden_cpf',
         'iden_cns',
         'iden_responsavel_familiar',
         'iden_cns_responsavel_familiar',
@@ -101,6 +102,21 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                 <Content padder>
                     <H1 style={styles.heading}>Indentificação do usuário / cidadão</H1>
                     <Form>
+                        <Item
+                            style={styles.item}
+                            stackedLabel
+                        >
+                            <Label>CPF do cidadão *</Label>
+                            <Input
+                                ref={ref => this.inputs.cm_numero_moradores = ref}
+                                keyboardType="numeric"
+                                maxLength={14}
+                                onChangeText={iden_cpf => this.convertToCPF(iden_cpf, 'iden_cpf')}
+                                placeholder="Informe o CPF do cidadão"
+                            >
+                                {state.iden_cpf}
+                            </Input>
+                        </Item>
                         <Item
                             style={styles.item}
                             error={this.hasError('iden_cns')}

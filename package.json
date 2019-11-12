@@ -19,6 +19,8 @@
     "expo": "^34.0.3",
     "expo-constants": "~6.0.0",
     "expo-font": "~6.0.1",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
     "native-base": "^2.12.1",
     "prop-types": "^15.7.2",
     "react": "16.8.3",

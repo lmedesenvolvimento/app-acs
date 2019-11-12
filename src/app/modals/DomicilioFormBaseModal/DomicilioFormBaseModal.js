@@ -14,9 +14,12 @@ import {
     convertToPhone,
     convertToDate,
     convertToYear,
+    convertToMonthYear,
+    convertToTimestamp,
     convertToMoney,
     convertToHeight,
-    convertToWeight
+    convertToWeight,
+    convertToCPF
 } from '@/helpers';
 
 class DomicilioFormBaseModal extends Component {
@@ -26,11 +29,14 @@ class DomicilioFormBaseModal extends Component {
 
     convertToDate = convertToDate
     convertToYear = convertToYear
+    convertToMonthYear = convertToMonthYear
+    convertToTimestamp = convertToTimestamp
     convertToPhone = convertToPhone
     convertToMoney = convertToMoney
     convertToNumber = convertToNumber
     convertToHeight = convertToHeight
     convertToWeight = convertToWeight
+    convertToCPF = convertToCPF
 
     constructor(props) {
         super(props);

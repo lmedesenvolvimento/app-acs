@@ -158,11 +158,11 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 ref={ref => inputs.reside = ref}
                                 autoCorrect={false}
                                 keyboardType="numeric"
-                                placeholder="Exemplo: 1990"
-                                onChangeText={reside => this.convertToYear(reside, 'reside')}
-                                maxLength={4}
+                                placeholder="Exemplo: 01/1990"
+                                onChangeText={reside => this.convertToMonthYear(reside, 'reside')}
+                                maxLength={7}
                             >
-                                {state.reside}
+                                { state.reside }
                             </Input>
                         </Item>
 
