@@ -47,6 +47,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
         'iden_nome_pai',
         'iden_data_nascimento',
         'iden_nacionalidade',
+        'iden_sexo',
         'iden_raca'
     ];
 
@@ -64,6 +65,8 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
         'iden_n_nis',
         'iden_nome_mae',
         'iden_nome_pai',
+        'iden_desconhece_nome_mae',
+        'iden_desconhece_nome_pai',
         'iden_nacionalidade',
         'iden_pais_nascimento',
         'iden_data_naturalizacao',
@@ -77,7 +80,9 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
     constructor(props) {
         super(props);
         this.state = {
-            iden_nacionalidade: 'brasileira'
+            iden_nacionalidade: 'brasileira',
+            iden_desconhece_nome_mae: false,
+            iden_desconhece_nome_pai: false
         };
     }
 
@@ -106,7 +111,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             style={styles.item}
                             stackedLabel
                         >
-                            <Label>CPF do cidadão *</Label>
+                            <Label>CPF do cidadão</Label>
                             <Input
                                 ref={ref => this.inputs.cm_numero_moradores = ref}
                                 keyboardType="numeric"
@@ -280,13 +285,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                         </Item>
 
                         <ListItem
-                            onPress={
-                                () => {
-                                    this.setState({
-                                        iden_nome_mae: !this.isEmptyField('iden_nome_mae') ? this.emptyField.toString() : ''
-                                    });
-                                }
-                            }
+                            onPress={this.onPressCheckEmptyNomeMae}
                             noBorder
                         >
                             <CheckBox checked={this.isEmptyField('iden_nome_mae')} />
@@ -312,13 +311,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                         </Item>
 
                         <ListItem
-                            onPress={
-                                () => {
-                                    this.setState({
-                                        iden_nome_pai: !this.isEmptyField('iden_nome_pai') ? this.emptyField.toString() : ''
-                                    });
-                                }
-                            }
+                            onPress={this.onPressCheckEmptyNomePai}
                             noBorder
                         >
                             <CheckBox checked={this.isEmptyField('iden_nome_pai')} />
@@ -474,6 +467,26 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                 </LightFooter>
             </SafeView>
         );
+    }
+
+    onPressCheckEmptyNomeMae = () => {
+        const isNotEmpty = !this.isEmptyField('iden_nome_mae');
+        const iden_nome_mae = isNotEmpty ? this.emptyField.toString() : '';
+
+        this.setState(state => ({
+            iden_nome_mae,
+            iden_desconhece_nome_mae: !state.iden_desconhece_nome_mae
+        }));
+    }
+
+    onPressCheckEmptyNomePai = () => {
+        const isNotEmpty = !this.isEmptyField('iden_nome_pai');
+        const iden_nome_pai = isNotEmpty ? this.emptyField.toString() : '';
+
+        this.setState(state => ({
+            iden_nome_pai,
+            iden_desconhece_nome_pai: !state.iden_desconhece_nome_pai
+        }));
     }
 
     isEmptyField = (attr) => {

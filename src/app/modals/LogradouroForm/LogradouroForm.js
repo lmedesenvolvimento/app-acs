@@ -355,13 +355,13 @@ class LogradouroFormScreen extends Component {
 
     fetchLogradouros = () => {
         const { props, state } = this;
-        const logradouros = props.getLogradouros(state.bairro.id);
+        const logradouros = props.getLogradourosByBairroID(state.bairro.id);
         this.setState({ logradouros });
     }
 
     handleSearch = (nome) => {
         const { props, state } = this;
-        const data = props.getLogradouros(state.bairro.id);
+        const data = props.getLogradourosByBairroID(state.bairro.id);
         const logradouros = filter(data, l => contains(l, nome.toLowerCase()));
         this.setState({ nome, logradouros });
     }
