@@ -189,7 +189,9 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Input
                                 style={styles.item}
                                 ref={ref => this.inputs.iden_nome_social = ref}
-                                onChangeText={iden_nome_social => this.convertToNumber(iden_nome_social, 'iden_nome_social')}
+                                onChangeText={(iden_nome_social) => {
+                                    this.setState({ iden_nome_social })
+                                }}
                                 placeholder="Informe o nome social do indivíduo"
                             >
                                 {state.iden_nome_social}
@@ -413,7 +415,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Input
                                 ref={ref => this.inputs.iden_data_entrada_brasil = ref}
                                 onChangeText={iden_data_entrada_brasil => this.convertToDate(iden_data_entrada_brasil, 'iden_data_entrada_brasil')}
-                                placeholder="Informe a portaria da naturalização"
+                                placeholder="Informe a data de entrada no Brasil"
                                 keyboardType="numeric"
                                 maxLength={10}
                             >

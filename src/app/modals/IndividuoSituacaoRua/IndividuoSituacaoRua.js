@@ -12,6 +12,8 @@ import {
     Button,
     H1,
     Spinner,
+    Item,
+    Input
 } from 'native-base';
 
 
@@ -23,6 +25,7 @@ import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
 import SelectBox from '@/components/Selectbox';
+import CheckboxSelect from '@/components/CheckboxSelect';
 
 import IndividuoFormBaseModal from '@/modals/IndividuoFormBaseModal';
 
@@ -43,6 +46,11 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
         'sr_possui_referencia_familiar',
         'sr_vezes_alimenta_dia',
         'sr_origem_alimentacao',
+        'sr_acompanhado_outra_instituicao',
+        'sr_instituicao',
+        'sr_visita_familiar',
+        'sr_tem_higiene_pessoal',
+        'sr_higiene_pessoal'
     ];
 
     constructor(props) {
@@ -109,6 +117,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                         <RadioSelect
                             data={Individuo.sr_possui_referencia_familiar}
                             default={state.sr_possui_referencia_familiar}
+                            isBoolean={true}
                             onChangeValue={sr_possui_referencia_familiar => this.setState({
                                 sr_possui_referencia_familiar: sr_possui_referencia_familiar === 'yes'
                             })}
@@ -121,7 +130,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                             data={Individuo.sr_vezes_alimenta_dia}
                             default={state.sr_vezes_alimenta_dia}
                             onChangeValue={sr_vezes_alimenta_dia => this.setState({
-                                sr_vezes_alimenta_dia: sr_vezes_alimenta_dia === 'yes'
+                                sr_vezes_alimenta_dia
                             })}
                         />
 
@@ -133,6 +142,64 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                             data={Individuo.sr_origem_alimentacao}
                             onValueChange={(sr_origem_alimentacao) => {
                                 this.setState({ sr_origem_alimentacao });
+                            }}
+                        />
+
+                        <Text style={styles.label} note>
+                            Quantas vezes se alimenta ao dia?
+                        </Text>
+                        <RadioSelect
+                            data={Individuo.sr_acompanhado_outra_instituicao}
+                            default={state.sr_acompanhado_outra_instituicao}
+                            onChangeValue={sr_acompanhado_outra_instituicao => this.setState({
+                                sr_acompanhado_outra_instituicao
+                            })}
+                        />
+
+                        <Text style={styles.label} note>
+                            É acompanhado por alguma instituição?
+                        </Text>
+                        <RadioSelect
+                            data={Individuo.sr_acompanhado_outra_instituicao}
+                            default={state.sr_acompanhado_outra_instituicao}
+                            isBoolean={true}
+                            onChangeValue={sr_acompanhado_outra_instituicao => this.setState({
+                                sr_acompanhado_outra_instituicao
+                            })}
+                        />
+
+                        <Item
+                            style={styles.item}
+                            stackedLabel
+                        >
+                            <Input
+                                onChangeText={sr_instituicao => this.setState({ sr_instituicao })}
+                                placeholder="Se sim, Informe o nome da instituição?"
+                            >
+                                {state.sr_instituicao}
+                            </Input>
+                        </Item>
+
+                        <Text style={styles.label} note>
+                            Tem acesso a higiene pessoal?
+                        </Text>
+                        <RadioSelect
+                            data={Individuo.sr_tem_higiene_pessoal}
+                            default={state.sr_tem_higiene_pessoal}
+                            isBoolean={true}
+                            onChangeValue={sr_tem_higiene_pessoal => this.setState({
+                                sr_tem_higiene_pessoal: sr_tem_higiene_pessoal === 'yes'
+                            })}
+                        />
+
+                        <Text style={styles.label} note>
+                            Se sim, quails?
+                        </Text>
+                        <CheckboxSelect
+                            default={state.sr_higiene_pessoal}
+                            data={Individuo.sr_higiene_pessoal}
+                            onChangeValue={(sr_higiene_pessoal) => {
+                                this.setState({ sr_higiene_pessoal });
                             }}
                         />
                     </Form>

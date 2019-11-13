@@ -53,9 +53,9 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
         'is_possui_plano_saude',
         'is_e_membro_comunidade',
         'is_povo_ou_comunidade',
-        'is_deseja_informar_orientacao_sexual',
         'is_informar_orientacao_sexual',
-        'is_informar_identidade_genero',
+        'is_orientacao_sexual',
+        'is_identidade_genero',
         'is_possui_deficiencia',
         'is_deficiencias'
     ];
@@ -170,11 +170,11 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             Participa de algum grupo comunitário?
                         </Text>
                         <RadioSelect
-                            data={Individuo.is_frequenta_cuidador_tradicional}
-                            default={state.is_frequenta_cuidador_tradicional}
+                            data={Individuo.is_participa_grupo_comunitario}
+                            default={state.is_participa_grupo_comunitario}
                             isBoolean={true}
-                            onChangeValue={is_frequenta_cuidador_tradicional => this.setState({
-                                is_frequenta_cuidador_tradicional
+                            onChangeValue={is_participa_grupo_comunitario => this.setState({
+                                is_participa_grupo_comunitario
                             })}
                         />
 
@@ -220,11 +220,11 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             Deseja informar orientação sexual?
                         </Text>
                         <RadioSelect
-                            data={Individuo.is_deseja_informar_orientacao_sexual}
-                            default={state.is_deseja_informar_orientacao_sexual}
+                            data={Individuo.is_informar_orientacao_sexual}
+                            default={state.is_informar_orientacao_sexual}
                             isBoolean={true}
-                            onChangeValue={is_deseja_informar_orientacao_sexual => this.setState({
-                                is_deseja_informar_orientacao_sexual
+                            onChangeValue={is_informar_orientacao_sexual => this.setState({
+                                is_informar_orientacao_sexual
                             })}
                         />
 
@@ -232,10 +232,10 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             Se sim, qual?
                         </Text>
                         <RadioSelect
-                            data={Individuo.is_informar_orientacao_sexual}
-                            default={state.is_informar_orientacao_sexual}
-                            onChangeValue={is_informar_orientacao_sexual => this.setState({
-                                is_informar_orientacao_sexual
+                            data={Individuo.is_orientacao_sexual}
+                            default={state.is_orientacao_sexual}
+                            onChangeValue={is_orientacao_sexual => this.setState({
+                                is_orientacao_sexual
                             })}
                         />
 
@@ -243,10 +243,10 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             Deseja informar identidade de gênero?
                         </Text>
                         <RadioSelect
-                            data={Individuo.is_informar_identidade_genero}
-                            default={state.is_informar_identidade_genero}
-                            onChangeValue={is_informar_identidade_genero => this.setState({
-                                is_informar_identidade_genero
+                            data={Individuo.is_identidade_genero}
+                            default={state.is_identidade_genero}
+                            onChangeValue={is_identidade_genero => this.setState({
+                                is_identidade_genero
                             })}
                         />
 

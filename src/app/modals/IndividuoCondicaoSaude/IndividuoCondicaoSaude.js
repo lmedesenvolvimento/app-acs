@@ -110,6 +110,21 @@ class IndividuoCondicaoSaude extends IndividuoFormBaseModal {
                             })}
                         />
 
+                        <Item
+                            style={styles.item}
+                            stackedLabel
+                        >
+                            <Label>Qual é a maternidade de referência?</Label>
+                            <Input
+                                placeholder="Informe a maternidade de referência"
+                                onChangeText={(cs_maternidade_referencia) => {
+                                    this.setState({ cs_maternidade_referencia });
+                                }}
+                            >
+                                {state.cs_maternidade_referencia}
+                            </Input>
+                        </Item>
+
                         <Text style={styles.label} note>
                             Sobre seu peso, você se considera?
                         </Text>

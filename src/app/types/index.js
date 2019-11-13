@@ -186,13 +186,13 @@ export const Individuo = {
         servidor_publico: 'Servidor Público',
         outro: 'Outro'
     },
-    is_informar_orientacao_sexual: {
+    is_orientacao_sexual: {
         heterossexual: 'Heterossexual',
         homossexual: 'Homossexual(gay/lésbica)',
         bissexual: 'Bissexual',
         outra: 'Outra'
     },
-    is_informar_identidade_genero: {
+    is_identidade_genero: {
         homem_transexual: 'Homem transexual',
         mulher_transexual: 'Mulher transexual',
         travesti: 'Travesti',
@@ -229,7 +229,7 @@ export const Individuo = {
         yes: 'Sim',
         no: 'Não'
     },
-    is_deseja_informar_orientacao_sexual: {
+    is_informar_orientacao_sexual: {
         yes: 'Sim',
         no: 'Não'
     },
@@ -360,6 +360,16 @@ export const Individuo = {
         origem_alimentacao_doacao_popular: 'Doação de popular',
         origem_alimentacao_outras: 'Outras',
     },
+    sr_higiene_pessoal: [
+        { key: 'higiene_pessoal_banho', text: 'Banho' },
+        { key: 'higiene_pessoal_acesso_sanitario', text: 'Acesso sanitario' },
+        { key: 'higiene_pessoal_higiene_bucal', text: 'Higiene Bucal' },
+        { key: 'higiene_pessoal_outras', text: 'Outras' },
+    ],
+    sr_tem_higiene_pessoal: {
+        yes: 'Sim',
+        no: 'Não'
+    },
     sr_esta_situacao_rua: {
         yes: 'Sim',
         no: 'Não'
@@ -369,6 +379,14 @@ export const Individuo = {
         no: 'Não'
     },
     sr_possui_referencia_familiar: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    sr_acompanhado_outra_instituicao: {
+        yes: 'Sim',
+        no: 'Não'
+    },
+    sr_visita_familiar: {
         yes: 'Sim',
         no: 'Não'
     }
