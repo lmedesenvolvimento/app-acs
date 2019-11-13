@@ -10,7 +10,7 @@ export const Domicilio = {
     cm_tipos: {
         casa: 'Casa',
         apartamento: 'Apartamento',
-        comodo: 'Comodo',
+        comodo: 'Cômodo',
         outro: 'Outro'
     },
     cm_situacao_moradias: {
@@ -18,7 +18,7 @@ export const Domicilio = {
         financiado: 'Financiado',
         alugado: 'Alugado',
         cedido: 'Cedido',
-        ocupacao: 'Ocupacao',
+        ocupacao: 'Ocupação',
         situacao_rua: 'Situação Rua',
         outra: 'Outra',
     },
@@ -31,9 +31,9 @@ export const Domicilio = {
         parceiro: 'Parceiro',
         assentado: 'Assentado',
         posseiro: 'Posseiro',
-        arrendatario: 'Arrendatario',
+        arrendatario: 'Arrendatário',
         comodatario: 'Comodatário',
-        beneficiario: 'Beneficiario',
+        beneficiario: 'Beneficiário',
         nao_aplica: 'Não Aplica'
     },
     cm_tipo_acessos: {
@@ -58,7 +58,7 @@ export const Domicilio = {
     },
     cm_abastecimento_aguas: {
         rede_encanada: 'Rede encanada',
-        poco: 'Poco',
+        poco: 'Poço',
         cisterna: 'Cisterna',
         carro_pipa: 'Carro pipa',
         outro: 'Outro'
@@ -74,7 +74,7 @@ export const Domicilio = {
         rede_coletora: 'Rede coletora',
         fossa_septica: 'Fossa séptica',
         fossa_rudimentar: 'Fossa rudimentar',
-        rio_lago_mar: 'Rio lago mar',
+        rio_lago_mar: 'Direto para um Rio, Lago ou Mar',
         ceu_aberto: 'Céu aberto',
         outra_forma: 'Outro forma'
     },

@@ -361,11 +361,11 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Input
                                 ref={ref => this.inputs.iden_data_naturalizacao = ref}
                                 onChangeText={(iden_data_naturalizacao) => {
-                                    this.convertToYear(iden_data_naturalizacao, 'iden_data_naturalizacao');
+                                    this.convertToDate(iden_data_naturalizacao, 'iden_data_naturalizacao');
                                 }}
                                 keyboardType="numeric"
-                                maxLength={4}
-                                placeholder="0000"
+                                maxLength={10}
+                                placeholder="00/00/0000"
                             >
                                 {state.iden_data_naturalizacao}
                             </Input>
@@ -412,10 +412,10 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Label>Data de entrada no Brasil</Label>
                             <Input
                                 ref={ref => this.inputs.iden_data_entrada_brasil = ref}
-                                onChangeText={iden_data_entrada_brasil => this.convertToYear(iden_data_entrada_brasil, 'iden_data_entrada_brasil')}
+                                onChangeText={iden_data_entrada_brasil => this.convertToDate(iden_data_entrada_brasil, 'iden_data_entrada_brasil')}
                                 placeholder="Informe a portaria da naturalização"
                                 keyboardType="numeric"
-                                maxLength={4}
+                                maxLength={10}
                             >
                                 {state.iden_data_entrada_brasil}
                             </Input>
