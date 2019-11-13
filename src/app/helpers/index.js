@@ -64,12 +64,10 @@ export function convertToYear(date, target) {
         return true;
     }
 
-    const yearDate = new Date();
     const numbers = date.match(/\d+/g).join('');
     const result = new StringMask('0000').apply(numbers);
-    const year = parseInt(result, 10);
 
-    updates[target] = yearDate.setFullYear(year);
+    updates[target] = result;
 
     this.setState(updates);
 
