@@ -42,12 +42,14 @@ class VisitaFicha extends IndividuoFormBaseModal {
 
     requireds = [
         'turno',
+        'data',
         'tipo_imovel',
     ];
 
     fields = [
         'turno',
         'tipo_imovel',
+        'data',
         'antropometria_peso',
         'antropometria_altura'
     ];
@@ -90,6 +92,20 @@ class VisitaFicha extends IndividuoFormBaseModal {
                 <Content padder>
                     <H1 style={styles.heading}>Ficha de Vista</H1>
                     <Form>
+                        <Item
+                            stackedLabel
+                            error={this.hasError('data')}
+                        >
+                            <Label>Data da Visíta:</Label>
+                            <Input
+                                onChangeText={data => this.convertToDate(data, 'data')}
+                                placeholder="Exemplo: 01/01/2019"
+                                maxLength={10}
+                            >
+                                { state.data }
+                            </Input>
+                        </Item>
+
                         <Text style={this.hasError('turno') ? styles.labelError : styles.label} note>
                             Turno
                         </Text>
