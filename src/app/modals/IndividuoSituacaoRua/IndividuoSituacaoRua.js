@@ -13,7 +13,8 @@ import {
     H1,
     Spinner,
     Item,
-    Input
+    Input,
+    Label
 } from 'native-base';
 
 
@@ -50,6 +51,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
         'sr_acompanhado_outra_instituicao',
         'sr_instituicao',
         'sr_visita_familiar',
+        'sr_grau_parentesco_familiar',
         'sr_tem_higiene_pessoal',
         'sr_higiene_pessoal'
     ];
@@ -123,6 +125,30 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                                 sr_possui_referencia_familiar: sr_possui_referencia_familiar === 'yes'
                             })}
                         />
+
+                        <Text style={styles.label} note>
+                            Recebe visita familiar?
+                        </Text>
+                        <RadioSelect
+                            data={Individuo.sr_visita_familiar}
+                            default={state.sr_visita_familiar}
+                            isBoolean={true}
+                            onChangeValue={sr_visita_familiar => this.setState({
+                                sr_visita_familiar: sr_visita_familiar === 'yes'
+                            })}
+                        />
+                        <Item stackedLabel>
+                            <Label>
+                                Grau de Parentesco Familiar
+                            </Label>
+                            <Input
+                                onChangeText={(sr_grau_parentesco_familiar) => {
+                                    this.setState({ sr_grau_parentesco_familiar });
+                                }}
+                            >
+                                { state.sr_grau_parentesco_familiar }
+                            </Input>
+                        </Item>
 
                         <Text style={this.hasError('sr_vezes_alimenta_dia') ? styles.labelError : styles.label} note>
                             Quantas vezes se alimenta ao dia?
