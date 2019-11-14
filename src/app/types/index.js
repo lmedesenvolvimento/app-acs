@@ -192,7 +192,7 @@ export const Individuo = {
         bissexual: 'Bissexual',
         outra: 'Outra'
     },
-    is_identidade_genero: {
+    is_informar_identidade_genero: {
         homem_transexual: 'Homem transexual',
         mulher_transexual: 'Mulher transexual',
         travesti: 'Travesti',
