@@ -24,7 +24,6 @@ import HeaderLeftButton from '@/components/HeaderLeftButton';
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
-import SelectBox from '@/components/Selectbox';
 import CheckboxSelect from '@/components/CheckboxSelect';
 
 import IndividuoFormBaseModal from '@/modals/IndividuoFormBaseModal';
@@ -36,7 +35,9 @@ import styles from './index.styl';
 class IndividuoSituacaoRua extends IndividuoFormBaseModal {
     inputs = {};
 
-    requireds = [];
+    requireds = [
+        'sr_esta_situacao_rua'
+    ];
 
     fields = [
         'sr_esta_situacao_rua',
@@ -137,7 +138,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                         <Text style={this.hasError('sr_origem_alimentacao') ? styles.labelError : styles.label} note>
                             Qual a origem da alimentação?
                         </Text>
-                        <SelectBox
+                        <CheckboxSelect
                             default={state.sr_origem_alimentacao}
                             data={Individuo.sr_origem_alimentacao}
                             onValueChange={(sr_origem_alimentacao) => {

@@ -353,13 +353,13 @@ export const Individuo = {
         duas_ou_tres: 'Duas ou três',
         mais_de_tres: 'Mais de três',
     },
-    sr_origem_alimentacao: {
-        origem_alimentacao_restaurante_popular: 'Restaurante popular',
-        origem_alimentacao_doacao_grupo_religioso: 'Doação grupo religioso',
-        origem_alimentacao_doacao_restaurante: 'Doação restaurante',
-        origem_alimentacao_doacao_popular: 'Doação de popular',
-        origem_alimentacao_outras: 'Outras',
-    },
+    sr_origem_alimentacao: [
+        { key: 'origem_alimentacao_restaurante_popular', text: 'Restaurante popular' },
+        { key: 'origem_alimentacao_doacao_restaurante', text: 'Doação grupo religioso' },
+        { key: 'origem_alimentacao_doacao_popular', text: 'Doação restaurante' },
+        { key: 'origem_alimentacao_doacao_grupo_religioso', text: 'Doação de popular' },
+        { key: 'origem_alimentacao_outras', text: 'Outras' },
+    ],
     sr_higiene_pessoal: [
         { key: 'higiene_pessoal_banho', text: 'Banho' },
         { key: 'higiene_pessoal_acesso_sanitario', text: 'Acesso sanitario' },
