@@ -173,17 +173,6 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                         />
 
                         <Text style={styles.label} note>
-                            Quantas vezes se alimenta ao dia?
-                        </Text>
-                        <RadioSelect
-                            data={Individuo.sr_acompanhado_outra_instituicao}
-                            default={state.sr_acompanhado_outra_instituicao}
-                            onChangeValue={sr_acompanhado_outra_instituicao => this.setState({
-                                sr_acompanhado_outra_instituicao
-                            })}
-                        />
-
-                        <Text style={styles.label} note>
                             É acompanhado por alguma instituição?
                         </Text>
                         <RadioSelect
