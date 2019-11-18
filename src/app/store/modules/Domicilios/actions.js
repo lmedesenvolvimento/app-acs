@@ -44,6 +44,16 @@ function destroyDomicilios(key) {
     };
 }
 
+function getDomicilio(key) {
+    return (dispatch, getState) => {
+        const { Domicilios } = getState();
+
+        return chain(Domicilios.data)
+            .find({ key })
+            .value();
+    };
+}
+
 function getDomiciliosByQuadraLogradouro(quadra_logradouro_key) {
     return (dispatch, getState) => {
         const { Domicilios } = getState();
@@ -64,6 +74,7 @@ export const actions = {
 };
 
 export const getters = {
+    getDomicilio,
     getDomiciliosByQuadraLogradouro
 };
 

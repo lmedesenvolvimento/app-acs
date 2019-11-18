@@ -19,6 +19,8 @@ import {
     CheckBox
 } from 'native-base';
 
+import { connect } from 'react-redux';
+
 
 import Colors from '@/constants/Colors';
 
@@ -28,6 +30,8 @@ import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
 import Selectbox from '@/components/Selectbox';
+
+import DomicilioActions from '@redux/modules/Domicilios/actions';
 
 import IndividuoFormBaseModal from '@/modals/IndividuoFormBaseModal';
 
@@ -84,6 +88,22 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
             iden_desconhece_nome_mae: false,
             iden_desconhece_nome_pai: false
         };
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+        const { navigation, getDomicilio } = this.props;
+        const { domicilio } = navigation.getParam('model');
+
+        // Adicionando o primeiro membro da familia como responsável familiar
+        const { familias } = getDomicilio(domicilio.key);
+
+        if (familias && familias.length) {
+            const { numero_cartao_sus_responsavel } = familias[0];
+            this.setState({
+                iden_cns_responsavel_familiar: numero_cartao_sus_responsavel
+            });
+        }
     }
 
     render() {
@@ -500,4 +520,4 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
     }
 }
 
-export default IndividuoIDUsuario;
+export default connect(null, DomicilioActions)(IndividuoIDUsuario);
