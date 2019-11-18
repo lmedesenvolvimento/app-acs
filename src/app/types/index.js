@@ -128,7 +128,7 @@ export const Individuo = {
     iden_raca: {
         branca: 'Branca',
         preta: 'Preta',
-        Parda: 'Parda',
+        parda: 'Parda',
         amarela: 'Amarela',
         indigena: 'Indígena'
     },
