@@ -142,15 +142,15 @@ export const Individuo = {
         no: 'Não'
     },
     is_parentesco_responsavel_familiar: {
-        conjuge: 'Conjuge/Companheiro(a)',
+        conjuge_companheiro: 'Cônjuge/Companheiro(a)',
         filho: 'Filho(a)',
         enteado: 'Enteado(a)',
-        neto: 'Neto(a)/Bisneto(a)',
-        pai: 'Pai/Mãe',
+        neto_bisneto: 'Neto(a)/Bisneto(a)',
+        pai_mae: 'Pai/Mãe',
         sogro: 'Sogro(a)',
-        irmao: 'Irmão(a)',
-        genro: 'Genro/Nora',
-        outros: 'Outro parente',
+        irmao_irma: 'Irmão(a)',
+        genro_nora: 'Genro/Nora',
+        outro_parente: 'Outro parente',
         nao_parente: 'Não Parente',
     },
     is_frequenta_escola: {
@@ -192,7 +192,7 @@ export const Individuo = {
         bissexual: 'Bissexual',
         outra: 'Outra'
     },
-    is_informar_identidade_genero: {
+    is_identidade_genero: {
         homem_transexual: 'Homem transexual',
         mulher_transexual: 'Mulher transexual',
         travesti: 'Travesti',
