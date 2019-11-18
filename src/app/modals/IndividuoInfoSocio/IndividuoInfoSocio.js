@@ -162,7 +162,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             default={state.is_frequenta_cuidador_tradicional}
                             isBoolean={true}
                             onChangeValue={is_frequenta_cuidador_tradicional => this.setState({
-                                is_frequenta_cuidador_tradicional
+                                is_frequenta_cuidador_tradicional: is_frequenta_cuidador_tradicional === 'yes'
                             })}
                         />
 
@@ -174,7 +174,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             default={state.is_participa_grupo_comunitario}
                             isBoolean={true}
                             onChangeValue={is_participa_grupo_comunitario => this.setState({
-                                is_participa_grupo_comunitario
+                                is_participa_grupo_comunitario: is_participa_grupo_comunitario === 'yes'
                             })}
                         />
 
@@ -186,7 +186,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             default={state.is_possui_plano_saude}
                             isBoolean={true}
                             onChangeValue={is_possui_plano_saude => this.setState({
-                                is_possui_plano_saude
+                                is_possui_plano_saude: is_possui_plano_saude === 'yes'
                             })}
                         />
 
@@ -198,7 +198,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             default={state.is_e_membro_comunidade}
                             isBoolean={true}
                             onChangeValue={is_e_membro_comunidade => this.setState({
-                                is_e_membro_comunidade
+                                is_e_membro_comunidade: is_e_membro_comunidade === 'yes'
                             })}
                         />
 
@@ -224,7 +224,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             default={state.is_informar_orientacao_sexual}
                             isBoolean={true}
                             onChangeValue={is_informar_orientacao_sexual => this.setState({
-                                is_informar_orientacao_sexual
+                                is_informar_orientacao_sexual: is_informar_orientacao_sexual === 'yes'
                             })}
                         />
 
@@ -247,7 +247,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             default={state.is_informar_identidade_genero}
                             isBoolean={true}
                             onChangeValue={is_informar_identidade_genero => this.setState({
-                                is_informar_identidade_genero
+                                is_informar_identidade_genero: is_informar_identidade_genero === 'yes'
                             })}
                         />
 
@@ -266,7 +266,7 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             default={state.is_possui_deficiencia}
                             isBoolean={true}
                             onChangeValue={is_possui_deficiencia => this.setState({
-                                is_possui_deficiencia
+                                is_possui_deficiencia: is_possui_deficiencia === 'yes'
                             })}
                         />
 

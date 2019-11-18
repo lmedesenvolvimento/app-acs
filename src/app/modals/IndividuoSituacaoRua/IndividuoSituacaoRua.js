@@ -191,7 +191,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                             default={state.sr_acompanhado_outra_instituicao}
                             isBoolean={true}
                             onChangeValue={sr_acompanhado_outra_instituicao => this.setState({
-                                sr_acompanhado_outra_instituicao
+                                sr_acompanhado_outra_instituicao: sr_acompanhado_outra_instituicao === 'yes'
                             })}
                         />
 
