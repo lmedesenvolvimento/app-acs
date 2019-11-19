@@ -10,9 +10,10 @@ import { defaultNavigationOptions } from './index.const';
 
 const AppStack = createDrawerNavigator({
     Home: require('@/screens/MainScreen').default,
-    About: require('@/screens/AboutScreen').default,
+    Profile: require('@/screens/ProfileScreen').default,
     Sync: require('@/screens/SyncScreeen').default,
-    Reload: require('@/screens/ReloadStoreScreen').default
+    Reload: require('@/screens/ReloadStoreScreen').default,
+    About: require('@/screens/AboutScreen').default
 }, {
     initialRouteName: 'Home',
     drawerLockMode: 'locked-closed',
