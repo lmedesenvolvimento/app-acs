@@ -17,7 +17,8 @@ const AppStack = createDrawerNavigator({
 }, {
     initialRouteName: 'Home',
     drawerLockMode: 'locked-closed',
-    defaultNavigationOptions
+    defaultNavigationOptions,
+    contentComponent: require('@/components/SideMenu').default
 });
 
 const AuthStack = createStackNavigator({
