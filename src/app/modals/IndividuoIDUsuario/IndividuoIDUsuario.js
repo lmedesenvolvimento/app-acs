@@ -210,7 +210,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                                 style={styles.item}
                                 ref={ref => this.inputs.iden_nome_social = ref}
                                 onChangeText={(iden_nome_social) => {
-                                    this.setState({ iden_nome_social })
+                                    this.setState({ iden_nome_social });
                                 }}
                                 placeholder="Informe o nome social do indivíduo"
                             >

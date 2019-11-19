@@ -251,6 +251,17 @@ class IndividuoInfoSocio extends IndividuoFormBaseModal {
                             })}
                         />
 
+                        <Text style={styles.label} note>
+                            Se sim, qual?
+                        </Text>
+                        <RadioSelect
+                            data={Individuo.is_identidade_genero}
+                            default={state.is_identidade_genero}
+                            onChangeValue={is_identidade_genero => this.setState({
+                                is_identidade_genero
+                            })}
+                        />
+
                         <Text
                             style={
                                 this.hasError('is_possui_deficiencia')

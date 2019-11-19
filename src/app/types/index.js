@@ -233,6 +233,10 @@ export const Individuo = {
         yes: 'Sim',
         no: 'Não'
     },
+    is_informar_identidade_genero: {
+        yes: 'Sim',
+        no: 'Não'
+    },
     is_possui_deficiencia: {
         yes: 'Sim',
         no: 'Não'

@@ -127,7 +127,7 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                         />
 
                         <Text style={styles.label} note>
-                            Recebe visita familiar?
+                            Visita algum familiar com frequência?
                         </Text>
                         <RadioSelect
                             data={Individuo.sr_visita_familiar}
