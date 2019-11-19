@@ -225,7 +225,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             <Selectbox
                                 data={Individuo.iden_sexo}
                                 default={state.iden_sexo}
-                                placeholder="Sexo"
+                                placeholder="Sexo *"
                                 onValueChange={iden_sexo => this.setState({ iden_sexo })}
                             />
                         </Item>

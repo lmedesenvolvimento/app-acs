@@ -78,7 +78,7 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                     <H1 style={styles.heading}>Cadastro Domiciliar</H1>
                     <Form>
                         <Item stackedLabel error={this.hasError('numero_prontuario')}>
-                            <Label>Nº do prontuário familiar *</Label>
+                            <Label>Nº do prontuário familiar</Label>
                             <Input
                                 keyboardType="numeric"
                                 autoCorrect={false}
