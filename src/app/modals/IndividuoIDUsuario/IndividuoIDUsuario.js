@@ -220,6 +220,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
 
                         <Item
                             style={styles.pickerItem}
+                            error={this.hasError('iden_sexo')}
                             picker
                         >
                             <Selectbox
