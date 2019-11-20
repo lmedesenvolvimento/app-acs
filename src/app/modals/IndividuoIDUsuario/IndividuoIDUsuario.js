@@ -242,6 +242,7 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                                 keyboardType="numeric"
                                 onChangeText={iden_data_nascimento => this.convertToDate(iden_data_nascimento, 'iden_data_nascimento')}
                                 placeholder="00/00/0000"
+                                maxLength={10}
                             >
                                 {state.iden_data_nascimento}
                             </Input>

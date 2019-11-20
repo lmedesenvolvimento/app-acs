@@ -159,8 +159,8 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                                 autoCorrect={false}
                                 keyboardType="numeric"
                                 placeholder="Exemplo: 01/1990"
-                                onChangeText={reside => this.convertToMonthYear(reside, 'reside')}
-                                maxLength={7}
+                                onChangeText={reside => this.convertToDate(reside, 'reside')}
+                                maxLength={10}
                             >
                                 { state.reside }
                             </Input>

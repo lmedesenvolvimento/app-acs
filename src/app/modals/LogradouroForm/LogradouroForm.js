@@ -34,9 +34,9 @@ import LogradouroActions from '@redux/modules/Logradouros/actions';
 import QuadraActions from '@redux/modules/Quadras/actions';
 import Colors from '@/constants/Colors';
 
-import { Logradouro as Types } from '@/types';
+import { Logradouro } from '@/types';
 
-import { filter, find } from 'lodash';
+import { filter, find, pick } from 'lodash';
 
 import styles from './index.styl';
 
@@ -58,7 +58,6 @@ class LogradouroFormScreen extends Component {
             bairro: null,
             quadra_key: null,
             tipo: 'rua',
-            tipos: Types.tipos,
             nomeFocus: false,
             logradouros: [],
             errors: {}
@@ -68,6 +67,7 @@ class LogradouroFormScreen extends Component {
     componentWillMount() {
         const { props } = this;
         const { navigation } = props;
+        console.log(navigation.getParam('model'))
         this.setState({ ...navigation.getParam('model') });
     }
 
@@ -233,14 +233,12 @@ class LogradouroFormScreen extends Component {
         if (isHasInLogradouros) {
             logradouro = {
                 ...find(logradourosByBairro, { nome: state.nome }),
+                ...pick(state, ['key', 'nome', 'bairro', 'tipo']),
                 _action: props.navigation.getParam('action')
             };
         } else {
             logradouro = {
-                key: state.key,
-                nome: state.nome,
-                bairro: state.bairro,
-                tipo: state.tipo,
+                ...pick(state, ['key', 'nome', 'bairro', 'tipo']),
                 _action: props.navigation.getParam('action')
             };
         }
@@ -255,7 +253,7 @@ class LogradouroFormScreen extends Component {
 
         ToastAndroid.show('Logradouro atualizado com sucesso!', ToastAndroid.SHORT);
 
-        props.navigation.getParam('returnData')(state.nome);
+        props.navigation.getParam('returnData')(logradouro);
 
         setTimeout(this.goBack, 600);
     }
@@ -286,9 +284,9 @@ class LogradouroFormScreen extends Component {
                             selectedValue={state.tipo}
                             onValueChange={tipo => this.setState({ tipo })}
                         >
-                            <Picker.Item label="Rua" value={state.tipos.rua} />
-                            <Picker.Item label="Avenida" value={state.tipos.avenida} />
-                            <Picker.Item label="Outros" value={state.tipos.outros} />
+                            <Picker.Item label={Logradouro.tipos.rua} value="rua" />
+                            <Picker.Item label={Logradouro.tipos.avenida} value="avenida" />
+                            <Picker.Item label={Logradouro.tipos.outros} value="outros" />
                         </Picker>
                     </Item>
                 </View>
@@ -367,8 +365,8 @@ class LogradouroFormScreen extends Component {
     }
 }
 
-const mapStateToProps = ({ Logradouro }) => ({
-    Logradouro,
+const mapStateToProps = state => ({
+    Logradouro: state.Logradouro,
 });
 
 const mapDispatchToProps = (dispatch) => {

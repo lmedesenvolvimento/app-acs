@@ -234,8 +234,16 @@ class DomicilioScreen extends Component {
         props.navigation.goBack();
     }
 
-    onReturnDataEdit = (title) => {
-        this.setState({ title });
+    onReturnDataEdit = (logradouro) => {
+        const { navigation } = this.props;
+        const { nome } = logradouro;
+
+        navigation.setParams({
+            ...navigation.state.params,
+            logradouro
+        });
+
+        this.setState({ title: nome });
     }
 }
 
