@@ -30,7 +30,7 @@ import styles from './index.styl';
 
 
 const ProfileScreen = ({ navigation, signOutAsync, asynClearData }) => {
-    // const currentUser = useSelector(({ User }) => User.data);
+    const currentUser = useSelector(({ User }) => User.data);
     const isConnected = useSelector(({ Network }) => Network.isConnected);
 
     const logout = async () => {
@@ -98,24 +98,32 @@ const ProfileScreen = ({ navigation, signOutAsync, asynClearData }) => {
             <Container style={styles.container}>
                 <Container style={[styles.section, { alignItems: 'center' }]}>
                     <Thumbnail style={styles.thumbnail} large source={require('@assets/profile-placeholder.jpg')} />
-                    <H2>Agente 1</H2>
+                    <H2>{ currentUser ? currentUser.name : '' }</H2>
                 </Container>
                 <Container style={[styles.section, { justifyContent: 'center' }]}>
                     <Text style={styles.title}>
                         E-mail:
-                        <Text style={styles.note} note> agent1@mail.com </Text>
+                        <Text style={styles.note} note>
+                            {currentUser ? currentUser.email : '' }
+                        </Text>
                     </Text>
                     <Text style={styles.title}>
                         CBO:
-                        <Text style={styles.note} note> 3478.8 </Text>
+                        <Text style={styles.note} note>
+                            { currentUser ? currentUser.cbo : '' }
+                        </Text>
                     </Text>
                     <Text style={styles.title}>
                         CNES:
-                        <Text style={styles.note} note> 679875 </Text>
+                        <Text style={styles.note} note>
+                            {currentUser ? currentUser.cnes : '' }
+                        </Text>
                     </Text>
                     <Text style={styles.title}>
                         INE:
-                        <Text style={styles.note} note> 347568887889 </Text>
+                        <Text style={styles.note} note>
+                            { currentUser ? currentUser.ine : ''}
+                        </Text>
                     </Text>
                 </Container>
                 <Container style={[styles.section, { justifyContent: 'center' }]}>

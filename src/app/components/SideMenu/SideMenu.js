@@ -59,7 +59,7 @@ const SideMenu = ({ navigation }) => {
     return (
         <Container>
             <Container style={[styles.header, relativeStyles.header]}>
-                <Text style={styles.headerText}>{currentUser.email}</Text>
+                <Text style={styles.headerText}>{ currentUser ? currentUser.email : '' }</Text>
                 <Text style={styles.headerNote}>{ isConnected ? 'connectado' : 'sem rede' }</Text>
             </Container>
             <List>
