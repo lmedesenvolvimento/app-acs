@@ -35,10 +35,19 @@ function signInAsync(email, password, onSuccess, onFail) {
                 const payload = Object.assign({}, data, { email });
                 dispatch(signed);
                 dispatch(signInDone);
+
                 // create user storages
-                dispatch(UserActions.setUser(payload));
+                dispatch(
+                    UserActions.setUser(payload)
+                );
+
                 // set in all request axios bearer token
                 defineAccessToken(data);
+
+                dispatch(
+                    UserActions.asyncFetchCurrentUser(payload)
+                );
+
                 // callback
                 onSuccess(data);
             }).catch((error) => {
