@@ -265,5 +265,4 @@ const mapStateToProps = ({ Domicilios }) => {
     };
 };
 
-
 export default connect(mapStateToProps, DomiciliosActions)(DomicilioFormMainScreen);

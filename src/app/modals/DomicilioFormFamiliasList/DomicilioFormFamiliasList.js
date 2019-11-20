@@ -79,7 +79,7 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
                 />
                 <LightFooter>
                     <Left>
-                        <Button transparent block small onPress={this.onPressBack}>
+                        <Button transparent block small onPress={this.onPressBackWithConfirmation}>
                             <Text style={{ color: Colors.textColor }}>Cancelar</Text>
                         </Button>
                     </Left>
@@ -180,6 +180,24 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
     }
 
     onPressBack = () => {
+        MainNavigation.goBack();
+    }
+
+    onPressBackWithConfirmation = () => {
+        const { familias } = this.state;
+
+        if (familias.length) {
+            Alert.alert(
+                'Atenção',
+                'Todos os dados dos formulários serão perdidos.',
+                [
+                    { text: 'Cancelar', style: 'cancel' },
+                    { text: 'Confirmar', style: 'destructive', onPress: () => MainNavigation.goBack() }
+                ]
+            );
+            return;
+        }
+
         MainNavigation.goBack();
     }
 }
