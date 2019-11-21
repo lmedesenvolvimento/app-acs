@@ -7,7 +7,7 @@
     "platforms": [
       "android"
     ],
-    "version": "0.6.42",
+    "version": "0.6.43",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {

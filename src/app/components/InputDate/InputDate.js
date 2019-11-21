@@ -74,6 +74,7 @@ class InputDate extends React.Component {
 
     onChangeText = (inputValue) => {
         const { props } = this;
+        const maxLength = props.maxLength || InputDate.maxLength;
 
         let value = null;
         let valueDate = null;
@@ -87,7 +88,7 @@ class InputDate extends React.Component {
             break;
         }
 
-        if (value.length !== InputDate.maxLength) {
+        if (value.length !== maxLength) {
             this.setState({
                 value
             });
