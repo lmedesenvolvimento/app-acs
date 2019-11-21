@@ -7,7 +7,7 @@
     "platforms": [
       "android"
     ],
-    "version": "0.6.41",
+    "version": "0.6.42",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -26,7 +26,7 @@
     },
     "android": {
       "package": "br.ufc.lme.aedesemfoco.saude",
-      "versionCode": 8,
+      "versionCode": 9,
       "permissions": [
         "ACCESS_FINE_LOCATION"
       ]

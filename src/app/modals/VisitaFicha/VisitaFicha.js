@@ -32,6 +32,7 @@ import InputDate from '@/components/InputDate';
 
 import IndividuoFormBaseModal from '@/modals/IndividuoFormBaseModal';
 
+import moment from '@/services/Timestamp';
 import { Visita } from '@/types';
 
 import IndividuoActions from '@redux/modules/Individuos/actions';
@@ -146,7 +147,7 @@ class VisitaFicha extends IndividuoFormBaseModal {
                         >
                             <Label>Data de nascimento</Label>
                             <Input disabled>
-                                {state.individuo.iden_data_nascimento ? state.individuo.iden_data_nascimento : 'Não Informado'}
+                                {state.individuo.iden_data_nascimento ? moment(state.individuo.iden_data_nascimento).format('DD/MM/YYYY') : 'Não Informado'}
                             </Input>
                         </Item>
 

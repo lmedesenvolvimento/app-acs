@@ -36,7 +36,7 @@ export function convertToPhone(phone, target) {
     return true;
 }
 
-export function parseToDate(text) {
+export function parseToDate(text, mask) {
     let date = '';
 
     if (!text.length || !text.match(/\d+/g)) {
@@ -44,7 +44,7 @@ export function parseToDate(text) {
     }
 
     const numbers = text.match(/\d+/g).join('');
-    date = new StringMask('00/00/0000').apply(numbers);
+    date = new StringMask(mask || '00/00/0000').apply(numbers);
 
     return date;
 }

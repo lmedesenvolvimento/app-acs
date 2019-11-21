@@ -10,17 +10,16 @@ import {
 import moment from '@/services/Timestamp';
 import { parseToDate } from '@/helpers';
 
-class InputDate extends React.Component {
-    static propTypes = {
-        default: PropTypes.any,
-        onChangeValue: PropTypes.func,
-        label: PropTypes.string,
-        error: PropTypes.bool,
-        placeholder: PropTypes.string,
-        style: PropTypes.any
-    }
+/**
+ * @prop {boolean} error
+ */
 
+class InputDate extends React.Component {
     static maxLength = 10;
+    static types = {
+        default: 'default',
+        monthYear: 'month-year'
+    }
 
     parseToDate = parseToDate;
 
@@ -33,7 +32,12 @@ class InputDate extends React.Component {
 
     componentDidMount() {
         const { props } = this;
-        const value = props.default ? moment(props.default).format('DD/MM/YYYY') : '';
+        let value = '';
+
+        if (props.default && moment(props.default).isValid()) {
+            value = this.formatDate(props.default);
+        }
+
         this.setState({ value });
     }
 
@@ -50,7 +54,7 @@ class InputDate extends React.Component {
                     keyboardType="numeric"
                     onChangeText={this.onChangeText}
                     placeholder={props.placeholder}
-                    maxLength={InputDate.maxLength}
+                    maxLength={props.maxLength || InputDate.maxLength}
                 >
                     {state.value}
                 </Input>
@@ -58,9 +62,30 @@ class InputDate extends React.Component {
         );
     }
 
+    formatDate = (inputValue) => {
+        const { props } = this;
+        switch (props.types) {
+        case InputDate.types.monthYear:
+            return moment(inputValue).format('MM/YYYY');
+        default:
+            return moment(inputValue).format('DD/MM/YYYY');
+        }
+    }
+
     onChangeText = (inputValue) => {
         const { props } = this;
-        const value = this.parseToDate(inputValue);
+
+        let value = null;
+        let valueDate = null;
+
+        switch (props.type) {
+        case InputDate.types.monthYear:
+            value = this.parseToDate(inputValue, '00/0000');
+            break;
+        default:
+            value = this.parseToDate(inputValue);
+            break;
+        }
 
         if (value.length !== InputDate.maxLength) {
             this.setState({
@@ -72,7 +97,15 @@ class InputDate extends React.Component {
             return;
         }
 
-        const valueDate = moment(value, 'DD/MM/YYYY');
+        switch (props.types) {
+        case InputDate.types.monthYear:
+            valueDate = moment(value, 'MM/YYYY');
+            break;
+        default:
+            valueDate = moment(value, 'DD/MM/YYYY');
+            break;
+        }
+
         const updates = { value };
 
         if (valueDate.isValid()) {
@@ -82,5 +115,16 @@ class InputDate extends React.Component {
         this.setState(updates);
     }
 }
+
+InputDate.propTypes = {
+    label: PropTypes.string,
+    type: PropTypes.string,
+    placeholder: PropTypes.string,
+    error: PropTypes.bool,
+    maxLength: PropTypes.number,
+    default: PropTypes.any,
+    style: PropTypes.any,
+    onChangeValue: PropTypes.func,
+};
 
 export default InputDate;

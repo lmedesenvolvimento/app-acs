@@ -236,7 +236,9 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             style={styles.item}
                             default={state.iden_data_nascimento}
                             label="Data de Nascimento *"
-                            onChangeValue={iden_data_nascimento => this.setState({ iden_data_nascimento })}
+                            onChangeValue={(iden_data_nascimento) => {
+                                this.setState({ iden_data_nascimento });
+                            }}
                             placeholder="00/00/0000"
                             error={this.hasError('iden_data_nascimento')}
                         />

@@ -154,8 +154,10 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                             style={styles.item}
                             default={state.reside}
                             label="Reside desde: "
+                            placeholder="00/0000"
                             onChangeValue={reside => this.setState({ reside })}
-                            placeholder="00/00/0000"
+                            type={InputDate.types.monthYear}
+                            maxLength={7}
                         />
 
                         <Text style={styles.label} note>Mudou-se?</Text>

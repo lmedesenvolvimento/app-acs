@@ -31,6 +31,7 @@ import LightFooter from '@/components/LightFooter';
 import DomicilioFormBaseModal from '@/modals/DomicilioFormBaseModal';
 
 import MainNavigation from '@/services/MainNavigation';
+import moment from '@/services/Timestamp';
 
 import styles from './index.styl';
 
@@ -56,7 +57,7 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
             <SafeView navigation={props.navigation} light={true} isModal={true}>
                 <LightHeader navigation={props.navigation} title="Cadastro Domiciliar">
                     <Left>
-                        <HeaderLeftButton icon onPress={this.onPressBack}>
+                        <HeaderLeftButton icon onPress={this.onPressBackWithConfirmation}>
                             <Icon name="ios-arrow-back" style={{ color: Colors.textColor }} />
                         </HeaderLeftButton>
                     </Left>
@@ -98,9 +99,11 @@ class DomicilioFormFamiliasModal extends DomicilioFormBaseModal {
         return (
             <ListItem onPress={() => this.onPressItem(item)} last>
                 <Body>
-                    <Text>Nº do numero prontuário</Text>
-                    <Text>{item.numero_prontuario}</Text>
-                    <Text note>{item.data_de_nascimento}</Text>
+                    <Text>Nº do CNS</Text>
+                    <Text>{item.numero_cartao_sus_responsavel}</Text>
+                    <Text note>
+                        { moment(item.data_de_nascimento).format('DD/MM/YYYY') }
+                    </Text>
                 </Body>
             </ListItem>
         );
