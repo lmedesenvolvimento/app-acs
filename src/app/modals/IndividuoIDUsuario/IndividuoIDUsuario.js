@@ -30,6 +30,7 @@ import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
 import Selectbox from '@/components/Selectbox';
+import InputDate from '@/components/InputDate';
 
 import DomicilioActions from '@redux/modules/Domicilios/actions';
 
@@ -231,23 +232,20 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             />
                         </Item>
 
-                        <Item
+                        <InputDate
                             style={styles.item}
+                            default={state.iden_data_nascimento}
+                            label="Data de Nascimento *"
+                            keyboardType="numeric"
+                            onChangeValue={(iden_data_nascimento) => {
+                                console.log(iden_data_nascimento);
+                                this.setState({ iden_data_nascimento });
+                            }}
+                            placeholder="00/00/0000"
                             error={this.hasError('iden_data_nascimento')}
-                            stackedLabel
                         >
-                            <Label>Data de Nascimento *</Label>
-                            <Input
-                                ref={ref => this.inputs.iden_data_nascimento = ref}
-                                keyboardType="numeric"
-                                onChangeText={iden_data_nascimento => this.convertToDate(iden_data_nascimento, 'iden_data_nascimento')}
-                                placeholder="00/00/0000"
-                                maxLength={10}
-                            >
-                                {state.iden_data_nascimento}
-                            </Input>
-                        </Item>
-
+                            {state.iden_data_nascimento}
+                        </InputDate>
 
                         <Item
                             style={styles.pickerItem}

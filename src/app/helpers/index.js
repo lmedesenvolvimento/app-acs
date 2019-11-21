@@ -36,6 +36,19 @@ export function convertToPhone(phone, target) {
     return true;
 }
 
+export function parseToDate(text) {
+    let date = '';
+
+    if (!text.length || !text.match(/\d+/g)) {
+        return date;
+    }
+
+    const numbers = text.match(/\d+/g).join('');
+    date = new StringMask('00/00/0000').apply(numbers);
+
+    return date;
+}
+
 export function convertToDate(date, target) {
     const updates = {};
 

@@ -150,7 +150,7 @@ class VisitaFicha extends IndividuoFormBaseModal {
                         >
                             <Label>Data de nascimento</Label>
                             <Input disabled>
-                                {state.individuo.iden_sexo ? state.individuo.iden_pais_nascimento : 'Não Informado'}
+                                {state.individuo.iden_data_nascimento ? state.individuo.iden_data_nascimento : 'Não Informado'}
                             </Input>
                         </Item>
 
