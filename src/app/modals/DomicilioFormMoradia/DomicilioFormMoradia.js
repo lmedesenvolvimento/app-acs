@@ -90,7 +90,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                             style={this.hasError('cm_situacao_moradia') ? styles.labelError : styles.label}
                             note
                         >
-                            Situação de moradia/Posse da terra
+                            Situação de moradia/Posse da terra *
                         </Text>
                         <RadioSelect
                             data={Domicilio.cm_situacao_moradias}
@@ -104,7 +104,7 @@ class DomicilioFormMoradiaModal extends DomicilioFormBaseModal {
                             style={this.hasError('cm_localizacao') ? styles.labelError : styles.label}
                             note
                         >
-                            Localização
+                            Localização *
                         </Text>
                         <RadioSelect
                             data={Domicilio.cm_localizacoes}

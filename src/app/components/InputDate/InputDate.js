@@ -10,10 +10,6 @@ import {
 import moment from '@/services/Timestamp';
 import { parseToDate } from '@/helpers';
 
-/**
- * @prop {boolean} error
- */
-
 class InputDate extends React.Component {
     static maxLength = 10;
     static types = {
@@ -64,7 +60,7 @@ class InputDate extends React.Component {
 
     formatDate = (inputValue) => {
         const { props } = this;
-        switch (props.types) {
+        switch (props.type) {
         case InputDate.types.monthYear:
             return moment(inputValue).format('MM/YYYY');
         default:
@@ -98,7 +94,8 @@ class InputDate extends React.Component {
             return;
         }
 
-        switch (props.types) {
+
+        switch (props.type) {
         case InputDate.types.monthYear:
             valueDate = moment(value, 'MM/YYYY');
             break;
