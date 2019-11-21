@@ -236,16 +236,10 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             style={styles.item}
                             default={state.iden_data_nascimento}
                             label="Data de Nascimento *"
-                            keyboardType="numeric"
-                            onChangeValue={(iden_data_nascimento) => {
-                                console.log(iden_data_nascimento);
-                                this.setState({ iden_data_nascimento });
-                            }}
+                            onChangeValue={iden_data_nascimento => this.setState({ iden_data_nascimento })}
                             placeholder="00/00/0000"
                             error={this.hasError('iden_data_nascimento')}
-                        >
-                            {state.iden_data_nascimento}
-                        </InputDate>
+                        />
 
                         <Item
                             style={styles.pickerItem}
@@ -374,24 +368,15 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             </Input>
                         </Item>
 
-                        <Item
+                        <InputDate
                             style={styles.item}
-                            error={this.hasError('iden_data_naturalizacao')}
-                            stackedLabel
-                        >
-                            <Label>Data da Naturalização</Label>
-                            <Input
-                                ref={ref => this.inputs.iden_data_naturalizacao = ref}
-                                onChangeText={(iden_data_naturalizacao) => {
-                                    this.convertToDate(iden_data_naturalizacao, 'iden_data_naturalizacao');
-                                }}
-                                keyboardType="numeric"
-                                maxLength={10}
-                                placeholder="00/00/0000"
-                            >
-                                {state.iden_data_naturalizacao}
-                            </Input>
-                        </Item>
+                            default={state.iden_data_naturalizacao}
+                            label="Data da Naturalização"
+                            onChangeValue={(iden_data_naturalizacao) => {
+                                this.setState({ iden_data_naturalizacao });
+                            }}
+                            placeholder="00/00/0000"
+                        />
 
                         <Item
                             style={styles.item}
@@ -427,21 +412,15 @@ class IndividuoIDUsuario extends IndividuoFormBaseModal {
                             </Input>
                         </Item>
 
-                        <Item
+                        <InputDate
                             style={styles.item}
-                            stackedLabel
-                        >
-                            <Label>Data de entrada no Brasil</Label>
-                            <Input
-                                ref={ref => this.inputs.iden_data_entrada_brasil = ref}
-                                onChangeText={iden_data_entrada_brasil => this.convertToDate(iden_data_entrada_brasil, 'iden_data_entrada_brasil')}
-                                placeholder="Informe a data de entrada no Brasil"
-                                keyboardType="numeric"
-                                maxLength={10}
-                            >
-                                {state.iden_data_entrada_brasil}
-                            </Input>
-                        </Item>
+                            default={state.iden_data_entrada_brasil}
+                            label="Informe a data de entrada no Brasil"
+                            onChangeValue={(iden_data_entrada_brasil) => {
+                                this.setState({ iden_data_entrada_brasil });
+                            }}
+                            placeholder="00/00/0000"
+                        />
 
                         <Item
                             style={styles.item}

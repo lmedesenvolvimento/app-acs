@@ -25,6 +25,7 @@ import HeaderLeftButton from '@/components/HeaderLeftButton';
 import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
+import InputDate from '@/components/InputDate';
 
 import IndividuoFormBaseModal from '@/modals/IndividuoFormBaseModal';
 
@@ -83,19 +84,16 @@ class IndividuoCadastroSaida extends IndividuoFormBaseModal {
                             Motivo: *
                         </Text>
 
-                        <Item
-                            stackedLabel
+                        <InputDate
+                            style={styles.item}
+                            default={state.sc_obito_data}
+                            label="Data do Óbito"
+                            onChangeValue={(sc_obito_data) => {
+                                this.setState({ sc_obito_data });
+                            }}
+                            placeholder="00/00/0000"
                             error={this.hasError('sc_obito_data')}
-                        >
-                            <Label>Data do Óbito</Label>
-                            <Input
-                                onChangeText={sc_obito_data => this.convertToDate(sc_obito_data, 'sc_obito_data')}
-                                placeholder="Informe a data do óbito"
-                                disabled={state.sc_tipo !== 'obito'}
-                            >
-                                {state.sc_obito_data}
-                            </Input>
-                        </Item>
+                        />
 
                         <Item
                             stackedLabel

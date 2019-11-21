@@ -28,6 +28,7 @@ import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
 import Selectbox from '@/components/Selectbox';
+import InputDate from '@/components/InputDate';
 
 import IndividuoFormBaseModal from '@/modals/IndividuoFormBaseModal';
 
@@ -92,19 +93,14 @@ class VisitaFicha extends IndividuoFormBaseModal {
                 <Content padder>
                     <H1 style={styles.heading}>Ficha de Vista</H1>
                     <Form>
-                        <Item
-                            stackedLabel
+                        <InputDate
+                            style={styles.item}
+                            default={state.data}
+                            label="Data da Visíta:"
+                            onChangeValue={data => this.setState({ data })}
+                            placeholder="00/00/0000"
                             error={this.hasError('data')}
-                        >
-                            <Label>Data da Visíta:</Label>
-                            <Input
-                                onChangeText={data => this.convertToDate(data, 'data')}
-                                placeholder="Exemplo: 01/01/2019"
-                                maxLength={10}
-                            >
-                                { state.data }
-                            </Input>
-                        </Item>
+                        />
 
                         <Text style={this.hasError('turno') ? styles.labelError : styles.label} note>
                             Turno

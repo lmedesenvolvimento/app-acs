@@ -26,6 +26,7 @@ import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
 import Selectbox from '@/components/Selectbox';
+import InputDate from '@/components/InputDate';
 import DomicilioFormBaseModal from '@/modals/DomicilioFormBaseModal';
 
 import { Familia } from '@/types';
@@ -111,19 +112,16 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                             </Input>
                         </Item>
 
-                        <Item stackedLabel error={this.hasError('data_de_nascimento')}>
-                            <Label>Data de nascimento do responsável *</Label>
-                            <Input
-                                ref={ref => inputs.data_de_nascimento = ref}
-                                autoCorrect={false}
-                                keyboardType="numeric"
-                                placeholder="Informe data de nascimento do responsável"
-                                onChangeText={data_de_nascimento => this.convertToDate(data_de_nascimento, 'data_de_nascimento')}
-                                maxLength={10}
-                            >
-                                {state.data_de_nascimento}
-                            </Input>
-                        </Item>
+                        <InputDate
+                            style={styles.item}
+                            default={state.data_de_nascimento}
+                            label="Data de nascimento do responsável *"
+                            onChangeValue={(data_de_nascimento) => {
+                                this.setState({ data_de_nascimento });
+                            }}
+                            placeholder="00/00/0000"
+                            error={this.hasError('data_de_nascimento')}
+                        />
 
                         <Item
                             style={styles.pickerItem}
@@ -152,19 +150,13 @@ class DomicilioFormFamiliaModal extends DomicilioFormBaseModal {
                             </Input>
                         </Item>
 
-                        <Item stackedLabel>
-                            <Label>Reside desde: </Label>
-                            <Input
-                                ref={ref => inputs.reside = ref}
-                                autoCorrect={false}
-                                keyboardType="numeric"
-                                placeholder="Exemplo: 01/1990"
-                                onChangeText={reside => this.convertToDate(reside, 'reside')}
-                                maxLength={10}
-                            >
-                                { state.reside }
-                            </Input>
-                        </Item>
+                        <InputDate
+                            style={styles.item}
+                            default={state.reside}
+                            label="Reside desde: "
+                            onChangeValue={reside => this.setState({ reside })}
+                            placeholder="00/00/0000"
+                        />
 
                         <Text style={styles.label} note>Mudou-se?</Text>
                         <RadioSelect
