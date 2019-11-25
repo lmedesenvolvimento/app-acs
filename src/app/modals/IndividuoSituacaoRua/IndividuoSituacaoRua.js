@@ -161,13 +161,13 @@ class IndividuoSituacaoRua extends IndividuoFormBaseModal {
                             })}
                         />
 
-                        <Text style={this.hasError('sr_origem_alimentacao') ? styles.labelError : styles.label} note>
+                        <Text style={styles.label} note>
                             Qual a origem da alimentação?
                         </Text>
                         <CheckboxSelect
                             default={state.sr_origem_alimentacao}
                             data={Individuo.sr_origem_alimentacao}
-                            onValueChange={(sr_origem_alimentacao) => {
+                            onChangeValue={(sr_origem_alimentacao) => {
                                 this.setState({ sr_origem_alimentacao });
                             }}
                         />

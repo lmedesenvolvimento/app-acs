@@ -65,13 +65,12 @@ class QuadraScreen extends Component {
     }
 
     renderItem({ item }) {
-        const { navigation } = this.props;
         return (
-            <ListItem iconLeft onPress={this.onPressItem.bind(this, item)}>
+            <ListItem iconLeft onPress={() => this.onPressItem(item)}>
                 <Icon name="map" type="FontAwesome" />
                 <Body>
                     <Text>{item.nome}</Text>
-                    <Text note>{navigation.getParam('microarea_nome')}</Text>
+                    <Text note>{item && item.bairro ? item.bairro.nome : ''}</Text>
                 </Body>
             </ListItem>
         );
@@ -91,7 +90,7 @@ class QuadraScreen extends Component {
         DrawerNavigation.navigate('Sync');
     }
 
-    onPressItem(item) {
+    onPressItem = (item) => {
         const { navigation } = this.props;
         setTimeout(() => {
             navigation.navigate('Logradouros', {
