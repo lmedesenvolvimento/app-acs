@@ -480,7 +480,7 @@ export const Motivo = {
                 { key: 'convite_atividades_coletivas', text: 'Convite atividades coletivas' },
                 { key: 'orientacao_prevencao', text: 'Orientação prevencao' },
                 { key: 'egresso_internacao', text: 'Egresso internação' },
-                { key: 'outro', text: 'Outro' }
+                { key: 'outros', text: 'Outros' }
             ]
         }
     ]
