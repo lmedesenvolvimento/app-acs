@@ -286,7 +286,7 @@ class LogradouroFormScreen extends Component {
                         >
                             <Picker.Item label={Logradouro.tipos.rua} value="rua" />
                             <Picker.Item label={Logradouro.tipos.avenida} value="avenida" />
-                            <Picker.Item label={Logradouro.tipos.outros} value="outros" />
+                            <Picker.Item label={Logradouro.tipos.outro} value="outro" />
                         </Picker>
                     </Item>
                 </View>
