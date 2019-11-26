@@ -3,6 +3,7 @@ export default {
     lightColor: '#4ebaaa',
     darkColor: '#005b4f',
     warnColor: '#FA6F49',
+    iconColor: 'rgba(0, 0, 0, 0.78)',
     textColor: 'rgba(0, 0, 0, 0.54)',
     disabledTextColor: 'rgba(0, 0, 0, 0.26)',
 };

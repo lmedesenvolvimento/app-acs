@@ -15,6 +15,7 @@ import {
     Button,
     H1,
     Spinner,
+    DatePicker
 } from 'native-base';
 
 
@@ -28,7 +29,6 @@ import LightHeader from '@/components/LightHeader';
 import LightFooter from '@/components/LightFooter';
 import RadioSelect from '@/components/RadioSelect';
 import Selectbox from '@/components/Selectbox';
-import InputDate from '@/components/InputDate';
 
 import IndividuoFormBaseModal from '@/modals/IndividuoFormBaseModal';
 
@@ -38,6 +38,9 @@ import { Visita } from '@/types';
 import IndividuoActions from '@redux/modules/Individuos/actions';
 
 import styles from './index.styl';
+
+const currentYear = new Date().getFullYear();
+const minimumDate = new Date(currentYear, 0, 0);
 
 class VisitaFicha extends IndividuoFormBaseModal {
     inputs = {};
@@ -75,6 +78,7 @@ class VisitaFicha extends IndividuoFormBaseModal {
 
     render() {
         const { props, state } = this;
+
         if (!state.ready) {
             return (
                 <Container style={styles.spinContainer}>
@@ -94,13 +98,29 @@ class VisitaFicha extends IndividuoFormBaseModal {
                 <Content padder>
                     <H1 style={styles.heading}>Ficha de Vista</H1>
                     <Form>
-                        <InputDate
-                            style={styles.item}
-                            default={state.data}
-                            label="Data da Visíta:"
-                            onChangeValue={data => this.setState({ data })}
-                            placeholder="00/00/0000"
-                            error={this.hasError('data')}
+                        <Text style={this.hasError('data') ? styles.labelError : styles.label} note>
+                            Data da Visita *
+                        </Text>
+                        <DatePicker
+                            defaultDate={this.getDefaultDate}
+                            minimumDate={minimumDate}
+                            locale="pt-br"
+                            timeZoneOffsetInMinutes={undefined}
+                            modalTransparent={false}
+                            animationType="fade"
+                            androidMode="default"
+                            placeHolderText={this.getPlaceHolderText()}
+                            textStyle={{
+                                color: Colors.iconColor,
+                                paddingHorizontal: 16,
+                                paddingBottom: 0
+                            }}
+                            placeHolderTextStyle={{
+                                color: Colors.iconColor,
+                                paddingHorizontal: 16,
+                                paddingBottom: 0
+                            }}
+                            onDateChange={data => this.setState({ data: moment(data) })}
                         />
 
                         <Text style={this.hasError('turno') ? styles.labelError : styles.label} note>
@@ -197,6 +217,15 @@ class VisitaFicha extends IndividuoFormBaseModal {
                 </LightFooter>
             </SafeView>
         );
+    }
+
+    getPlaceHolderText = () => {
+        return 'Selecione uma data';
+    }
+
+    getDefaultDate = () => {
+        const { state } = this;
+        return (state.data && state.data._d) ? state.data.toDate() : new Date();
     }
 }
 
