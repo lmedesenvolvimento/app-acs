@@ -78,7 +78,7 @@ const AwaitStatus = ({
                                     style={styles.actionButton}
                                     onPress={() => navigation.goBack()}
                                 >
-                                    <Text>Cancelar</Text>
+                                    <Text>Voltar</Text>
                                 </Button>
                             </Col>
                         </Grid>

@@ -64,7 +64,7 @@ class DomicilioFormEnderecoModal extends DomicilioFormBaseModal {
                     <H1 style={styles.heading}>Endereço</H1>
                     <Form>
                         <Item stackedLabel error={this.hasError('end_numero')}>
-                            <Label>Número</Label>
+                            <Label>Número *</Label>
                             <Input
                                 keyboardType="numeric"
                                 autoCorrect={false}
